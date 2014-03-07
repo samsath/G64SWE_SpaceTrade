@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database Name="main" EntityNamespace="STDatabase" ContextNamespace="STDatabase" Class="STDataContext" xmlns:ed="http://devart.com/schemas/EntityDeveloper/1.0" ed:Guid="2ea65a8c-bf49-4c16-ac30-76d741e2578a" Provider="Devart.Data.SQLite.Linq.Provider.SQLiteDataProvider, Devart.Data.SQLite.Linq" Extended="true" xmlns="http://schemas.devart.com/linqconnect/mapping">
+  <Connection Mode="ConnectionString" ConnectionString="Data Source=C:\Users\sam\Programming\CwkSpaceTrade\SpaceTradeDatabase.sqlite3" Provider="Devart.Data.SQLite" />
+  <Table Name="&quot;main&quot;.Users" Member="Users">
+    <Type Name="User" ed:Guid="9acb4b38-6144-4791-856a-1f7bd40442ed">
+      <Column Name="Users_id" Member="UsersId" Type="System.Int32" AutoSync="OnInsert" DbType="INTEGER NOT NULL" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="True" ed:Guid="dce97869-156c-47f2-8507-508000bb7f61" />
+      <Column Name="Name" Type="System.String" DbType="VARCHAR NOT NULL" CanBeNull="false" UpdateCheck="Never" MaxLength="255" ed:ValidateMaxLength="255" ed:ValidateRequired="True" ed:Guid="88c409b1-0fee-4bf3-a340-5a1efc589f36" />
+      <Column Name="Money" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="9acd1260-1840-42d5-ab91-630c0832f40f" />
+      <Association Name="User_Ship" ed:AssociationGuid="503e5b86-f400-40a1-9450-4acdebf3437a" Member="Ships" ed:Guid="d4c1e8d9-5b75-4cc6-8e84-f32ef69a727a" ThisKey="UsersId" OtherKey="Owner" Type="Ship" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.Ship" Member="Ships">
+    <Type Name="Ship" ed:Guid="2ef7e9d4-bb0e-42e7-9dc5-67eef89ddbbf">
+      <Column Name="Ship_id" Member="ShipId" Type="System.Int32" AutoSync="OnInsert" DbType="INTEGER NOT NULL" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="True" ed:Guid="4a8d6a46-49e1-4b45-ad46-d8991ac5438e" />
+      <Column Name="Model" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="428968db-4cef-4102-a98c-3d39f98d45c5" />
+      <Column Name="Ammo_Level" Member="AmmoLevel" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="7f98b188-d9db-4818-ae5b-042373c4bbf2" />
+      <Column Name="Health_Level" Member="HealthLevel" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="0532eaf8-2396-4743-9591-c26d53f7f3ea" />
+      <Column Name="Cargo_Level" Member="CargoLevel" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="e8d55da9-7c26-4205-8f90-ee0e106588a5" />
+      <Column Name="Fuel_Level" Member="FuelLevel" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="5fa5eabc-3a43-4b86-964d-8c3dbe9a835e" />
+      <Column Name="Owner" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="a7b2d780-54bd-4807-b98c-e6bb5556a671" />
+      <Column Name="Extenstions" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" MaxLength="255" ed:ValidateMaxLength="255" ed:ValidateRequired="False" ed:Guid="0d302754-0fdc-453d-a9a9-a9befc2f4981" />
+      <Column Name="x_loc" Member="XLoc" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="45a215bf-0477-4136-ac86-1dfe8444d5ba" />
+      <Column Name="y_loc" Member="YLoc" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="1acee250-29c2-49cc-aaac-9ebca6ed707d" />
+      <Association Name="User_Ship" ed:AssociationGuid="503e5b86-f400-40a1-9450-4acdebf3437a" Member="User" ed:Guid="5b3ee542-9fbc-42ca-b816-6b6310a23165" ThisKey="Owner" OtherKey="UsersId" Type="User" DeleteRule="NO ACTION" IsForeignKey="true" />
+      <Association Name="Ship_ShipResource" ed:AssociationGuid="f66c01b9-9810-4367-a2b6-1b46d4538ba1" Member="ShipResources" ed:Guid="214e4dc8-8240-45e0-a16f-a95d93b28ab3" ThisKey="ShipId" OtherKey="ShipId" Type="ShipResource" />
+      <Association Name="Ship_ShipMedium" ed:AssociationGuid="866da9d4-21b7-4c0b-a8c4-5dc59c3309ee" Member="ShipMedia" ed:Guid="3b6e77c5-522c-4c3a-9c63-0ca8488b2d60" ThisKey="ShipId" OtherKey="ShipId" Type="ShipMedium" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.Resources" Member="Resources">
+    <Type Name="Resource" ed:Guid="2de7d7ab-cbbc-40b3-9dbc-609cde5210d1">
+      <Column Name="Resources_id" Member="ResourcesId" Type="System.Int32" AutoSync="OnInsert" DbType="INTEGER NOT NULL" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="True" ed:Guid="51258d7d-ab96-461f-a7e7-425783db9ad4" />
+      <Column Name="Name" Type="System.String" DbType="VARCHAR NOT NULL" CanBeNull="false" UpdateCheck="Never" MaxLength="255" ed:ValidateMaxLength="255" ed:ValidateRequired="True" ed:Guid="3462ca64-f5f7-4880-b080-04444b7b1d2b" />
+      <Column Name="Initial_Price" Member="InitialPrice" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="713a269d-98ed-4077-a143-95f1e4bf725d" />
+      <Column Name="Description" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" MaxLength="255" ed:ValidateMaxLength="255" ed:ValidateRequired="False" ed:Guid="227e0461-10bf-4b6e-b234-59b11f2f4d70" />
+      <Association Name="Resource_PlanetResource" ed:AssociationGuid="fb21b248-6fe7-4954-aaf8-391750e97d2b" Member="PlanetResources" ed:Guid="bb432b45-2a5b-41d4-82a3-102c1259cdaf" ThisKey="ResourcesId" OtherKey="ResourcesId" Type="PlanetResource" />
+      <Association Name="Resource_ShipResource" ed:AssociationGuid="6695c4ab-3015-4a7c-90a9-383b7490b975" Member="ShipResources" ed:Guid="20e32c0f-6fe1-4b61-9050-933506981529" ThisKey="ResourcesId" OtherKey="ResourcesId" Type="ShipResource" />
+      <Association Name="Resource_ResourcesMedium" ed:AssociationGuid="630fe1d4-67bd-4984-a7c1-e20da7b8c1d8" Member="ResourcesMedia" ed:Guid="a884f675-fd4d-46ab-8e03-8821728e6a18" ThisKey="ResourcesId" OtherKey="ResourcesId" Type="ResourcesMedium" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.Planet" Member="Planets">
+    <Type Name="Planet" ed:Guid="6313dfd1-6796-47ae-b145-32bf07f05f3b">
+      <Column Name="Planet_id" Member="PlanetId" Type="System.Int32" AutoSync="OnInsert" DbType="INTEGER NOT NULL" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="True" ed:Guid="e1beee58-5688-44a1-9ca0-8fc475cfa779" />
+      <Column Name="Title" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" MaxLength="255" ed:ValidateMaxLength="255" ed:ValidateRequired="False" ed:Guid="37282918-3d38-483f-a001-f2608a3fefd6" />
+      <Column Name="X_loc" Member="XLoc" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="1cc28106-1933-4890-aacf-f28cac015cd2" />
+      <Column Name="Y_loc" Member="YLoc" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="54560a9a-5f2d-4cb8-9f94-6a734fe82683" />
+      <Column Name="Diameter" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="9693297e-6a36-4a26-8d0f-89905f99fe0b" />
+      <Association Name="Planet_PlanetResource" ed:AssociationGuid="37057e9d-6b7a-4399-903c-b81e073aee49" Member="PlanetResources" ed:Guid="33b6d8db-4346-45ca-9402-7a7a6671e5ee" ThisKey="PlanetId" OtherKey="PlanetId" Type="PlanetResource" />
+      <Association Name="Planet_PlanetMedium" ed:AssociationGuid="6a69ecb8-96a7-425e-8fb9-94e6c21ac6ae" Member="PlanetMedia" ed:Guid="fb6170c6-213b-4bc9-8dd1-1937f7f8cc32" ThisKey="PlanetId" OtherKey="PlanetId" Type="PlanetMedium" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.Media" Member="Media">
+    <Type Name="Medium" ed:Guid="e3f1e633-1368-4652-b692-96cf2ad83e05">
+      <Column Name="Media_id" Member="MediaId" Type="System.Int32" AutoSync="OnInsert" DbType="INTEGER NOT NULL" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="True" ed:Guid="afa094da-4aef-4a98-b77a-5141def9e6b5" />
+      <Column Name="X_size" Member="XSize" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="b1d73de9-184a-4dbf-909d-f8fe1efab9f6" />
+      <Column Name="Y_size" Member="YSize" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="d5a64024-7c11-4811-a655-a5e2ba4e366a" />
+      <Column Name="length" Member="Length" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="82599e69-d8f9-465e-aa15-5587e38b1131" />
+      <Column Name="file_Loc" Member="FileLoc" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" MaxLength="255" ed:ValidateMaxLength="255" ed:ValidateRequired="False" ed:Guid="fbe5715e-1caa-4053-81b9-1a1568e7389e" />
+      <Column Name="Media_type" Member="MediaType" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="0836f7bd-eea9-438f-b196-9cdcefa6d797" />
+      <Association Name="Medium_ResourcesMedium" ed:AssociationGuid="b17a36fb-9867-42cf-9a11-380e9d6c3959" Member="ResourcesMedia" ed:Guid="1660e1b2-f3a9-42f3-8f1d-bc317835a07e" ThisKey="MediaId" OtherKey="MediaId" Type="ResourcesMedium" />
+      <Association Name="Medium_ShipMedium" ed:AssociationGuid="b9b40ffe-7c1f-476b-aa10-36299004d7c8" Member="ShipMedia" ed:Guid="0d55b2b7-f6eb-425b-86e1-1e260736fba8" ThisKey="MediaId" OtherKey="MediaId" Type="ShipMedium" />
+      <Association Name="Medium_PlanetMedium" ed:AssociationGuid="f2dd8886-753a-4d68-8d57-e74a1834c860" Member="PlanetMedia" ed:Guid="35238b16-1411-437f-99cf-2d5ec215dd8c" ThisKey="MediaId" OtherKey="MediaId" Type="PlanetMedium" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.PlanetResources" Member="PlanetResources">
+    <Type Name="PlanetResource" ed:Guid="57d3d61c-b6a0-4924-8e46-3684483e6409">
+      <Column Name="PR_id" Member="PRId" Type="System.Int32" AutoSync="OnInsert" DbType="INTEGER NOT NULL" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="True" ed:Guid="2db4f940-3ffd-48e8-9696-cba8d3a904a1" />
+      <Column Name="Planet_id" Member="PlanetId" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="471531e8-cf59-4384-999f-65affaeb8675" />
+      <Column Name="Resources_id" Member="ResourcesId" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="d5a8d881-7121-4da5-8fc8-fa8dfffef9e3" />
+      <Column Name="Price" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="a477ada3-4d83-4abb-9556-830d8d76f5b8" />
+      <Association Name="Resource_PlanetResource" ed:AssociationGuid="fb21b248-6fe7-4954-aaf8-391750e97d2b" Member="Resource" ed:Guid="e7be3df1-627d-43ca-9b75-da9a20eb8d43" ThisKey="ResourcesId" OtherKey="ResourcesId" Type="Resource" DeleteRule="NO ACTION" IsForeignKey="true" />
+      <Association Name="Planet_PlanetResource" ed:AssociationGuid="37057e9d-6b7a-4399-903c-b81e073aee49" Member="Planet" ed:Guid="f1468528-df36-4212-be23-2c69e31f3fd9" ThisKey="PlanetId" OtherKey="PlanetId" Type="Planet" DeleteRule="NO ACTION" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.ShipResource" Member="ShipResources">
+    <Type Name="ShipResource" ed:Guid="3809412e-d405-4e58-81c5-8bfcc9810004">
+      <Column Name="SR_id" Member="SRId" Type="System.Int32" AutoSync="OnInsert" DbType="INTEGER NOT NULL" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="True" ed:Guid="1f30d851-ffdd-4195-8886-11a3b984cd46" />
+      <Column Name="Ship_id" Member="ShipId" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="49a62002-e6e7-4340-b204-4d581d1f7346" />
+      <Column Name="Resources_id" Member="ResourcesId" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="543d3f59-456f-4bec-ab38-692d1a8e6124" />
+      <Column Name="Amount" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="4d40c690-0e7f-4119-92fa-4c94a6d07342" />
+      <Column Name="Bought_Price" Member="BoughtPrice" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="ffe8377a-a175-4c5d-81a6-ed43bd4215b9" />
+      <Association Name="Resource_ShipResource" ed:AssociationGuid="6695c4ab-3015-4a7c-90a9-383b7490b975" Member="Resource" ed:Guid="d51a6d0d-7dbe-42af-969f-74cd7014d843" ThisKey="ResourcesId" OtherKey="ResourcesId" Type="Resource" DeleteRule="NO ACTION" IsForeignKey="true" />
+      <Association Name="Ship_ShipResource" ed:AssociationGuid="f66c01b9-9810-4367-a2b6-1b46d4538ba1" Member="Ship" ed:Guid="24b3cbfc-8d7a-4e76-84f5-8bbcba16f1b5" ThisKey="ShipId" OtherKey="ShipId" Type="Ship" DeleteRule="NO ACTION" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.ResourcesMedia" Member="ResourcesMedia">
+    <Type Name="ResourcesMedium" ed:Guid="005c1f50-da67-4219-a25b-c029627ff2dc">
+      <Column Name="RM_id" Member="RMId" Type="System.Int32" AutoSync="OnInsert" DbType="INTEGER NOT NULL" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="True" ed:Guid="4988b5ad-e05b-4d55-8026-58e1f12f7fce" />
+      <Column Name="Resources_id" Member="ResourcesId" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="9416c3ea-870c-40fc-af78-24177f80b1d5" />
+      <Column Name="Media_id" Member="MediaId" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="7ec337ad-2293-4614-b1e2-d09c0dc4ba69" />
+      <Association Name="Medium_ResourcesMedium" ed:AssociationGuid="b17a36fb-9867-42cf-9a11-380e9d6c3959" Member="Medium" ed:Guid="f8a61c56-53ca-4523-bfec-f5b37a3b938a" ThisKey="MediaId" OtherKey="MediaId" Type="Medium" DeleteRule="NO ACTION" IsForeignKey="true" />
+      <Association Name="Resource_ResourcesMedium" ed:AssociationGuid="630fe1d4-67bd-4984-a7c1-e20da7b8c1d8" Member="Resource" ed:Guid="a6275c74-dd51-4f2c-aadb-d0f168350b09" ThisKey="ResourcesId" OtherKey="ResourcesId" Type="Resource" DeleteRule="NO ACTION" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.ShipMedia" Member="ShipMedia">
+    <Type Name="ShipMedium" ed:Guid="04901620-1ad5-4962-beb6-7ad9733b2cff">
+      <Column Name="SM_id" Member="SMId" Type="System.Int32" AutoSync="OnInsert" DbType="INTEGER NOT NULL" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="True" ed:Guid="180baffa-05d9-43b7-9319-094244f7f05a" />
+      <Column Name="Ship_id" Member="ShipId" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="0df08586-f3e8-41b3-b130-5f3729ca31b6" />
+      <Column Name="Media_id" Member="MediaId" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="1c18d14e-c5c4-45ee-8b73-f2daea1b9034" />
+      <Column Name="Reason" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="350d6522-3438-43fa-b08e-410a5e35f579" />
+      <Association Name="Medium_ShipMedium" ed:AssociationGuid="b9b40ffe-7c1f-476b-aa10-36299004d7c8" Member="Medium" ed:Guid="a10cf8e4-9c8b-48e9-94da-0fc2a6f2c134" ThisKey="MediaId" OtherKey="MediaId" Type="Medium" DeleteRule="NO ACTION" IsForeignKey="true" />
+      <Association Name="Ship_ShipMedium" ed:AssociationGuid="866da9d4-21b7-4c0b-a8c4-5dc59c3309ee" Member="Ship" ed:Guid="2b6ee4bc-d16e-43a6-8ada-80f0e65954f3" ThisKey="ShipId" OtherKey="ShipId" Type="Ship" DeleteRule="NO ACTION" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.PlanetMedia" Member="PlanetMedia">
+    <Type Name="PlanetMedium" ed:Guid="a371a145-8f81-4015-b05b-d243bbbdd4c5">
+      <Column Name="PM_id" Member="PMId" Type="System.Int32" AutoSync="OnInsert" DbType="INTEGER NOT NULL" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="True" ed:Guid="c3f90771-af69-4971-8003-98255732d495" />
+      <Column Name="Planet_id" Member="PlanetId" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="c8ebcf87-ce99-4e3b-959c-5675418b5b64" />
+      <Column Name="Media_id" Member="MediaId" Type="System.Int32" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="False" ed:Guid="4f60f650-a069-4432-bf97-690741d810fe" />
+      <Association Name="Medium_PlanetMedium" ed:AssociationGuid="f2dd8886-753a-4d68-8d57-e74a1834c860" Member="Medium" ed:Guid="c592e3fe-4c4b-49b0-b87a-e99c0e38a07a" ThisKey="MediaId" OtherKey="MediaId" Type="Medium" DeleteRule="NO ACTION" IsForeignKey="true" />
+      <Association Name="Planet_PlanetMedium" ed:AssociationGuid="6a69ecb8-96a7-425e-8fb9-94e6c21ac6ae" Member="Planet" ed:Guid="0de201be-01cb-4ed2-a2f5-e8d2a18b2867" ThisKey="PlanetId" OtherKey="PlanetId" Type="Planet" DeleteRule="NO ACTION" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
