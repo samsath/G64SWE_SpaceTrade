@@ -1,2 +1,3 @@
 C:\Users\sam\Programming\CwkSpaceTrade\STDatabase\STDatabase\bin\Debug\STDatabase.exe.config
 C:\Users\sam\Programming\CwkSpaceTrade\database\STDatabase\STDatabase\bin\Debug\STDatabase.exe.config
+C:\Users\alma\Documents\G64SWE_SpaceTrade\database\STDatabase\STDatabase\bin\Debug\STDatabase.exe.config
