@@ -1,9 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace STDatabase
 {
-    interface IDatabase
+    public class FakeDatabase : IDatabase
     {
-        void addHighscore(int User_id, int Score);
+        public string data; // this is to place everything;
+        public int number;
+        void addHighscore(int User_id, int Score)
+        {
+            int uI = User_id;
+            int Scr = Score;
+            number = Scr;
+        }
         void addNewPlanet(string Title, int X_loc, int Y_Loc, int Diameter, int x_size, int y_size, string fileLocation, int type);
         void addNewResources(string Name, int InitalPrice, string Descript, int x_size, int y_size, string file_locationn, int types);
         void addNewShip(int Model, int Cargo_Level, int User_id, int x_size, int y_size, string file_locationn, int types);
@@ -28,7 +40,5 @@ namespace STDatabase
         void updateShipLoc(int Ship_id, int x_loc, int y_loc);
         void updateShipStats(int Ship_id, int Ammo_Level, int Health_Level, int Cargo_Level, int Fuel_level);
         void updateUserMoney(int User_id, int Money);
-
- 
     }
 }

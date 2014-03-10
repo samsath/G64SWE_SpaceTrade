@@ -12,7 +12,7 @@ namespace STDatabase
     /// <summary>
     /// This will be the class that allows the rest of the game to communicate to the database
     /// </summary>
-    class Database : STDatabase.IDatabase, STDatabase.IDatabase
+    class Database : IDatabase
     {
         SQLiteConnection dbc;
         string dbpath;
