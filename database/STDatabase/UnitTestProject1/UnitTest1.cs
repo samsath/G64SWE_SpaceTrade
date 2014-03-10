@@ -16,9 +16,9 @@ namespace DatabaseUnitTest
         }
 
         [TestMethod]
-        public void TestToSeeIfHighScoreIsAdded()
+        public void TestToSeeDBisIniitased
         {
-
+            Assert.IsNotNull(db);
         }
     }
 }

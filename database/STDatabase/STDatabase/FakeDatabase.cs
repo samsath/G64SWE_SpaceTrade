@@ -8,8 +8,8 @@ namespace STDatabase
 {
     public class FakeDatabase : IDatabase
     {
-        public string data; // this is to place everything;
-        public int number;
+        private string data; // this is to place everything;
+        private int number;
         void addHighscore(int User_id, int Score)
         {
             int uI = User_id;
