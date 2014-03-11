@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FakeDatabase.cs" />
     <Compile Include="IDatabase.cs" />
     <Compile Include="STDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
