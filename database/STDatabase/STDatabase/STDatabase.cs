@@ -13,7 +13,7 @@ namespace STDatabase
     /// <summary>
     /// This will be the class that allows the rest of the game to communicate to the database
     /// </summary>
-    class Database : IDatabase
+    public class spaceDatabase
     {
         SQLiteConnection dbc;
         string dbpath;
@@ -21,7 +21,7 @@ namespace STDatabase
         /// <summary>
         /// This will allow the program to connect to the database
         /// </summary>
-        void Connect()
+        public void Connect()
         {
             
             dbpath = @"SpaceTradeDatabase.sqlite3";
@@ -49,7 +49,7 @@ namespace STDatabase
         /// <summary>
         /// This will close the connection to the database
         /// </summary>
-        void Close()
+        public void Close()
         {
             dbc.Close();
         }
@@ -60,6 +60,7 @@ namespace STDatabase
         {
             // This load a file into the string then if the database connnection is up it will load it to the 
             // database and created the needed tables.
+            Console.WriteLine("NewCreat Started");
             StringBuilder sqlString = new StringBuilder();
             using (StreamReader sr = new StreamReader("database.sql"))
             {
@@ -104,10 +105,10 @@ namespace STDatabase
         /// </summary>
         /// <param name="Userid"></param>
         /// <returns> User Name, and User Money</returns>
-        public string[,] GetUser(int Userid)
+        public string[][] GetUser(int Userid)
         {
             //SELECT * FROM Users WHERE Users_id = {0}; User_id
-            String[,] result = new String[][];
+            String[][] result = new String[2][];
             return result;
         }
 
@@ -116,10 +117,10 @@ namespace STDatabase
         /// </summary>
         /// <param name="Username"></param>
         /// <returns>Userid and User money</returns>
-        public string[,] GetUser(string Username)
+        public string[][] GetUser(string Username)
         {
             //SELECT * FROM Users WHERE Name = {0}; Username
-            String[,] result = new String[][];
+            String[][] result = new String[2][];
             return result;
         }
 
@@ -129,14 +130,14 @@ namespace STDatabase
         /// <param name="Ship_id"></param>
         /// <param name="par"></param>
         /// <returns>Model, Ammo_level, Health_Level, Cargo_Level, Fuel_Level, Owner, Extensions, x_loc, y_loc, media_id, X_size. Y_size, file_location, Lenghtm type</returns>
-        public string[,] getShip(int Ship_id, string par="*")
+        public string[][] getShip(int Ship_id, string par="*")
         {
             /*SELECT * FROM Ship, Ship_to_Media, Media WHERE(
 	           Ship.Ship_id == Ship_to_Media.Ship_id AND
 	            Ship_to_Media.Media_id == Media.Media_id ) 
 	            AND Ship_id = {0}; 
              */
-            String[,] result = new String[][];
+            String[][] result = new String[14][];
             return result;
         }
 
@@ -145,14 +146,14 @@ namespace STDatabase
         /// </summary>
         /// <param name="Planet_id"></param>
         /// <returns> Name, X_loc, Y_loc, Diamater, media_id, X_size. Y_size, file_location, Lenght, type</returns>
-        public string[,] getPlanet(int Planet_id)
+        public string[][] getPlanet(int Planet_id)
         {
             /*SELECT * FROM Planet, Planet_to_Media, Media WHERE ( 
 	            Planet.Planet_id == Planet_to_Media.Planet_id AND
 	            Planet_to_Media.Planet_id == Media.Media_id
 	            ) AND Planet_id = {0};
             */
-            String[,] result = new String[][];
+            String[][] result = new String[10][];
             return result;
         }
         /// <summary>
@@ -160,14 +161,14 @@ namespace STDatabase
         /// </summary>
         /// <param name="Resource_id"></param>
         /// <returns>Name, Initial_Price, Description, media_id, X_size. Y_size, file_location, Lenght, type</returns>
-        public string[,] getResources(int Resource_id)
+        public string[][] getResources(int Resource_id)
         {
             /* SELECT * FROM Resources, Resources_to_Media, Media WHERE (
 	            Resources.Resource_id == Resources_to_Media.Resource_id AND 
 	            Resources_to_Media.Media_id == Media.Media_id)
 	            AND Resources_id = {0};
              */
-            String[,] result = new String[][];
+            String[][] result = new String[9][];
             return result;
         }
         /// <summary>
@@ -175,24 +176,24 @@ namespace STDatabase
         /// </summary>
         /// <param name="Media_id"></param>
         /// <returns>media_id, X_size. Y_size, file_location, Lenght, type</returns>
-        public string[,] getMedia(int Media_id)
+        public string[][] getMedia(int Media_id)
         {
             /*
              * SELECT * FROM Media WHERE Media_id = {0};
              */
-            String[,] result = new String[][];
+            String[][] result = new String[6][];
             return result;
         }
         /// <summary>
         /// Gets alls the information from the high score.
         /// </summary>
         /// <returns>User_id, Name, Money, HightScore_id, Score</returns>
-        public string[,] getHighScore()
+        public string[][] getHighScore()
         {
             /*
              * SELECT * FROM Users, HighScore WHERE Users.Users_id == HighScore.Users_id;
              */
-            String[,] result = new String[][5];
+            String[][] result = new String[5][];
             return result;
         }
 
@@ -204,7 +205,7 @@ namespace STDatabase
         /// <returns>User_id, Name, Money, Ship_id, Model, Ammo_level, Health_Level, Cargo_Level, Fuel_Level, Owner, Extensions, x_loc, y_loc, media_id, X_size. Y_size, file_location, Lenght, type
         /// Resource_id, Name, Initial_Price, Description, Amount, Bought_Price
         /// </returns>
-        public string[,] getShipResource(int User_id)
+        public string[][] getShipResource(int User_id)
         {
             /*
              * SELECT * FROM Users, Ship, Ship_to_Resource, Resources, Ship_to_Media, Media WHERE ( 
@@ -215,7 +216,7 @@ namespace STDatabase
 	            Ship_to_Media.Media_id == Media.Media_id) 
 	            AND Users_id = {0};
              */
-            String[,] result = new String[][];
+            String[][] result = new String[25][];
             return result;
         }
 
@@ -224,7 +225,7 @@ namespace STDatabase
         /// </summary>
         /// <param name="Planet_id"></param>
         /// <returns>PR_id, Planet_id, Resource_id, Price, (P)Title, X_loc, Y_loc, Diamater, (R)Name, Initial_Price, Description</returns>
-        public string[,] getPlanetResource(int Planet_id)
+        public string[][] getPlanetResource(int Planet_id)
         {
             /*
              * SELECT Resources.Name, Planet_to_Resource.Price FROM Planet, Planet_to_Resource, Resources WHERE (
@@ -232,7 +233,7 @@ namespace STDatabase
 	            Planet_to_Resources.Planet_id == Planet.Planet_id) 
 	            AND Planet.Planet_id = {0} OR Planet.Title = {0};
              */
-            String[,] result = new String[][];
+            String[][] result = new String[11][];
             return result;
         }
 
