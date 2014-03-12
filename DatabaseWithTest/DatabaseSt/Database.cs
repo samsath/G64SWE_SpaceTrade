@@ -86,11 +86,12 @@ namespace DatabaseSt
             // this checks if the database connection is open then returns true else opens the connects and true.
             if (dbc.State == ConnectionState.Open)
             {
+                System.Console.WriteLine("With out needed to connect Connection state is open");
                 return true;
             }
             else
             {
-                System.
+                System.Console.WriteLine("Needed to connect but now open");
                 dbc.Open();
                 return true;
             }
