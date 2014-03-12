@@ -32,16 +32,49 @@ namespace STDatabase
         }
         void addPlanetWMedia(string Title, int X_loc, int Y_Loc, int Diameter, string fileLocation)
         {
+            data = Title;
+            number = X_loc;
+        }
+        void addResourcesWMedia(string Name, int InitalPrice, string Descript, int Resources_id)
+        {
+            data = Name;
+            number = InitalPrice;
+        }
+        void addResourcesWMedia(string Name, int InitalPrice, string Descript, string Resources_Name)
+        {
+            data = Name;
+            number = InitalPrice;
+        }
+        void addResourceToPlanet(int Planet_id, int Resource_id, int Price)
+        {
+            number = Planet_id;
+        }
+        void addResourceToShip(int Ship_id, int Resource_id, int amount, int BoughtPrice)
+        {
+            number = Ship_id;
+        }
+        void addShipWMedia(int Model, int Cargo_Level, int User_id, string file_locationn, int types)
+        {
+            number = Model;
+        }
+        void addUser(string Name, int Money)
+        {
+            data = Name;
+            number = Money;
+        }
+        string[,] getHighScore()
+        {
+            
+            if (data != null && number != null)
+            {
+                string[,] result = new string[1,1] {{data},{data}};
+                return result;
+            }
+        }
+        string[][] getMedia(int Media_id)
+        {
 
         }
-        void addResourcesWMedia(string Name, int InitalPrice, string Descript, int Resources_id);
-        void addResourcesWMedia(string Name, int InitalPrice, string Descript, string Resources_Name);
-        void addResourceToPlanet(int Planet_id, int Resource_id, int Price);
-        void addResourceToShip(int Ship_id, int Resource_id, int amount, int BoughtPrice);
-        void addShipWMedia(int Model, int Cargo_Level, int User_id, string file_locationn, int types);
-        void addUser(string Name, int Money);
-        string[][] getHighScore();
-        string[][] getMedia(int Media_id);
         string[][] getPlanet(int Planet_id);
         string[][] getPlanetResource(int Planet_id);
         string[][] getResources(int Resource_id);
