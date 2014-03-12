@@ -27,14 +27,14 @@ namespace WindowsGame2
         {
             PositionByPixel.X = 50 + BoardLocation.TileWidth/4;
             PositionByPixel.Y = 50 + BoardLocation.TileHeight/4;
-            mTexture = content.Load<Texture2D>(@"Textures\spaceship");
+            mTexture = content.Load<Texture2D>(@"Textures\background");
         }
 
 
         //Draw the sprite to the screen
         public void Draw(SpriteBatch theSpriteBatch)
         {
-            theSpriteBatch.Draw(mTexture, PositionByPixel, new Rectangle(0, 0, BoardLocation.TileWidth/2, BoardLocation.TileHeight/2), Color.White, 0.0f, scale, 0.0f, SpriteEffects.None, 0);
+            theSpriteBatch.Draw(mTexture, PositionByPixel, new Rectangle(0, 0, BoardLocation.TileWidth/2, BoardLocation.TileHeight/2), Color.White);
         }
 
         // Update the Sprite and change it's position based on the passed in speed, direction and elapsed time.
