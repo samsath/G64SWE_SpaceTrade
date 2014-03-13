@@ -18,3 +18,13 @@ C:\Users\sam\Programming\CwkSpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\ob
 C:\Users\sam\Programming\CwkSpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\sam\Programming\CwkSpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\WindowsGame2.exe
 C:\Users\sam\Programming\CwkSpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\WindowsGame2.pdb
+C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\background.xnb
+C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\emptyTile.xnb
+C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\spaceship.xnb
+C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Font\CourierNew.xnb
+C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\WindowsGame2.exe
+C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\WindowsGame2.pdb
+C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\SWE.csprojResolveAssemblyReference.cache
+C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\WindowsGame2.exe
+C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\WindowsGame2.pdb
