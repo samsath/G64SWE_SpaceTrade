@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace WindowsGame2
 {
-    class SpaceShip : Object
+    class Planets : Object
     {
         SpriteFont font1;
         Random random = new Random();
@@ -32,6 +32,8 @@ namespace WindowsGame2
             Moving
         }
         State currentState = State.Waiting;
+
+        string name = "spaceship";
 
         Vector2 shipSpeed;
         Vector2 shipDirection;
@@ -103,16 +105,16 @@ namespace WindowsGame2
         }
 
         //Draw the sprite to the screen
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch theSpriteBatch)
         {
             String printDiceRolled = "Dice rolled is: " + diceRolled.ToString();
             Vector2 FontOrigin = font1.MeasureString(printDiceRolled) / 2;
             fontPosition = new Vector2(100, 15);
-            spriteBatch.DrawString(font1, printDiceRolled, fontPosition, Color.Red, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+            theSpriteBatch.DrawString(font1, printDiceRolled, fontPosition, Color.Red, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
             printDiceRolled = "Move remaining is: " + diceRemaining.ToString();
             fontPosition = new Vector2(100, 35);
-            spriteBatch.DrawString(font1, printDiceRolled, fontPosition, Color.Red, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-            spriteBatch.Draw(texture, PositionByPixel, new Rectangle(0, 0, Tile.TileWidth / 2, Tile.TileHeight / 2), Color.White);
+            theSpriteBatch.DrawString(font1, printDiceRolled, fontPosition, Color.Red, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+            theSpriteBatch.Draw(texture, PositionByPixel, new Rectangle(0, 0, Tile.TileWidth / 2, Tile.TileHeight / 2), Color.White);
         }
     }
 }

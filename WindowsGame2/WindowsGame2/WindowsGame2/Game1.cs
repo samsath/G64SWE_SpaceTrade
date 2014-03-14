@@ -19,15 +19,13 @@ namespace WindowsGame2
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Random random = new Random();
-        Board gameBoard;
+        Board myBoard;
         SpaceShip myShip;
 
         enum GameStates { TitleScreen, Playing, GameOver };
         GameStates gameState = GameStates.Playing;
 
         Texture2D backgroundScreen;
-        Texture2D emptyTile;
 
         public Game1()
         {
@@ -48,7 +46,7 @@ namespace WindowsGame2
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
             graphics.ApplyChanges();
-            gameBoard = new Board();
+            myBoard = new Board();
             myShip = new SpaceShip();
 
             base.Initialize();
@@ -62,9 +60,10 @@ namespace WindowsGame2
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            myBoard.LoadContent(this.Content);
             myShip.LoadContent(this.Content);
             backgroundScreen = Content.Load<Texture2D>(@"Textures\background");
-            emptyTile = Content.Load<Texture2D>(@"Textures\emptyTile");
+            
             
             
             /////////////////////
@@ -139,7 +138,7 @@ namespace WindowsGame2
                                 DrawEmptyTile(pixelX, pixelY);
                             }
                         }
-                    myShip.subDraw(this.spriteBatch);
+                    myShip.Draw(this.spriteBatch);
                     spriteBatch.End();
                     break;
                 case GameStates.GameOver:
