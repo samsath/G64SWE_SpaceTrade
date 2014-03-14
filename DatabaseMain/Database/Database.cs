@@ -18,8 +18,8 @@ namespace STDatabase
         /// <returns></returns>
         public Boolean Connect()
         {
-
-            dbpath = @"C:\Users\sam\Desktop\importantstuff\STDatabase.db";
+            // need to change this for the you build
+            dbpath = @"C:\Users\sam\Programming\CwkSpaceTrade\DatabaseDocSupportFiles\STDatabase.db";
             if (File.Exists(dbpath))
             {
                 Console.WriteLine("Sqlite Database exists");
@@ -60,7 +60,7 @@ namespace STDatabase
             // database and created the needed tables.
             Console.WriteLine("NewCreat Started");
             StringBuilder sqlString = new StringBuilder();
-            using (StreamReader sr = new StreamReader(@"C:\Users\sam\Desktop\importantstuff\database.sql"))
+            using (StreamReader sr = new StreamReader(@"C:\Users\sam\Programming\CwkSpaceTrade\DatabaseDocSupportFiles\database.sql"))
             {
                 String line;
                 while ((line = sr.ReadLine()) != null)
