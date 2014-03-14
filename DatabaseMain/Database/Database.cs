@@ -8,6 +8,9 @@ using System.Data;
 
 namespace STDatabase
 {
+    /// <summary>
+    /// The location will need to be changed so that they work on every computer/
+    /// </summary>
     public class Database
     {
         public SQLiteConnection dbc;
@@ -60,6 +63,8 @@ namespace STDatabase
             // database and created the needed tables.
             Console.WriteLine("NewCreat Started");
             StringBuilder sqlString = new StringBuilder();
+
+            //change this aswell depending on your envirnment.
             using (StreamReader sr = new StreamReader(@"C:\Users\sam\Programming\CwkSpaceTrade\DatabaseDocSupportFiles\database.sql"))
             {
                 String line;
