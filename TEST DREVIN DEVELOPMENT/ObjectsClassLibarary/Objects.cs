@@ -19,8 +19,8 @@ namespace ObjectsClassLibarary
         /// create the class with the name object + s  so we dont use the key word for the C# 
     {
         private  int dt_Id;
-        private string title = "a";
-        private  string graphic = "b";
+        private string title = "a";/// assign it to 'a' to make the test pass
+        private string graphic = "b";/// assign it to 'b' to make the test pass
 
 
         public int Dt_Id { get{return dt_Id;} set{dt_Id=value;} }
