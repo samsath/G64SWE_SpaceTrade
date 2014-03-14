@@ -32,7 +32,12 @@ namespace ResourceClassTest
             string description1 = sys.Description;
             Assert.AreEqual("c", description1);
         }
-        
+        [TestMethod]
+        public void Check_ItHas_Name()
+        {
+            string description1 = sys.Name;
+            Assert.AreEqual("c", description1);
+        }
 
     }
 }

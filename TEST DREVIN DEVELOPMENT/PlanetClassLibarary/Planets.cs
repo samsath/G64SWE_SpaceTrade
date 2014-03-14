@@ -8,6 +8,6 @@ namespace ObjectsClassLibarary
     public class Planets : Objects 
     {
         private double[] diameter = new double[2] { 1.1, 1.1 };
-        public double[] Diameter { get { return diameter; } }
+        public double[] Diameter { get { return diameter; } set { diameter = value; } }
     }
 }

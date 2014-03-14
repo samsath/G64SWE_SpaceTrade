@@ -9,7 +9,10 @@ namespace ResourceClassLibrary
     {
         private int initialPrice;
         private string description = "c";
+        private string name;
         public int InitialPrice { get { return initialPrice; } set { initialPrice = value; } }
         public string Description { get { return description; } set { description = value; } }
+
+       
     }
 }
