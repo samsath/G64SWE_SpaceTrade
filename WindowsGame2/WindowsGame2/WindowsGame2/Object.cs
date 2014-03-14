@@ -25,8 +25,8 @@ namespace WindowsGame2
 
         public void LoadContent(ContentManager content, string name)
         {
-            PositionByPixel.X = 50 + BoardLocation.TileWidth/4;
-            PositionByPixel.Y = 50 + BoardLocation.TileHeight/4;
+            PositionByPixel.X = 50 + Tile.TileWidth/4;
+            PositionByPixel.Y = 50 + Tile.TileHeight/4;
             mTexture = content.Load<Texture2D>(@"Textures\background");
         }
 
@@ -34,11 +34,11 @@ namespace WindowsGame2
         //Draw the sprite to the screen
         public void Draw(SpriteBatch theSpriteBatch)
         {
-            theSpriteBatch.Draw(mTexture, PositionByPixel, new Rectangle(0, 0, BoardLocation.TileWidth/2, BoardLocation.TileHeight/2), Color.White);
+            theSpriteBatch.Draw(mTexture, PositionByPixel, new Rectangle(0, 0, Tile.TileWidth/2, Tile.TileHeight/2), Color.White);
         }
 
         // Update the Sprite and change it's position based on the passed in speed, direction and elapsed time.
-        public void Update(GameTime time, Vector2 theSpeed, Vector2 theDirection)
+        public void Update(GameTime time)
         {
             
         }

@@ -5,16 +5,16 @@ using System.Text;
 
 namespace WindowsGame2
 {
-    class GameBoard
+    class Board
     {
         public const int GameBoardWidth = 10;
         public const int GameBoardHeight = 10;
-        private BoardLocation[] boardLocations = new BoardLocation[38];
-        public GameBoard()
+        private Tile[] boardLocations = new Tile[38];
+        public Board()
         {
             for (int i = 0; i < 38; i++)
             {
-                boardLocations[i] = new BoardLocation("space");
+                boardLocations[i] = new Tile("space");
             }
         }
 

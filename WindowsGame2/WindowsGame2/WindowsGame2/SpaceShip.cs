@@ -82,17 +82,17 @@ namespace WindowsGame2
                 }
                 PositionByPixel += shipDirection * shipSpeed * (float)time.ElapsedGameTime.TotalSeconds;
             }
-            float differentX = Math.Abs(Math.Abs(PositionByPixel.X - (50+BoardLocation.TileWidth/4 + PositionByTile.X*BoardLocation.TileWidth))-70);
-            float differentY = Math.Abs(Math.Abs(PositionByPixel.Y - (50+BoardLocation.TileHeight/4 + PositionByTile.Y*BoardLocation.TileHeight))-50);
+            float differentX = Math.Abs(Math.Abs(PositionByPixel.X - (50+Tile.TileWidth/4 + PositionByTile.X*Tile.TileWidth))-70);
+            float differentY = Math.Abs(Math.Abs(PositionByPixel.Y - (50+Tile.TileHeight/4 + PositionByTile.Y*Tile.TileHeight))-50);
             Debug.WriteLine("DifferenceX: " + differentX);
             Debug.WriteLine("DifferenceY: " + differentY);
             Debug.WriteLine("We are at " + PositionByTile.X + "," + PositionByTile.Y);
-            Debug.WriteLine("We are at " + PositionByPixel.X + "," + (50.0 + BoardLocation.TileWidth / 4.0 + PositionByTile.X * BoardLocation.TileWidth));
-            Debug.WriteLine("We are at " + PositionByPixel.Y + "," + (50.0 + BoardLocation.TileHeight / 4.0 + PositionByTile.Y * BoardLocation.TileHeight));
+            Debug.WriteLine("We are at " + PositionByPixel.X + "," + (50.0 + Tile.TileWidth / 4.0 + PositionByTile.X * Tile.TileWidth));
+            Debug.WriteLine("We are at " + PositionByPixel.Y + "," + (50.0 + Tile.TileHeight / 4.0 + PositionByTile.Y * Tile.TileHeight));
             if (differentX<3||differentY<3)
             {
-                PositionByTile.X = (int)Math.Round((PositionByPixel.X - 70) / BoardLocation.TileWidth);
-                PositionByTile.Y = (int)Math.Round((PositionByPixel.Y - 60) / BoardLocation.TileHeight);
+                PositionByTile.X = (int)Math.Round((PositionByPixel.X - 70) / Tile.TileWidth);
+                PositionByTile.Y = (int)Math.Round((PositionByPixel.Y - 60) / Tile.TileHeight);
                 diceRemaining--;
             }
         }

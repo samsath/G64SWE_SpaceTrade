@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WindowsGame2
 {
-    class BoardLocation
+    class Tile
     {
         private string locationType;
         public static string[] LocationType = 
@@ -19,7 +19,7 @@ namespace WindowsGame2
         public static int TileHeight = 50;
 
         
-        public BoardLocation(string type)
+        public Tile(string type)
         {
             locationType = type;
         }

@@ -72,8 +72,8 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoardLocation.cs" />
-    <Compile Include="GameBoard.cs" />
+    <Compile Include="Tile.cs" />
+    <Compile Include="Board.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="SpaceShip.cs" />
     <Compile Include="Resource.cs" />

@@ -20,7 +20,7 @@ namespace WindowsGame2
         SpriteBatch spriteBatch;
 
         Random random = new Random();
-        GameBoard gameBoard;
+        Board gameBoard;
         SpaceShip myShip;
 
         enum GameStates { TitleScreen, Playing, GameOver };
@@ -48,7 +48,7 @@ namespace WindowsGame2
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
             graphics.ApplyChanges();
-            gameBoard = new GameBoard();
+            gameBoard = new Board();
             myShip = new SpaceShip();
 
             base.Initialize();
@@ -129,13 +129,13 @@ namespace WindowsGame2
                 case GameStates.Playing:
                     spriteBatch.Begin();
                     spriteBatch.Draw(backgroundScreen, new Rectangle(0, 0, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height), Color.White);
-                    for (int x = 0; x < GameBoard.GameBoardWidth; x++)
-                        for (int y = 0; y < GameBoard.GameBoardHeight; y++)
+                    for (int x = 0; x < Board.GameBoardWidth; x++)
+                        for (int y = 0; y < Board.GameBoardHeight; y++)
                         {
-                            if (x == 0||y == 0||x == (GameBoard.GameBoardWidth - 1)||y==(GameBoard.GameBoardHeight - 1))
+                            if (x == 0||y == 0||x == (Board.GameBoardWidth - 1)||y==(Board.GameBoardHeight - 1))
                             {
-                                int pixelX = 50 + (x * BoardLocation.TileWidth);
-                                int pixelY = 50 + (y * BoardLocation.TileHeight);
+                                int pixelX = 50 + (x * Tile.TileWidth);
+                                int pixelY = 50 + (y * Tile.TileHeight);
                                 DrawEmptyTile(pixelX, pixelY);
                             }
                         }
@@ -152,7 +152,7 @@ namespace WindowsGame2
 
         private void DrawEmptyTile(int pixelX, int pixelY)
         {
-            spriteBatch.Draw(emptyTile, new Rectangle(pixelX, pixelY, BoardLocation.TileWidth, BoardLocation.TileHeight), Color.White);
+            spriteBatch.Draw(emptyTile, new Rectangle(pixelX, pixelY, Tile.TileWidth, Tile.TileHeight), Color.White);
         }
     }
 }
