@@ -15,8 +15,8 @@ namespace WindowsGame2
             "blackhole", 
             "corner",
         };
-        public static int TileWidth = 70;
-        public static int TileHeight = 50;
+        public static int TileWidth = 64;
+        public static int TileHeight = 47;
 
         
         public Tile(string type)

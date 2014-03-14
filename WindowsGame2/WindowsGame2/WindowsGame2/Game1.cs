@@ -21,11 +21,12 @@ namespace WindowsGame2
 
         Board myBoard;
         SpaceShip myShip;
+        Texture2D backgroundScreen;
 
         enum GameStates { TitleScreen, Playing, GameOver };
         GameStates gameState = GameStates.Playing;
 
-        Texture2D backgroundScreen;
+        
 
         public Game1()
         {
@@ -128,16 +129,7 @@ namespace WindowsGame2
                 case GameStates.Playing:
                     spriteBatch.Begin();
                     spriteBatch.Draw(backgroundScreen, new Rectangle(0, 0, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height), Color.White);
-                    for (int x = 0; x < Board.GameBoardWidth; x++)
-                        for (int y = 0; y < Board.GameBoardHeight; y++)
-                        {
-                            if (x == 0||y == 0||x == (Board.GameBoardWidth - 1)||y==(Board.GameBoardHeight - 1))
-                            {
-                                int pixelX = 50 + (x * Tile.TileWidth);
-                                int pixelY = 50 + (y * Tile.TileHeight);
-                                DrawEmptyTile(pixelX, pixelY);
-                            }
-                        }
+                    myBoard.Draw(this, this.spriteBatch);
                     myShip.Draw(this.spriteBatch);
                     spriteBatch.End();
                     break;
@@ -151,7 +143,7 @@ namespace WindowsGame2
 
         private void DrawEmptyTile(int pixelX, int pixelY)
         {
-            spriteBatch.Draw(emptyTile, new Rectangle(pixelX, pixelY, Tile.TileWidth, Tile.TileHeight), Color.White);
+            
         }
     }
 }
