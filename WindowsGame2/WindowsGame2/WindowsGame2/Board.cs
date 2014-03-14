@@ -20,6 +20,7 @@ namespace WindowsGame2
         public const int NumberofTilesWidth = 11;
         public const int NumberofTilesHeight = 11;
 
+
         private Tile[] tiles = new Tile[38];
         public Board()
         {
@@ -29,25 +30,24 @@ namespace WindowsGame2
             }
         }
 
-        public void addMovingShip(int p)
-        {
-
-        }
-
         public void LoadContent(ContentManager content)
         {
             emptyTile = content.Load<Texture2D>(@"Textures\emptyTile");
         }
-        public void Draw(SpriteBatch spriteBatch)
+
+        public void Draw(Game1 game, SpriteBatch spriteBatch)
         {
-            String printDiceRolled = "Dice rolled is: " + diceRolled.ToString();
-            Vector2 FontOrigin = font1.MeasureString(printDiceRolled) / 2;
-            fontPosition = new Vector2(100, 15);
-            theSpriteBatch.DrawString(font1, printDiceRolled, fontPosition, Color.Red, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-            printDiceRolled = "Move remaining is: " + diceRemaining.ToString();
-            fontPosition = new Vector2(100, 35);
-            theSpriteBatch.DrawString(font1, printDiceRolled, fontPosition, Color.Red, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-            theSpriteBatch.Draw(texture, PositionByPixel, new Rectangle(0, 0, Tile.TileWidth / 2, Tile.TileHeight / 2), Color.White);
+            
+            for (int x = 0; x < NumberofTilesWidth; x++)
+                for (int y = 0; y < NumberofTilesHeight; y++)
+                {
+                    if (x == 0 || y == 0 || x == (NumberofTilesWidth - 1) || y == (NumberofTilesHeight - 1))
+                    {
+                        int pixelX = 50 + (x * Tile.TileWidth);
+                        int pixelY = 50 + (y * Tile.TileHeight);
+                        spriteBatch.Draw(emptyTile, new Rectangle(pixelX, pixelY, Tile.TileWidth, Tile.TileHeight), Color.White);
+                    }
+                }
         }
     }
 }
