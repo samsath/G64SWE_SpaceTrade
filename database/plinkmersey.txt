@@ -1,1 +1,0 @@
-plink -ssh mersey.cs.nott.ac.uk -l sxh33m -pw b902pe1990
