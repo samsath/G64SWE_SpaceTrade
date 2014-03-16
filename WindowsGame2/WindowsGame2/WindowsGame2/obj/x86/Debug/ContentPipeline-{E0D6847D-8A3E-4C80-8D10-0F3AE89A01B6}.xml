@@ -11,15 +11,6 @@
       <Time>2014-03-10T06:14:31.741756+00:00</Time>
     </Item>
     <Item>
-      <Source>Textures\emptyTile.jpg</Source>
-      <Name>Textures\emptyTile</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\emptyTile.xnb</Output>
-      <Time>2014-03-10T06:23:02.4499669+00:00</Time>
-    </Item>
-    <Item>
       <Source>Textures\spaceship.jpg</Source>
       <Name>Textures\spaceship</Name>
       <Importer>TextureImporter</Importer>
@@ -36,6 +27,15 @@
       <Options>None</Options>
       <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Font\CourierNew.xnb</Output>
       <Time>2014-03-12T03:34:19.5963507+00:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\space.jpg</Source>
+      <Name>Textures\space</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\space.xnb</Output>
+      <Time>2014-03-10T06:23:02.4499669+00:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

@@ -22,7 +22,7 @@ namespace WindowsGame2
         int diceRemaining = 0;
         Vector2 fontPosition;
         private Texture2D texture;
-        public Vector2 PositionByTile = Vector2.Zero;
+        public Vector2 PositionByTile;
         public Vector2 PositionByPixel;
 
         private Vector2 startingPosition;

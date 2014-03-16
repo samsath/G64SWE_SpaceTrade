@@ -16,23 +16,37 @@ namespace WindowsGame2
     class Board
     {
 
-        Texture2D emptyTile;
+        Texture2D space;
         public const int NumberofTilesWidth = 11;
         public const int NumberofTilesHeight = 11;
+        Random random = new Random();
 
 
-        private Tile[] tiles = new Tile[38];
+        private Tile[] tiles = new Tile[40];
         public Board()
         {
-            for (int i = 0; i < 38; i++)
+            int tileType = random.Next(0, 3);
+            for (int i = 0; i < 40; i++)
             {
-                tiles[i] = new Tile("space");
+                switch (tileType)
+                {
+                    case 0:
+                        tiles[i] = new Tile("space");
+                        break;
+                    case 1:
+                        tiles[i] = new Tile("planet");
+                        break;
+                    case 2:
+                        tiles[i] = new Tile("blackhole");
+                        break;
+                }
+                
             }
         }
 
         public void LoadContent(ContentManager content)
         {
-            emptyTile = content.Load<Texture2D>(@"Textures\emptyTile");
+            space = content.Load<Texture2D>(@"Textures\space");
         }
 
         public void Draw(Game1 game, SpriteBatch spriteBatch)
@@ -45,7 +59,7 @@ namespace WindowsGame2
                     {
                         int pixelX = 50 + (x * Tile.TileWidth);
                         int pixelY = 50 + (y * Tile.TileHeight);
-                        spriteBatch.Draw(emptyTile, new Rectangle(pixelX, pixelY, Tile.TileWidth, Tile.TileHeight), Color.White);
+                        spriteBatch.Draw(space, new Rectangle(pixelX, pixelY, Tile.TileWidth, Tile.TileHeight), Color.White);
                     }
                 }
         }

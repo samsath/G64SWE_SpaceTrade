@@ -37,8 +37,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\emptyTile.jpg">
-      <Name>emptyTile</Name>
+    <Compile Include="Textures\space.jpg">
+      <Name>space</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
