@@ -16,18 +16,17 @@ namespace WindowsGame2
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics; // use this to modify windows screen
-        SpriteBatch spriteBatch; // use this to draw
+        GraphicsDeviceManager graphics;
+        SpriteBatch spriteBatch;
 
-        Board myBoard; // board object
-        SpaceShip myShip; // ship object
-
-        Texture2D backgroundScreen; // texture for background
+        Board myBoard;
+        SpaceShip myShip;
+        Texture2D backgroundScreen;
 
         enum GameStates { TitleScreen, Playing, GameOver };
-        GameStates gameState = GameStates.Playing; // states of the game
+        GameStates gameState = GameStates.Playing;
 
-
+        
 
         public Game1()
         {
@@ -65,9 +64,9 @@ namespace WindowsGame2
             myBoard.LoadContent(this.Content);
             myShip.LoadContent(this.Content);
             backgroundScreen = Content.Load<Texture2D>(@"Textures\background");
-
-
-
+            
+            
+            
             /////////////////////
 
             // TODO: use this.Content to load your game content here
@@ -93,18 +92,18 @@ namespace WindowsGame2
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            // TODO: Add your update logic here
             switch (gameState)
             {
-                // Title Screen
                 case GameStates.TitleScreen:
-                    break;
 
-                // Playing Screen
+                    ////////////////////
+
+                    break;
                 case GameStates.Playing:
                     myShip.Update(gameTime);
+                    
                     break;
-
-                //Game over Screen
                 case GameStates.GameOver:
                     break;
             }
@@ -122,36 +121,29 @@ namespace WindowsGame2
 
             switch (gameState)
             {
-                // Title Screen
                 case GameStates.TitleScreen:
+
+                    ////////////////////
+
                     break;
-
-                // Playing Screen
                 case GameStates.Playing:
-                    // Begin to Draw
                     spriteBatch.Begin();
-
-                    // 1. Draw the Background
                     spriteBatch.Draw(backgroundScreen, new Rectangle(0, 0, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height), Color.White);
-
-                    // 2. Draw the Board 
-                    myBoard.Draw(this, this.spriteBatch, myShip);
-
-                    // 3. Draw the Ship
+                    myBoard.Draw(this, this.spriteBatch);
                     myShip.Draw(this.spriteBatch);
                     spriteBatch.End();
                     break;
-
-                //Game over Screen
                 case GameStates.GameOver:
                     break;
             }
+            // TODO: Add your drawing code here
+
             base.Draw(gameTime);
         }
 
         private void DrawEmptyTile(int pixelX, int pixelY)
         {
-
+            
         }
     }
 }
