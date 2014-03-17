@@ -6,12 +6,18 @@ using System.Data.SQLite;
 using System.IO;
 using System.Data;
 
+/*
+ * The System.Data.Sqlite is located in the DatabaseDocSupportFiles/dll
+ * 
+ */
+
+
 namespace STDatabase
 {
     /// <summary>
     /// The location will need to be changed so that they work on every computer/
     /// </summary>
-    public class Database
+    public class Database : STDatabase.IDatabase
     {
         public SQLiteConnection dbc;
         string dbpath;
@@ -22,7 +28,7 @@ namespace STDatabase
         public Boolean Connect()
         {
             // need to change this for the you build
-            dbpath = @"C:\Users\sam\Programming\CwkSpaceTrade\DatabaseDocSupportFiles\STDatabase.db";
+            dbpath = @"DatabaseDocSupportFiles\STDatabase.db";
             if (File.Exists(dbpath))
             {
                 Console.WriteLine("Sqlite Database exists");
@@ -65,7 +71,7 @@ namespace STDatabase
             StringBuilder sqlString = new StringBuilder();
 
             //change this aswell depending on your envirnment.
-            using (StreamReader sr = new StreamReader(@"C:\Users\sam\Programming\CwkSpaceTrade\DatabaseDocSupportFiles\database.sql"))
+            using (StreamReader sr = new StreamReader(@"DatabaseDocSupportFiles\database.sql"))
             {
                 String line;
                 while ((line = sr.ReadLine()) != null)
@@ -134,6 +140,22 @@ namespace STDatabase
                 Console.WriteLine("Database Connection Closed");
                 return true;
             }
+        }
+
+        public void exeQuery(string[] query){
+
+            using (SQLiteCommand command = new SQLiteCommand(dbc))
+                {
+                   for (int i = 0; i < query.Length; i++)
+                    {
+                        try
+                        {
+                            command.CommandText = query[i];
+                            command.ExecuteNonQuery();
+                        }
+                        catch (Exception ex) { Console.WriteLine("Error " + ex); }
+                    }
+                }
         }
 
         /// <summary>
@@ -304,12 +326,12 @@ namespace STDatabase
         /// </summary>
         /// <param name="resource_id"></param>
         /// <returns></returns>
-        public List<Resourcedata> getResource(int resource_id)
+        public List<Resourcedata> getResource(int resources_id)
         {
             List<Resourcedata> result = new List<Resourcedata>();
             if (Check())
             {
-                string Query = string.Format("SELECT resources.Resources_id, resources.Name, resources.Initial_Price, resources.Description, media.Media_id, media.file_Loc FROM resources, resourcesmedia, media WHERE (resources.Resources_id == resourcesmedia.Resources_id AND resourcesmedia.Media_id == media.Media_id) AND resources.Resources_id == '{0}';", resource_id);
+                string Query = string.Format("SELECT resources.Resources_id, resources.Name, resources.Initial_Price, resources.Description, media.Media_id, media.file_Loc FROM resources, resourcesmedia, media WHERE (resources.Resources_id == resourcesmedia.Resources_id AND resourcesmedia.Media_id == media.Media_id) AND resources.Resources_id == '{0}';", resources_id);
                 using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
                 {
                     try
@@ -475,20 +497,9 @@ namespace STDatabase
         {
             if (Check())
             {
-                string Query = String.Format("INSERT INTO highscore(Users_id,Score) VALUES((SELECT Users_id FROM users WHERE Name = '{0}'),{1});", name, score);
-                using (SQLiteCommand command = new SQLiteCommand(dbc))
-                {
-                    try
-                    {
-                        command.CommandText = Query;
-                        command.ExecuteNonQuery();
-                    }
-                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
-
-
-                    Console.WriteLine("HighScore Added");
-
-                }
+                string[] Query = new string[1]{String.Format("INSERT INTO highscore(Users_id,Score) VALUES((SELECT Users_id FROM users WHERE Name = '{0}'),{1});", name, score)};
+                
+                exeQuery(Query);
 
             }
         }
@@ -502,20 +513,9 @@ namespace STDatabase
         {
             if (Check())
             {
-                string Query = String.Format("INSERT INTO highscore(Users_id,Score) VALUES({0},{1});", id, score);
-                using (SQLiteCommand command = new SQLiteCommand(dbc))
-                {
-                    try
-                    {
-                        command.CommandText = Query;
-                        command.ExecuteNonQuery();
-                    }
-                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
-
-
-                    Console.WriteLine("HighScore Added");
-
-                }
+                string[] Query = new string[1] {String.Format("INSERT INTO highscore(Users_id,Score) VALUES({0},{1});", id, score)};
+                
+                exeQuery(Query);
 
             }
         }
@@ -534,70 +534,251 @@ namespace STDatabase
         {
             if (Check())
             {
-                string Query1 = String.Format("INSERT INTO ship (Model, Health_Level, Cargo_Level, Owner) VALUES ({0},100,{1},{2}); ", model, cargo, owner);
-                string Query2 = String.Format("INSERT INTO media (X_size, Y_size,file_Loc,Media_type) VALUES ({3},{4},{5},{6});", x_s,y_s,fileloc,type);
-                string Query3 = String.Format("INSERT INTO shipmedia (Ship_id, Media_id, Reason) VALUES ((SELECT Ship_id FROM ship ORDER BY Ship_id DESC LIMIT 1), (SELECT Media_id FROM media ORDER BY Media_id DESC LIMIT 1), '{0}');", reason);
-                using (SQLiteCommand command = new SQLiteCommand(dbc))
-                {
-                    try
-                    {
-                        command.CommandText = Query1;
-                        command.ExecuteNonQuery();
-                    }
-                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
+                string[] Query = new string[3] { 
+                    String.Format("INSERT INTO ship (Model, Health_Level, Cargo_Level, Owner) VALUES ({0},100,{1},{2}); ", model, cargo, owner),
+                    String.Format("INSERT INTO media (X_size, Y_size,file_Loc,Media_type) VALUES ({3},{4},{5},{6});", x_s,y_s,fileloc,type),
+                    String.Format("INSERT INTO shipmedia (Ship_id, Media_id, Reason) VALUES ((SELECT Ship_id FROM ship ORDER BY Ship_id DESC LIMIT 1), (SELECT Media_id FROM media ORDER BY Media_id DESC LIMIT 1), '{0}');", reason)
+                };
+                
+                exeQuery(Query);
 
-                    try
-                    {
-                        command.CommandText = Query2;
-                        command.ExecuteNonQuery();
-                    }
-                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
+            }
+        }
+        /// <summary>
+        /// This adds new ships to the database where media info already exsists.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="cargo"></param>
+        /// <param name="owner"></param>
+        /// <param name="media_id"></param>
+        /// <param name="reason"></param>
+        public void NewShipWithMedia(int model, int cargo, int owner, int media_id, string reason)
+        {
+            if(Check()){
+                string[] Query = new string [2] {
+                    String.Format("INSERT INTO ship (Model, Health_Level, Cargo_Level, Owner) VALUES ({0},100,{1},{2}); ", model, cargo, owner),
+                    String.Format("INSERT INTO shipmedia (Ship_id, Media_id, Reason) VALUES ((SELECT Ship_id FROM ship ORDER BY Ship_id DESC LIMIT 1), {0}, '{1}');", media_id, reason)
+                };
+                
+                exeQuery(Query);
 
-                    try
-                    {
-                        command.CommandText = Query3;
-                        command.ExecuteNonQuery();
-                    }
-                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
+            }
+        }
+        /// <summary>
+        /// Adds a new resource to th database and the new media that goes along with it.
+        /// </summary>
+        /// <param name="resource"></param>
+        /// <param name="initialprice"></param>
+        /// <param name="descript"></param>
+        /// <param name="x_s"></param>
+        /// <param name="y_s"></param>
+        /// <param name="fileloc"></param>
+        /// <param name="type"></param>
+        public void NewResourceMedia(string resource, int initialprice, string descript, int x_s, int y_s, string fileloc, int type)
+        {
+            if (Check())
+            {
+                string[] Query = new string[3]{
+                    String.Format("INSERT INTO resources (Name, Inital_Price, Description) VALUES ({0},{1},{2});",resource, initialprice, descript),
+                    String.Format("INSERT INTO media (X_size, Y_size,file_Loc,Media_type) VALUES ({0},{1},{2},{3});", x_s ,y_s ,fileloc ,type),
+                    "INSERT INTO resourcesmedia (Resourcs_id, Media_id) VALUES ((SELECT Resources_id FROM Resources ORDER BY Resources_id DESC LIMIT 1), (SELECT Media_id FROM Media ORDER BY Media_id DESC LIMIT 1))"
+                };
+               
+                exeQuery(Query);
 
-
-                    Console.WriteLine("Users Added");
-
-                }
+            }
+        }
+        /// <summary>
+        /// Adds a new resource to the database which already has media in the database
+        /// </summary>
+        /// <param name="resource"></param>
+        /// <param name="initialprice"></param>
+        /// <param name="descript"></param>
+        /// <param name="media_id"></param>
+        public void NewResourceOldMedia(string resource, int initialprice, string descript, int media_id)
+        {
+            if (Check())
+            {
+                string[] Query = new string[2]{
+                    String.Format("INSERT INTO resources (Name, Inital_Price, Description) VALUES ({0},{1},{2});",resource, initialprice, descript),
+                    String.Format( "INSERT INTO resourcesmedia (Resourcs_id, Media_id) VALUES ((SELECT Resources_id FROM Resources ORDER BY Resources_id DESC LIMIT 1), {0})",media_id )
+                };
+                
+                exeQuery(Query);
 
             }
         }
 
+        /// <summary>
+        /// Add new planet with the new media to the databae
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="x_loc"></param>
+        /// <param name="y_loc"></param>
+        /// <param name="diameter"></param>
+        /// <param name="m_x_size"></param>
+        /// <param name="m_y_size"></param>
+        /// <param name="file_loc"></param>
+        /// <param name="type"></param>
+        public void NewPlanetMedia(string title, int x_loc, int y_loc, int diameter, int m_x_size, int m_y_size, string file_loc, int type)
+        {
+            if (Check())
+            {
+                string[] query = new string[3]{
+                    String.Format("INSERT INTO planet (Title, X_loc,Y_loc,Diameter) VALUES ({0},{1},{2},{3})",title, x_loc, y_loc, diameter),
+                    String.Format("INSERT INTO media (X_size, Y_size,file_Loc,Media_type) VALUES ({0},{1},{2},{3});", m_x_size ,m_y_size ,file_loc ,type),
+                    "INSERT INTO planetmedia(Planet_id,Media_id) VALUES ((SELECT Planet_id FROM Planet ORDER BY Planet_id DESC LIMIT 1), (SELECT Media_id FROM Media ORDER BY Media_id DESC LIMIT 1))"
+                };
 
+                exeQuery(query);
+            }
+        }
 
+        /// <summary>
+        /// Adds new planet to the database which already has the media.
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="x_loc"></param>
+        /// <param name="y_loc"></param>
+        /// <param name="diameter"></param>
+        /// <param name="media_id"></param>
+        public void NewPlanetOldMedia(string title, int x_loc, int y_loc, int diameter, int media_id)
+        {
+            if (Check())
+            {
+                string[] query = new string[2] {
+                    String.Format("INSERT INTO planet (Title, X_loc,Y_loc,Diameter) VALUES ({0},{1},{2},{3})",title, x_loc, y_loc, diameter),
+                    String.Format("INSERT INTO planetmedia(Planet_id,Media_id) VALUES ((SELECT Planet_id FROM Planet ORDER BY Planet_id DESC LIMIT 1), {0})",media_id)
+                };
 
+                exeQuery(query);
 
+            }
+        }
+        /// <summary>
+        /// Add new resource to the ship
+        /// </summary>
+        /// <param name="ship_id"></param>
+        /// <param name="resource_id"></param>
+        /// <param name="amount"></param>
+        /// <param name="bourghtPrice"></param>
+        public void AddResourceToShip(int ship_id, int resource_id, int amount, int bourghtPrice )
+        {
+            if(Check()){
+                string[] query = new string[2] {
+                    String.Format("INSERT INTO shipresource (Ship_id, Resource_id, amount, Bought_Price) VALUES ({0},{1},{2},{3})", ship_id, resource_id, amount, bourghtPrice),
+                    String.Format("UPDATE ship SET Ship.Cargo_Level = Ship.Cargo_Level - {0} WHERE Ship_id = {1}", amount, ship_id)
+                };
+                
+                exeQuery(query);
 
+                Console.WriteLine("Resource added to Ship");
 
+            }
+        }
 
+        /// <summary>
+        /// Add new resources to the planet
+        /// </summary>
+        /// <param name="planet_id"></param>
+        /// <param name="resource_id"></param>
+        /// <param name="amount"></param>
+        /// <param name="price"></param>
+        public void AddResourceToPlanet(int planet_id, int resource_id, int amount, int price)
+        {
+            if(Check()){
+                string[] query = new string[1] { String.Format("INSERT INTO planetresources (Planet_id, Resources_id, Amount, Price) VALUSE ({0}, {1}, {2}, {3})", planet_id, resource_id, amount, price)};
+                
+                exeQuery(query);
 
+                Console.WriteLine("Resource added to Planet");
+            }
+        }
 
+        /// <summary>
+        /// updates the money on a users account
+        /// </summary>
+        /// <param name="user_id"></param>
+        /// <param name="money"></param>
+        public void SetUserMoney(int user_id, int money){
+            if(Check()){
+                string[] query = new string[1] {String.Format("UPDATE users SET money = {0} WHERE Users_id = {1}", money, user_id)};
 
+                exeQuery(query);
 
+                Console.WriteLine("User has more money");
+            }
+        }
 
+        /// <summary>
+        /// Update ship information like helath, ammo, and cargo
+        /// </summary>
+        /// <param name="ship_id"></param>
+        /// <param name="Ammo_level"></param>
+        /// <param name="Health_level"></param>
+        /// <param name="Cargo_level"></param>
+        /// <param name="Fuel_level"></param>
+        public void ShipAdd (int ship_id, int Ammo_level, int Health_level, int Cargo_level, int Fuel_level) {
+	        if(Check()){
+		        string[] query = new string[1] { String.Format("UPDATE ship SET Ammo_Level = {0}, Health_Level = {1}, Cargo_Level = {2}, Fuel_Level = {3} WHERE Ship_id = {4}", Ammo_level, Health_level, Cargo_level, Fuel_level, ship_id)};
+                
+                exeQuery(query);
 
+                Console.WriteLine("Ship stats updated");
+            }
+        }
 
+        /// <summary>
+        /// Updates the reosurce the ship has in the cargo if it already has it.
+        /// </summary>
+        /// <param name="ship_id"></param>
+        /// <param name="resource_id"></param>
+        /// <param name="amount"></param>
+        /// <param name="price"></param>
+        public void ShipCargoUpdate (int ship_id, int resource_id, int amount, int price) {
+	        if(Check()){
+		        string[] query = new string[1] { String.Format("UPDATE shipresource SET amount = {0}, Bought_Price = {1} WHERE Ship_id = {2} AND Resources_id = {3}", amount, price, ship_id,resource_id)};
 
+                exeQuery(query);
+               
+                Console.WriteLine("Ship Cargo updated");
+            }
+        }
 
+        /// <summary>
+        /// updates the ships location
+        /// </summary>
+        /// <param name="ship_id"></param>
+        /// <param name="x_loc"></param>
+        /// <param name="y_loc"></param>
+        public void ShipLoc(int ship_id, int x_loc, int y_loc){
+	        if(Check()) {
+		        string[] query = new string[1] {String.Format("UPDATE ship SET x_loc = {0}, y_loc = {1} WHERE Ship_id = {2}", x_loc, y_loc, ship_id)};
 
+                exeQuery(query);
 
+                Console.WriteLine("Ship Location updated");
+            }
+        }
 
+        /// <summary>
+        /// Updates the resources on a planet
+        /// </summary>
+        /// <param name="planet_id"></param>
+        /// <param name="resource_id"></param>
+        /// <param name="amount"></param>
+        /// <param name="price"></param>
+        public void PlanetResourceUpdate (int planet_id, int resource_id, int amount, int price){
+            if(Check()){
+                string[] query = new string[1] {String.Format("UPDATE planetresources SET Amount = {0}, Price = {1} WHERE (Planet_id = {2} AND Resources_id = {3})", amount, price, planet_id, resource_id)};
 
+                exeQuery(query);
 
-
-
-
-
-
-
-
-
-
+                Console.WriteLine("Ship Location updated");
+            }
+        }
 
     }
+
+
 }
