@@ -7,26 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\background.xnb</Output>
-      <Time>2014-03-10T06:14:31.741756+00:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\spaceship.jpg</Source>
-      <Name>Textures\spaceship</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\spaceship.xnb</Output>
-      <Time>2014-03-10T06:49:31.3938492+00:00</Time>
-    </Item>
-    <Item>
-      <Source>Font\CourierNew.spritefont</Source>
-      <Name>Font\CourierNew</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Font\CourierNew.xnb</Output>
-      <Time>2014-03-12T03:34:19.5963507+00:00</Time>
+      <Output>C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\background.xnb</Output>
+      <Time>2014-03-13T17:48:12.8590875+00:00</Time>
     </Item>
     <Item>
       <Source>Textures\space.jpg</Source>
@@ -34,8 +16,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\space.xnb</Output>
-      <Time>2014-03-10T06:23:02.4499669+00:00</Time>
+      <Output>C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\space.xnb</Output>
+      <Time>2014-03-17T07:49:45.0412132+00:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\spaceship.jpg</Source>
+      <Name>Textures\spaceship</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\spaceship.xnb</Output>
+      <Time>2014-03-13T17:48:12.8690881+00:00</Time>
     </Item>
     <Item>
       <Source>Textures\earth.jpg</Source>
@@ -43,8 +34,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\earth.xnb</Output>
-      <Time>2014-03-14T19:55:40.6518893+00:00</Time>
+      <Output>C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\earth.xnb</Output>
+      <Time>2014-03-17T07:49:44.739196+00:00</Time>
     </Item>
     <Item>
       <Source>Textures\jupiter.jpg</Source>
@@ -52,8 +43,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\jupiter.xnb</Output>
-      <Time>2014-03-14T19:56:33.1448917+00:00</Time>
+      <Output>C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\jupiter.xnb</Output>
+      <Time>2014-03-17T07:49:44.7441962+00:00</Time>
     </Item>
     <Item>
       <Source>Textures\mars.jpg</Source>
@@ -61,8 +52,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\mars.xnb</Output>
-      <Time>2014-03-14T19:56:04.250239+00:00</Time>
+      <Output>C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\mars.xnb</Output>
+      <Time>2014-03-17T07:49:44.7501966+00:00</Time>
     </Item>
     <Item>
       <Source>Textures\mercury.jpg</Source>
@@ -70,8 +61,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\mercury.xnb</Output>
-      <Time>2014-03-17T02:52:43.0239014+00:00</Time>
+      <Output>C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\mercury.xnb</Output>
+      <Time>2014-03-17T07:49:44.7651975+00:00</Time>
     </Item>
     <Item>
       <Source>Textures\neptune.jpg</Source>
@@ -79,8 +70,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\neptune.xnb</Output>
-      <Time>2014-03-14T20:00:59.1521064+00:00</Time>
+      <Output>C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\neptune.xnb</Output>
+      <Time>2014-03-17T07:49:44.7721979+00:00</Time>
     </Item>
     <Item>
       <Source>Textures\saturn.jpg</Source>
@@ -88,8 +79,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\saturn.xnb</Output>
-      <Time>2014-03-14T20:00:05.7700532+00:00</Time>
+      <Output>C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\saturn.xnb</Output>
+      <Time>2014-03-17T07:49:44.7781982+00:00</Time>
     </Item>
     <Item>
       <Source>Textures\uranus.jpg</Source>
@@ -97,8 +88,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\uranus.xnb</Output>
-      <Time>2014-03-14T20:00:36.9798383+00:00</Time>
+      <Output>C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\uranus.xnb</Output>
+      <Time>2014-03-17T07:49:45.0522139+00:00</Time>
     </Item>
     <Item>
       <Source>Textures\venus.jpg</Source>
@@ -106,8 +97,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\venus.xnb</Output>
-      <Time>2014-03-17T02:53:25.2693177+00:00</Time>
+      <Output>C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\venus.xnb</Output>
+      <Time>2014-03-17T07:49:45.0602143+00:00</Time>
+    </Item>
+    <Item>
+      <Source>Font\CourierNew.spritefont</Source>
+      <Name>Font\CourierNew</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Font\CourierNew.xnb</Output>
+      <Time>2014-03-13T17:48:12.8560873+00:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -116,10 +116,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2Content\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2Content\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -148,7 +148,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2014-03-05T19:12:23.3988477+00:00</Value>
+        <Value>2014-02-22T03:31:53.033891+00:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

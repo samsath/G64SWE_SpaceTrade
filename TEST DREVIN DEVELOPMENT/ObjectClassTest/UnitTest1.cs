@@ -17,7 +17,7 @@ namespace ObjectClassTest
         [TestMethod]
         public void TheObjects_Constructs_OK()
         {
-            Assert.IsNotNull(sys);  // checl wheither the object has been created 
+            Assert.IsNotNull(sys);  // check wheither the object has been created 
         }
         [TestMethod]
         public void DataBaseID_CheckItHasIntVal()
