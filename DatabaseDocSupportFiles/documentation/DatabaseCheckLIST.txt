@@ -20,6 +20,6 @@
 //Insert Resource to Planet
 //user money 
 //update ship stats
-update ship cargo
-update ship loc
+//update ship cargo
+//update ship loc
 update planet Resources

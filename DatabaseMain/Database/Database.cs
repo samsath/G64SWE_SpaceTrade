@@ -6,6 +6,12 @@ using System.Data.SQLite;
 using System.IO;
 using System.Data;
 
+/*
+ * The System.Data.Sqlite is located in the DatabaseDocSupportFiles/dll
+ * 
+ */
+
+
 namespace STDatabase
 {
     /// <summary>
@@ -22,7 +28,7 @@ namespace STDatabase
         public Boolean Connect()
         {
             // need to change this for the you build
-            dbpath = @"C:\Users\sam\Programming\CwkSpaceTrade\DatabaseDocSupportFiles\STDatabase.db";
+            dbpath = @"DatabaseDocSupportFiles\STDatabase.db";
             if (File.Exists(dbpath))
             {
                 Console.WriteLine("Sqlite Database exists");
@@ -65,7 +71,7 @@ namespace STDatabase
             StringBuilder sqlString = new StringBuilder();
 
             //change this aswell depending on your envirnment.
-            using (StreamReader sr = new StreamReader(@"C:\Users\sam\Programming\CwkSpaceTrade\DatabaseDocSupportFiles\database.sql"))
+            using (StreamReader sr = new StreamReader(@"DatabaseDocSupportFiles\database.sql"))
             {
                 String line;
                 while ((line = sr.ReadLine()) != null)
