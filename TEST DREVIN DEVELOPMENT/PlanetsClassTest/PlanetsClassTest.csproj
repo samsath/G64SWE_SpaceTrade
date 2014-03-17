@@ -58,6 +58,10 @@
       <Project>{7DF86DEE-F1D5-4F83-9D10-D8DD605AE46A}</Project>
       <Name>ObjectsClassLibarary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PlanetClassLibarary\PlanetClassLibarary.csproj">
+      <Project>{32683280-33a6-4e70-b4b6-861f995e91ed}</Project>
+      <Name>PlanetClassLibarary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

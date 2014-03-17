@@ -2,3 +2,11 @@ Content\Textures\background.xnb
 Content\Textures\spaceship.xnb
 Content\Font\CourierNew.xnb
 Content\Textures\space.xnb
+Content\Textures\earth.xnb
+Content\Textures\jupiter.xnb
+Content\Textures\mars.xnb
+Content\Textures\mercury.xnb
+Content\Textures\neptune.xnb
+Content\Textures\saturn.xnb
+Content\Textures\uranus.xnb
+Content\Textures\venus.xnb
