@@ -37,6 +37,78 @@
       <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\space.xnb</Output>
       <Time>2014-03-10T06:23:02.4499669+00:00</Time>
     </Item>
+    <Item>
+      <Source>Textures\earth.jpg</Source>
+      <Name>Textures\earth</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\earth.xnb</Output>
+      <Time>2014-03-14T19:55:40.6518893+00:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\jupiter.jpg</Source>
+      <Name>Textures\jupiter</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\jupiter.xnb</Output>
+      <Time>2014-03-14T19:56:33.1448917+00:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\mars.jpg</Source>
+      <Name>Textures\mars</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\mars.xnb</Output>
+      <Time>2014-03-14T19:56:04.250239+00:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\mercury.jpg</Source>
+      <Name>Textures\mercury</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\mercury.xnb</Output>
+      <Time>2014-03-17T02:52:43.0239014+00:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\neptune.jpg</Source>
+      <Name>Textures\neptune</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\neptune.xnb</Output>
+      <Time>2014-03-14T20:00:59.1521064+00:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\saturn.jpg</Source>
+      <Name>Textures\saturn</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\saturn.xnb</Output>
+      <Time>2014-03-14T20:00:05.7700532+00:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\uranus.jpg</Source>
+      <Name>Textures\uranus</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\uranus.xnb</Output>
+      <Time>2014-03-14T20:00:36.9798383+00:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\venus.jpg</Source>
+      <Name>Textures\venus</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\venus.xnb</Output>
+      <Time>2014-03-17T02:53:25.2693177+00:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{E0D6847D-8A3E-4C80-8D10-0F3AE89A01B6}</ContentProjectGUID>

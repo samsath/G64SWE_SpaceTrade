@@ -7,6 +7,24 @@ namespace WindowsGame2
 {
     class Resource
     {
+        private string name;
+        private int price;
+        public Resource(string name, int price)
+        {
+            this.name = name;
+            this.price = price;
+        }
+
+        public string getName()
+        {
+            return name;
+        }
+
+        public int getPrice()
+        {
+            return price;
+        }
+
         private int initialPrice;
         public int InitialPrice
         {
