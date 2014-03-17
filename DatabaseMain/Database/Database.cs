@@ -561,14 +561,39 @@ namespace STDatabase
                     catch (Exception ex) { Console.WriteLine("Error " + ex); }
 
 
-                    Console.WriteLine("Users Added");
+                    Console.WriteLine("Ship, media and connect Added");
 
                 }
 
             }
         }
 
+        public void NewShipWithMedia(int model, int cargo, int owner, int media_id, string reason)
+        {
+            if(Check()){
+                string Query1 = String.Format("INSERT INTO ship (Model, Health_Level, Cargo_Level, Owner) VALUES ({0},100,{1},{2}); ", model, cargo, owner);
+                string Query2 = String.Format("INSERT INTO shipmedia (Ship_id, Media_id, Reason) VALUES ((SELECT Ship_id FROM ship ORDER BY Ship_id DESC LIMIT 1), {0}, '{1}');", media_id, reason);
+                using (SQLiteCommand command = new SQLiteCommand(dbc))
+                {
+                    try
+                    {
+                        command.CommandText = Query1;
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
 
+                    try
+                    {
+                        command.CommandText = Query2;
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
+
+                    Console.WriteLine("Ship and connect Added");
+                }
+
+            }
+        }
 
 
 
