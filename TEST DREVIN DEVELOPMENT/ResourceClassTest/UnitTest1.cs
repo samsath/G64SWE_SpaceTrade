@@ -7,35 +7,29 @@ namespace ResourceClassTest
     [TestClass]
     public class UnitTest1
     {
-        Resource sys;
+        Resource res;
         [TestInitialize]
         public void init()
         {
-            sys = new Resource();
+            res = new Resource();
 
         }
         [TestMethod]
         public void TheResource_Constructs_OK()
         {
-            Assert.IsNotNull(sys);
+            Assert.IsNotNull(res);
         }
         [TestMethod]
         public void InitialPrice_CheckItHasIntVal()
         {
-            int id = sys.InitialPrice;
+            int id = res.InitialPrice;
             Assert.AreEqual(0, id);
 
         }
         [TestMethod]
         public void Check_ItHas_Description()
         {
-            string description1 = sys.Description;
-            Assert.AreEqual("c", description1);
-        }
-        [TestMethod]
-        public void Check_ItHas_Name()
-        {
-            string description1 = sys.Name;
+            string description1 = res.Description;
             Assert.AreEqual("c", description1);
         }
 
