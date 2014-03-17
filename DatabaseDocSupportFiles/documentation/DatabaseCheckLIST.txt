@@ -11,15 +11,15 @@
 //insert users
 //insert hightscore
 //insert ships which has no current media
-insert ship which has similar media already
-insert Resources which has no media
-insert Resources which has media
-insert Planet which has no media
-insert Planet which has media
-insert Resource to ship
-Insert Resource to Planet
-user money 
-update ship stats
+//insert ship which has similar media already
+//insert Resources which has no media
+//insert Resources which has media
+//insert Planet which has no media
+//insert Planet which has media
+//insert Resource to ship
+//Insert Resource to Planet
+//user money 
+//update ship stats
 update ship cargo
 update ship loc
 update planet Resources
