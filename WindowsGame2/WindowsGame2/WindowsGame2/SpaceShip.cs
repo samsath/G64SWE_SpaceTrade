@@ -21,8 +21,8 @@ namespace WindowsGame2
         int diceRolled = 0;
         int diceRemaining = 0;
         Vector2 fontPosition;
-        private Texture2D texture; // this this a kind of variable  
-        public Vector2 PositionByTile = Vector2.Zero; // vectoer test  
+        private Texture2D texture;
+        public Vector2 PositionByTile;
         public Vector2 PositionByPixel;
 
         private Vector2 startingPosition;

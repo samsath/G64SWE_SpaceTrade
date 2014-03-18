@@ -70,7 +70,8 @@ CREATE TABLE Media (
 CREATE TABLE PlanetResources (
 	PR_id INTEGER PRIMARY KEY AUTOINCREMENT,
 	Planet_id INTEGER,
-	Resources_id INTEGER,
+	Resources_id INTEGER,
+	Amount INTEGER,
 	Price INTEGER,
 	CONSTRAINT fk_PR_Pl FOREIGN KEY (Planet_id) REFERENCES Planet (Planet_id),
 	CONSTRAINT fk_PR_RS FOREIGN KEY (Resources_id) REFERENCES Resources (Resources_id)
