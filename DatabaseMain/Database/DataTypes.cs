@@ -15,6 +15,12 @@ namespace STDatabase
     /// </summary>
     public class Userdata
     {
+        private int p1;
+        private int p2;
+        private int p3;
+        private int p4;
+        private int p5;
+
 
         public int User_id { get; set; }
         public int Session_id { get; set; }
@@ -29,6 +35,7 @@ namespace STDatabase
             Name = name;
             Money = money;
         }
+
     
     }
 

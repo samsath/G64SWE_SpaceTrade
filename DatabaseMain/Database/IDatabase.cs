@@ -33,5 +33,9 @@ namespace STDatabase
         void ShipCargoUpdate(int ship_id, int resource_id, int amount, int price);
         void ShipLoc(int ship_id, int x_loc, int y_loc);
         System.Collections.Generic.List<Resourcedata> ShipResources(int shipId);
+
+        System.Collections.Generic.List<int> SessionPlanet(int sessionid);
+        System.Collections.Generic.List<int> SessionResource(int sessionid);
+        System.Collections.Generic.List<int> SessionShip(int sessionid);
     }
 }

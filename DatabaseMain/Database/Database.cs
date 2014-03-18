@@ -43,7 +43,7 @@ namespace STDatabase
                 dbc = new SQLiteConnection(dbpath);
                 dbc.Open();
                 newCreat();
-                
+
 
                 /// need to add to load sql script here.
             }
@@ -83,24 +83,28 @@ namespace STDatabase
 
             using (SQLiteCommand command = new SQLiteCommand(dbc))
             {
-                if (dbc.State == ConnectionState.Closed){
+                if (dbc.State == ConnectionState.Closed)
+                {
                     dbc.Open();
                 }
 
                 command.CommandText = query;
                 command.ExecuteNonQuery();
 
-                try{
+                try
+                {
                     string UserQuery = "SELECT * FROM users";
                     command.CommandText = UserQuery;
                     command.ExecuteNonQuery();
 
-                }catch(Exception ex){
+                }
+                catch (Exception ex)
+                {
                     Console.WriteLine("Tables havent been created: " + ex);
                     return false;
                 }
                 return true;
-                
+
             }
             dbc.Close();
         }
@@ -142,20 +146,21 @@ namespace STDatabase
             }
         }
 
-        public void exeQuery(string[] query){
+        public void exeQuery(string[] query)
+        {
 
             using (SQLiteCommand command = new SQLiteCommand(dbc))
+            {
+                for (int i = 0; i < query.Length; i++)
                 {
-                   for (int i = 0; i < query.Length; i++)
+                    try
                     {
-                        try
-                        {
-                            command.CommandText = query[i];
-                            command.ExecuteNonQuery();
-                        }
-                        catch (Exception ex) { Console.WriteLine("Error " + ex); }
+                        command.CommandText = query[i];
+                        command.ExecuteNonQuery();
                     }
+                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
                 }
+            }
         }
 
         /// <summary>
@@ -177,15 +182,15 @@ namespace STDatabase
                         {
                             while (rdq.Read())
                             {
-                                Userdata record = new Userdata(rdq.GetInt32(0), rdq.GetInt32(1), rdq.GetString(2), rdq.GetInt32(3),0);
+                                Userdata record = new Userdata(rdq.GetInt32(0), rdq.GetInt32(1), rdq.GetString(2), rdq.GetInt32(3), 0);
                                 result.Add(record);
                             }
                         }
                     }
                     catch (Exception ex) { Console.WriteLine("Error " + ex); }
-                    
+
                 }
-                
+
             }
             return result;
         }
@@ -208,11 +213,12 @@ namespace STDatabase
                         {
                             while (rdq.Read())
                             {
-                                Userdata record = new Userdata(rdq.GetInt32(0), rdq.GetInt32(1), rdq.GetString(2), 0,0);
+                                Userdata record = new Userdata(rdq.GetInt32(0), rdq.GetInt32(1), rdq.GetString(2), 0, 0);
                                 result.Add(record);
                             }
                         }
-                    }catch (Exception ex) { Console.WriteLine("Error " + ex); }
+                    }
+                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
 
                 }
 
@@ -229,7 +235,7 @@ namespace STDatabase
         {
             if (Check())
             {
-                string Query1 = String.Format("INSERT INTO users(Name) VALUES('{0}'); ",name);
+                string Query1 = String.Format("INSERT INTO users(Name) VALUES('{0}'); ", name);
                 string Query2 = String.Format("INSERT INTO sessions(Users_id,Money) VALUES((SELECT Users_id FROM users WHERE Name = '{0}'),{1});", name, money);
                 using (SQLiteCommand command = new SQLiteCommand(dbc))
                 {
@@ -246,7 +252,7 @@ namespace STDatabase
                         command.ExecuteNonQuery();
                     }
                     catch (Exception ex) { Console.WriteLine("Error " + ex); }
-                        
+
 
                     Console.WriteLine("Users Added");
 
@@ -265,7 +271,7 @@ namespace STDatabase
             List<Shipdata> result = new List<Shipdata>();
             if (Check())
             {
-                string Query = string.Format("SELECT ship.Ship_id, ship.Model, ship.Ammo_Level, ship.Health_Level, ship.Cargo_Level, ship.Fuel_Level, ship.Owner, ship.Extenstions, ship.x_loc, ship.y_loc, media.Media_id, media.file_Loc FROM ship, media, shipmedia WHERE ship.Ship_id == shipmedia.Ship_id AND shipmedia.Media_id == media.Media_id AND ship.Ship_id = '{1}';",ship_id);
+                string Query = string.Format("SELECT ship.Ship_id, ship.Model, ship.Ammo_Level, ship.Health_Level, ship.Cargo_Level, ship.Fuel_Level, ship.Owner, ship.Extenstions, ship.x_loc, ship.y_loc, media.Media_id, media.file_Loc FROM ship, media, shipmedia WHERE ship.Ship_id == shipmedia.Ship_id AND shipmedia.Media_id == media.Media_id AND ship.Ship_id = '{1}';", ship_id);
                 using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
                 {
                     try
@@ -298,7 +304,7 @@ namespace STDatabase
             List<Planetdata> result = new List<Planetdata>();
             if (Check())
             {
-                string Query = string.Format("SELECT planet.Planet_id, planet.Title, planet.X_loc, planet.Y_loc, media.Media_id, media.file_Loc FROM planet, media, planetmedia WHERE planet.Planet_id == planetmedia.Planet_id AND planetmedia.Media_id == media.Media_id AND planet.Planet_id = '{0}';",planet_id);
+                string Query = string.Format("SELECT planet.Planet_id, planet.Title, planet.X_loc, planet.Y_loc, media.Media_id, media.file_Loc FROM planet, media, planetmedia WHERE planet.Planet_id == planetmedia.Planet_id AND planetmedia.Media_id == media.Media_id AND planet.Planet_id = '{0}';", planet_id);
                 using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
                 {
                     try
@@ -307,7 +313,7 @@ namespace STDatabase
                         {
                             while (rdq.Read())
                             {
-                                Planetdata record = new Planetdata(rdq.GetInt32(0), rdq.GetString(1), rdq.GetInt32(2), rdq.GetInt32(3), rdq.GetInt32(4),  rdq.GetString(5));
+                                Planetdata record = new Planetdata(rdq.GetInt32(0), rdq.GetString(1), rdq.GetInt32(2), rdq.GetInt32(3), rdq.GetInt32(4), rdq.GetString(5));
                                 result.Add(record);
                             }
                         }
@@ -361,7 +367,8 @@ namespace STDatabase
         {
             string Query = "";
             List<Mediadata> result = new List<Mediadata>();
-            switch(type){
+            switch (type)
+            {
                 case "R":
                     Query = string.Format("SELECT media.Media_id, media.X_size, media.Y_size, media.Lenght, media.File_loc FROM media, resourcesmedia WHERE resourcesmedia.Media_id == media.Media_id AND resourcesmedia.Resources_id == '{0}';", id);
                     break;
@@ -372,8 +379,9 @@ namespace STDatabase
                     Query = string.Format("SELECT media.Media_id, media.X_size, media.Y_size, media.Lenght, media.File_loc FROM media, planetmedia WHERE planetmedia.Media_id == media.Media_id AND planetmedia.Planet_id == '{0}';", id);
                     break;
             }
-            if(Check()){
-                 using (SQLiteCommand command = new SQLiteCommand( Query, dbc))
+            if (Check())
+            {
+                using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
                 {
                     try
                     {
@@ -381,7 +389,7 @@ namespace STDatabase
                         {
                             while (rdq.Read())
                             {
-                                Mediadata record = new Mediadata(rdq.GetInt32(0), rdq.GetInt32(1), rdq.GetInt32(2), rdq.GetInt32(3),rdq.GetString(4));
+                                Mediadata record = new Mediadata(rdq.GetInt32(0), rdq.GetInt32(1), rdq.GetInt32(2), rdq.GetInt32(3), rdq.GetString(4));
                                 result.Add(record);
                             }
                         }
@@ -391,7 +399,7 @@ namespace STDatabase
                 }
             }
             return result;
-         }
+        }
 
         /// <summary>
         /// Gets the high score of the everyone in the list
@@ -497,8 +505,8 @@ namespace STDatabase
         {
             if (Check())
             {
-                string[] Query = new string[1]{String.Format("INSERT INTO highscore(Users_id,Score) VALUES((SELECT Users_id FROM users WHERE Name = '{0}'),{1});", name, score)};
-                
+                string[] Query = new string[1] { String.Format("INSERT INTO highscore(Users_id,Score) VALUES((SELECT Users_id FROM users WHERE Name = '{0}'),{1});", name, score) };
+
                 exeQuery(Query);
 
             }
@@ -513,8 +521,8 @@ namespace STDatabase
         {
             if (Check())
             {
-                string[] Query = new string[1] {String.Format("INSERT INTO highscore(Users_id,Score) VALUES({0},{1});", id, score)};
-                
+                string[] Query = new string[1] { String.Format("INSERT INTO highscore(Users_id,Score) VALUES({0},{1});", id, score) };
+
                 exeQuery(Query);
 
             }
@@ -539,7 +547,7 @@ namespace STDatabase
                     String.Format("INSERT INTO media (X_size, Y_size,file_Loc,Media_type) VALUES ({3},{4},{5},{6});", x_s,y_s,fileloc,type),
                     String.Format("INSERT INTO shipmedia (Ship_id, Media_id, Reason) VALUES ((SELECT Ship_id FROM ship ORDER BY Ship_id DESC LIMIT 1), (SELECT Media_id FROM media ORDER BY Media_id DESC LIMIT 1), '{0}');", reason)
                 };
-                
+
                 exeQuery(Query);
 
             }
@@ -554,12 +562,13 @@ namespace STDatabase
         /// <param name="reason"></param>
         public void NewShipWithMedia(int model, int cargo, int owner, int media_id, string reason)
         {
-            if(Check()){
-                string[] Query = new string [2] {
+            if (Check())
+            {
+                string[] Query = new string[2] {
                     String.Format("INSERT INTO ship (Model, Health_Level, Cargo_Level, Owner) VALUES ({0},100,{1},{2}); ", model, cargo, owner),
                     String.Format("INSERT INTO shipmedia (Ship_id, Media_id, Reason) VALUES ((SELECT Ship_id FROM ship ORDER BY Ship_id DESC LIMIT 1), {0}, '{1}');", media_id, reason)
                 };
-                
+
                 exeQuery(Query);
 
             }
@@ -583,7 +592,7 @@ namespace STDatabase
                     String.Format("INSERT INTO media (X_size, Y_size,file_Loc,Media_type) VALUES ({0},{1},{2},{3});", x_s ,y_s ,fileloc ,type),
                     "INSERT INTO resourcesmedia (Resourcs_id, Media_id) VALUES ((SELECT Resources_id FROM Resources ORDER BY Resources_id DESC LIMIT 1), (SELECT Media_id FROM Media ORDER BY Media_id DESC LIMIT 1))"
                 };
-               
+
                 exeQuery(Query);
 
             }
@@ -603,7 +612,7 @@ namespace STDatabase
                     String.Format("INSERT INTO resources (Name, Inital_Price, Description) VALUES ({0},{1},{2});",resource, initialprice, descript),
                     String.Format( "INSERT INTO resourcesmedia (Resourcs_id, Media_id) VALUES ((SELECT Resources_id FROM Resources ORDER BY Resources_id DESC LIMIT 1), {0})",media_id )
                 };
-                
+
                 exeQuery(Query);
 
             }
@@ -662,14 +671,15 @@ namespace STDatabase
         /// <param name="resource_id"></param>
         /// <param name="amount"></param>
         /// <param name="bourghtPrice"></param>
-        public void AddResourceToShip(int ship_id, int resource_id, int amount, int bourghtPrice )
+        public void AddResourceToShip(int ship_id, int resource_id, int amount, int bourghtPrice)
         {
-            if(Check()){
+            if (Check())
+            {
                 string[] query = new string[2] {
                     String.Format("INSERT INTO shipresource (Ship_id, Resource_id, amount, Bought_Price) VALUES ({0},{1},{2},{3})", ship_id, resource_id, amount, bourghtPrice),
                     String.Format("UPDATE ship SET Ship.Cargo_Level = Ship.Cargo_Level - {0} WHERE Ship_id = {1}", amount, ship_id)
                 };
-                
+
                 exeQuery(query);
 
                 Console.WriteLine("Resource added to Ship");
@@ -686,9 +696,10 @@ namespace STDatabase
         /// <param name="price"></param>
         public void AddResourceToPlanet(int planet_id, int resource_id, int amount, int price)
         {
-            if(Check()){
-                string[] query = new string[1] { String.Format("INSERT INTO planetresources (Planet_id, Resources_id, Amount, Price) VALUSE ({0}, {1}, {2}, {3})", planet_id, resource_id, amount, price)};
-                
+            if (Check())
+            {
+                string[] query = new string[1] { String.Format("INSERT INTO planetresources (Planet_id, Resources_id, Amount, Price) VALUSE ({0}, {1}, {2}, {3})", planet_id, resource_id, amount, price) };
+
                 exeQuery(query);
 
                 Console.WriteLine("Resource added to Planet");
@@ -700,9 +711,11 @@ namespace STDatabase
         /// </summary>
         /// <param name="user_id"></param>
         /// <param name="money"></param>
-        public void SetUserMoney(int user_id, int money){
-            if(Check()){
-                string[] query = new string[1] {String.Format("UPDATE users SET money = {0} WHERE Users_id = {1}", money, user_id)};
+        public void SetUserMoney(int user_id, int money)
+        {
+            if (Check())
+            {
+                string[] query = new string[1] { String.Format("UPDATE users SET money = {0} WHERE Users_id = {1}", money, user_id) };
 
                 exeQuery(query);
 
@@ -718,10 +731,12 @@ namespace STDatabase
         /// <param name="Health_level"></param>
         /// <param name="Cargo_level"></param>
         /// <param name="Fuel_level"></param>
-        public void ShipAdd (int ship_id, int Ammo_level, int Health_level, int Cargo_level, int Fuel_level) {
-	        if(Check()){
-		        string[] query = new string[1] { String.Format("UPDATE ship SET Ammo_Level = {0}, Health_Level = {1}, Cargo_Level = {2}, Fuel_Level = {3} WHERE Ship_id = {4}", Ammo_level, Health_level, Cargo_level, Fuel_level, ship_id)};
-                
+        public void ShipAdd(int ship_id, int Ammo_level, int Health_level, int Cargo_level, int Fuel_level)
+        {
+            if (Check())
+            {
+                string[] query = new string[1] { String.Format("UPDATE ship SET Ammo_Level = {0}, Health_Level = {1}, Cargo_Level = {2}, Fuel_Level = {3} WHERE Ship_id = {4}", Ammo_level, Health_level, Cargo_level, Fuel_level, ship_id) };
+
                 exeQuery(query);
 
                 Console.WriteLine("Ship stats updated");
@@ -735,12 +750,14 @@ namespace STDatabase
         /// <param name="resource_id"></param>
         /// <param name="amount"></param>
         /// <param name="price"></param>
-        public void ShipCargoUpdate (int ship_id, int resource_id, int amount, int price) {
-	        if(Check()){
-		        string[] query = new string[1] { String.Format("UPDATE shipresource SET amount = {0}, Bought_Price = {1} WHERE Ship_id = {2} AND Resources_id = {3}", amount, price, ship_id,resource_id)};
+        public void ShipCargoUpdate(int ship_id, int resource_id, int amount, int price)
+        {
+            if (Check())
+            {
+                string[] query = new string[1] { String.Format("UPDATE shipresource SET amount = {0}, Bought_Price = {1} WHERE Ship_id = {2} AND Resources_id = {3}", amount, price, ship_id, resource_id) };
 
                 exeQuery(query);
-               
+
                 Console.WriteLine("Ship Cargo updated");
             }
         }
@@ -751,9 +768,11 @@ namespace STDatabase
         /// <param name="ship_id"></param>
         /// <param name="x_loc"></param>
         /// <param name="y_loc"></param>
-        public void ShipLoc(int ship_id, int x_loc, int y_loc){
-	        if(Check()) {
-		        string[] query = new string[1] {String.Format("UPDATE ship SET x_loc = {0}, y_loc = {1} WHERE Ship_id = {2}", x_loc, y_loc, ship_id)};
+        public void ShipLoc(int ship_id, int x_loc, int y_loc)
+        {
+            if (Check())
+            {
+                string[] query = new string[1] { String.Format("UPDATE ship SET x_loc = {0}, y_loc = {1} WHERE Ship_id = {2}", x_loc, y_loc, ship_id) };
 
                 exeQuery(query);
 
@@ -768,9 +787,11 @@ namespace STDatabase
         /// <param name="resource_id"></param>
         /// <param name="amount"></param>
         /// <param name="price"></param>
-        public void PlanetResourceUpdate (int planet_id, int resource_id, int amount, int price){
-            if(Check()){
-                string[] query = new string[1] {String.Format("UPDATE planetresources SET Amount = {0}, Price = {1} WHERE (Planet_id = {2} AND Resources_id = {3})", amount, price, planet_id, resource_id)};
+        public void PlanetResourceUpdate(int planet_id, int resource_id, int amount, int price)
+        {
+            if (Check())
+            {
+                string[] query = new string[1] { String.Format("UPDATE planetresources SET Amount = {0}, Price = {1} WHERE (Planet_id = {2} AND Resources_id = {3})", amount, price, planet_id, resource_id) };
 
                 exeQuery(query);
 
@@ -778,7 +799,101 @@ namespace STDatabase
             }
         }
 
-    }
+        /// <summary>
+        /// This will return the list of planets on that session.
+        /// </summary>
+        /// <param name="sessionid"></param>
+        /// <returns>Array List of int(planet id's)</returns>
+        public List<int> SessionPlanet(int sessionid)
+        {
+            List<int> result = new List<int>();
+            if (Check())
+            {
+                string Query = String.Format("SELECT Planet_id FROM sessiontoplanet WHERE Session_id = {0}", sessionid);
+                using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
+                {
+                    try
+                    {
 
+                        using (SQLiteDataReader rdq = command.ExecuteReader())
+                        {
+                            while (rdq.Read())
+                            {
+                                result.Add(rdq.GetInt32(0));
+                            }
+                        }
+                    }
+                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
+
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// This will return a list of ships in this session.
+        /// </summary>
+        /// <param name="sessionid"></param>
+        /// <returns>Array List of int(ship id's)</returns>
+        public List<int> SessionShip(int sessionid)
+        {
+            List<int> result = new List<int>();
+            if (Check())
+            {
+                string Query = String.Format("SELECT Ship_id FROM sessiontoship WHERE Session_id = {0}", sessionid);
+                using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
+                {
+                    try
+                    {
+
+                        using (SQLiteDataReader rdq = command.ExecuteReader())
+                        {
+                            while (rdq.Read())
+                            {
+                                result.Add(rdq.GetInt32(0));
+                            }
+                        }
+                    }
+                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
+
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// This will return a list of resources in this session.
+        /// </summary>
+        /// <param name="sessionid"></param>
+        /// <returns>Array List of int(ship id's)</returns>
+        public List<int> SessionResource(int sessionid)
+        {
+            List<int> result = new List<int>();
+            if (Check())
+            {
+                string Query = String.Format("SELECT Resource_id FROM sessiontoresources WHERE Session_id = {0}", sessionid);
+                using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
+                {
+                    try
+                    {
+
+                        using (SQLiteDataReader rdq = command.ExecuteReader())
+                        {
+                            while (rdq.Read())
+                            {
+                                result.Add(rdq.GetInt32(0));
+                            }
+                        }
+                    }
+                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
+
+                }
+            }
+
+            return result;
+        }
+    }
 
 }
