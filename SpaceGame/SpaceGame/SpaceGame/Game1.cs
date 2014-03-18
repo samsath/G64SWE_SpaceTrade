@@ -33,6 +33,7 @@ namespace SpaceGame
         public TitleScreen TitleScreen;
         public StartMenuScreen StartMenuScreen;
         public GamePlayScreen GamePlayScreen;
+        public AdminScreen AdminScreen;
         public CharacterGeneratorScreen CharacterGeneratorScreen;
 
         #endregion
@@ -69,6 +70,7 @@ namespace SpaceGame
             TitleScreen = new TitleScreen(this, stateManager);
             StartMenuScreen = new StartMenuScreen(this, stateManager);
             GamePlayScreen = new GamePlayScreen(this, stateManager);
+            AdminScreen = new AdminScreen(this, stateManager);
             CharacterGeneratorScreen = new CharacterGeneratorScreen(this, stateManager);
 
             stateManager.ChangeState(TitleScreen);

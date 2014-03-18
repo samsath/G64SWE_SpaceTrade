@@ -29,6 +29,8 @@ namespace XRpgLibrary
 
         const int startDrawOrder = 5000;
         const int drawOrderInc = 100;
+
+        public string shipName = "";
         int drawOrder;
 
         public GameState CurrentState
@@ -98,8 +100,9 @@ namespace XRpgLibrary
             gameStates.Pop();
         }
 
-        public void PushState(GameState newState)
+        public void PushState(GameState newState, Object str)
         {
+            shipName = str.ToString();
             drawOrder += drawOrderInc;
             newState.DrawOrder = drawOrder;
 

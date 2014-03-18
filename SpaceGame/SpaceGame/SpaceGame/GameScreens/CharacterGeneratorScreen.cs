@@ -9,24 +9,41 @@ using Microsoft.Xna.Framework.Input;
 
 using XRpgLibrary;
 using XRpgLibrary.Controls;
+using SpaceGame.Components;
+using System.Diagnostics;
 
 namespace SpaceGame.GameScreens
 {
     public class CharacterGeneratorScreen : BaseGameState
     {
         #region Field Region
-
+        string ship;
         //LeftRightSelector genderSelector;
-        LeftRightSelector classSelector;
+        LeftRightSelector shipSelector;
         PictureBox backgroundImage;
 
+        PictureBox shipImage;
+        Texture2D[] shipImages;
+
+        Texture2D stopTexture;
+
         //string[] genderItems = { "Male", "Female" };
-        string charName;
-        string[] classItems = { "Ship1", "Ship2", "Ship3", "Ship4" };
+        string[] shipItems = { "Ship1", "Ship2", "Ship3", "Ship4" };
 
         #endregion
 
         #region Property Region
+
+        /*public string SelectedGender
+        {
+            get { return genderSelector.SelectedItem; }
+        }*/
+
+        public string SelectedShip
+        {
+            get { return shipSelector.SelectedItem; }
+        }
+
         #endregion
 
         #region Constructor Region
@@ -49,6 +66,7 @@ namespace SpaceGame.GameScreens
         {
             base.LoadContent();
 
+            LoadImages();
             CreateControls();
         }
 
@@ -77,7 +95,7 @@ namespace SpaceGame.GameScreens
         {
             Texture2D leftTexture = Game.Content.Load<Texture2D>(@"GUI\leftarrowUp");
             Texture2D rightTexture = Game.Content.Load<Texture2D>(@"GUI\rightarrowUp");
-            Texture2D stopTexture = Game.Content.Load<Texture2D>(@"GUI\StopBar");
+            stopTexture = Game.Content.Load<Texture2D>(@"GUI\StopBar");
 
             backgroundImage = new PictureBox(
                 Game.Content.Load<Texture2D>(@"Backgrounds\titlescreen"),
@@ -92,36 +110,66 @@ namespace SpaceGame.GameScreens
 
             ControlManager.Add(label1);
 
-            //genderSelector = new LeftRightSelector(leftTexture, rightTexture, stopTexture);
-            //genderSelector.SetItems(genderItems, 125);
-            //genderSelector.Position = new Vector2(label1.Position.X, 200);
+            /*genderSelector = new LeftRightSelector(leftTexture, rightTexture, stopTexture);
+            genderSelector.SetItems(genderItems, 125);
+            genderSelector.Position = new Vector2(label1.Position.X, 200);
+            genderSelector.SelectionChanged += new EventHandler(selectionChanged);
 
-            //ControlManager.Add(genderSelector);
+            ControlManager.Add(genderSelector);*/
 
-            classSelector = new LeftRightSelector(leftTexture, rightTexture, stopTexture);
-            classSelector.SetItems(classItems, 125);
-            classSelector.Position = new Vector2(label1.Position.X, 250);
+            shipSelector = new LeftRightSelector(leftTexture, rightTexture, stopTexture);
+            shipSelector.SetItems(shipItems, 125);
+            shipSelector.Position = new Vector2(label1.Position.X, 250);
+            shipSelector.SelectionChanged += selectionChanged;
 
-            ControlManager.Add(classSelector);
+            ControlManager.Add(shipSelector);
 
             LinkLabel linkLabel1 = new LinkLabel();
             linkLabel1.Text = "Use this Ship.";
             linkLabel1.Position = new Vector2(label1.Position.X, 300);
             linkLabel1.Selected += new EventHandler(linkLabel1_Selected);
+            ship = shipSelector.getItem();
+            //Debug.WriteLine("hgfhfdgdffgs "+ship);
 
             ControlManager.Add(linkLabel1);
 
+            shipImage = new PictureBox(
+                shipImages[0],
+                new Rectangle(600, 200, 96, 96));
+            ControlManager.Add(shipImage);
+
             ControlManager.NextControl();
+        }
+
+        private void LoadImages()
+        {
+            shipImages = new Texture2D[shipItems.Length];
+
+            //for (int i = 0; i < genderItems.Length; i++)
+            //{
+            for (int j = 0; j < shipItems.Length; j++)
+            {
+                shipImages[j] = Game.Content.Load<Texture2D>(@"ShipSprites\" + shipItems[j]);
+            }
+            //}
         }
 
         void linkLabel1_Selected(object sender, EventArgs e)
         {
             InputHandler.Flush();
-
             StateManager.PopState();
-            StateManager.PushState(GameRef.GamePlayScreen);
+            StateManager.PushState(GameRef.GamePlayScreen, ship);
         }
+
+        void selectionChanged(object sender, EventArgs e)
+        {
+            shipImage.Image = shipImages[shipSelector.SelectedIndex];
+            ship = shipSelector.getItem();
+            //Debug.WriteLine("hgfhfdgdffgs " + ship);
+        }
+
 
         #endregion
     }
 }
+

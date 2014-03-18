@@ -9,6 +9,7 @@ using XRpgLibrary.Controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SpaceGame.Components;
 
 namespace SpaceGame.GameScreens
 {
@@ -17,6 +18,7 @@ namespace SpaceGame.GameScreens
         #region Fields region
 
         protected Game1 GameRef;
+
 
         protected ControlManager ControlManager;
 

@@ -72,7 +72,13 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\Player.cs" />
+    <Compile Include="Components\Board.cs" />
+    <Compile Include="Components\Object.cs" />
+    <Compile Include="Components\Planet.cs" />
+    <Compile Include="Components\Resource.cs" />
+    <Compile Include="Components\SpaceShip.cs" />
+    <Compile Include="Components\Tile.cs" />
+    <Compile Include="GameScreens\AdminScreen.cs" />
     <Compile Include="GameScreens\BaseGameState.cs" />
     <Compile Include="GameScreens\CharacterGeneratorScreen.cs" />
     <Compile Include="GameScreens\GamePlayScreen.cs" />

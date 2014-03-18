@@ -80,7 +80,7 @@ namespace SpaceGame.GameScreens
 
         private void startLabel_Selected(object sender, EventArgs e)
         {
-            StateManager.PushState(GameRef.StartMenuScreen);
+            StateManager.PushState(GameRef.StartMenuScreen, "");
         }
 
         #endregion

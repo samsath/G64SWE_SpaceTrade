@@ -119,12 +119,12 @@ namespace SpaceGame.GameScreens
         {
             if (sender == startGame)
             {
-                StateManager.PushState(GameRef.CharacterGeneratorScreen);
+                StateManager.PushState(GameRef.AdminScreen, "");
             }
 
             if (sender == loadGame)
             {
-                StateManager.PushState(GameRef.GamePlayScreen);
+                StateManager.PushState(GameRef.GamePlayScreen, "");
             }
 
             if (sender == exitGame)
