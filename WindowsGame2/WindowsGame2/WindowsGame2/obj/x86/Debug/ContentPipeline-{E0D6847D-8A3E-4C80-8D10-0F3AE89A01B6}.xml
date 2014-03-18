@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\background.xnb</Output>
-      <Time>2014-03-10T06:14:31.741756+00:00</Time>
+      <Output>C:\Users\Dan\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\background.xnb</Output>
+      <Time>2014-03-14T14:18:01.4589857+00:00</Time>
     </Item>
     <Item>
       <Source>Textures\emptyTile.jpg</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\emptyTile.xnb</Output>
-      <Time>2014-03-10T06:23:02.4499669+00:00</Time>
+      <Output>C:\Users\Dan\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\emptyTile.xnb</Output>
+      <Time>2014-03-14T14:18:01.463986+00:00</Time>
     </Item>
     <Item>
       <Source>Textures\spaceship.jpg</Source>
@@ -25,8 +25,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\spaceship.xnb</Output>
-      <Time>2014-03-10T06:49:31.3938492+00:00</Time>
+      <Output>C:\Users\Dan\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Textures\spaceship.xnb</Output>
+      <Time>2014-03-14T14:18:01.4669861+00:00</Time>
     </Item>
     <Item>
       <Source>Font\CourierNew.spritefont</Source>
@@ -34,8 +34,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Font\CourierNew.xnb</Output>
-      <Time>2014-03-12T03:34:19.5963507+00:00</Time>
+      <Output>C:\Users\Dan\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\Font\CourierNew.xnb</Output>
+      <Time>2014-03-14T14:18:01.4559855+00:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -44,10 +44,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2Content\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\User\Desktop\Truong's Files\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Dan\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2Content\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Dan\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Dan\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Dan\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -76,7 +76,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2014-03-05T19:12:23.3988477+00:00</Value>
+        <Value>2014-03-01T21:36:08.3373817+00:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>
