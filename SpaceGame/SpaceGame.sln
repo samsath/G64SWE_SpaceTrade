@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
+<<<<<<< HEAD
 VisualStudioVersion = 12.0.21005.1
+=======
+VisualStudioVersion = 12.0.30110.0
+>>>>>>> c61be86203ba6c91da424deef3c47376a48117f1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceGame", "SpaceGame\SpaceGame\SpaceGame.csproj", "{B0893750-05CB-42F6-ADA8-BA609876D4DF}"
 EndProject
@@ -11,7 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpgLibrary", "RpgLibrary\Rp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XRpgLibrary", "XRpgLibrary\XRpgLibrary.csproj", "{01BD1EBC-A484-435D-8E49-C65A45066EBA}"
 EndProject
+<<<<<<< HEAD
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{11866F74-EE78-475D-9DCB-3D71A6B78F94}"
+=======
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "..\DatabaseMain\Database\Database.csproj", "{A5FA4D23-7F26-409E-8C2F-929F88D4A70C}"
+>>>>>>> c61be86203ba6c91da424deef3c47376a48117f1
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +67,7 @@ Global
 		{01BD1EBC-A484-435D-8E49-C65A45066EBA}.Release|Mixed Platforms.Build.0 = Release|x86
 		{01BD1EBC-A484-435D-8E49-C65A45066EBA}.Release|x86.ActiveCfg = Release|x86
 		{01BD1EBC-A484-435D-8E49-C65A45066EBA}.Release|x86.Build.0 = Release|x86
+<<<<<<< HEAD
 		{11866F74-EE78-475D-9DCB-3D71A6B78F94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{11866F74-EE78-475D-9DCB-3D71A6B78F94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11866F74-EE78-475D-9DCB-3D71A6B78F94}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -69,6 +78,18 @@ Global
 		{11866F74-EE78-475D-9DCB-3D71A6B78F94}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{11866F74-EE78-475D-9DCB-3D71A6B78F94}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{11866F74-EE78-475D-9DCB-3D71A6B78F94}.Release|x86.ActiveCfg = Release|Any CPU
+=======
+		{A5FA4D23-7F26-409E-8C2F-929F88D4A70C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5FA4D23-7F26-409E-8C2F-929F88D4A70C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5FA4D23-7F26-409E-8C2F-929F88D4A70C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A5FA4D23-7F26-409E-8C2F-929F88D4A70C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A5FA4D23-7F26-409E-8C2F-929F88D4A70C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A5FA4D23-7F26-409E-8C2F-929F88D4A70C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5FA4D23-7F26-409E-8C2F-929F88D4A70C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5FA4D23-7F26-409E-8C2F-929F88D4A70C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A5FA4D23-7F26-409E-8C2F-929F88D4A70C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A5FA4D23-7F26-409E-8C2F-929F88D4A70C}.Release|x86.ActiveCfg = Release|Any CPU
+>>>>>>> c61be86203ba6c91da424deef3c47376a48117f1
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
