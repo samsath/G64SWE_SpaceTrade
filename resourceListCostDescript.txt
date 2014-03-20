@@ -1,0 +1,22 @@
+Aluminium,50,"Metal used for making ships and equipment"
+Beryllium,100,"Creation of ships and bombs"
+Cobalt,10,"Power Planet material"
+Dilithium,50,"Warp speed ship energy supply"
+Rhodium,60,"Material helps with space ship shielding"
+Wood,5,"Decorative objects and house creation"
+Mabel,20,"Stone rock that can be decorative"
+Petrol,100,"Used for old fashioned car's declared illegal on some planets due to side effects"
+Zinc,60,"Metal material that can help with the production of items"
+Meat,30,"Unknown origins but tastes something similar to lamb and turkey but the colour spam"
+Spam,1,"Spam Spam Spam Spam SPAM"
+Unobtainium,1000,"Impossible to get hold of"
+fictionium,500,"Important for making anything"
+Plastic,100,"Man made material from oil"
+Scotch,50,"Good drink, special ring in hell if drunk wrong"
+Cloth,10,"Made into clothing"
+Fuel,30,"Gives energy to ships"
+Ammo,30,"Used with guns and flung at people"
+
+public Resourcedata(0, string name, int inital_price, string descript, 0,0, 0, 0,0,0, "null")
+
+List<Resourcedata> resourceadd = new List<Resourcedata>();
