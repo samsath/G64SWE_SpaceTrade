@@ -8,7 +8,7 @@ namespace ResourceClassLibrary
 {
     public class Resource // : Objects  // refrence the parant class ERROR WHEN WE REFRENCE
     {
-        private int initialPrice;
+        private int initialPrice = 0 ;
         private string description = "c";
         
         public int InitialPrice { get { return initialPrice; } set { initialPrice = value; } }
