@@ -16,6 +16,14 @@ namespace Test
     [TestClass]
     public class SpaceShipTest
     {
+        DatabasePopulate dbp;
+        [TestInitialize]
+        public void init()
+        {
+            dbp = new DatabasePopulate();
+
+        }
+
         [TestMethod]
         public void IfKeyPressedDiceWillRoll()
         {
@@ -26,6 +34,11 @@ namespace Test
             myShip.Update(time);
             Debug.WriteLine("asdfasdfasdf "+myShip.getDiceRolled());
             Assert.IsTrue(myShip.getDiceRolled()>=1&&myShip.getDiceRolled()<=6);
+        }
+        [TestMethod]
+        public void ResourcesAddedatStartofGame()
+        {
+            Assert.IsTrue(dbp.Startresourceadd());
         }
     }
 }

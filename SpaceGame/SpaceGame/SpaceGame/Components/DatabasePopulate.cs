@@ -4,28 +4,34 @@ using System.Linq;
 using System.Text;
 using STDatabase;
 using System.IO;
+using System.Xml;
 
 
 namespace SpaceGame.Components
 {
-    class DatabasePopulate
+    public class DatabasePopulate
     {
         /*
          * This is to try and populate the database when a new game starts. It is done here so that it can easily be removed or changed if need by as maybe
          * threaded if it slows down the process.
          */
         Database dbs = new Database();
-        public void resourceadd()
+        public Boolean Startresourceadd()
         {
-            var contents = File.ReadAllLines("resourceListCostDescript.csv");
-            for (int i = 0; i < contents.Length; i++)
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"Content\resourceListCostDescript.xml");
+            XmlNodeList elemlist = doc.GetElementsByTagName("Res");
+            try
             {
-                string[] lineSplit = contents[i].Split(',');
-                dbs.NewResourceMedia(lineSplit[0], ToInt32(lineSplit[1]), lineSplit[2], 0, 0, lineSplit[3],0);
-               
+                for (int i = 0; i < elemlist.Count; i++)
+                {
 
-                // public void NewResourceMedia(string resource, int initialprice, string descript, int x_s, int y_s, string fileloc, int type)
+                    dbs.NewResourceMedia(elemlist[i].Attributes["Name"].Value, Convert.ToInt16(elemlist[i].Attributes["Price"].Value), elemlist[i].Attributes["Descrp"].Value, 0, 0, elemlist[i].Attributes["loc"].Value, 0);
+                }
+                Console.WriteLine("Resources added to the database at start of the game");
+                return true;
             }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
         }
     }
 }

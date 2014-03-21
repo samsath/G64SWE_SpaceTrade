@@ -96,7 +96,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\DatabaseMain\Database\Database.csproj">
+    <ProjectReference Include="..\..\Database\Database.csproj">
       <Project>{a5fa4d23-7f26-409e-8c2f-929f88d4a70c}</Project>
       <Name>Database</Name>
     </ProjectReference>
