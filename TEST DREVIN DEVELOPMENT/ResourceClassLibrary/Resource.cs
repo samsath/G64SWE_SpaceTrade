@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ResourceClassLibrary
 {
-    public class Resource // : Objects  // refrence the parant class ERROR WHEN WE REFRENCE
+    public class Resource : Objects  // refrence the parant class ERROR WHEN WE REFRENCE
     {
         private int initialPrice;
         private string description = "c";
