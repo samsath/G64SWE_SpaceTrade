@@ -1,7 +1,7 @@
 ﻿using System;
 namespace STDatabase
 {
-    interface IDatabase
+    public interface IDatabase
     {
         void AddResourceToPlanet(int planet_id, int resource_id, int amount, int price);
         void AddResourceToShip(int ship_id, int resource_id, int amount, int bourghtPrice);

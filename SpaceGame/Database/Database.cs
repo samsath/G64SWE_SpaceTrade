@@ -17,7 +17,7 @@ namespace STDatabase
     /// <summary>
     /// The location will need to be changed so that they work on every computer/
     /// </summary>
-    public class Database : STDatabase.IDatabase
+    public class Database : IDatabase
     {
         public SQLiteConnection dbc;
         string dbpath;
@@ -593,10 +593,12 @@ namespace STDatabase
                     String.Format("INSERT INTO media (X_size, Y_size,file_Loc,Media_type) VALUES ({0},{1},'{2}',{3});", x_s ,y_s ,fileloc ,type),
                     "INSERT INTO resourcesmedia (Resources_id, Media_id) VALUES ((SELECT Resources_id FROM Resources ORDER BY Resources_id DESC LIMIT 1), (SELECT Media_id FROM Media ORDER BY Media_id DESC LIMIT 1))"
                 };
+                /*
                 for (int i = 0; i < Query.Length; i++)
                 {
                     Console.WriteLine(Query[i]);
                 }
+                */
                     exeQuery(Query);
 
             }

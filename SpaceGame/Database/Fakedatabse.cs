@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace STDatabase
 {
-    class Fakedatabse : STDatabase.IDatabase
+    public class Fakedatabse : IDatabase
     {
         public string stringData;
         public int intData;

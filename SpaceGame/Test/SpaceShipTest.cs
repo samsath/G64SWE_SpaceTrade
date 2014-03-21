@@ -40,5 +40,11 @@ namespace Test
         {
             Assert.IsTrue(dbp.Startresourceadd());
         }
+
+        [TestMethod]
+        public void PlanetDatabaseCreate()
+        {
+           // see if planet is added to the database.
+        }
     }
 }
