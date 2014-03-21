@@ -13,8 +13,8 @@ namespace SpaceGame.Components
 
         Planet planet;
 
-        public static int TileWidth = 64;
-        public static int TileHeight = 47;
+        public static int TileWidth = 80;
+        public static int TileHeight = 60;
 
 
         public Tile(Texture2D texture, Planet planet)

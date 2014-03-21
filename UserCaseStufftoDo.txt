@@ -1,8 +1,3 @@
-
-
-
-
-
 As a user I want a spaceship which can hold cargo (HIGH)
 As a user, I want to be able to upgrade my spaceship (MEDIUM)
 
@@ -26,9 +21,13 @@ Game System
 	 As a user, I want to be able to save my progress (MEDIUM)
  
  Graphics Done
+ 
+ As a user, I want to be able to buy and sell items (HIGH)
+ 
+ 
 	 As an admin, I want to be able to set initial prices of some items (MEDIUM)
 	 As a user, I want to be able to fly to different parts of the universe (HIGH)
-	 As a user, I want to be able to buy and sell items (HIGH)
+	 
 	 As an admin, I want to set the initial amount in the money account (HIGH)
 	 As a user, I want some visual representation of the universe and a spaceship (HIGH)
  

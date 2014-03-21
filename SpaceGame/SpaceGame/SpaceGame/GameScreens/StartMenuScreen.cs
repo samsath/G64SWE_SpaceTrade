@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Content;
 
 using XRpgLibrary;
 using XRpgLibrary.Controls;
+using SpaceGame.Components;
 
 namespace SpaceGame.GameScreens
 {
@@ -23,6 +24,7 @@ namespace SpaceGame.GameScreens
         LinkLabel loadGame;
         LinkLabel exitGame;
         float maxItemWidth = 0f;
+        DatabasePopulate dbp = new DatabasePopulate();
 
         #endregion
 
@@ -120,6 +122,8 @@ namespace SpaceGame.GameScreens
             if (sender == startGame)
             {
                 StateManager.PushState(GameRef.AdminScreen, "");
+                // this is to add resources to the new game
+                dbp.Startresourceadd();
             }
 
             if (sender == loadGame)

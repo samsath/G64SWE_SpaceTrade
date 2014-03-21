@@ -10,11 +10,10 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using System.Diagnostics;
 
 namespace SpaceGame.Components
 {
-    class SpaceShip : Object
+    public class SpaceShip : Object
     {
         string name;
         SpriteFont font1;
@@ -43,6 +42,7 @@ namespace SpaceGame.Components
         const int SHIP_SPEED = 100;
         Vector2 shipSpeed;
         Vector2 shipDirection; // help with ship moving
+        private bool keyboardSpacePressed=false;
 
         // Load the content
         public void LoadContent(ContentManager content)
@@ -67,7 +67,7 @@ namespace SpaceGame.Components
             }
             if (currentState == State.Waiting)
             {
-                if (keyboardState.IsKeyDown(Keys.Space))
+                if (keyboardState.IsKeyDown(Keys.Space)||keyboardSpacePressed)
                 {
                     diceRolled = random.Next(1, 7);
                     diceRemaining = diceRolled;
@@ -138,5 +138,24 @@ namespace SpaceGame.Components
             name = texture;
         }
 
+
+
+        public int getDiceRolled()
+        {
+            return diceRolled;
+        }
+
+
+        public void setState(string p)
+        {
+            if (p.Equals("waiting")) currentState = State.Waiting;
+        }
+
+
+        public void pressKeyboard(string p)
+        {
+            if (p.Equals("space")) keyboardSpacePressed = true;
+        }
     }
+
 }

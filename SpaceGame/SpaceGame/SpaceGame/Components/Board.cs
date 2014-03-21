@@ -90,7 +90,6 @@ namespace SpaceGame.Components
             {
                 spriteBatch.Draw(tiles.ElementAt(k).getTexture(), new Rectangle(50 + (0 * Tile.TileWidth), 50 + (y * Tile.TileHeight), Tile.TileWidth, Tile.TileHeight), Color.White); k++;
             }
-
             string ourLocation = "We are at " + tiles.ElementAt(boardLocationToListLocation(ship.getShipLocation())).getPlanet().getName();
             Vector2 FontOrigin = font1.MeasureString(ourLocation) / 2;
             fontPosition = new Vector2(230, 125);

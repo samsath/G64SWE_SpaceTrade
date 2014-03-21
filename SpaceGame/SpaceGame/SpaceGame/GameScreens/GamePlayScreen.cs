@@ -53,10 +53,10 @@ namespace SpaceGame.GameScreens
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             myBoard.LoadContent(GameRef.Content);
-            Debug.WriteLine("hgfhfdgdffgs " + manager.shipName);
+            //Debug.WriteLine("hgfhfdgdffgs " + manager.shipName);
             MyShip.setShip(manager.shipName);
             MyShip.LoadContent(GameRef.Content);
-            backgroundScreen = GameRef.Content.Load<Texture2D>(@"Textures\background");
+            backgroundScreen = GameRef.Content.Load<Texture2D>(@"Backgrounds\galaxy");
             base.LoadContent();
         }
 
@@ -73,20 +73,7 @@ namespace SpaceGame.GameScreens
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Draw(GameTime gameTime)
         {
-            /*GameRef.SpriteBatch.Begin(
-                SpriteSortMode.Immediate,
-                BlendState.AlphaBlend,
-                SamplerState.PointClamp,
-                null,
-                null,
-                null,
-                Matrix.Identity);
-
-            map.Draw(GameRef.SpriteBatch, player.Camera);
-
-            base.Draw(gameTime);
-
-            GameRef.SpriteBatch.End();*/
+            
 
             GraphicsDevice.Clear(Color.Red);
 
