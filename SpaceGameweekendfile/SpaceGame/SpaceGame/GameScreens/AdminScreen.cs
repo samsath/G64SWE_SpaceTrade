@@ -34,6 +34,7 @@ namespace SpaceGame.GameScreens
 
         int totalResources = 10;
         int unassignedResources = 10;
+        int totalMoney = 1000;
 
         PictureBox backgroundImage;
         Label remainingResources;
@@ -113,7 +114,7 @@ namespace SpaceGame.GameScreens
             ControlManager.Add(remainingResources);
 
             MoneyLabel = new Label();
-            MoneyLabel.Text = "Money";
+            MoneyLabel.Text = "Money" + totalMoney.ToString();
             MoneyLabel.Position = nextControlPosition;
 
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;

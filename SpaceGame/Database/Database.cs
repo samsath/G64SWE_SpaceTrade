@@ -117,13 +117,13 @@ namespace STDatabase
         {
             if (dbc != null && dbc.State == ConnectionState.Open)
             {
-                //Console.WriteLine("Database Connected");
+                Console.WriteLine("Database Connected");
                 return true;
             }
             else
             {
                 Connect();
-               // Console.WriteLine("Database Non Connection");
+                Console.WriteLine("Database Non Connection");
                 return false;
             }
         }

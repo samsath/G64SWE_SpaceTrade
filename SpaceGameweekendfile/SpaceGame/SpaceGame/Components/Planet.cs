@@ -73,7 +73,7 @@ namespace SpaceGame.Components
             if (name.Equals("saturn"))
             {
                 rand = new Random(6);
-                resource.Add(new Resource("titanium", rand.Next(1, 9) * 100));  
+                resource.Add(new Resource("titanium", rand.Next(1, 9) * 100));
                 resource.Add(new Resource("zirconium", rand.Next(1, 9) * 100));
                 resource.Add(new Resource("hafnium", rand.Next(1, 9) * 100));
                 resource.Add(new Resource("vanadium", rand.Next(1, 9) * 100));
