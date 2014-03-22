@@ -123,7 +123,10 @@ namespace SpaceGame.GameScreens
             {
                 StateManager.PushState(GameRef.AdminScreen, "");
                 // this is to add resources to the new game
+                
                 dbp.Startresourceadd();
+                dbp.startPlanetAdd();
+                dbp.AddtoSession(dbp.newSession());
             }
 
             if (sender == loadGame)

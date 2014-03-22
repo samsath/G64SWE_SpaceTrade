@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Test
 {
@@ -39,6 +40,25 @@ namespace Test
         public void ResourcesAddedatStartofGame()
         {
             Assert.IsTrue(dbp.Startresourceadd());
+        }
+
+        [TestMethod]
+        public void LastSessionis()
+        {
+            Assert.IsInstanceOfType(dbp.newSession(), typeof(int));
+
+        }
+
+        [TestMethod]
+        public void ResorceAdded()
+        {
+            Assert.IsTrue(dbp.addResource);
+        }
+
+        [TestMethod]
+        public void PlanetAdded()
+        {
+            Assert.IsTrue(dbp.addplanet);
         }
 
         [TestMethod]

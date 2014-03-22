@@ -217,5 +217,25 @@ namespace STDatabase
             result.Add(4);
             return result;
         }
+        public void AddPlanettoSession(int session_id)
+        {
+            intData = session_id;
+        }
+
+        public void AddResourcetoSession(int session_id)
+        {
+            intData = session_id;
+        }
+
+        public void AddShiptoSession(int session_id)
+        {
+            intData = session_id;
+        }
+
+        public int getLastSession()
+        {
+            return 1;
+        }
+
     }
 }

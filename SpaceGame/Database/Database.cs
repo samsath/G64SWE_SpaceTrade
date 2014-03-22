@@ -900,6 +900,154 @@ namespace STDatabase
 
             return result;
         }
+
+        /// <summary>
+        /// This adds all the planets not currently with a session to a session id
+        /// </summary>
+        /// <param name="session_id"></param>
+        public void AddPlanettoSession(int session_id)
+        {
+            if (Check())
+            {
+                List<int> result = new List<int>();
+                string Query = "SELECT Planet_id FROM planet WHERE Planet_id NOT IN (SELECT Planet_id FROM sessiontoplanet)";
+                using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
+                {
+                    try
+                    {
+                        using (SQLiteDataReader rdq = command.ExecuteReader())
+                        {
+                            while (rdq.Read())
+                            {
+                                int record = rdq.GetInt32(0);
+                                result.Add(record);
+                                Console.WriteLine(record);
+                            }
+                        }
+                    }
+                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
+
+                }
+                for (int i = 0; i < result.Count; i++)
+                {
+                    try
+                    {
+                        string[] query = new String[1] { String.Format("INSERT INTO sessiontoplanet (Session_id, Planet_id) VALUES({0},{1})", session_id, result[i]) };
+                        exeQuery(query);
+                    }
+                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
+                }
+            }
+        }
+
+        /// <summary>
+        /// This adds all the resources not currently with a session to a session id
+        /// </summary>
+        /// <param name="session_id"></param>
+        public void AddResourcetoSession(int session_id)
+        {
+            if (Check())
+            {
+                List<int> result = new List<int>();
+                string Query = "SELECT Resources_id FROM resources WHERE Resources_id NOT IN (SELECT Resource_id FROM sessiontoresources)";
+                using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
+                {
+                    try
+                    {
+                        using (SQLiteDataReader rdq = command.ExecuteReader())
+                        {
+                            while (rdq.Read())
+                            {
+                                int record = rdq.GetInt32(0);
+                                result.Add(record);
+                            }
+                        }
+                    }
+                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
+
+                }
+                for (int i = 0; i < result.Count; i++)
+                {
+                    try
+                    {
+                        string[] query = new String[1] { String.Format("INSERT INTO sessiontoresources (Session_id, Resource_id) VALUES({0},{1})", session_id, result[i]) };
+                        exeQuery(query);
+                    }
+                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
+                }
+            }
+        }
+
+        /// <summary>
+        /// This adds all the ships not currently with a session to a session id
+        /// </summary>
+        /// <param name="session_id"></param>
+        public void AddShiptoSession(int session_id)
+        {
+            if (Check())
+            {
+                List<int> result = new List<int>();
+                string Query = "SELECT Ship_id FROM ship WHERE Ship_id NOT IN (SELECT Ship_id FROM sessiontoship)";
+                using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
+                {
+                    try
+                    {
+                        using (SQLiteDataReader rdq = command.ExecuteReader())
+                        {
+                            while (rdq.Read())
+                            {
+                                int record = rdq.GetInt32(0);
+                                result.Add(record);
+                            }
+                        }
+                    }
+                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
+
+                }
+                for (int i = 0; i < result.Count; i++)
+                {
+                    try
+                    {
+                        string[] query = new String[1] { String.Format("INSERT INTO sessiontoship (Session_id, Ship_id) VALUES({0},{1})", session_id, result[i]) };
+                        exeQuery(query);
+                    }
+                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the last session id.
+        /// </summary>
+        /// <returns></returns>
+        public int getLastSession()
+        {
+            int lastsession = 0;
+            if (Check())
+            {
+                string Query = "SELECT Session_id FROM sessions ORDER BY Session_id DESC LIMIT 1";
+                using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
+                {
+                    try
+                    {
+                        using (SQLiteDataReader rdq = command.ExecuteReader())
+                        {
+                            while (rdq.Read())
+                            {
+                                lastsession = rdq.GetInt32(0);
+                            }
+                        }
+                    }
+                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
+
+                }
+
+            }
+
+            return lastsession;
+        }
+
+
     }
 
 }
