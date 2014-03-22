@@ -31,15 +31,15 @@ namespace STDatabase
             dbpath = @"STDatabase.db";
             if (File.Exists(dbpath))
             {
-                Console.WriteLine("Sqlite Database exists");
+                //Console.WriteLine("Sqlite Database exists");
                 dbc = new SQLiteConnection("Data Source =" + dbpath);
                 dbc.Open();
             }
             else
             {
-                Console.WriteLine("Sqlite Database Doesn't Exsist");
+                //Console.WriteLine("Sqlite Database Doesn't Exsist");
                 SQLiteConnection.CreateFile(dbpath);
-                Console.WriteLine("Sqlite Database Created");
+                //Console.WriteLine("Sqlite Database Created");
                 dbc = new SQLiteConnection(dbpath);
                 dbc.Open();
                 newCreat();
@@ -49,7 +49,7 @@ namespace STDatabase
             }
             // Connects to the database which is found.
 
-            Console.WriteLine("Connection to database open");
+            //Console.WriteLine("Connection to database open");
 
             if (dbc.State == ConnectionState.Open)
             {
@@ -67,7 +67,7 @@ namespace STDatabase
         {
             // This load a file into the string then if the database connnection is up it will load it to the 
             // database and created the needed tables.
-            Console.WriteLine("NewCreat Started");
+            //Console.WriteLine("NewCreat Started");
             StringBuilder sqlString = new StringBuilder();
 
             //change this aswell depending on your envirnment.
@@ -100,7 +100,7 @@ namespace STDatabase
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Tables havent been created: " + ex);
+                    //Console.WriteLine("Tables havent been created: " + ex);
                     return false;
                 }
                 return true;
@@ -117,13 +117,13 @@ namespace STDatabase
         {
             if (dbc != null && dbc.State == ConnectionState.Open)
             {
-                Console.WriteLine("Database Connected");
+                //Console.WriteLine("Database Connected");
                 return true;
             }
             else
             {
                 Connect();
-                Console.WriteLine("Database Non Connection");
+               // Console.WriteLine("Database Non Connection");
                 return false;
             }
         }
@@ -137,12 +137,12 @@ namespace STDatabase
             dbc.Close();
             if (Check())
             {
-                Console.WriteLine("Database Connection is still open");
+                //Console.WriteLine("Database Connection is still open");
                 return false;
             }
             else
             {
-                Console.WriteLine("Database Connection Closed");
+                //Console.WriteLine("Database Connection Closed");
                 return true;
             }
         }
@@ -921,7 +921,7 @@ namespace STDatabase
                             {
                                 int record = rdq.GetInt32(0);
                                 result.Add(record);
-                                Console.WriteLine(record);
+                                //Console.WriteLine(record);
                             }
                         }
                     }

@@ -45,7 +45,7 @@ namespace SpaceGame.Components
                     dbs.NewResourceMedia(elemlist[i].Attributes["Name"].Value, Convert.ToInt16(elemlist[i].Attributes["Price"].Value), elemlist[i].Attributes["Descrp"].Value, 0, 0, elemlist[i].Attributes["loc"].Value, 0);
                     
                 }
-                Console.WriteLine("Resources added to the database at start of the game");
+                //Console.WriteLine("Resources added to the database at start of the game");
                 
             }
             catch (Exception ex) { Console.WriteLine(ex); return false; }
@@ -85,13 +85,13 @@ namespace SpaceGame.Components
                 
                 // going to have the planet name, then the number it has for the drawing of the board, then 0 for y_loc and Diameter, (80, 60) same as the title size, then one of the planetiamges by random and then 0 for type
                 dbs.NewPlanetMedia(planetName[usednum[i]].Attributes["Name"].Value, i, 0, 0, 80, 60, planetimages[randNum.Next(1, planetimages.Length)], 0);
-                Console.WriteLine(planetName[usednum[i]].Attributes["Name"].Value);
+                //Console.WriteLine(planetName[usednum[i]].Attributes["Name"].Value);
                 planetscreated++;
             }
 
                 //NewPlanetMedia(string title, int x_loc, int y_loc, int diameter, int m_x_size, int m_y_size, string file_loc, int type)
 
-                Console.WriteLine(planetscreated);
+                //Console.WriteLine(planetscreated);
                 return planetscreated;
 
         }

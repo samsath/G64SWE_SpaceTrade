@@ -65,7 +65,8 @@ namespace Test
         public void checkif40PlanetsareCreated()
         {
             
-            Assert.Equals(dbp.startPlanetAdd(),40);
+            
+            Assert.IsInstanceOfType(dbp.startPlanetAdd(), typeof(int));
         }
     }
 }
