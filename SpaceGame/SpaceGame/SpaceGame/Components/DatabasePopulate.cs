@@ -49,9 +49,37 @@ namespace SpaceGame.Components
             catch (Exception ex) { Console.WriteLine(ex); return false; }
         }
 
-        public void startPlanetAdd()
+        public int startPlanetAdd(int senario_id)
         {
-            // need 40 spaces filled by planets and blank space
+            Random randNum = new Random();
+            // creates 40 new planets with name and images 
+            string[] planetimages = new string[] { "earth", "jupiter", "mars", "mercury", "neptune", "saturn", "uranus", "venus" };
+            int planetscreated = 0;
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"Content\planetName.xml");
+            XmlNodeList planetName = doc.GetElementsByTagName("Planet");
+            List<int> usednum = new List<int>();
+           
+            while (usednum.Count <= 40)
+            {
+                int num = 0;
+
+                num = randNum.Next(1, planetName.Count);
+
+                if (usednum.Contains(num))
+                {
+                    num = randNum.Next(1, planetName.Count);
+                }
+                else
+                {
+                    usednum.Add(num);
+                }
+            }
+
+
+            
+
+            return planetscreated;
 
         }
     }

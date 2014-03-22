@@ -42,9 +42,10 @@ namespace Test
         }
 
         [TestMethod]
-        public void PlanetDatabaseCreate()
+        public void checkif40PlanetsareCreated()
         {
-           // see if planet is added to the database.
+            
+            Assert.Equals(dbp.startPlanetAdd(),40);
         }
     }
 }
