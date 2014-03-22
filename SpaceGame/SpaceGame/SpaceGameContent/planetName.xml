@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PlanetName>
+<Planets>
 	<Planet Name="Abydos" />
 	<Planet Name="Beachworld" />
 	<Planet Name="Ocampa" />
@@ -62,4 +62,4 @@
 	<Planet Name="Diso" />
 	<Planet Name="Leesti" />
 	<Planet Name="Riedquat" />
-</PlanetName>
+</Planets>

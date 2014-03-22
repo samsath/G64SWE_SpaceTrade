@@ -10,7 +10,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.Diagnostics;
+<<<<<<< HEAD
 using System.Collections.Generic; 
+=======
+using System.Collections.Generic;  //need to be added 
+>>>>>>> a6b01962d2d78d72146a401b5698883100d73d65
 
 namespace Test
 {

@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Test
 {
@@ -42,10 +43,30 @@ namespace Test
         }
 
         [TestMethod]
+        public void LastSessionis()
+        {
+            Assert.IsInstanceOfType(dbp.newSession(), typeof(int));
+
+        }
+
+        [TestMethod]
+        public void ResorceAdded()
+        {
+            Assert.IsTrue(dbp.addResource);
+        }
+
+        [TestMethod]
+        public void PlanetAdded()
+        {
+            Assert.IsTrue(dbp.addplanet);
+        }
+
+        [TestMethod]
         public void checkif40PlanetsareCreated()
         {
             
-            Assert.Equals(dbp.startPlanetAdd(),40);
+            
+            Assert.IsInstanceOfType(dbp.startPlanetAdd(), typeof(int));
         }
     }
 }

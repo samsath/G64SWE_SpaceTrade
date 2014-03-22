@@ -3,8 +3,11 @@ namespace STDatabase
 {
     public interface IDatabase
     {
+        void AddPlanettoSession(int session_id);
         void AddResourceToPlanet(int planet_id, int resource_id, int amount, int price);
+        void AddResourcetoSession(int session_id);
         void AddResourceToShip(int ship_id, int resource_id, int amount, int bourghtPrice);
+        void AddShiptoSession(int session_id);
         bool Check();
         bool Close();
         bool Connect();
@@ -12,7 +15,7 @@ namespace STDatabase
         System.Collections.Generic.List<Userdata> getHighScore();
         System.Collections.Generic.List<Mediadata> getMedia(string type, int id);
         System.Collections.Generic.List<Planetdata> getPlanet(int planet_id);
-        System.Collections.Generic.List<Resourcedata> getResource(int resource_id);
+        System.Collections.Generic.List<Resourcedata> getResource(int resources_id);
         System.Collections.Generic.List<Userdata> getSessionNum();
         System.Collections.Generic.List<Shipdata> getShip(int ship_id);
         System.Collections.Generic.List<Userdata> getUser();
@@ -25,6 +28,9 @@ namespace STDatabase
         void NewShipWithMedia(int model, int cargo, int owner, int media_id, string reason);
         System.Collections.Generic.List<Resourcedata> PlanetResources(int planetId);
         void PlanetResourceUpdate(int planet_id, int resource_id, int amount, int price);
+        System.Collections.Generic.List<int> SessionPlanet(int sessionid);
+        System.Collections.Generic.List<int> SessionResource(int sessionid);
+        System.Collections.Generic.List<int> SessionShip(int sessionid);
         void SetHighscore(int id, int score);
         void SetHighscore(string name, int score);
         void SetUser(string name, int money);
@@ -33,9 +39,6 @@ namespace STDatabase
         void ShipCargoUpdate(int ship_id, int resource_id, int amount, int price);
         void ShipLoc(int ship_id, int x_loc, int y_loc);
         System.Collections.Generic.List<Resourcedata> ShipResources(int shipId);
-
-        System.Collections.Generic.List<int> SessionPlanet(int sessionid);
-        System.Collections.Generic.List<int> SessionResource(int sessionid);
-        System.Collections.Generic.List<int> SessionShip(int sessionid);
+        int getLastSession();
     }
 }
