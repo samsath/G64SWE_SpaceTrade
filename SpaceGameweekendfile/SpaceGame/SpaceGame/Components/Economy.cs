@@ -9,6 +9,9 @@ namespace SpaceGame
     {
         private int money;
         private int TotalNumberOfResorces;
+        private int StartMoney;
+        private int SpaceShipId;
+        private int SpaceShipIdLevelID;
         public int Money { get { return money; } set { Money = value; } }
 
         public void AddToMoney(int new_amount)
@@ -43,9 +46,33 @@ namespace SpaceGame
             if (this.Capacity >= this.TotalNumberOfResorces)
             {
                 this.Money += ResorceIDPrice;
-                this.Resource ++;
+                this.ResourceIdQuantity ++;
                 this.TotalNumberOfResorces--;
             }
+        }
+
+        public float Profit()
+        {
+            return this.StartMoney / this.Money;
+        }
+
+        public void ShipUpGrede(int SpaceShipID, int LevelID, int ShipPricee)
+        {
+            if (this.Money >= ShipPricee)
+            {
+                this.SpaceShipId = SpaceShipID;
+                this.SpaceShipIdLevelID = LevelID ;
+                this.Money -= ShipPricee;
+            }
+           
+        }
+
+        public void ShipChange(int SpaceShipID, int LevelID, int ShipPrice)
+        {
+
+            this.SpaceShipId = SpaceShipID;
+            this.SpaceShipIdLevelID = LevelID;
+            this.Money -= ShipPricee;
         }
     }
 }

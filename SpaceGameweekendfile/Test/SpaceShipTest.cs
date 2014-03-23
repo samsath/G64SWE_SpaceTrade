@@ -156,41 +156,36 @@ namespace Test
 
             Assert.AreEqual(0, eco.Money);
         }
+      
+    
         
-        /* [TestMethod]
-        public void Economy_NumberOfResources_OK()
-        {
-         Dictionary<string, int> eco.ResorceList = new Dictionary <string, int>();  // or dictionary with the name and the quantitiy ResorceList  
-        }
-
-
-         [TestMethod]
-        public void Economy_BuyingSystem_OK()
-        {
-         eco.Add(Resource x);     // sell resources + we can increace the  quantity (quantitiy parameter)
-         
-        }
-         [TestMethod]
-        public void Economy_SellingSystem_OK()
-        {
-         eco.Remove(Resource x);   // sell resources + we can decrease  the quantity (quantitiy parameter)
-        }
+       
          [TestMethod]
         public void Economy_CalculatingSystem_OK()// calculate the start anount of money divided by the amont now
         {
-            eco.Profit();
+            eco.Money = 1 ; 
+            float aa = eco.Profit();
+            Assert.AreEqual(1, aa);
         }
-         
+        
          [TestMethod]
         public void Economy_UpGradeTheShip_OK()
         {
-            eco.ShipUpGrede(SpaceShip s ,int Level);// the ship class must have level attribute
+             int SpaceShipID =1;
+             int LevelID = 1 ;
+             int ShipPricee = 1 ;
+             eco.ShipUpGrede(SpaceShipID, LevelID, ShipPricee);// the ship class must have level attribute
         }
+    
          [TestMethod]
         public void Economy_GetNewShip_OK()
         {
-            eco.ShipChange(SpaceShip s, int Level);// the ship class must have other type
-        }*/
+             int SpaceShipID =1;
+             int LevelID = 1 ;
+             int ShipPricee = 1;
+             eco.ShipChange(SpaceShipID, LevelID, ShipPricee);// the ship class must have other type
+        }
+        
         #endregion
        
     }
