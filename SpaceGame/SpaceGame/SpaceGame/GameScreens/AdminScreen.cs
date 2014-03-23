@@ -39,6 +39,7 @@ namespace SpaceGame.GameScreens
         PictureBox backgroundImage;
         Label remainingResources;
         Label MoneyLabel;
+        Label CostLabel;
 
         //List<ResourceLabelSet> resourceLabel = new List<ResourceLabelSet>();
         List<ResourceLabelSet> resourceLabel1 = new List<ResourceLabelSet>();
@@ -114,12 +115,17 @@ namespace SpaceGame.GameScreens
             ControlManager.Add(remainingResources);
 
             MoneyLabel = new Label();
-            MoneyLabel.Text = "Money" + totalMoney.ToString();
+            MoneyLabel.Text = "Money";
             MoneyLabel.Position = nextControlPosition;
+
+            CostLabel = new Label();
+            CostLabel.Text = totalMoney.ToString();
+            CostLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
 
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
 
             ControlManager.Add(MoneyLabel);
+            ControlManager.Add(CostLabel);
 
             Label Money = new Label();
             Money.Text = "Initial Ammount";
@@ -264,6 +270,7 @@ namespace SpaceGame.GameScreens
 
             ControlManager.Add(acceptLabel);
             ControlManager.NextControl();
+            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
 			
 			//Back Button
             LinkLabel backLabel = new LinkLabel();
