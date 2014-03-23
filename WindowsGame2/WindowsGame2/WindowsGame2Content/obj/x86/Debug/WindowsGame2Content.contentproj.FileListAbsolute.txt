@@ -5,3 +5,4 @@ C:\Users\Dan\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2C
 =======
 C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2Content\obj\x86\Debug\WindowsGame2Content.contentprojResolveAssemblyReference.cache
 >>>>>>> 514782af67d02df01322728b11446c3182387c8f
+C:\Users\Victor Q\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2Content\obj\x86\Debug\WindowsGame2Content.contentprojResolveAssemblyReference.cache
