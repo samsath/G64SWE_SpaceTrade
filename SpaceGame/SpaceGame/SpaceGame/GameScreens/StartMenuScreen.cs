@@ -124,9 +124,9 @@ namespace SpaceGame.GameScreens
                 StateManager.PushState(GameRef.AdminScreen, "");
                 // this is to add resources to the new game
                 // this adds a delay into the start up may need to change this or thread it
-                dbp.Startresourceadd();
-                dbp.startPlanetAdd();
-                dbp.AddtoSession(dbp.newSession());
+                //dbp.Startresourceadd();
+                //dbp.startPlanetAdd();
+                //dbp.AddtoSession(dbp.newSession());
             }
 
             if (sender == loadGame)

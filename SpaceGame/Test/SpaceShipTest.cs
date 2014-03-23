@@ -18,10 +18,12 @@ namespace Test
     public class SpaceShipTest
     {
         DatabasePopulate dbp;
+        Planet pl;
         [TestInitialize]
         public void init()
         {
             dbp = new DatabasePopulate();
+            pl = new Planet("earth");
 
         }
 
@@ -67,6 +69,12 @@ namespace Test
             
             
             Assert.IsInstanceOfType(dbp.startPlanetAdd(), typeof(int));
+        }
+
+        [TestMethod]
+        public void PlanetNameisEarth()
+        {
+
         }
     }
 }

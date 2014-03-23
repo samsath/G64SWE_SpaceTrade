@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using STDatabase;
 
 namespace SpaceGame.Components
 {
@@ -18,10 +19,18 @@ namespace SpaceGame.Components
         string name;
         List<Resource> resource;
         Random rand;
+        private string p;
+        Database dbs;
 
-        public Planet(string name)
+        // int of the planet number in the database
+        public int planetid { get; set; }
+        public string texture { get; set; }
+
+        public Planet(string name, int id, string texture)
         {
             this.name = name;
+            this.planetid = id;
+            this.texture = texture;
             resource = new List<Resource>();
             generateResource();
         }
@@ -33,6 +42,18 @@ namespace SpaceGame.Components
 
         public void generateResource()
         {
+            // changed this so it gets the relavent information from the database
+
+            List<Resourcedata> resourcedb = new List<Resourcedata>();
+
+            resourcedb = dbs.PlanetResources(planetid);
+
+            for (int i = 0; i < resourcedb.Count; i++)
+            {
+                // this goes through the database info and then adds the relavent information to the planet generation.
+                resource.Add(new Resource(resourcedb[i].Resource_id, resourcedb[i].Name, resourcedb[i].Initial_Price,resourcedb[i].Description,rand.Next(100)));
+            }
+            /* Replaces to work with the database.
             if (name.Equals("mercury"))
             {
                 rand = new Random(1);
@@ -93,6 +114,7 @@ namespace SpaceGame.Components
                 resource.Add(new Resource("manganese", rand.Next(1, 9) * 100));
                 resource.Add(new Resource("technetium", rand.Next(1, 9) * 100));
             }
+             */
         }
 
         public List<Resource> getResourceList()

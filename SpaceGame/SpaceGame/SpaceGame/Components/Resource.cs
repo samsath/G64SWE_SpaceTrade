@@ -7,13 +7,26 @@ namespace SpaceGame.Components
 {
     class Resource
     {
-        private string name;
-        private int price;
-        public Resource(string name, int price)
+
+        public string name { get; set; }
+        public int price { get; set; }
+        public int InitialPrice { get; set; }
+        public int resourceid { get; set; }
+        public string description { get; set; }
+        public int amount { get; set; }
+
+        public Resource(int resid, string name, int price, string descript,int amounts)
         {
+            this.resourceid = resid;
             this.name = name;
             this.price = price;
+            this.InitialPrice = price;
+            this.description = descript;
+            this.amount = amounts;
+
         }
+
+        
 
         public string getName()
         {
@@ -25,19 +38,7 @@ namespace SpaceGame.Components
             return price;
         }
 
-        private int initialPrice;
-        public int InitialPrice
-        {
-            get { return initialPrice; }
-            set { initialPrice = value; }
-        }
 
-        private string description;
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
         public void economicRole()
         {
 
