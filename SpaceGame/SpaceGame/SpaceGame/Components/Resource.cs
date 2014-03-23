@@ -26,8 +26,6 @@ namespace SpaceGame.Components
 
         }
 
-        
-
         public string getName()
         {
             return name;
@@ -37,7 +35,6 @@ namespace SpaceGame.Components
         {
             return price;
         }
-
 
         public void economicRole()
         {
