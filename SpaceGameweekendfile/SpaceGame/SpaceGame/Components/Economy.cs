@@ -2,24 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using STDatabase;
 namespace SpaceGame
 {
     public class Economy
     {
+        public IDatabase dbs = new Database();
         #region fields
+        // the information passed from the database to create an object of the class to udate monoblate the database
+        private int money; // money of the user 
+        private int startMoney;// the amount of money when game starts
 
-        private int money;
-        private int totalNumberOfResorces;
-        private int startMoney;
-        private int spaceShipId;
-        private int spaceShipIdLevelID;
-        private int spaceShipIdCargo;
-        private int resourceIdQuantity;
-        private int capacity;
-        private int resource;
+
+        private int resource;////  resorces Id
+        private int resourceIdQuantity; // for this resorce we pass to monpulate
+        private int totalNumberOfResorces; // total amount of resorces in the cargo
+       
+        private int spaceShipId; // the current ship the player has
+        private int spaceShipIdLevelID; // the level of the current ship
+        private int spaceShipIdCargo; // it not needed I think the level and the cargo are a same
+        private int capacity;   // of the cargo 
+       
         #endregion
         #region proporty
+        // getter and settier method 
         public int Money { get { return money; } set { money = value; } }
         public int TotalNumberOfResorces { get { return totalNumberOfResorces; } set {totalNumberOfResorces = value; } }
         public int StartMoney { get { return startMoney; } set { startMoney = value; } }
@@ -31,14 +37,14 @@ namespace SpaceGame
         public int Resource { get { return resource;} set{resource = value ;} }
         #endregion
         #region method
-        public void AddToMoney(int new_amount)
+        public void AddToMoney(int new_amount) // to increase the money when the sell happen 
         {
             money += new_amount;
         }
 
-        public bool DecrementMoney(int new_amount)
+        public bool DecrementMoney(int new_amount)// to decrease the money when buying or ubgrading  new_amont = PRICE
         {
-            if (money - new_amount > 0)
+            if (money - new_amount >= 0)
             {
                 money -= new_amount;
                 return true;
@@ -46,9 +52,11 @@ namespace SpaceGame
             else { return false; };
         }
 
-        public void AddResorce(int resorceIDPrice)
+        public void AddResorce(int resorceIDPrice) 
+            // INCREASE THE QUANTITY OF THE RESORCE+ DECREASE THE MONEY
+           //+ UPDATE THE NUMBERIF RESORCE HOLD IN CARGO
         {
-            if (this.Money >= resorceIDPrice)
+            if (this.Money >= resorceIDPrice && this.Capacity > this.totalNumberOfResorces)
             {
                 this.Money -= resorceIDPrice;
                 this.Resource ++;
@@ -60,18 +68,18 @@ namespace SpaceGame
 
         public void removeoneResorce(int resorceIDPrice)
         {
-            if (this.Capacity >= this.TotalNumberOfResorces)
-            {
+           // if (this.Capacity > this.TotalNumberOfResorces) ///
+           /// {
                 this.Money +=  resorceIDPrice;
-                this.ResourceIdQuantity ++;
+                this.ResourceIdQuantity --; ///
                 this.TotalNumberOfResorces--;
-            }
+           // }
             // else { Console.WriteLine("you dont have enough money"); }
         }
 
-        public float Profit()
+        public float Profit() // Calculate the % of the profit or loss    can be a negative number 
         {
-            return this.StartMoney / this.Money;
+            return this.StartMoney / this.Money * 100;
         }
 
         public void ShipUpGrede(int SpaceShipIDCargo, int LevelID, int ShipPricee)
@@ -90,14 +98,21 @@ namespace SpaceGame
         {
             if (this.Money >= ShipPricee)
             {
-                this.SpaceShipId = SpaceShipID;
+                this.SpaceShipId = SpaceShipID; // shipid.
                 this.SpaceShipIdLevelID = LevelID;
                 this.Money -= ShipPricee;    
             }
             // else { Console.WriteLine("you dont have enough money"); }
 
         }
-
+       /*
+       int userit;
+       List<Usersata> user =dbs.getUser() ;
+       for (int i  = 0 ; i < users.Count ; i++)
+        {  
+            if (user.[i]= "Sam"){useit = user.[i].Name}
+        }
+       */
         #endregion
 
     }

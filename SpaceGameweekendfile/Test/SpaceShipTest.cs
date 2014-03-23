@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.Diagnostics;
 using System.Threading;
+using STDatabase;
 
 #region Sam
 namespace Test
@@ -20,6 +21,7 @@ namespace Test
     {
         DatabasePopulate dbp;
         Economy eco ;
+     
         [TestInitialize]
         public void init()
         {
@@ -105,6 +107,7 @@ namespace Test
         {
 
             int new_amount = 5;
+           
             int money_start = eco.Money;
             eco.DecrementMoney(new_amount);
             int Money_end = eco.Money;
@@ -146,7 +149,7 @@ namespace Test
             eco.AddResorce(ResorceIDPrice);
 
 
-            Assert.Inconclusive();
+            Assert.Inconclusive();/////
         }
         public void SellResourceAndAddToMoney()
         {
@@ -185,7 +188,6 @@ namespace Test
              int ShipPricee = 1;
              eco.ShipChange(SpaceShipID, LevelID, ShipPricee);// the ship class must have other type
         }
-        
         #endregion
        
     }
