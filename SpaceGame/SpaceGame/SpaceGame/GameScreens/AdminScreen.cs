@@ -39,6 +39,7 @@ namespace SpaceGame.GameScreens
         PictureBox backgroundImage;
         Label remainingResources;
         Label MoneyLabel;
+        Label CostLabel;
 
         //List<ResourceLabelSet> resourceLabel = new List<ResourceLabelSet>();
         List<ResourceLabelSet> resourceLabel1 = new List<ResourceLabelSet>();
@@ -114,12 +115,17 @@ namespace SpaceGame.GameScreens
             ControlManager.Add(remainingResources);
 
             MoneyLabel = new Label();
-            MoneyLabel.Text = "Money" + totalMoney.ToString();
+            MoneyLabel.Text = "Money";
             MoneyLabel.Position = nextControlPosition;
+
+            CostLabel = new Label();
+            CostLabel.Text = totalMoney.ToString();
+            CostLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
 
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
 
             ControlManager.Add(MoneyLabel);
+            ControlManager.Add(CostLabel);
 
             Label Money = new Label();
             Money.Text = "Initial Ammount";
@@ -264,6 +270,16 @@ namespace SpaceGame.GameScreens
 
             ControlManager.Add(acceptLabel);
             ControlManager.NextControl();
+            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
+			
+			//Back Button
+            LinkLabel backLabel = new LinkLabel();
+            backLabel.Text = "Go Back";
+            backLabel.Position = nextControlPosition;
+            backLabel.Selected += new EventHandler(goBack);
+
+            ControlManager.Add(backLabel);
+            ControlManager.NextControl();
         }
 
         void acceptLabel_Selected(object sender, EventArgs e)
@@ -301,6 +317,11 @@ namespace SpaceGame.GameScreens
                 // Update the skill points for the appropriate skill
                 remainingResources.Text = "Total Resources: " + unassignedResources.ToString();
             }
+        }
+		
+		void goBack(object sender, EventArgs e)
+        {
+            StateManager.ChangeState(GameRef.StartMenuScreen);
         }
 
         public override void Update(GameTime gameTime)

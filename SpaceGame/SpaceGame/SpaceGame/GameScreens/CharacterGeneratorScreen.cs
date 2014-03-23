@@ -139,6 +139,13 @@ namespace SpaceGame.GameScreens
             ControlManager.Add(shipImage);
 
             ControlManager.NextControl();
+			
+			//Go Back button
+            LinkLabel goBack = new LinkLabel();
+            goBack.Text = "Go Back";
+            goBack.Position = new Vector2(label1.Position.X, 450);
+            goBack.Selected += new EventHandler(goBackButton);
+            ControlManager.Add(goBack);
         }
 
         private void LoadImages()
@@ -168,6 +175,11 @@ namespace SpaceGame.GameScreens
             //Debug.WriteLine("hgfhfdgdffgs " + ship);
         }
 
+		//Go back to the Admin Screen
+		void goBackButton(object sender, EventArgs e)
+        {
+            StateManager.ChangeState(GameRef.AdminScreen);
+        }
 
         #endregion
     }

@@ -57,3 +57,5 @@ C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2
 C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\WindowsGame2.exe
 C:\Users\alma\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\WindowsGame2.pdb
 >>>>>>> 514782af67d02df01322728b11446c3182387c8f
+C:\Users\Victor Q\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\WindowsGame2.exe
+C:\Users\Victor Q\Documents\G64SWE_SpaceTrade\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\WindowsGame2.pdb
