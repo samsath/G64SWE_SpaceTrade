@@ -71,7 +71,7 @@ namespace Test
             Assert.IsInstanceOfType(dbp.startPlanetAdd(), typeof(int));
         }
        
-#endregion
+        #endregion
         #region // test economy class 
         // check the constrcture 
         [TestMethod]
@@ -169,12 +169,12 @@ namespace Test
         }
         
          [TestMethod]
-        public void Economy_UpGradeTheShip_OK()
+        public void Economy_UpGradeThecargo_OK()
         {
-             int SpaceShipID =1;
+             int SpaceShipIDCargo =1;
              int LevelID = 1 ;
              int ShipPricee = 1 ;
-             eco.ShipUpGrede(SpaceShipID, LevelID, ShipPricee);// the ship class must have level attribute
+             eco.ShipUpGrede(SpaceShipIDCargo, LevelID, ShipPricee);// the ship class must have level attribute
         }
     
          [TestMethod]
