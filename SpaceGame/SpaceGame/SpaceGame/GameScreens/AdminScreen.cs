@@ -264,6 +264,15 @@ namespace SpaceGame.GameScreens
 
             ControlManager.Add(acceptLabel);
             ControlManager.NextControl();
+			
+			//Back Button
+            LinkLabel backLabel = new LinkLabel();
+            backLabel.Text = "Go Back";
+            backLabel.Position = nextControlPosition;
+            backLabel.Selected += new EventHandler(goBack);
+
+            ControlManager.Add(backLabel);
+            ControlManager.NextControl();
         }
 
         void acceptLabel_Selected(object sender, EventArgs e)
@@ -301,6 +310,11 @@ namespace SpaceGame.GameScreens
                 // Update the skill points for the appropriate skill
                 remainingResources.Text = "Total Resources: " + unassignedResources.ToString();
             }
+        }
+		
+		void goBack(object sender, EventArgs e)
+        {
+            StateManager.ChangeState(GameRef.StartMenuScreen);
         }
 
         public override void Update(GameTime gameTime)
