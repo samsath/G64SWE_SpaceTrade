@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace Spaceship
+using Shop;
+namespace ConsoleApplication520
 {
-    class Ship
+    class Program
     {
-        public doube storeage;
-        public int level;
-        public int 
-        static void Main()
+        static void Main(string[] args)
         {
-
+            
+            
         }
     }
 }

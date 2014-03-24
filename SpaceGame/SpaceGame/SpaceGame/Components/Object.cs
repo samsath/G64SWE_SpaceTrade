@@ -14,9 +14,6 @@ namespace SpaceGame.Components
 {
     public class Object
     {
-        int db_id;
-        string Title;
-        string Graphic;
 
 
 

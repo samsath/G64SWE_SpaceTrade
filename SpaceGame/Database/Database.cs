@@ -1046,6 +1046,21 @@ namespace STDatabase
 
             return lastsession;
         }
+        
+        
+        /// <summary>
+        /// This will change the ship id for the resources, so pass the resource to the upgraded ship.
+        /// </summary>
+        /// <param name="oldship"></param>
+        /// <param name="newship"></param>
+        public void ShipUpdate(int oldship, int newship)
+        {
+            if (Check())
+            {
+                string[] Query = new string[1] { String.Format("UPDATE shipresource SET ship_id ={1} WHERE ship_id = {0}", oldship, newship) };
+                exeQuery(Query);
+            }
+        }
 
 
     }
