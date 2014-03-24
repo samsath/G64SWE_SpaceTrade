@@ -10,11 +10,16 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using STDatabase;
 
 namespace SpaceGame.Components
 {
     class Board
     {
+        // database access
+        public IDatabase dbs = new Database();
+        public IDatabase dbf = new Fakedatabse();
+
         SpriteFont font1;
         Vector2 fontPosition;
         Texture2D space;
@@ -33,6 +38,17 @@ namespace SpaceGame.Components
 
         private List<Tile> tiles = new List<Tile>();
 
+        public int newSession()
+        {
+            // this gets the current session number and then adds one to is so that we can have a new session.
+            int ses = dbs.getLastSession();
+            int fs = dbf.getLastSession();
+
+            return ses;
+        }
+
+       
+
         public void LoadContent(ContentManager content)
         {
             font1 = content.Load<SpriteFont>(@"Fonts\CourierNew");
@@ -46,29 +62,56 @@ namespace SpaceGame.Components
             uranus = content.Load<Texture2D>(@"Textures\uranus");
             neptune = content.Load<Texture2D>(@"Textures\neptune");
 
-            List<Tile> tempList = new List<Tile>();
-            for (int i = 0; i < 4; i++)
-            {
-                tempList.Add(new Tile(space, new Planet("space")));
-                tempList.Add(new Tile(space, new Planet("space")));
-                tempList.Add(new Tile(mercury, new Planet("mercury")));
-                tempList.Add(new Tile(venus, new Planet("venus")));
-                tempList.Add(new Tile(earth, new Planet("earth")));
-                tempList.Add(new Tile(mars, new Planet("mars")));
-                tempList.Add(new Tile(jupiter, new Planet("jupiter")));
-                tempList.Add(new Tile(saturn, new Planet("saturn")));
-                tempList.Add(new Tile(uranus, new Planet("uranus")));
-                tempList.Add(new Tile(neptune, new Planet("neptune")));
-            }
+            PlanetData();
 
-            // randomise the list of planets and space
-            while (tempList.Count > 0)
+        }
+
+        public Texture2D textureReturn(string ele)
+        {
+            switch (ele)
             {
-                int index = random.Next(tempList.Count);
-                tiles.Add(tempList[index]);
-                tempList.RemoveAt(index);
+                case "space":
+                    return space;
+                case "mercury":
+                    return mercury;
+                case "venus":
+                    return venus; 
+                case "earth":
+                    return earth;
+                case "mars":
+                    return mars;
+                case "jupiter":
+                    return jupiter;
+                case "saturn":
+                    return saturn;
+                case "uranus":
+                    return uranus;
+                case "neptune":
+                    return neptune;
+                default:
+                    return earth;
             }
         }
+
+        public void PlanetData()
+        {
+
+            
+            // connects to the database, grabs the current session number then gets the planets from that list 
+
+            // need to change this so that it will work on loaded session
+            int session = newSession();
+
+            List<Planetdata> sesPlanet = dbs.SessionWithPlanet(session);
+            foreach (Planetdata element in sesPlanet)
+            {
+                tiles.Add(new Tile(textureReturn(element.File_loc), new Planet(element.Name, element.Planet_id, element.File_loc)));
+
+            }
+
+
+        }
+        
 
         public void Draw(Game1 game, SpriteBatch spriteBatch, SpaceShip myShip)
         {

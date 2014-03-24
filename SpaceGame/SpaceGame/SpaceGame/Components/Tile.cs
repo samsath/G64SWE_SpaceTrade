@@ -19,7 +19,9 @@ namespace SpaceGame.Components
 
         public Tile(Texture2D texture, Planet planet)
         {
+
             this.texture = texture;
+            
             this.planet = planet;
         }
 

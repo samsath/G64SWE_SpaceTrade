@@ -23,7 +23,7 @@ namespace Test
         public void init()
         {
             dbp = new DatabasePopulate();
-            pl = new Planet("earth");
+           // pl = new Planet("earth",1, Texture2D earth);
 
         }
 
@@ -71,10 +71,20 @@ namespace Test
             Assert.IsInstanceOfType(dbp.startPlanetAdd(), typeof(int));
         }
 
-        [TestMethod]
-        public void PlanetNameisEarth()
-        {
 
+        [TestMethod]
+        public void CheckSessionIdatstartis0()
+        {
+            Assert.AreEqual(0, dbp.sessionNumber);
         }
+
+        [TestMethod]
+        public void CheckLastSession()
+        {
+            Assert.AreEqual(0, dbp.getSession());
+        }
+
+
+
     }
 }

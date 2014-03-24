@@ -14,12 +14,12 @@ using STDatabase;
 
 namespace SpaceGame.Components
 {
-    class Planet : Object
+    public class Planet : Object
     {
-        string name;
-        List<Resource> resource;
+        public string name;
+        public List<Resource> resource;
         Random rand;
-        private string p;
+        public string p;
         Database dbs;
 
         // int of the planet number in the database

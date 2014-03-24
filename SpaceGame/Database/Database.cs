@@ -1047,6 +1047,31 @@ namespace STDatabase
             return lastsession;
         }
 
+        public List<Planetdata> SessionWithPlanet(int session)
+        {
+            List<Planetdata> result = new List<Planetdata>();
+            if (Check())
+            {
+                string Query = String.Format("SELECT planet.Planet_id, planet.Title, planet.X_loc, planet.Y_loc, media.Media_id, media.file_Loc FROM planet, media, planetmedia WHERE (planet.Planet_id == planetmedia.Planet_id AND planetmedia.Media_id == media.Media_id) AND planet.Planet_id IN (SELECT Planet_id FROM sessiontoplanet WHERE Session_id = {0})", session);
+                using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
+                {
+                    try
+                    {
+                        using (SQLiteDataReader rdq = command.ExecuteReader())
+                        {
+                            while (rdq.Read())
+                            {
+                                Planetdata line = new Planetdata(rdq.GetInt16(0), rdq.GetString(1), rdq.GetInt16(1), rdq.GetInt16(2), rdq.GetInt16(3), rdq.GetString(4));
+                                result.Add(line);
+                            }
+                        }
+                    }
+                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
+                }
+            }
+            return result;
+        }
+
 
     }
 

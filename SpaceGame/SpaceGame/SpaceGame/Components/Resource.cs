@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SpaceGame.Components
 {
-    class Resource
+    public class Resource
     {
 
         public string name { get; set; }

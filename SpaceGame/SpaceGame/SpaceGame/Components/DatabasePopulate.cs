@@ -14,6 +14,7 @@ namespace SpaceGame.Components
     {
         public Boolean addplanet = true;
         public Boolean addResource = true;
+        public int sessionNumber = 0;
         /*
          * This is to try and populate the database when a new game starts. It is done here so that it can easily be removed or changed if need by as maybe
          * threaded if it slows down the process.
@@ -121,7 +122,18 @@ namespace SpaceGame.Components
             int ses = dbs.getLastSession();
             int fs = dbf.getLastSession();
 
+            
             return ses + 1;
+        }
+
+        public int getSession()
+        {
+            if (sessionNumber == 0)
+            {
+                int ses = dbs.getLastSession();
+                sessionNumber = ses;
+            }
+            return sessionNumber;
         }
     }
 }

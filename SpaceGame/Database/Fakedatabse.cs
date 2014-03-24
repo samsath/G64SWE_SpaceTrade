@@ -237,5 +237,13 @@ namespace STDatabase
             return 1;
         }
 
+        public List<Planetdata> SessionWithPlanet(int session)
+        {
+            List<Planetdata> result = new List<Planetdata>();
+            Planetdata record = new Planetdata(1, "planet", 3, 4, 5, "loc");
+            result.Add(record);
+            return result;
+        }
+
     }
 }
