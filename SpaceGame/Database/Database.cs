@@ -1057,7 +1057,7 @@ namespace STDatabase
         {
             if (Check())
             {
-                string[] Query = new string[1] { String.Format("UPDATE shipresource SET ship_id ={0} WHERE ship_id = {1}", oldship, newship) };
+                string[] Query = new string[1] { String.Format("UPDATE shipresource SET ship_id ={1} WHERE ship_id = {0}", oldship, newship) };
                 exeQuery(Query);
             }
         }
