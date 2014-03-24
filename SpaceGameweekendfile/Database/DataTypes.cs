@@ -124,7 +124,7 @@ namespace STDatabase
     public class Mediadata
     {
         public int Media_int { get; set; }
-        public int X_size { get; set; }
+        public int X_size { get ; set; }
         public int Y_size { get; set; }
         public int Lenght { get; set; }
         public string File_loc { get; set; }
@@ -137,7 +137,7 @@ namespace STDatabase
             Lenght = lenght;
             File_loc = fileloc;
 
-        }
+        } 
     }
 
 }

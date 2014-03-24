@@ -70,7 +70,7 @@ namespace SpaceGame
         {
            // if (this.Capacity > this.TotalNumberOfResorces) ///
            /// {
-                this.Money +=  resorceIDPrice;
+                this.Money +=  resorceIDPrice ;
                 this.ResourceIdQuantity --; ///
                 this.TotalNumberOfResorces--;
            // }
@@ -100,7 +100,8 @@ namespace SpaceGame
             {
                 this.SpaceShipId = SpaceShipID; // shipid.
                 this.SpaceShipIdLevelID = LevelID;
-                this.Money -= ShipPricee;    
+                this.Money -= ShipPricee;
+                //the resorce
             }
             // else { Console.WriteLine("you dont have enough money"); }
 

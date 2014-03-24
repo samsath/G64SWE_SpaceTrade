@@ -188,6 +188,7 @@ namespace Test
              int ShipPricee = 1;
              eco.ShipChange(SpaceShipID, LevelID, ShipPricee);// the ship class must have other type
         }
+
         #endregion
        
     }
