@@ -42,5 +42,7 @@ namespace STDatabase
         int getLastSession();
 
         System.Collections.Generic.List<Planetdata> SessionWithPlanet(int session);
+
+        void ShipUpdate(int oldship, int newship);
     }
 }

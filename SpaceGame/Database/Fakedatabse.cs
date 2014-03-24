@@ -245,5 +245,10 @@ namespace STDatabase
             return result;
         }
 
+        public void ShipUpdate(int oldship, int newship)
+        {
+            intData = oldship + newship;
+        }
+
     }
 }

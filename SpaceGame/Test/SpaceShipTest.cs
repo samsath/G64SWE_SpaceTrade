@@ -18,26 +18,47 @@ namespace Test
     public class SpaceShipTest
     {
         DatabasePopulate dbp;
+
         Planet pl;
+
+        GameTime time;
+        SpaceShip myShip;
+
         [TestInitialize]
         public void init()
         {
             dbp = new DatabasePopulate();
+
            // pl = new Planet("earth",1, Texture2D earth);
+
+
+            time = new GameTime();
+            myShip = new SpaceShip();
 
         }
 
         [TestMethod]
         public void IfKeyPressedDiceWillRoll()
         {
-            GameTime time = new GameTime();
-            SpaceShip myShip = new SpaceShip();
             myShip.setState("waiting");
             myShip.pressKeyboard("space");
             myShip.Update(time);
             Debug.WriteLine("asdfasdfasdf "+myShip.getDiceRolled());
             Assert.IsTrue(myShip.getDiceRolled()>=1&&myShip.getDiceRolled()<=6);
         }
+
+        [TestMethod]
+        public void ShipCurrentMoneyCannotBeLowerThanZero()
+        {
+            Assert.IsTrue(myShip.getCurrentMoney()>0);
+        }
+
+        [TestMethod]
+        public void NumberOfResourcesCannotExceedShipCargoCapacity()
+        {
+            Assert.IsTrue(myShip.getShipNumberOfResource()<=myShip.getCargoCapacity());
+        }
+
         [TestMethod]
         public void ResourcesAddedatStartofGame()
         {
@@ -54,7 +75,8 @@ namespace Test
         [TestMethod]
         public void ResorceAdded()
         {
-            Assert.IsTrue(dbp.addResource);
+            //Assert.IsTrue(dbp.addResource);
+            Assert.AreEqual(true, dbp.Resources);
         }
 
         [TestMethod]

@@ -42,7 +42,14 @@ namespace SpaceGame.Components
         const int SHIP_SPEED = 100;
         Vector2 shipSpeed;
         Vector2 shipDirection; // help with ship moving
+        
         private bool keyboardSpacePressed=false;
+        int initialMoney = 1000;
+        int initialCargoCapacity = 10;
+        Dictionary<Resource, int> shipResource;
+
+        int currentMoney;
+        int currentCargoCapacity;
 
         // Load the content
         public void LoadContent(ContentManager content)
@@ -53,6 +60,10 @@ namespace SpaceGame.Components
             PositionByPixel.X = startingPosition.X;
             PositionByPixel.Y = startingPosition.Y;
             texture = content.Load<Texture2D>(@"ShipSprites\"+name);
+
+            currentMoney = initialMoney;
+            currentCargoCapacity = initialCargoCapacity;
+            shipResource = new Dictionary<Resource, int>();
         }
 
         // Update ship movement
@@ -126,6 +137,11 @@ namespace SpaceGame.Components
             fontPosition = new Vector2(100, 35);
             spriteBatch.DrawString(font1, printDiceRolled, fontPosition, Color.Red, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
             spriteBatch.Draw(texture, new Rectangle((int)PositionByPixel.X, (int)PositionByPixel.Y, Tile.TileWidth / 2, Tile.TileHeight / 2), Color.White);
+
+            // Draw the current money
+            fontPosition = new Vector2(230, 630);
+            string currentMoneyText = "My current Money: "+ currentMoney.ToString();
+            spriteBatch.DrawString(font1, currentMoneyText, fontPosition, Color.Red, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f); 
         }
 
         public Vector2 getShipLocation()
@@ -155,6 +171,27 @@ namespace SpaceGame.Components
         public void pressKeyboard(string p)
         {
             if (p.Equals("space")) keyboardSpacePressed = true;
+        }
+
+        public int getCurrentMoney()
+        {
+            return currentMoney;
+        }
+
+        public int getShipNumberOfResource()
+        {
+            int numberOfResource= 0;
+            foreach (KeyValuePair<Resource, int> pair in shipResource)
+            {
+                Debug.WriteLine(pair.Key+" "+pair.Value);
+                numberOfResource = numberOfResource + pair.Value;
+            }
+            return numberOfResource;
+        }
+
+        public int getCargoCapacity()
+        {
+            return initialCargoCapacity;
         }
     }
 

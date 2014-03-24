@@ -15,6 +15,7 @@ namespace SpaceGame.Components
         public Boolean addplanet = true;
         public Boolean addResource = true;
         public int sessionNumber = 0;
+        public Boolean Resources;
         /*
          * This is to try and populate the database when a new game starts. It is done here so that it can easily be removed or changed if need by as maybe
          * threaded if it slows down the process.
@@ -28,28 +29,32 @@ namespace SpaceGame.Components
         /// <returns></returns>
         public Boolean Startresourceadd()
         {
+            
             XmlDocument doc = new XmlDocument();
             doc.Load(@"Content\resourceListCostDescript.xml");
             XmlNodeList elemlist = doc.GetElementsByTagName("Res");
+            //Console.WriteLine("ResourcesAdd");
             try
             {
                 
                 try
                 {
                     dbf.NewResourceMedia(elemlist[1].Attributes["Name"].Value, Convert.ToInt16(elemlist[1].Attributes["Price"].Value), elemlist[1].Attributes["Descrp"].Value, 0, 0, elemlist[1].Attributes["loc"].Value, 0);
-                    return true;
-                }catch (Exception ex) { Console.WriteLine(ex); return false; }
+                    Resources = true;
+                }catch (Exception ex) { Console.WriteLine(ex); Resources = false; }
 
                 for (int i = 0; i < elemlist.Count; i++)
                 {
                     
                     dbs.NewResourceMedia(elemlist[i].Attributes["Name"].Value, Convert.ToInt16(elemlist[i].Attributes["Price"].Value), elemlist[i].Attributes["Descrp"].Value, 0, 0, elemlist[i].Attributes["loc"].Value, 0);
-                    
+                    //Console.WriteLine(elemlist[i].Attributes["Name"].Value + "," + elemlist[i].Attributes["Price"].Value + "," + elemlist[i].Attributes["Descrp"].Value + "," + 0 + "," + 0 + "," + elemlist[i].Attributes["loc"].Value + "," + 0);
                 }
                 //Console.WriteLine("Resources added to the database at start of the game");
                 
             }
-            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            catch (Exception ex) { Console.WriteLine(ex); Resources = false; }
+
+            return Resources;
         }
 
         public int startPlanetAdd()

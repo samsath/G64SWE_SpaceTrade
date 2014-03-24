@@ -102,7 +102,7 @@ namespace XRpgLibrary
 
         public void PushState(GameState newState, Object str)
         {
-            shipName = str.ToString();
+            if (str!=null) shipName = str.ToString();
             drawOrder += drawOrderInc;
             newState.DrawOrder = drawOrder;
 
