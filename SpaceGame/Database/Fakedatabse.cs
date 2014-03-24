@@ -236,6 +236,11 @@ namespace STDatabase
         {
             return 1;
         }
+        
+        public void ShipUpdate(int oldship, int newship)
+        {
+            intData = oldship + newship;
+        }
 
         public List<Planetdata> SessionWithPlanet(int session)
         {
