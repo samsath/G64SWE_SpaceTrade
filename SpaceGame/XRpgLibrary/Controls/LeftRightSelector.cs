@@ -20,7 +20,6 @@ namespace XRpgLibrary.Controls
         #region Field Region
 
         List<string> items = new List<string>();
-        string selectedItemString = "";
 
         Texture2D leftTexture;
         Texture2D rightTexture;
