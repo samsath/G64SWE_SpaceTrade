@@ -40,6 +40,6 @@ namespace STDatabase
         void ShipLoc(int ship_id, int x_loc, int y_loc);
         System.Collections.Generic.List<Resourcedata> ShipResources(int shipId);
         int getLastSession();
-        public void ShipUpdate(int oldship, int newship);
+        void ShipUpdate(int oldship, int newship);
     }
 }
