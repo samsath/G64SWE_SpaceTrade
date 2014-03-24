@@ -43,7 +43,7 @@ namespace SpaceGame
         }
 
         public bool DecrementMoney(int new_amount)// to decrease the money when buying or ubgrading  new_amont = PRICE
-        {
+        {  
             if (money - new_amount >= 0)
             {
                 money -= new_amount;
@@ -63,7 +63,7 @@ namespace SpaceGame
                 this.TotalNumberOfResorces++;
 
             }
-            // else { Console.WriteLine("you dont have enough money"); }
+            // else { Console.WriteLine("you dont have enough money or not have enogh space"); }
         }
 
         public void removeoneResorce(int resorceIDPrice)
@@ -77,7 +77,7 @@ namespace SpaceGame
             // else { Console.WriteLine("you dont have enough money"); }
         }
 
-        public float Profit() // Calculate the % of the profit or loss    can be a negative number 
+        public float Profit() // Calculate the % of the profit or loss    can be a negative number higt score player saved in database
         {
             return this.StartMoney / this.Money * 100;
         }
@@ -101,7 +101,7 @@ namespace SpaceGame
                 this.SpaceShipId = SpaceShipID; // shipid.
                 this.SpaceShipIdLevelID = LevelID;
                 this.Money -= ShipPricee;
-                //the resorce
+                //the resorce updated in the database
             }
             // else { Console.WriteLine("you dont have enough money"); }
 

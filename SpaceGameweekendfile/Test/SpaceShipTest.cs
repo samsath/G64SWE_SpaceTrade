@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.Threading;
 using STDatabase;
 
+
 #region Sam
 namespace Test
 {
@@ -21,13 +22,16 @@ namespace Test
     {
         DatabasePopulate dbp;
         Economy eco ;
-     
+        Trading trad;
         [TestInitialize]
         public void init()
         {
             dbp = new DatabasePopulate();
             eco = new Economy();
+            trad = new Trading();
         }
+
+
 
         [TestMethod]
         public void IfKeyPressedDiceWillRoll()
@@ -115,7 +119,7 @@ namespace Test
         }
         
         [TestMethod]
-        public void DecrementStock_MoneyAtZero_ReturnFalse()
+        public void Decrement_MoneyAtZero_ReturnFalse()
         {
             //stock is zero to start with
 
@@ -125,7 +129,7 @@ namespace Test
         }
 
         [TestMethod]
-        public void DecrementStock_StockGreaterThanZero_ReturnTrue()
+        public void Decrement_GreaterThanZero_ReturnTrue()
         {
             
             eco.AddToMoney(10);
@@ -188,6 +192,8 @@ namespace Test
              int ShipPricee = 1;
              eco.ShipChange(SpaceShipID, LevelID, ShipPricee);// the ship class must have other type
         }
+        
+
 
         #endregion
        
