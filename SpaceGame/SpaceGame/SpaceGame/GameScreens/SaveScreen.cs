@@ -13,7 +13,7 @@ using XRpgLibrary.Controls;
 
 namespace SpaceGame.GameScreens
 {
-    public class StartMenuScreen : BaseGameState
+    public class SaveScreen : BaseGameState
     {
         #region Field region
 
@@ -22,6 +22,9 @@ namespace SpaceGame.GameScreens
         LinkLabel startGame;
         LinkLabel loadGame;
         LinkLabel exitGame;
+        LinkLabel resumeGame;
+        LinkLabel saveGame;
+
         float maxItemWidth = 0f;
 
         #endregion
@@ -31,7 +34,7 @@ namespace SpaceGame.GameScreens
 
         #region Constructor Region
 
-        public StartMenuScreen(Game game, GameStateManager manager)
+        public SaveScreen(Game game, GameStateManager manager)
             : base(game, manager)
         {
         }
@@ -66,6 +69,20 @@ namespace SpaceGame.GameScreens
                     arrowTexture.Width,
                     arrowTexture.Height));
             ControlManager.Add(arrowImage);
+
+            resumeGame = new LinkLabel();
+            resumeGame.Text = "Resume Game";
+            resumeGame.Size = resumeGame.SpriteFont.MeasureString(resumeGame.Text);
+            resumeGame.Selected += new EventHandler(menuItem_Selected);
+
+            ControlManager.Add(resumeGame);
+
+            saveGame = new LinkLabel();
+            saveGame.Text = "Resume Game";
+            saveGame.Size = saveGame.SpriteFont.MeasureString(saveGame.Text);
+            saveGame.Selected += new EventHandler(menuItem_Selected);
+
+            ControlManager.Add(saveGame);
 
             startGame = new LinkLabel();
             startGame.Text = "New Game";
@@ -130,6 +147,15 @@ namespace SpaceGame.GameScreens
             if (sender == exitGame)
             {
                 GameRef.Exit();
+            }
+
+            if (sender == resumeGame)
+            {
+                StateManager.PushState(GameRef.GamePlayScreen, "");
+            }
+            if (sender == saveGame)
+            {
+                StateManager.PushState(GameRef.GamePlayScreen, "");
             }
         }
 

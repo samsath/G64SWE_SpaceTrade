@@ -19,15 +19,19 @@ namespace SpaceGame.GameScreens
 {
     public class GamePlayScreen : BaseGameState
     {
+        
+
+        #region Property Region
+
         GameStateManager manager;
 
         SpaceShip MyShip;
 
         Board myBoard; // board object
-        
-        Texture2D backgroundScreen;
 
-        #region Property Region
+        Texture2D backgroundScreen;
+        List<string> gameState;
+
         #endregion
 
         #region Constructor Region
@@ -62,8 +66,28 @@ namespace SpaceGame.GameScreens
 
         public override void Update(GameTime gameTime)
         {
-            
-            MyShip.Update(gameTime);
+            //Debug.WriteLine(MyShip.getGameState());
+            if (MyShip.getGameState().Equals("playing"))
+            {
+                MyShip.getGameState();
+                MyShip.Update(gameTime);
+            }
+            else if (MyShip.getGameState().Equals("endOfGame"))
+            {
+                StateManager.ChangeState(GameRef.EndGameScreen);
+            }
+            else if (MyShip.getGameState().Equals("Buy"))
+            {
+                StateManager.ChangeState(GameRef.BuyScreen);
+            }
+            else if (MyShip.getGameState().Equals("Sell"))
+            {
+                StateManager.ChangeState(GameRef.SellScreen);
+            }
+            else if (MyShip.getGameState().Equals("Escape"))
+            {
+                StateManager.ChangeState(GameRef.SaveScreen);
+            }
             base.Update(gameTime);
         }
 
@@ -92,6 +116,8 @@ namespace SpaceGame.GameScreens
 
 
         }
+
+        
 
     }
 }

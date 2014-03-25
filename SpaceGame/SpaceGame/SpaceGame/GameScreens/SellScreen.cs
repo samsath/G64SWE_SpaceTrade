@@ -12,23 +12,21 @@ using Microsoft.Xna.Framework.Content;
 using XRpgLibrary;
 using XRpgLibrary.Controls;
 
-
 namespace SpaceGame.GameScreens
 {
-
-    internal class ResourceLabelSet
+    internal class ResourceLabelSetSell
     {
         internal Label Label;
         internal LinkLabel LinkLabel;
 
-        internal ResourceLabelSet(Label label, LinkLabel linkLabel)
+        internal ResourceLabelSetSell(Label labelSell, LinkLabel linkLabelSell)
         {
-            Label = label;
-            LinkLabel = linkLabel;
+            Label = labelSell;
+            LinkLabel = linkLabelSell;
         }
     }
 
-    public class AdminScreen : BaseGameState
+    public class SellScreen : BaseGameState
     {
         #region Field Region
 
@@ -74,7 +72,7 @@ namespace SpaceGame.GameScreens
 
         #region Constructor Region
 
-        public AdminScreen(Game game, GameStateManager stateManager)
+        public SellScreen(Game game, GameStateManager stateManager)
             : base(game, stateManager)
         {
             linkLabelHandler = new EventHandler(addSelectedResource);
@@ -108,16 +106,21 @@ namespace SpaceGame.GameScreens
         {
 
             backgroundImage = new PictureBox(
-            Game.Content.Load<Texture2D>(@"Backgrounds\Sombrero"),
+            Game.Content.Load<Texture2D>(@"Backgrounds\DeepSpace"),
             GameRef.ScreenRectangle);
             ControlManager.Add(backgroundImage);
 
             //List<ResourceData> resourceData = new List<ResourceData>();
 
+            Label Title = new Label();
+            Title.Text = "Sell Interface";
+            Title.Position = new Vector2(300, 50);
+            ControlManager.Add(Title);
+
             Vector2 nextControlPosition = new Vector2(300, 100);
 
             remainingResources = new Label();
-            remainingResources.Text = "Total Resources: " + unassignedResources.ToString();
+            remainingResources.Text = "Total Amount of Money " + unassignedResources.ToString();
             remainingResources.Position = nextControlPosition;
 
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
@@ -146,7 +149,7 @@ namespace SpaceGame.GameScreens
 
             moneyNumber = new Label();
             moneyNumber.Text = moneyAmount.ToString();
-            moneyNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);           
+            moneyNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
 
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
 
@@ -163,7 +166,7 @@ namespace SpaceGame.GameScreens
             LinkLabel linkLabelTurns = new LinkLabel();
             linkLabelTurns.TabStop = true;
             linkLabelTurns.Text = "+";
-            linkLabelTurns.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);           
+            linkLabelTurns.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
 
             linkLabelTurns.Selected += addSelectedResource;
 
@@ -205,7 +208,7 @@ namespace SpaceGame.GameScreens
             LinkLabel AmmoLabel = new LinkLabel();
             AmmoLabel.TabStop = true;
             AmmoLabel.Text = "+";
-            AmmoLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);            
+            AmmoLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
 
             AmmoLabel.Selected += addSelectedResource;
             AmmoLabel.Selected += new EventHandler(augmentAmmo);
@@ -232,7 +235,7 @@ namespace SpaceGame.GameScreens
             LinkLabel HealthLabel = new LinkLabel();
             HealthLabel.TabStop = true;
             HealthLabel.Text = "+";
-            HealthLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);           
+            HealthLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
 
             HealthLabel.Selected += addSelectedResource;
             HealthLabel.Selected += new EventHandler(augmentHealth);
@@ -259,7 +262,7 @@ namespace SpaceGame.GameScreens
             LinkLabel FuelLabel = new LinkLabel();
             FuelLabel.TabStop = true;
             FuelLabel.Text = "+";
-            FuelLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);           
+            FuelLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
 
             FuelLabel.Selected += addSelectedResource;
             FuelLabel.Selected += new EventHandler(augmentFuel);
@@ -286,7 +289,7 @@ namespace SpaceGame.GameScreens
             LinkLabel CargoCapacityLabel = new LinkLabel();
             CargoCapacityLabel.TabStop = true;
             CargoCapacityLabel.Text = "+";
-            CargoCapacityLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);            
+            CargoCapacityLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
 
             CargoCapacityLabel.Selected += addSelectedResource;
             CargoCapacityLabel.Selected += new EventHandler(augmentCargo);
@@ -299,7 +302,7 @@ namespace SpaceGame.GameScreens
             ControlManager.Add(cargoNumber);
 
             resourceLabel1.Add(new ResourceLabelSet(CargoCapacity, CargoCapacityLabel));
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 20f;            
+            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 20f;
             //
 
 
@@ -383,7 +386,7 @@ namespace SpaceGame.GameScreens
                 //return;
             }
             else
-            {             
+            {
                 string resourceName = ((LinkLabel)sender).Type;
                 undoResources.Push(resourceName);
                 unassignedResources--;
@@ -394,7 +397,7 @@ namespace SpaceGame.GameScreens
         }
         void goBack(object sender, EventArgs e)
         {
-            StateManager.ChangeState(GameRef.StartMenuScreen);
+            StateManager.ChangeState(GameRef.GamePlayScreen);
         }
 
         void augmentMoney(object sender, EventArgs e)
@@ -404,7 +407,7 @@ namespace SpaceGame.GameScreens
                 moneyAmount++;
                 moneyNumber.Text = moneyAmount.ToString();
             }
-            
+
         }
 
         void augmentTurns(object sender, EventArgs e)

@@ -73,7 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Board.cs" />
-    <Compile Include="Components\DatabasePopulate.cs" />
     <Compile Include="Components\Object.cs" />
     <Compile Include="Components\Planet.cs" />
     <Compile Include="Components\Resource.cs" />
@@ -81,8 +80,12 @@
     <Compile Include="Components\Tile.cs" />
     <Compile Include="GameScreens\AdminScreen.cs" />
     <Compile Include="GameScreens\BaseGameState.cs" />
+    <Compile Include="GameScreens\BuyScreen.cs" />
     <Compile Include="GameScreens\CharacterGeneratorScreen.cs" />
+    <Compile Include="GameScreens\EndGameScreen.cs" />
     <Compile Include="GameScreens\GamePlayScreen.cs" />
+    <Compile Include="GameScreens\SaveScreen.cs" />
+    <Compile Include="GameScreens\SellScreen.cs" />
     <Compile Include="GameScreens\StartMenuScreen.cs" />
     <Compile Include="GameScreens\TitleScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,10 +99,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Database\Database.csproj">
-      <Project>{a5fa4d23-7f26-409e-8c2f-929f88d4a70c}</Project>
-      <Name>Database</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\RpgLibrary\RpgLibrary.csproj">
       <Project>{8caeb3af-9af5-49ba-bbc2-80ecef3fa4f2}</Project>
       <Name>RpgLibrary</Name>

@@ -90,12 +90,11 @@ namespace SpaceGame.Components
             {
                 spriteBatch.Draw(tiles.ElementAt(k).getTexture(), new Rectangle(50 + (0 * Tile.TileWidth), 50 + (y * Tile.TileHeight), Tile.TileWidth, Tile.TileHeight), Color.White); k++;
             }
-            
-            // Draw the current place and its content
+
             string ourLocation = "We are at " + tiles.ElementAt(boardLocationToListLocation(ship.getShipLocation())).getPlanet().getName();
             Vector2 FontOrigin = font1.MeasureString(ourLocation) / 2;
             fontPosition = new Vector2(230, 125);
-            spriteBatch.DrawString(font1, ourLocation, fontPosition, Color.Blue, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+            spriteBatch.DrawString(font1, ourLocation, fontPosition, Color.White, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
             List<Resource> resource = new List<Resource>();
             resource = tiles.ElementAt(boardLocationToListLocation(ship.getShipLocation())).getPlanet().getResourceList();
             int l = 0;
@@ -106,9 +105,7 @@ namespace SpaceGame.Components
                 spriteBatch.DrawString(font1, myResource, fontPosition, Color.Red, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
                 l = l + 25;
             }
-
-            
-
+        
             //printDiceRolled = "Move remaining is: " + diceRemaining.ToString();
             //fontPosition = new Vector2(100, 35);
             //spriteBatch.DrawString(font1, printDiceRolled, fontPosition, Color.Red, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);

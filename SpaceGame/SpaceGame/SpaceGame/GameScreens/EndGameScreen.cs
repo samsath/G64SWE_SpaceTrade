@@ -13,8 +13,8 @@ using XRpgLibrary.Controls;
 
 namespace SpaceGame.GameScreens
 {
-    public class StartMenuScreen : BaseGameState
-    {
+    public class EndGameScreen : BaseGameState
+   {
         #region Field region
 
         PictureBox backgroundImage;
@@ -31,7 +31,7 @@ namespace SpaceGame.GameScreens
 
         #region Constructor Region
 
-        public StartMenuScreen(Game game, GameStateManager manager)
+        public EndGameScreen(Game game, GameStateManager manager)
             : base(game, manager)
         {
         }
@@ -66,6 +66,19 @@ namespace SpaceGame.GameScreens
                     arrowTexture.Width,
                     arrowTexture.Height));
             ControlManager.Add(arrowImage);
+
+            Label gameOver = new Label();
+            gameOver.Text= "Game Over.";
+            gameOver.Size = gameOver.SpriteFont.MeasureString(gameOver.Text);
+            gameOver.Position= new Vector2((GameRef.Window.ClientBounds.Width - gameOver.Size.X) / 2, 150);
+            ControlManager.Add(gameOver);
+
+            Label turns = new Label();
+            turns.Text = "You are out of turns.";
+            turns.Size = turns.SpriteFont.MeasureString(turns.Text);
+            turns.Position = new Vector2((GameRef.Window.ClientBounds.Width - turns.Size.X) / 2, 250);
+            ControlManager.Add(turns);
+
 
             startGame = new LinkLabel();
             startGame.Text = "New Game";
