@@ -78,7 +78,7 @@ namespace SpaceGame.GameScreens
             ControlManager.Add(resumeGame);
 
             saveGame = new LinkLabel();
-            saveGame.Text = "Resume Game";
+            saveGame.Text = "Save Game";
             saveGame.Size = saveGame.SpriteFont.MeasureString(saveGame.Text);
             saveGame.Selected += new EventHandler(menuItem_Selected);
 
@@ -109,7 +109,7 @@ namespace SpaceGame.GameScreens
 
             ControlManager.FocusChanged += new EventHandler(ControlManager_FocusChanged);
 
-            Vector2 position = new Vector2(350, 500);
+            Vector2 position = new Vector2(350, 300);
             foreach (Control c in ControlManager)
             {
                 if (c is LinkLabel)
