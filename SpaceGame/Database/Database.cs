@@ -1100,6 +1100,55 @@ namespace STDatabase
             }
         }
 
+        /// <summary>
+        /// This will add resurce to planet by session id
+        /// </summary>
+        /// <param name="session"></param>
+        public void AddResourcetoPlanet(int session)
+        {
+            Random randNum = new Random();
+            
+            // get list of all planets and all resource from session
+            if (Check())
+            {
+                // Grabs a list of planets and the resource each on their ID's
+                List<int> Planets = SessionPlanet(session);
+                List<int> Resources = SessionResource(session);
+                int rc = Resources.Count;
+                
+                // goes through each planet liskt and adds 4 resource to the list
+                for (int i = 0; i < Planets.Count; i++)
+                {
+                    // Creates a list on 4 resource from the list which isnt the same
+                    List<int> usednum = new List<int>();
+
+                    while (usednum.Count <= 4)
+                    {
+                        int num = 0;
+
+                        num = randNum.Next(1, rc);
+
+                        if (usednum.Contains(num))
+                        {
+                            num = randNum.Next(1, rc);
+                        }
+                        else
+                        {
+                            usednum.Add(num);
+                        }
+                    }
+
+                    for (int n = 0; n < usednum.Count; n++)
+                    {
+                        // Adds the resource to planet 
+                        int amount = randNum.Next(1, 100);
+                        int cost = randNum.Next(10, 200);
+                        AddResourceToPlanet(i, n, amount, cost);
+                    }
+                }
+            }
+        }
+
 
     }
 

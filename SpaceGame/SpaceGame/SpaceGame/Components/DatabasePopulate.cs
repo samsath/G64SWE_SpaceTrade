@@ -16,6 +16,8 @@ namespace SpaceGame.Components
         public Boolean addResource = true;
         public int sessionNumber = 0;
         public Boolean Resources;
+        public int resourceCount = 0;
+        public int planetscreated = 0;
         /*
          * This is to try and populate the database when a new game starts. It is done here so that it can easily be removed or changed if need by as maybe
          * threaded if it slows down the process.
@@ -48,6 +50,8 @@ namespace SpaceGame.Components
                     
                     dbs.NewResourceMedia(elemlist[i].Attributes["Name"].Value, Convert.ToInt16(elemlist[i].Attributes["Price"].Value), elemlist[i].Attributes["Descrp"].Value, 0, 0, elemlist[i].Attributes["loc"].Value, 0);
                     //Console.WriteLine(elemlist[i].Attributes["Name"].Value + "," + elemlist[i].Attributes["Price"].Value + "," + elemlist[i].Attributes["Descrp"].Value + "," + 0 + "," + 0 + "," + elemlist[i].Attributes["loc"].Value + "," + 0);
+
+                    resourceCount++;
                 }
                 //Console.WriteLine("Resources added to the database at start of the game");
                 
@@ -62,7 +66,7 @@ namespace SpaceGame.Components
             Random randNum = new Random();
             // creates 40 new planets with name and images 
             string[] planetimages = new string[] { "earth", "jupiter", "mars", "mercury", "neptune", "saturn", "uranus", "venus" };
-            int planetscreated = 0;
+            
             XmlDocument doc = new XmlDocument();
             doc.Load(@"Content\planetName.xml");
             XmlNodeList planetName = doc.GetElementsByTagName("Planet");
@@ -139,6 +143,16 @@ namespace SpaceGame.Components
                 sessionNumber = ses;
             }
             return sessionNumber;
+        }
+
+        public void AddResourcetoPlanet()
+        {
+            // this will randomly add resources to the different planets
+            if (planetscreated > 0 && resourceCount > 0)
+            {
+                // query that updates the planetresource which will 
+                dbs.AddResourcetoPlanet(sessionNumber);
+            }
         }
     }
 }

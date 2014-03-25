@@ -126,6 +126,7 @@ namespace SpaceGame.GameScreens
                 dbp.Startresourceadd();
                 dbp.startPlanetAdd();
                 dbp.AddtoSession(dbp.newSession());
+                dbp.AddResourcetoPlanet();
             }
 
             if (sender == loadGame)

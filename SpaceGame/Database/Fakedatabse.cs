@@ -250,9 +250,9 @@ namespace STDatabase
             return result;
         }
 
-        public void ShipUpdate(int oldship, int newship)
+        public void AddResourcetoPlanet(int sessionNumber)
         {
-            intData = oldship + newship;
+            intData = sessionNumber;
         }
 
     }
