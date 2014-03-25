@@ -14,11 +14,13 @@ using System.Data;
 
 namespace STDatabase
 {
+    
     /// <summary>
     /// The location will need to be changed so that they work on every computer/
     /// </summary>
     public class Database : IDatabase
     {
+        public int lastsession = 1;
         public SQLiteConnection dbc;
         string dbpath;
         /// <summary>
@@ -214,6 +216,7 @@ namespace STDatabase
                         {
                             while (rdq.Read())
                             {
+                                
                                 Userdata record = new Userdata(rdq.GetInt32(0), rdq.GetInt32(1), rdq.GetString(2), 0, 0);
                                 result.Add(record);
                             }
@@ -472,18 +475,22 @@ namespace STDatabase
         /// <returns></returns>
         public List<Resourcedata> PlanetResources(int planetId)
         {
+            Console.WriteLine("PlanetRes called");
             List<Resourcedata> result = new List<Resourcedata>();
             if (Check())
             {
-                string Query = string.Format("SELECT resources.Resources_id, resources.Name, resources.Initial_Price, resources.Description, planetresources.Price FROM resource, planetresources WHERE resources.Resources_id == planetresources.Resources_id AND planetresources.Planet_id = {0};", planetId);
+                string Query = string.Format("SELECT resources.Resources_id, resources.Name, resources.Initial_Price, resources.Description, planetresources.Price FROM resources, planetresources WHERE (resources.Resources_id == planetresources.Resources_id) AND planetresources.Planet_id ={0};", planetId);
+                Console.WriteLine("QueryCreater");
                 using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
                 {
                     try
                     {
                         using (SQLiteDataReader rdq = command.ExecuteReader())
                         {
+                            Console.WriteLine("rdq");
                             while (rdq.Read())
                             {
+                                Console.WriteLine("Read");
                                 Resourcedata record = new Resourcedata(rdq.GetInt32(0), rdq.GetString(1), rdq.GetInt32(2), rdq.GetString(3), planetId, 0, 0, 0, rdq.GetInt32(4), 0, "null");
                                 result.Add(record);
                             }
@@ -704,11 +711,11 @@ namespace STDatabase
         {
             if (Check())
             {
-                string[] query = new string[1] { String.Format("INSERT INTO planetresources (Planet_id, Resources_id, Amount, Price) VALUSE ({0}, {1}, {2}, {3})", planet_id, resource_id, amount, price) };
+                string[] query = new string[1] { String.Format("INSERT INTO planetresources (Planet_id, Resources_id, Amount, Price) VALUES ({0}, {1}, {2}, {3})", planet_id, resource_id, amount, price) };
 
                 exeQuery(query);
 
-                Console.WriteLine("Resource added to Planet");
+                //Console.WriteLine("Resource added to Planet");
             }
         }
 
@@ -815,17 +822,22 @@ namespace STDatabase
             List<int> result = new List<int>();
             if (Check())
             {
+                //Console.WriteLine("Planet");
+                //Console.WriteLine("si"+ sessionid);
                 string Query = String.Format("SELECT Planet_id FROM sessiontoplanet WHERE Session_id = {0}", sessionid);
                 using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
                 {
                     try
                     {
-
+                        //Console.WriteLine("try1");
                         using (SQLiteDataReader rdq = command.ExecuteReader())
                         {
+                            //Console.WriteLine("rdq");
                             while (rdq.Read())
                             {
-                                result.Add(rdq.GetInt32(0));
+                                result.Add(rdq.GetInt16(0));
+                                //Console.WriteLine("HELLLL");
+                                Console.WriteLine(rdq.GetInt16(0));
                             }
                         }
                     }
@@ -833,7 +845,7 @@ namespace STDatabase
 
                 }
             }
-
+            //Console.WriteLine("Planet Session Done");
             return result;
         }
 
@@ -897,7 +909,7 @@ namespace STDatabase
 
                 }
             }
-
+            //Console.WriteLine("Res Session Done");
             return result;
         }
 
@@ -1022,7 +1034,7 @@ namespace STDatabase
         /// <returns></returns>
         public int getLastSession()
         {
-            int lastsession = 0;
+            
             if (Check())
             {
                 string Query = "SELECT Session_id FROM sessions ORDER BY Session_id DESC LIMIT 1";
@@ -1034,7 +1046,17 @@ namespace STDatabase
                         {
                             while (rdq.Read())
                             {
-                                lastsession = rdq.GetInt32(0);
+                                Console.WriteLine("rdq value = " + rdq.GetInt32(0));
+                                if (rdq.GetInt32(0) != null && rdq.GetInt32(0) > lastsession)
+                                {
+
+                                    lastsession = rdq.GetInt32(0);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Last session +1");
+                                    lastsession++;
+                                }
                             }
                         }
                     }
@@ -1043,7 +1065,8 @@ namespace STDatabase
                 }
 
             }
-
+            
+            Console.WriteLine("Last session = " + lastsession);
             return lastsession;
         }
         
@@ -1064,10 +1087,12 @@ namespace STDatabase
 
         public List<Planetdata> SessionWithPlanet(int session)
         {
+            Console.WriteLine("SWP sess =" + session);
             List<Planetdata> result = new List<Planetdata>();
             if (Check())
             {
                 string Query = String.Format("SELECT planet.Planet_id, planet.Title, planet.X_loc, planet.Y_loc, media.Media_id, media.file_Loc FROM planet, media, planetmedia WHERE (planet.Planet_id == planetmedia.Planet_id AND planetmedia.Media_id == media.Media_id) AND planet.Planet_id IN (SELECT Planet_id FROM sessiontoplanet WHERE Session_id = {0})", session);
+                Console.WriteLine(Query);
                 using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
                 {
                     try
@@ -1086,19 +1111,6 @@ namespace STDatabase
             }
             return result;
         }
-        /// <summary>
-        /// This will change the ship id for the resources, so pass the resource to the upgraded ship.
-        /// </summary>
-        /// <param name="oldship"></param>
-        /// <param name="newship"></param>
-        public void ShipUpdate(int oldship, int newship)
-        {
-            if (Check())
-            {
-                string[] Query = new string[1] { String.Format("UPDATE shipresource SET ship_id ={1} WHERE ship_id = {0}", oldship, newship) };
-                exeQuery(Query);
-            }
-        }
 
         /// <summary>
         /// This will add resurce to planet by session id
@@ -1116,12 +1128,14 @@ namespace STDatabase
                 List<int> Resources = SessionResource(session);
                 int rc = Resources.Count;
                 
+                
+                
                 // goes through each planet liskt and adds 4 resource to the list
                 for (int i = 0; i < Planets.Count; i++)
                 {
                     // Creates a list on 4 resource from the list which isnt the same
                     List<int> usednum = new List<int>();
-
+                    
                     while (usednum.Count <= 4)
                     {
                         int num = 0;
@@ -1141,11 +1155,14 @@ namespace STDatabase
                     for (int n = 0; n < usednum.Count; n++)
                     {
                         // Adds the resource to planet 
+                        
                         int amount = randNum.Next(1, 100);
                         int cost = randNum.Next(10, 200);
-                        AddResourceToPlanet(i, n, amount, cost);
+                        AddResourceToPlanet(i, usednum[n], amount, cost);
+
                     }
                 }
+                
             }
         }
 

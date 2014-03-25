@@ -18,9 +18,10 @@ namespace SpaceGame.Components
     {
         public string name;
         public List<Resource> resource;
+        public List<Resourcedata> resourcedb;
         Random rand;
         public string p;
-        Database dbs;
+        public IDatabase dbs = new Database();
 
         // int of the planet number in the database
         public int planetid { get; set; }
@@ -32,7 +33,7 @@ namespace SpaceGame.Components
             this.planetid = id;
             this.texture = texture;
             resource = new List<Resource>();
-            generateResource();
+            
         }
 
         public string getName()
@@ -44,9 +45,8 @@ namespace SpaceGame.Components
         {
             // changed this so it gets the relavent information from the database
 
-            List<Resourcedata> resourcedb = new List<Resourcedata>();
-
-            resourcedb = dbs.PlanetResources(planetid);
+            List<Resourcedata> resourcedb = dbs.PlanetResources(planetid);
+            
 
             for (int i = 0; i < resourcedb.Count; i++)
             {

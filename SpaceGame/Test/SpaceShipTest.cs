@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Media;
 using System.Diagnostics;
 using System.Threading;
 
+
 namespace Test
 {
     [TestClass]
@@ -76,7 +77,7 @@ namespace Test
         public void ResorceAdded()
         {
             //Assert.IsTrue(dbp.addResource);
-            Assert.AreEqual(true, dbp.Resources);
+            Assert.IsTrue(dbp.Resources);
         }
 
         [TestMethod]
@@ -104,6 +105,18 @@ namespace Test
         public void CheckLastSession()
         {
             Assert.AreEqual(0, dbp.getSession());
+        }
+
+        [TestMethod]
+        public void AddResourcetoSessionisTrue()
+        {
+            Assert.IsTrue(dbp.addedRestoSession);
+        }
+
+        [TestMethod]
+        public void AddPlanettoSessionisTrue()
+        {
+            Assert.IsTrue(dbp.addedPlanettoSession);
         }
 
 

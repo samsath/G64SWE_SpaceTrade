@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using STDatabase;
 using System.IO;
 using System.Xml;
+using STDatabase;
 
 
 
@@ -15,9 +15,11 @@ namespace SpaceGame.Components
         public Boolean addplanet = true;
         public Boolean addResource = true;
         public int sessionNumber = 0;
-        public Boolean Resources;
+        public Boolean Resources = false;
         public int resourceCount = 0;
         public int planetscreated = 0;
+        public Boolean addedPlanettoSession = false;
+        public Boolean addedRestoSession = false;
         /*
          * This is to try and populate the database when a new game starts. It is done here so that it can easily be removed or changed if need by as maybe
          * threaded if it slows down the process.
@@ -75,7 +77,7 @@ namespace SpaceGame.Components
             // This goes through the list of planets and adds them to the loading place but if that name already exsits then it picks another name.
             // so each time there is a new game the planets names are differently.
 
-            while (usednum.Count <= 40)
+            while (usednum.Count <= 39)
             {
                 int num = 0;
 
@@ -108,15 +110,21 @@ namespace SpaceGame.Components
 
         public void AddtoSession(int sessionId)
         {
+            /// need to add session id to database
+            /// 
             // this makes sure that all the resource and planets are on this session, so can load the data.
             try
             {
+                dbf.AddPlanettoSession(sessionId);
+                addedPlanettoSession = true;
                 dbs.AddPlanettoSession(sessionId);
             }
             catch (Exception ex) { Console.WriteLine("Error " + ex); addplanet = false; }
             
             try
             {
+                dbf.AddResourcetoSession(sessionId);
+                addedRestoSession = true;
                 dbs.AddResourcetoSession(sessionId);
             }
             catch (Exception ex) { Console.WriteLine("Error " + ex); addResource = false; }
@@ -131,8 +139,10 @@ namespace SpaceGame.Components
             int ses = dbs.getLastSession();
             int fs = dbf.getLastSession();
 
-            
+            sessionNumber = ses + 1;
             return ses + 1;
+
+
         }
 
         public int getSession()
@@ -147,6 +157,7 @@ namespace SpaceGame.Components
 
         public void AddResourcetoPlanet()
         {
+            
             // this will randomly add resources to the different planets
             if (planetscreated > 0 && resourceCount > 0)
             {

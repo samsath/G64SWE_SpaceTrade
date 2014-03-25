@@ -101,16 +101,27 @@ namespace SpaceGame.Components
             // connects to the database, grabs the current session number then gets the planets from that list 
 
             // need to change this so that it will work on loaded session
-            int session = newSession();
-
-            tiles.Add(new Tile(space, new Planet("space", 0, "space")));
+            // need to change this to work propperly
+            int session = dbs.getLastSession() +1;
+            Console.WriteLine("session = " + session);
+            //tiles.Add(new Tile(space, new Planet("space", 0, "space")));
             List<Planetdata> sesPlanet = dbs.SessionWithPlanet(session);
-            foreach (Planetdata element in sesPlanet)
+            Console.WriteLine("sesPlanet = " +sesPlanet.Count);
+            for (int i = 0; i < sesPlanet.Count; i++ )
             {
-                tiles.Add(new Tile(textureReturn(element.File_loc), new Planet(element.Name, element.Planet_id, element.File_loc)));
+                Console.WriteLine("start planet tiles");
+                tiles.Add(new Tile(textureReturn(sesPlanet[i].File_loc), new Planet(sesPlanet[i].Name, sesPlanet[i].Planet_id, sesPlanet[i].File_loc)));
 
             }
 
+            for (int i = 0; i < tiles.Count; i++)
+            {
+                Planet pl = tiles[i].getPlanet();
+
+                pl.generateResource();
+
+            }
+            
 
         }
         
