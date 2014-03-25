@@ -12,14 +12,8 @@ using Microsoft.Xna.Framework.Media;
 
 namespace SpaceGame.Components
 {
-    class Object
+    public class Object
     {
-        int db_id;
-        string Title;
-        string Graphic;
-       
-
-
         //public void LoadContent(ContentManager content, string name)
         //{
             

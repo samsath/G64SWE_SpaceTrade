@@ -30,7 +30,6 @@ namespace SpaceGame.GameScreens
         Board myBoard; // board object
 
         Texture2D backgroundScreen;
-        List<string> gameState;
 
         #endregion
 

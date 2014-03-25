@@ -30,7 +30,7 @@ namespace SpaceGame.Components
         }
     }*/
 
-    public class SpaceShip 
+    public class SpaceShip : Object
     {
         string name;
         SpriteFont font1;
@@ -61,8 +61,15 @@ namespace SpaceGame.Components
         const int SHIP_SPEED = 100;
         Vector2 shipSpeed;
         Vector2 shipDirection; // help with ship moving
+
+        private bool keyboardSpacePressed = false;
+        int initialMoney = 1000;
+        int initialCargoCapacity = 10;
+        Dictionary<Resource, int> shipResource;
         private string gameState = "playing";
 
+        int currentMoney;
+        int currentCargoCapacity;
 
 
         // Load the content
@@ -72,7 +79,9 @@ namespace SpaceGame.Components
             PositionByTile = new Vector2(0, 0);
             startingPosition = new Vector2(50 + Tile.TileWidth / 4, 50 + Tile.TileHeight / 4);
             PositionByPixel.X = startingPosition.X;
-            PositionByPixel.Y = startingPosition.Y;
+            PositionByPixel.Y = startingPosition.Y; currentMoney = initialMoney;
+            currentCargoCapacity = initialCargoCapacity;
+            shipResource = new Dictionary<Resource, int>();
             texture = content.Load<Texture2D>(@"ShipSprites\" + name);
         }
 
@@ -220,11 +229,45 @@ namespace SpaceGame.Components
 
             name = texture;
         }
+        public int getDiceRolled()
+        {
+            return diceRolled;
+        }
+        public void setState(string p)
+        {
+            if (p.Equals("waiting")) currentState = ShipState.Waiting;
+        }
+
+                public void pressKeyboard(string p)
+        {
+            if (p.Equals("space")) keyboardSpacePressed = true;
+        }
 
 
         public string getGameState()
         {
             return gameState;
         }
+
+        public int getShipNumberOfResource()
+        {
+            int numberOfResource = 0;
+            foreach (KeyValuePair<Resource, int> pair in shipResource)
+            {
+                Debug.WriteLine(pair.Key + " " + pair.Value);
+                numberOfResource = numberOfResource + pair.Value;
+            }
+            return numberOfResource;
+        }
+        public int getCurrentMoney()
+        {
+            return currentMoney;
+        }
+
+                public int getCargoCapacity()
+        {
+            return initialCargoCapacity;
+        }
+
     }
 }
