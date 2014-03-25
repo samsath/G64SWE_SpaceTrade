@@ -18,18 +18,6 @@ using XRpgLibrary.Controls;
 
 namespace SpaceGame.Components
 {
-    /*internal class ResourceLabelSet
-    {
-        internal Label Label;
-        internal LinkLabel LinkLabel;
-
-        internal ResourceLabelSet(Label label, LinkLabel linkLabel)
-        {
-            Label = label;
-            LinkLabel = linkLabel;
-        }
-    }*/
-
     public class SpaceShip : Object
     {
         string name;
@@ -52,8 +40,7 @@ namespace SpaceGame.Components
         enum ShipState
         {
             Waiting,
-            Moving//, 
-            //end
+            Moving
         }
 
         ShipState currentState = ShipState.Waiting; // state of the ship
@@ -66,12 +53,16 @@ namespace SpaceGame.Components
         int initialMoney = 1000;
         int initialCargoCapacity = 10;
         Dictionary<Resource, int> shipResource;
+        Dictionary<Resource, int> result;
         private string gameState = "playing";
 
         int currentMoney;
         int currentCargoCapacity;
 
-
+        public SpaceShip()
+        {
+            shipResource = new Dictionary<Resource, int>();
+        }
         // Load the content
         public void LoadContent(ContentManager content)
         {
@@ -81,7 +72,6 @@ namespace SpaceGame.Components
             PositionByPixel.X = startingPosition.X;
             PositionByPixel.Y = startingPosition.Y; currentMoney = initialMoney;
             currentCargoCapacity = initialCargoCapacity;
-            shipResource = new Dictionary<Resource, int>();
             texture = content.Load<Texture2D>(@"ShipSprites\" + name);
         }
 
@@ -238,7 +228,7 @@ namespace SpaceGame.Components
             if (p.Equals("waiting")) currentState = ShipState.Waiting;
         }
 
-                public void pressKeyboard(string p)
+        public void pressKeyboard(string p)
         {
             if (p.Equals("space")) keyboardSpacePressed = true;
         }
@@ -254,7 +244,7 @@ namespace SpaceGame.Components
             int numberOfResource = 0;
             foreach (KeyValuePair<Resource, int> pair in shipResource)
             {
-                Debug.WriteLine(pair.Key + " " + pair.Value);
+                Debug.WriteLine(pair.Key.getName() + " " + pair.Value);
                 numberOfResource = numberOfResource + pair.Value;
             }
             return numberOfResource;
@@ -264,10 +254,58 @@ namespace SpaceGame.Components
             return currentMoney;
         }
 
-                public int getCargoCapacity()
+        public int getCargoCapacity()
         {
             return initialCargoCapacity;
         }
 
+
+        public void buy(Dictionary<Resource, int> resource)
+        {
+            result = new Dictionary<Resource, int>();
+            if (shipResource == null) shipResource = resource;
+            else foreach (KeyValuePair<Resource, int> buying in resource)
+                {
+                    foreach (KeyValuePair<Resource, int> current in shipResource)
+                    {
+                        if (buying.Key.getName().Equals(current.Key.getName()))
+                        {
+                            result.Add(buying.Key, buying.Value + current.Value);
+                        }
+                         
+
+                    }
+                }
+        }
+
+        public Dictionary<Resource, int> getResourceList()
+        {
+            return shipResource;
+        }
+
+        public void sell(Dictionary<Resource, int> resource)
+        {
+            result = new Dictionary<Resource, int>();
+            foreach (KeyValuePair<Resource, int> buying in resource)
+            {
+                foreach (KeyValuePair<Resource, int> current in shipResource)
+                {
+                    if (buying.Key.getName().Equals(current.Key.getName()))
+                    {
+                        result.Add(buying.Key, current.Value - buying.Value);
+                    }
+
+                }
+            }
+        }
+        public void setResource(Dictionary<Resource, int> resource)
+        {
+            shipResource = resource;
+        }
+
+        public Dictionary<Resource, int> getResultList()
+        {
+            return result;
+        }
     }
 }

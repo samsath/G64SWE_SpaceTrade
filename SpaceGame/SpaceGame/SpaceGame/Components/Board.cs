@@ -95,12 +95,12 @@ namespace SpaceGame.Components
             Vector2 FontOrigin = font1.MeasureString(ourLocation) / 2;
             fontPosition = new Vector2(230, 125);
             spriteBatch.DrawString(font1, ourLocation, fontPosition, Color.White, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-            List<Resource> resource = new List<Resource>();
+            Dictionary<Resource, int> resource = new Dictionary<Resource, int>();
             resource = tiles.ElementAt(boardLocationToListLocation(ship.getShipLocation())).getPlanet().getResourceList();
             int l = 0;
-            foreach (Resource m in resource)
+            foreach (KeyValuePair<Resource,int> m in resource)
             {
-                string myResource = "Available Resources: " + m.getName() + " for " + m.getPrice();
+                string myResource = "Available Resources: "+ m.Value+" " + m.Key.getName() + " for " + m.Key.getPrice()+" each";
                 fontPosition = new Vector2(230, 150 + l);
                 spriteBatch.DrawString(font1, myResource, fontPosition, Color.Red, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
                 l = l + 25;

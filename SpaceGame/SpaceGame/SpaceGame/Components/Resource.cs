@@ -5,10 +5,11 @@ using System.Text;
 
 namespace SpaceGame.Components
 {
-    class Resource
+    public class Resource
     {
         private string name;
         private int price;
+
         public Resource(string name, int price)
         {
             this.name = name;
@@ -24,23 +25,10 @@ namespace SpaceGame.Components
         {
             return price;
         }
-
-        private int initialPrice;
-        public int InitialPrice
+        public void changePrice(int price)
         {
-            get { return initialPrice; }
-            set { initialPrice = value; }
+            this.price = price;
         }
-
-        private string description;
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
-        public void economicRole()
-        {
-
-        }
+        
     }
 }
