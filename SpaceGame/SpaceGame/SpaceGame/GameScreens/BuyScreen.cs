@@ -28,26 +28,28 @@ namespace SpaceGame.GameScreens
 
     public class BuyScreen : BaseGameState
     {
-        #region Field Region
+     #region Field Region
 
-        int totalResources = 10;
-        int unassignedResources = 10;
-        int moneyAmount = 0;
-        int turnAmount = 0;
-        int ammoAmount = 0;
-        int healthAmount = 0;
+        int totalMoney = 10000;
+        int moneyRemaining = 10000;
+       // int moneyAmount = 0;
+        int priceAmount = 3000;
+        int quantityAmount = 0;
+        int finalAmount = 0;
         int fuelAmount = 0;
         int cargoAmount = 0;
 
         PictureBox backgroundImage;
-        Label remainingResources;
-        Label MoneyLabel;
-        Label moneyNumber;
-        Label turnNumber;
-        Label ammoNumber;
-        Label healthNumber;
-        Label fuelNumber;
-        Label cargoNumber;
+        Label remainingMoney;
+        Label NameLabel;
+        Label quantityLabel;
+        Label priceLabel;
+        Label priceNumber;
+        Label finalPriceLabel;
+        Label finalPrice;
+        Label quantityNumber;
+        Label PlanetResourceLabel;
+        Label PlanetResourceText;
 
         //List<ResourceLabelSet> resourceLabel = new List<ResourceLabelSet>();
         List<ResourceLabelSet> resourceLabel1 = new List<ResourceLabelSet>();
@@ -60,11 +62,11 @@ namespace SpaceGame.GameScreens
 
         public int TotalResources
         {
-            get { return totalResources; }
+            get { return totalMoney; }
             set
             {
-                totalResources = value;
-                unassignedResources = value;
+                totalMoney = value;
+                moneyRemaining = value;
             }
         }
 
@@ -112,196 +114,128 @@ namespace SpaceGame.GameScreens
 
             //List<ResourceData> resourceData = new List<ResourceData>();
 
-            Vector2 nextControlPosition = new Vector2(300, 100);
+            Label Title = new Label();
+            Title.Text = "Buying Interface";
+            Title.Position = new Vector2(100, 50);
+            ControlManager.Add(Title);
+            Vector2 nextControlPosition = new Vector2(100, 50);
+            
 
-            remainingResources = new Label();
-            remainingResources.Text = "Total Resources: " + unassignedResources.ToString();
-            remainingResources.Position = nextControlPosition;
+            
+
+            remainingMoney = new Label();
+            remainingMoney.Text = "Total Amount of Money: " + moneyRemaining.ToString() + "$";
+            remainingMoney.Position = new Vector2(nextControlPosition.X + 400, nextControlPosition.Y); 
 
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
 
-            ControlManager.Add(remainingResources);
+            ControlManager.Add(remainingMoney);
 
-            MoneyLabel = new Label();
-            MoneyLabel.Text = "Money";
-            MoneyLabel.Position = nextControlPosition;
+            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
+            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
+                        
+            // Labels
 
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
+            NameLabel = new Label();
+            NameLabel.Text = "Name";
+            NameLabel.Position = nextControlPosition;
 
-            ControlManager.Add(MoneyLabel);
 
-            Label Money = new Label();
-            Money.Text = "Initial Amount";
-            Money.Position = nextControlPosition;
+            ControlManager.Add(NameLabel);
 
-            LinkLabel linkLabel = new LinkLabel();
-            linkLabel.TabStop = true;
-            linkLabel.Text = "+";
-            linkLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
+            quantityLabel = new Label();
+            quantityLabel.Text = "Quantity";
+            quantityLabel.Position = new Vector2(nextControlPosition.X + 100, nextControlPosition.Y);
 
-            linkLabel.Selected += addSelectedResource;
-            linkLabel.Selected += new EventHandler(augmentMoney);
 
-            moneyNumber = new Label();
-            moneyNumber.Text = moneyAmount.ToString();
-            moneyNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
+            ControlManager.Add(quantityLabel);
 
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
+            priceLabel = new Label();
+            priceLabel.Text = "Price";
+            priceLabel.Position = new Vector2(nextControlPosition.X + 250, nextControlPosition.Y);
 
-            ControlManager.Add(Money);
-            ControlManager.Add(linkLabel);
-            ControlManager.Add(moneyNumber);
+            ControlManager.Add(priceLabel);
 
-            //Turns
+            finalPriceLabel = new Label();
+            finalPriceLabel.Text = "Final Price";
+            finalPriceLabel.Position = new Vector2(nextControlPosition.X + 650, nextControlPosition.Y);
 
-            Label Turns = new Label();
-            Turns.Text = "Number of Turns";
-            Turns.Position = nextControlPosition;
+            ControlManager.Add(finalPriceLabel);
 
-            LinkLabel linkLabelTurns = new LinkLabel();
-            linkLabelTurns.TabStop = true;
-            linkLabelTurns.Text = "+";
-            linkLabelTurns.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
-
-            linkLabelTurns.Selected += addSelectedResource;
-
-            linkLabelTurns.Selected += new EventHandler(augmentTurns);
-
-            turnNumber = new Label();
-            turnNumber.Text = turnAmount.ToString();
-            turnNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
-
-            ControlManager.Add(Turns);
-            ControlManager.Add(linkLabelTurns);
-            ControlManager.Add(turnNumber);
-
-            //
-
-            resourceLabel1.Add(new ResourceLabelSet(Money, linkLabel));
-
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
-
-            /*
-             * Ships
-             * */
-
-            Label shipLabel = new Label();
-            shipLabel.Text = "Ships.";
-            shipLabel.Position = nextControlPosition;
-
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
-
-            ControlManager.Add(shipLabel);
-
-            //Ammo
-            Label Ammo = new Label();
-            Ammo.Text = "Ammo Ammount";
-            Ammo.Position = nextControlPosition;
-
-            ControlManager.Add(Ammo);
-
-            LinkLabel AmmoLabel = new LinkLabel();
-            AmmoLabel.TabStop = true;
-            AmmoLabel.Text = "+";
-            AmmoLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
-
-            AmmoLabel.Selected += addSelectedResource;
-            AmmoLabel.Selected += new EventHandler(augmentAmmo);
-
-            ammoNumber = new Label();
-            ammoNumber.Text = ammoAmount.ToString();
-            ammoNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
-
-            ControlManager.Add(AmmoLabel);
-            ControlManager.Add(ammoNumber);
-
-            resourceLabel1.Add(new ResourceLabelSet(Ammo, AmmoLabel));
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
             //
 
-            //Health
+            Label nameOfItem = new Label();
+            nameOfItem.Text = "Iron";
+            nameOfItem.Position = nextControlPosition;
 
-            Label Health = new Label();
-            Health.Text = "Maximum Health";
-            Health.Position = nextControlPosition;
+            quantityNumber = new Label();
+            quantityNumber.Text = quantityAmount.ToString();
+            quantityNumber.Position = new Vector2(nextControlPosition.X + 200, nextControlPosition.Y);
 
-            ControlManager.Add(Health);
+            priceNumber = new Label();
+            priceNumber.Text = priceAmount.ToString() + "$";
+            priceNumber.Position = new Vector2(nextControlPosition.X + 250, nextControlPosition.Y);
 
-            LinkLabel HealthLabel = new LinkLabel();
-            HealthLabel.TabStop = true;
-            HealthLabel.Text = "+";
-            HealthLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
+            LinkLabel addLabel = new LinkLabel();
+            addLabel.TabStop = true;
+            addLabel.Text = "+";
+            addLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
 
-            HealthLabel.Selected += addSelectedResource;
-            HealthLabel.Selected += new EventHandler(augmentHealth);
+            addLabel.Selected += new EventHandler(augmentItem);
+            addLabel.Selected += addSelectedResource;
 
-            healthNumber = new Label();
-            healthNumber.Text = healthAmount.ToString();
-            healthNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
+            LinkLabel substractLabel = new LinkLabel();
+            substractLabel.TabStop = true;
+            substractLabel.Text = "-";
+            substractLabel.Position = new Vector2(nextControlPosition.X + 400, nextControlPosition.Y);
 
-            ControlManager.Add(HealthLabel);
-            ControlManager.Add(healthNumber);
+            substractLabel.Selected += new EventHandler(decreaseItem);
+            substractLabel.Selected += new EventHandler(substractSelectedResource);            
+            
+            //addLabel.Selected += new EventHandler(decreaseItem);
 
-            resourceLabel1.Add(new ResourceLabelSet(Health, HealthLabel));
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
+            //final price
+            finalPrice = new Label();
+            finalPrice.Text = finalAmount.ToString();
+            finalPrice.Position = new Vector2(nextControlPosition.X + 650, nextControlPosition.Y);
+
             //
 
-            //Fuel
-
-            Label Fuel = new Label();
-            Fuel.Text = "Fuel Capacity";
-            Fuel.Position = nextControlPosition;
-
-            ControlManager.Add(Fuel);
-
-            LinkLabel FuelLabel = new LinkLabel();
-            FuelLabel.TabStop = true;
-            FuelLabel.Text = "+";
-            FuelLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
-
-            FuelLabel.Selected += addSelectedResource;
-            FuelLabel.Selected += new EventHandler(augmentFuel);
-
-            fuelNumber = new Label();
-            fuelNumber.Text = fuelAmount.ToString();
-            fuelNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
-
-            ControlManager.Add(FuelLabel);
-            ControlManager.Add(fuelNumber);
-
-            resourceLabel1.Add(new ResourceLabelSet(Fuel, FuelLabel));
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
+            ControlManager.Add(nameOfItem);
+            ControlManager.Add(addLabel);
+            ControlManager.Add(substractLabel);
+            ControlManager.Add(quantityNumber);
+            ControlManager.Add(priceNumber);
+            ControlManager.Add(finalPrice);
             //
 
-            //Cargo Capacity
+            //Planet resources
 
-            Label CargoCapacity = new Label();
-            CargoCapacity.Text = "Cargo Capacity";
-            CargoCapacity.Position = nextControlPosition;
+            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
 
-            ControlManager.Add(CargoCapacity);
+            PlanetResourceLabel = new Label();
+            PlanetResourceLabel.Text = "Planet Resources";
+            PlanetResourceLabel.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y +50);
 
-            LinkLabel CargoCapacityLabel = new LinkLabel();
-            CargoCapacityLabel.TabStop = true;
-            CargoCapacityLabel.Text = "+";
-            CargoCapacityLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
 
-            CargoCapacityLabel.Selected += addSelectedResource;
-            CargoCapacityLabel.Selected += new EventHandler(augmentCargo);
+            ControlManager.Add(PlanetResourceLabel);
+            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
 
-            cargoNumber = new Label();
-            cargoNumber.Text = cargoAmount.ToString();
-            cargoNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
+            PlanetResourceText = new Label();
+            PlanetResourceText.Text = "List of Resources";
+            PlanetResourceText.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y+ 50);
 
-            ControlManager.Add(CargoCapacityLabel);
-            ControlManager.Add(cargoNumber);
 
-            resourceLabel1.Add(new ResourceLabelSet(CargoCapacity, CargoCapacityLabel));
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 20f;
+            ControlManager.Add(PlanetResourceText);
+
             //
-
 
             //Undo Label
+
+            /*nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
+            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
+
             LinkLabel undoLabel = new LinkLabel();
             undoLabel.Text = "Reset Values";
             undoLabel.Position = nextControlPosition;
@@ -309,7 +243,7 @@ namespace SpaceGame.GameScreens
             undoLabel.Selected += new EventHandler(undoLabel_Selected);
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
 
-            ControlManager.Add(undoLabel);
+            ControlManager.Add(undoLabel);*/
 
             //Accept Label
             LinkLabel acceptLabel = new LinkLabel();
@@ -336,122 +270,106 @@ namespace SpaceGame.GameScreens
         void acceptLabel_Selected(object sender, EventArgs e)
         {
             undoResources.Clear();
-            StateManager.ChangeState(GameRef.CharacterGeneratorScreen);
+            StateManager.ChangeState(GameRef.GamePlayScreen);
         }
 
-        void undoLabel_Selected(object sender, EventArgs e)
+        /*void undoLabel_Selected(object sender, EventArgs e)
         {
-            if (unassignedResources == TotalResources)
+            if (moneyRemaining == 0)
                 return;
+            
+            moneyRemaining = 10;
+            remainingMoney.Text = "Total Resources: " + moneyRemaining.ToString();
+            totalMoney = 0;
+            
 
-            /*string resourceName = undoResources.Peek();
-            undoResources.Pop();
-            unassignedResources++;
-            if (moneyAmmount > 0)
-            {
-                moneyAmmount--;
-                moneyNumber.Text = moneyAmmount.ToString();
-            }
-
-            // Update the skill points for the appropriate skill
-            remainingResources.Text = "Total Resources: " + unassignedResources.ToString();*/
-
-            unassignedResources = 10;
-            remainingResources.Text = "Total Resources: " + unassignedResources.ToString();
-            moneyAmount = 0;
-            moneyNumber.Text = moneyAmount.ToString();
-            turnAmount = 0;
-            turnNumber.Text = turnAmount.ToString();
-            ammoAmount = 0;
-            ammoNumber.Text = ammoAmount.ToString();
-            healthAmount = 0;
-            healthNumber.Text = healthAmount.ToString();
-            fuelAmount = 0;
-            fuelNumber.Text = fuelAmount.ToString();
-            cargoAmount = 0;
-            cargoNumber.Text = cargoAmount.ToString();
-
-        }
+        }*/
 
         void addSelectedResource(object sender, EventArgs e)
         {
-            if (unassignedResources <= 0)
+
+
+            if ((moneyRemaining - priceAmount) <= 0)
             {
-                remainingResources.Text = "You Are Out Of Resources";
-                //return;
+                remainingMoney.Text = "You Are Out Of Money";
+                
             }
-            else
-            {
+            else{
+
                 string resourceName = ((LinkLabel)sender).Type;
                 undoResources.Push(resourceName);
-                unassignedResources--;
+                moneyRemaining= moneyRemaining - priceAmount;
 
-                // Update the skill points for the appropriate skill
-                remainingResources.Text = "Total Resources: " + unassignedResources.ToString();
+                // Update the skill points for the appropriate resource
+                remainingMoney.Text = "Total Amount of Money: " + moneyRemaining.ToString()+"$";
+
+                //quantity reduced
+                quantityAmount++;
+                quantityNumber.Text = quantityAmount.ToString();
+
+                
+
             }
         }
+
+        void substractSelectedResource(object sender, EventArgs e)
+        {
+
+
+            //if (moneyRemaining <= 0 || quantityAmount <= 0 || finalAmount == 0)
+            /*if (quantityAmount < 0 || finalAmount == 0)
+            {
+                return;
+            }*/
+            if(quantityAmount > 0){
+
+                string resourceName = ((LinkLabel)sender).Type;
+                undoResources.Push(resourceName);
+                moneyRemaining = moneyRemaining + priceAmount;
+                remainingMoney.Text = "Total Amount of Money: " + moneyRemaining.ToString()+"$";
+                //quantity
+                quantityAmount--;
+                quantityNumber.Text = quantityAmount.ToString();
+
+            
+            }
+        }
+
         void goBack(object sender, EventArgs e)
         {
             StateManager.ChangeState(GameRef.GamePlayScreen);
         }
 
-        void augmentMoney(object sender, EventArgs e)
+        
+        void augmentItem(object sender, EventArgs e)
         {
-            if (unassignedResources > 0)
+            if ((moneyRemaining - priceAmount) <= 0)
             {
-                moneyAmount++;
-                moneyNumber.Text = moneyAmount.ToString();
+                return;
+
+            }
+            if (moneyRemaining > 0)
+            {
+                finalAmount = finalAmount + priceAmount;
+                finalPrice.Text = finalAmount.ToString()+"$";
             }
 
         }
 
-        void augmentTurns(object sender, EventArgs e)
+        void decreaseItem(object sender, EventArgs e)
         {
-            if (unassignedResources > 0)
+            if (quantityAmount>0)
             {
-                turnAmount++;
-                turnNumber.Text = turnAmount.ToString();
+                finalAmount = finalAmount - priceAmount;
+                finalPrice.Text = finalAmount.ToString() + "$";
             }
 
-        }
-
-        void augmentAmmo(object sender, EventArgs e)
-        {
-            if (unassignedResources > 0)
+            if (quantityAmount == 0)
             {
-                ammoAmount++;
-                ammoNumber.Text = ammoAmount.ToString();
+                finalAmount = 0;
+                //return;
             }
-
-        }
-
-        void augmentHealth(object sender, EventArgs e)
-        {
-            if (unassignedResources > 0)
-            {
-                healthAmount++;
-                healthNumber.Text = healthAmount.ToString();
-            }
-
-        }
-
-        void augmentFuel(object sender, EventArgs e)
-        {
-            if (unassignedResources > 0)
-            {
-                fuelAmount++;
-                fuelNumber.Text = fuelAmount.ToString();
-            }
-
-        }
-
-        void augmentCargo(object sender, EventArgs e)
-        {
-            if (unassignedResources > 0)
-            {
-                cargoAmount++;
-                cargoNumber.Text = cargoAmount.ToString();
-            }
+         
 
         }
 
