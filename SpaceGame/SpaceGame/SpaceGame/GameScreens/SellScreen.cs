@@ -232,7 +232,7 @@ namespace SpaceGame.GameScreens
 
             //Undo Label
 
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
+            /*nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
 
             LinkLabel undoLabel = new LinkLabel();
@@ -242,7 +242,7 @@ namespace SpaceGame.GameScreens
             undoLabel.Selected += new EventHandler(undoLabel_Selected);
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
 
-            ControlManager.Add(undoLabel);
+            ControlManager.Add(undoLabel);*/
 
             //Accept Label
             LinkLabel acceptLabel = new LinkLabel();
@@ -269,7 +269,7 @@ namespace SpaceGame.GameScreens
         void acceptLabel_Selected(object sender, EventArgs e)
         {
             undoResources.Clear();
-            StateManager.ChangeState(GameRef.CharacterGeneratorScreen);
+            StateManager.ChangeState(GameRef.GamePlayScreen);
         }
 
         void undoLabel_Selected(object sender, EventArgs e)
