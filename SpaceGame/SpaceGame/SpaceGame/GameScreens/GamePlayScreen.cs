@@ -93,6 +93,10 @@ namespace SpaceGame.GameScreens
             {
                 StateManager.ChangeState(GameRef.SaveScreen, MyShip);
             }
+            else if (MyShip.getGameState().Equals("Upgrade"))
+            {
+                StateManager.ChangeState(GameRef.upgradeScreen, null);
+            }
             base.Update(gameTime);
         }
 

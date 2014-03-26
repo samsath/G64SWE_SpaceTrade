@@ -155,13 +155,19 @@ namespace SpaceGame.Components
             if (diceRemaining == 0)
             {
                 //gameState = "Buy/Sell";
-                String sellString = "Press the S Button to Sell";
+                String sellString = "Press the S Button to Sell!";
                 Vector2 sellVector = font1.MeasureString(sellString) / 2;
                 fontPosition = new Vector2(200, 15);
                 spriteBatch.DrawString(font1, sellString, fontPosition, Color.White, 0, sellVector, 1.0f, SpriteEffects.None, 0.5f);
-                String buyString = "Press the B Button to Buy";
+                
+                String buyString = "Press the B Button to Buy!";
                 fontPosition = new Vector2(200, 35);
                 spriteBatch.DrawString(font1, buyString, fontPosition, Color.White, 0, sellVector, 1.0f, SpriteEffects.None, 0.5f);
+                spriteBatch.Draw(texture, new Rectangle((int)PositionByPixel.X, (int)PositionByPixel.Y, Tile.TileWidth / 2, Tile.TileHeight / 2), Color.White);
+
+                String upgradeString = "Press the U Button to Upgrade your Ship!";
+                fontPosition = new Vector2(600, 15);
+                spriteBatch.DrawString(font1, upgradeString, fontPosition, Color.White, 0, sellVector, 1.0f, SpriteEffects.None, 0.5f);
                 spriteBatch.Draw(texture, new Rectangle((int)PositionByPixel.X, (int)PositionByPixel.Y, Tile.TileWidth / 2, Tile.TileHeight / 2), Color.White);
 
                 if (keyboardState.IsKeyDown(Keys.S))
@@ -175,6 +181,10 @@ namespace SpaceGame.Components
                 else if (keyboardState.IsKeyDown(Keys.Escape))
                 {
                     gameState = "Escape";
+                }
+                else if (keyboardState.IsKeyDown(Keys.U))
+                {
+                    gameState = "Upgrade";
                 }
 
             }
