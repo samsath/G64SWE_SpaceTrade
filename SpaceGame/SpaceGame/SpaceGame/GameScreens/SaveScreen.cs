@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Content;
 
 using XRpgLibrary;
 using XRpgLibrary.Controls;
+using System.Diagnostics;
 
 namespace SpaceGame.GameScreens
 {
@@ -24,6 +25,7 @@ namespace SpaceGame.GameScreens
         LinkLabel exitGame;
         LinkLabel resumeGame;
         LinkLabel saveGame;
+
 
         float maxItemWidth = 0f;
 
@@ -151,7 +153,7 @@ namespace SpaceGame.GameScreens
 
             if (sender == resumeGame)
             {
-                StateManager.PushState(GameRef.GamePlayScreen, "ship1");
+                StateManager.ChangeState(GameRef.GamePlayScreen, "playingScreen");
             }
             if (sender == saveGame)
             {

@@ -81,7 +81,7 @@ namespace SpaceGame
             SellScreen = new SellScreen(this, stateManager);
             SaveScreen = new SaveScreen(this, stateManager);
 
-            stateManager.ChangeState(TitleScreen);
+            stateManager.ChangeState(TitleScreen, null);
         }
 
         protected override void Initialize()

@@ -38,17 +38,16 @@ namespace SpaceGame.GameScreens
         public GamePlayScreen(Game game, GameStateManager manager)
             : base(game, manager)
         {
+            myBoard = new Board();
+            MyShip = new SpaceShip();
             this.manager = manager;
         }
 
         #endregion
 
-       
 
         public override void Initialize()
         {
-            myBoard = new Board();
-            MyShip = new SpaceShip();
             base.Initialize();
         }
 
@@ -68,24 +67,31 @@ namespace SpaceGame.GameScreens
             //Debug.WriteLine(MyShip.getGameState());
             if (MyShip.getGameState().Equals("playing"))
             {
+                MyShip.Update(gameTime);
+            }
+            else if (manager.shipName.Equals("playingScreen"))
+            {
+                manager.shipName = "";
+                MyShip.setGameState("playing");
                 MyShip.getGameState();
                 MyShip.Update(gameTime);
+
             }
             else if (MyShip.getGameState().Equals("endOfGame"))
             {
-                StateManager.ChangeState(GameRef.EndGameScreen);
+                StateManager.ChangeState(GameRef.EndGameScreen, null);
             }
             else if (MyShip.getGameState().Equals("Buy"))
             {
-                StateManager.ChangeState(GameRef.BuyScreen);
+                StateManager.ChangeState(GameRef.BuyScreen, null);
             }
             else if (MyShip.getGameState().Equals("Sell"))
             {
-                StateManager.ChangeState(GameRef.SellScreen);
+                StateManager.ChangeState(GameRef.SellScreen, null);
             }
             else if (MyShip.getGameState().Equals("Escape"))
             {
-                StateManager.ChangeState(GameRef.SaveScreen);
+                StateManager.ChangeState(GameRef.SaveScreen, MyShip);
             }
             base.Update(gameTime);
         }

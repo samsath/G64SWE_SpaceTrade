@@ -88,7 +88,6 @@ namespace SpaceGame.Components
             }
             if (currentState == ShipState.Waiting)
             {
-                Debug.WriteLine(numberOfMoves);
                 if (numberOfMoves == 0) gameState = "endOfGame";
                 else if (keyboardState.IsKeyDown(Keys.Space))
                 {
@@ -306,6 +305,11 @@ namespace SpaceGame.Components
         public Dictionary<Resource, int> getResultList()
         {
             return result;
+        }
+
+        internal void setGameState(string p)
+        {
+            gameState = "playing";
         }
     }
 }

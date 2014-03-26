@@ -31,7 +31,12 @@ namespace SpaceGame.Components
         Random random = new Random();
         SpaceShip ship;
 
-        private List<Tile> tiles = new List<Tile>();
+        private List<Tile> tiles;
+
+        public Board()
+        {
+            tiles = new List<Tile>(); 
+        }
 
         public void LoadContent(ContentManager content)
         {

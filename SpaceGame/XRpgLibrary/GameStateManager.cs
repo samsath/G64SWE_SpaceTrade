@@ -103,8 +103,6 @@ namespace XRpgLibrary
 
         public void PushState(GameState newState, Object str)
         {
-            if (str != null) shipName = str.ToString();
-            shipName = str.ToString();
             drawOrder += drawOrderInc;
             newState.DrawOrder = drawOrder;
 
@@ -123,8 +121,9 @@ namespace XRpgLibrary
             OnStateChange += newState.StateChange;
         }
 
-        public void ChangeState(GameState newState)
+        public void ChangeState(GameState newState, Object str)
         {
+            if (str != null) shipName = str.ToString();
             while (gameStates.Count > 0)
                 RemoveState();
 
