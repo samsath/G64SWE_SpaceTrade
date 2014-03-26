@@ -14,19 +14,19 @@ using XRpgLibrary.Controls;
 
 namespace SpaceGame.GameScreens
 {
-    internal class ResourceLabelSetSell
+    internal class ResourceLabelSetHighScore
     {
         internal Label Label;
         internal LinkLabel LinkLabel;
 
-        internal ResourceLabelSetSell(Label labelSell, LinkLabel linkLabelSell)
+        internal ResourceLabelSetHighScore(Label labelScore, LinkLabel linkLabelScore)
         {
-            Label = labelSell;
-            LinkLabel = linkLabelSell;
+            Label = labelScore;
+            LinkLabel = linkLabelScore;
         }
     }
 
-    public class SellScreen : BaseGameState
+    public class HighscoreScreen : BaseGameState
     {
         #region Field Region
 
@@ -74,7 +74,7 @@ namespace SpaceGame.GameScreens
 
         #region Constructor Region
 
-        public SellScreen(Game game, GameStateManager stateManager)
+        public HighscoreScreen(Game game, GameStateManager stateManager)
             : base(game, stateManager)
         {
             linkLabelHandler = new EventHandler(addSelectedResource);
@@ -119,13 +119,13 @@ namespace SpaceGame.GameScreens
             Title.Position = new Vector2(100, 50);
             ControlManager.Add(Title);
             Vector2 nextControlPosition = new Vector2(100, 50);
-            
 
-            
+
+
 
             remainingMoney = new Label();
             remainingMoney.Text = "Total Amount of Money: " + unassignedResources.ToString() + "$";
-            remainingMoney.Position = new Vector2(nextControlPosition.X + 400, nextControlPosition.Y); 
+            remainingMoney.Position = new Vector2(nextControlPosition.X + 400, nextControlPosition.Y);
 
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
 
@@ -133,7 +133,7 @@ namespace SpaceGame.GameScreens
 
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
-                        
+
             // Labels
 
             NameLabel = new Label();
@@ -215,7 +215,7 @@ namespace SpaceGame.GameScreens
 
             PlanetResourceLabel = new Label();
             PlanetResourceLabel.Text = "Planet Resources";
-            PlanetResourceLabel.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y +50);
+            PlanetResourceLabel.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50);
 
 
             ControlManager.Add(PlanetResourceLabel);
@@ -223,7 +223,7 @@ namespace SpaceGame.GameScreens
 
             PlanetResourceText = new Label();
             PlanetResourceText.Text = "List of Resources";
-            PlanetResourceText.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y+ 50);
+            PlanetResourceText.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50);
 
 
             ControlManager.Add(PlanetResourceText);
@@ -269,41 +269,41 @@ namespace SpaceGame.GameScreens
         void acceptLabel_Selected(object sender, EventArgs e)
         {
             undoResources.Clear();
-            StateManager.ChangeState(GameRef.GamePlayScreen, null);
+            StateManager.ChangeState(GameRef.GamePlayScreen, "playingScreen");
         }
 
         void undoLabel_Selected(object sender, EventArgs e)
         {
             if (unassignedResources == 0)
                 return;
-            
+
             unassignedResources = 10;
             remainingMoney.Text = "Total Resources: " + unassignedResources.ToString();
             moneyAmount = 0;
-            
+
 
         }
 
         void addSelectedResource(object sender, EventArgs e)
         {
-            
-                string resourceName = ((LinkLabel)sender).Type;
-                undoResources.Push(resourceName);
-                unassignedResources= unassignedResources + offerAmount;
 
-                // Update the skill points for the appropriate resource
-                remainingMoney.Text = "Total Amount of Money: " + unassignedResources.ToString();
+            string resourceName = ((LinkLabel)sender).Type;
+            undoResources.Push(resourceName);
+            unassignedResources = unassignedResources + offerAmount;
 
-                //quantity reduced
-                quantityAmount--;
-                quantityNumber.Text = quantityAmount.ToString();
+            // Update the skill points for the appropriate resource
+            remainingMoney.Text = "Total Amount of Money: " + unassignedResources.ToString();
+
+            //quantity reduced
+            quantityAmount--;
+            quantityNumber.Text = quantityAmount.ToString();
 
             //}
         }
 
         void substractSelectedResource(object sender, EventArgs e)
-        {          
-            
+        {
+
 
             if (unassignedResources == 0 || quantityAmount == 0)
                 return;
@@ -313,7 +313,7 @@ namespace SpaceGame.GameScreens
             //quantity
             quantityAmount++;
             quantityNumber.Text = quantityAmount.ToString();
-           
+
         }
 
         void goBack(object sender, EventArgs e)
@@ -321,13 +321,13 @@ namespace SpaceGame.GameScreens
             StateManager.ChangeState(GameRef.GamePlayScreen, "playingScreen");
         }
 
-        
+
         void augmentItem(object sender, EventArgs e)
         {
             if (unassignedResources > 0)
             {
-                offerAmount = offerAmount + ((priceAmount * 20)/100);
-                offerNumber.Text = offerAmount.ToString()+"$";
+                offerAmount = offerAmount + ((priceAmount * 20) / 100);
+                offerNumber.Text = offerAmount.ToString() + "$";
             }
 
         }

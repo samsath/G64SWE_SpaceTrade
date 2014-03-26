@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Content;
 
 using XRpgLibrary;
 using XRpgLibrary.Controls;
+using System.Diagnostics;
 
 
 namespace SpaceGame.GameScreens
@@ -40,6 +41,9 @@ namespace SpaceGame.GameScreens
         int healthAmount = 0;
         int fuelAmount = 0;
         int cargoAmount = 0;
+
+        //Dictionary is to record all changes made here and then pass it along to the userscreen.
+        Dictionary<string, int> totransfer = new Dictionary<string, int>();
 
         PictureBox backgroundImage;
         Label remainingResources;
@@ -77,6 +81,8 @@ namespace SpaceGame.GameScreens
         public AdminScreen(Game game, GameStateManager stateManager)
             : base(game, stateManager)
         {
+            Random rand = new Random();
+            Debug.WriteLine(rand.Next(0, 10));
             linkLabelHandler = new EventHandler(addSelectedResource);
         }
 
@@ -92,6 +98,7 @@ namespace SpaceGame.GameScreens
 
         public override void Initialize()
         {
+            
             base.Initialize();
         }
 
@@ -338,7 +345,7 @@ namespace SpaceGame.GameScreens
         void acceptLabel_Selected(object sender, EventArgs e)
         {
             undoResources.Clear();
-            StateManager.ChangeState(GameRef.CharacterGeneratorScreen);
+            StateManager.ChangeState(GameRef.CharacterGeneratorScreen, null);
         }
 
         void undoLabel_Selected(object sender, EventArgs e)
@@ -385,6 +392,8 @@ namespace SpaceGame.GameScreens
             else
             {             
                 string resourceName = ((LinkLabel)sender).Type;
+                
+                Console.WriteLine(resourceName);
                 undoResources.Push(resourceName);
                 unassignedResources--;
 
@@ -394,7 +403,7 @@ namespace SpaceGame.GameScreens
         }
         void goBack(object sender, EventArgs e)
         {
-            StateManager.ChangeState(GameRef.StartMenuScreen);
+            StateManager.ChangeState(GameRef.StartMenuScreen, null);
         }
 
         void augmentMoney(object sender, EventArgs e)

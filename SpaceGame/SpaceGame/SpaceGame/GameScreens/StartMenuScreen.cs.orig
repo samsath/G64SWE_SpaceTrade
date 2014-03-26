@@ -13,16 +13,14 @@ using XRpgLibrary.Controls;
 
 namespace SpaceGame.GameScreens
 {
-    public class EndGameScreen : BaseGameState
-   {
+    public class StartMenuScreen : BaseGameState
+    {
         #region Field region
-
         PictureBox backgroundImage;
         PictureBox arrowImage;
         LinkLabel startGame;
         LinkLabel loadGame;
         LinkLabel exitGame;
-        LinkLabel highscore;
         float maxItemWidth = 0f;
 
         #endregion
@@ -32,7 +30,7 @@ namespace SpaceGame.GameScreens
 
         #region Constructor Region
 
-        public EndGameScreen(Game game, GameStateManager manager)
+        public StartMenuScreen(Game game, GameStateManager manager)
             : base(game, manager)
         {
         }
@@ -67,24 +65,6 @@ namespace SpaceGame.GameScreens
                     arrowTexture.Width,
                     arrowTexture.Height));
             ControlManager.Add(arrowImage);
-
-            Label gameOver = new Label();
-            gameOver.Text= "Game Over.";
-            gameOver.Size = gameOver.SpriteFont.MeasureString(gameOver.Text);
-            gameOver.Position= new Vector2((GameRef.Window.ClientBounds.Width - gameOver.Size.X) / 2, 150);
-            ControlManager.Add(gameOver);
-
-            Label turns = new Label();
-            turns.Text = "You are out of turns.";
-            turns.Size = turns.SpriteFont.MeasureString(turns.Text);
-            turns.Position = new Vector2((GameRef.Window.ClientBounds.Width - turns.Size.X) / 2, 250);
-            ControlManager.Add(turns);
-
-            highscore = new LinkLabel();
-            highscore.Text = "Go To Highscores.";
-            highscore.Size = highscore.SpriteFont.MeasureString(highscore.Text);
-            highscore.Selected += new EventHandler(menuItem_Selected);
-            ControlManager.Add(highscore);
 
             startGame = new LinkLabel();
             startGame.Text = "New Game";
@@ -139,6 +119,15 @@ namespace SpaceGame.GameScreens
             if (sender == startGame)
             {
                 StateManager.PushState(GameRef.AdminScreen, "");
+<<<<<<< HEAD
+                // this is to add resources to the new game
+                // this adds a delay into the start up may need to change this or thread it
+                dbp.Startresourceadd();
+                dbp.startPlanetAdd();
+                dbp.AddtoSession(dbp.newSession());
+                dbp.AddResourcetoPlanet();
+=======
+>>>>>>> master
             }
 
             if (sender == loadGame)
@@ -149,10 +138,6 @@ namespace SpaceGame.GameScreens
             if (sender == exitGame)
             {
                 GameRef.Exit();
-            }
-            if (sender == highscore)
-            {
-                StateManager.PushState(GameRef.highscoreScreen, "");
             }
         }
 

@@ -64,6 +64,7 @@ namespace SpaceGame.GameScreens
 
         protected override void LoadContent()
         {
+            
             base.LoadContent();
 
             LoadImages();
@@ -163,9 +164,7 @@ namespace SpaceGame.GameScreens
 
         void linkLabel1_Selected(object sender, EventArgs e)
         {
-            InputHandler.Flush();
-            StateManager.PopState();
-            StateManager.PushState(GameRef.GamePlayScreen, ship);
+            StateManager.ChangeState(GameRef.GamePlayScreen, ship);
         }
 
         void selectionChanged(object sender, EventArgs e)
@@ -177,7 +176,7 @@ namespace SpaceGame.GameScreens
 
         void goBackButton(object sender, EventArgs e)
         {
-            StateManager.ChangeState(GameRef.AdminScreen);
+            StateManager.ChangeState(GameRef.AdminScreen, null);
         }
 
         #endregion

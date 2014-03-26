@@ -10,20 +10,31 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using STDatabase;
 
 namespace SpaceGame.Components
 {
-    class Planet : Object
+    public class Planet : Object
     {
-        string name;
-        List<Resource> resource;
+        public string name;
+        public List<Resource> resource;
+        public List<Resourcedata> resourcedb;
         Random rand;
+        public string p;
+        public IDatabase dbs = new Database();
+        public int resourcedbCount;
 
-        public Planet(string name)
+        // int of the planet number in the database
+        public int planetid { get; set; }
+        public string texture { get; set; }
+
+        public Planet(string name, int id, string texture)
         {
             this.name = name;
+            this.planetid = id;
+            this.texture = texture;
             resource = new List<Resource>();
-            generateResource();
+            
         }
 
         public string getName()
@@ -33,66 +44,20 @@ namespace SpaceGame.Components
 
         public void generateResource()
         {
-            if (name.Equals("mercury"))
+            // changed this so it gets the relavent information from the database
+            rand = new Random();
+
+            //Console.WriteLine(name + " Generate");
+            List<Resourcedata> resourcedb = dbs.PlanetResources(planetid);
+            //Console.WriteLine(name + " resource got =" + resourcedb.Count);
+            resourcedbCount = resourcedb.Count;
+            for (int i = 0; i < resourcedb.Count; i++)
             {
-                rand = new Random(1);
-                resource.Add(new Resource("helium", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("iron", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("magnesium", rand.Next(1, 9) * 100));
+                // this goes through the database info and then adds the relavent information to the planet generation.
+                resource.Add(new Resource(resourcedb[i].Resource_id, resourcedb[i].Name, resourcedb[i].Initial_Price,resourcedb[i].Description,rand.Next(1,100)));
+                //Console.WriteLine(Convert.ToString(resourcedb[i].Resource_id) + " = " + resourcedb[i].Name + " = " + Convert.ToString(resourcedb[i].Initial_Price) + " = " + resourcedb[i].Description+ " = " + Convert.ToString(rand.Next(100)));
             }
-            if (name.Equals("venus"))
-            {
-                rand = new Random(2);
-                resource.Add(new Resource("hydrogen", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("lithium", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("sodium", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("potassium", rand.Next(1, 9) * 100));
-            }
-            if (name.Equals("earth"))
-            {
-                rand = new Random(3);
-                resource.Add(new Resource("rubidium", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("cesium", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("francium", rand.Next(1, 9) * 100));
-            }
-            if (name.Equals("mars"))
-            {
-                rand = new Random(4);
-                resource.Add(new Resource("beryllium", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("calcium", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("strontium", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("barium", rand.Next(1, 9) * 100));
-            }
-            if (name.Equals("jupiter"))
-            {
-                rand = new Random(5);
-                resource.Add(new Resource("radium", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("scandium", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("yttrium", rand.Next(1, 9) * 100));
-            }
-            if (name.Equals("saturn"))
-            {
-                rand = new Random(6);
-                resource.Add(new Resource("titanium", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("zirconium", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("hafnium", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("vanadium", rand.Next(1, 9) * 100));
-            }
-            if (name.Equals("uranus"))
-            {
-                rand = new Random(7);
-                resource.Add(new Resource("niobium", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("tantalum", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("chromium", rand.Next(1, 9) * 100));
-            }
-            if (name.Equals("neptune"))
-            {
-                rand = new Random(8);
-                resource.Add(new Resource("molybdenum", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("tungsten", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("manganese", rand.Next(1, 9) * 100));
-                resource.Add(new Resource("technetium", rand.Next(1, 9) * 100));
-            }
+            
         }
 
         public List<Resource> getResourceList()

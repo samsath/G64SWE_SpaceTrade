@@ -10,19 +10,20 @@ using Microsoft.Xna.Framework.Content;
 
 using XRpgLibrary;
 using XRpgLibrary.Controls;
+using SpaceGame.Components;
 
 namespace SpaceGame.GameScreens
 {
     public class StartMenuScreen : BaseGameState
     {
         #region Field region
-
         PictureBox backgroundImage;
         PictureBox arrowImage;
         LinkLabel startGame;
         LinkLabel loadGame;
         LinkLabel exitGame;
         float maxItemWidth = 0f;
+        DatabasePopulate dbp = new DatabasePopulate();
 
         #endregion
 
@@ -120,6 +121,12 @@ namespace SpaceGame.GameScreens
             if (sender == startGame)
             {
                 StateManager.PushState(GameRef.AdminScreen, "");
+                // this is to add resources to the new game
+                // this adds a delay into the start up may need to change this or thread it
+                dbp.Startresourceadd();
+                dbp.startPlanetAdd();
+                dbp.AddtoSession(dbp.newSession());
+                dbp.AddResourcetoPlanet();
             }
 
             if (sender == loadGame)
