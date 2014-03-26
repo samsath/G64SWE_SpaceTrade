@@ -20,9 +20,9 @@ namespace Test
     public class SpaceShipTest
     {
         DatabasePopulate dbp;
-
+        
         Planet pl;
-
+        Board br;
         GameTime time;
         SpaceShip myShip;
 
@@ -32,6 +32,8 @@ namespace Test
             dbp = new DatabasePopulate();
             time = new GameTime();
             myShip = new SpaceShip();
+            br = new Board();
+            
         }
 
         [TestMethod]
@@ -185,7 +187,28 @@ namespace Test
             Assert.AreNotEqual(0, pl.resourcedbCount);
         }
   
+        [TestMethod]
+        public void CheckifSwitchofResourceReturnssomething() 
+        {
+            Assert.IsNotNull(br.textureReturn("space"));
+        }
 
+        [TestMethod]
+        public void CheckifPlantgetsResoruceData(){
+            Assert.IsTrue(br.PlanetData());
+        }
+
+        [TestMethod]
+        public void PlanethasName()
+        {
+            Assert.IsNotNull(pl.getName());
+        }
+        
+        [TestMethod]
+        public void PlanethasResources()
+        {
+            Assert.IsNotNull(pl.getResourceList());
+        }
 
     }
 }

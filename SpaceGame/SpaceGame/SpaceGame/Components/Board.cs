@@ -14,7 +14,7 @@ using STDatabase;
 
 namespace SpaceGame.Components
 {
-    class Board
+    public class Board
     {
         // database access
         public IDatabase dbs = new Database();
@@ -99,7 +99,7 @@ namespace SpaceGame.Components
             }
         }
 
-        public void PlanetData()
+        public Boolean PlanetData()
         {
 
             
@@ -127,8 +127,8 @@ namespace SpaceGame.Components
                 pl.generateResource();
 
             }
-            
 
+            return true;
         }
         
 
