@@ -22,6 +22,7 @@ namespace SpaceGame.GameScreens
         LinkLabel startGame;
         LinkLabel loadGame;
         LinkLabel exitGame;
+        LinkLabel highscore;
         float maxItemWidth = 0f;
 
         #endregion
@@ -79,6 +80,11 @@ namespace SpaceGame.GameScreens
             turns.Position = new Vector2((GameRef.Window.ClientBounds.Width - turns.Size.X) / 2, 250);
             ControlManager.Add(turns);
 
+            highscore = new LinkLabel();
+            highscore.Text = "Go To Highscores.";
+            highscore.Size = highscore.SpriteFont.MeasureString(highscore.Text);
+            highscore.Selected += new EventHandler(menuItem_Selected);
+            ControlManager.Add(highscore);
 
             startGame = new LinkLabel();
             startGame.Text = "New Game";
@@ -143,6 +149,10 @@ namespace SpaceGame.GameScreens
             if (sender == exitGame)
             {
                 GameRef.Exit();
+            }
+            if (sender == highscore)
+            {
+                StateManager.PushState(GameRef.highscoreScreen, "");
             }
         }
 
