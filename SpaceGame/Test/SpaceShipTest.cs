@@ -61,10 +61,10 @@ namespace Test
         {
             Boolean testResult = true;
             Dictionary<Resource, int> expectedResource = new Dictionary<Resource, int>();
-            expectedResource.Add(new Resource("gold", 200), 7);
-            expectedResource.Add(new Resource("silver", 100), 10);
-            expectedResource.Add(new Resource("copper", 100), 12);
-            myShip.setResource(initialResource);
+            expectedResource.Add(new Resource(0, "gold", 200, "gold gold gold", 5), 5);
+            expectedResource.Add(new Resource(1, "silver", 100, "silver silver", 2), 4);
+            expectedResource.Add(new Resource(2, "copper", 100, "Copper copper copper", 3), 4);
+            myShip.setResource();
             
             myShip.buy(resource);
             laterResource = myShip.getResultList();
@@ -161,7 +161,7 @@ namespace Test
         [TestMethod]
         public void CheckLastSession()
         {
-            Assert.AreEqual(0, dbp.getSession());
+            Assert.AreNotEqual(0, dbp.getSession());
         }
 
         [TestMethod]

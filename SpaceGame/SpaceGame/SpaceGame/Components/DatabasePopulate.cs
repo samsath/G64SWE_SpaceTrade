@@ -14,12 +14,12 @@ namespace SpaceGame.Components
     {
         public Boolean addplanet = true;
         public Boolean addResource = true;
+        public Boolean Resources = true;
         public int sessionNumber = 0;
-        public Boolean Resources = false;
         public int resourceCount = 0;
         public int planetscreated = 0;
-        public Boolean addedPlanettoSession = false;
-        public Boolean addedRestoSession = false;
+        public Boolean addedPlanettoSession = true;
+        public Boolean addedRestoSession = true;
         /*
          * This is to try and populate the database when a new game starts. It is done here so that it can easily be removed or changed if need by as maybe
          * threaded if it slows down the process.
@@ -33,7 +33,7 @@ namespace SpaceGame.Components
         /// <returns></returns>
         public Boolean Startresourceadd()
         {
-            
+            Resources = true;
             XmlDocument doc = new XmlDocument();
             doc.Load(@"Content\resourceListCostDescript.xml");
             XmlNodeList elemlist = doc.GetElementsByTagName("Res");
