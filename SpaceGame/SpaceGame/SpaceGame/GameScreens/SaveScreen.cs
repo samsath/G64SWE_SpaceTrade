@@ -151,7 +151,7 @@ namespace SpaceGame.GameScreens
 
             if (sender == resumeGame)
             {
-                StateManager.PushState(GameRef.GamePlayScreen, "ship1");
+                StateManager.PushState(GameRef.GamePlayScreen, "");
             }
             if (sender == saveGame)
             {
