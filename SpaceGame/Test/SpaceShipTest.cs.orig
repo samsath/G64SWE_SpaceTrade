@@ -19,21 +19,47 @@ namespace Test
     [TestClass]
     public class SpaceShipTest
     {
+<<<<<<< HEAD
         DatabasePopulate dbp;
-        
+
         Planet pl;
-        Board br;
+
+=======
+        //DatabasePopulate dbp;
+>>>>>>> master
         GameTime time;
         SpaceShip myShip;
+        Dictionary<Resource, int> resource;
+        Dictionary<Resource, int> initialResource;
+        Dictionary<Resource, int> laterResource;
 
         [TestInitialize]
         public void init()
         {
+<<<<<<< HEAD
             dbp = new DatabasePopulate();
+
+           // pl = new Planet("earth",1, Texture2D earth);
+
+
             time = new GameTime();
             myShip = new SpaceShip();
-            br = new Board();
+=======
+            //dbp = new DatabasePopulate();
+            time = new GameTime();
+            myShip = new SpaceShip();
+            resource = new Dictionary<Resource, int>();
+            initialResource = new Dictionary<Resource, int>();
+            laterResource = new Dictionary<Resource, int>();
             
+            initialResource.Add(new Resource("gold", 100), 6);
+            initialResource.Add(new Resource("silver", 100), 7);
+            initialResource.Add(new Resource("copper", 100), 8);
+            resource.Add(new Resource("gold", 100), 1);
+            resource.Add(new Resource("silver", 100), 3);
+            resource.Add(new Resource("copper", 100), 4);
+>>>>>>> master
+
         }
 
         [TestMethod]
@@ -57,16 +83,16 @@ namespace Test
         {
             Assert.IsTrue(myShip.getShipNumberOfResource()<=myShip.getCargoCapacity());
         }
-        /*
+
         [TestMethod]
         public void BuyingIsOK()
         {
             Boolean testResult = true;
             Dictionary<Resource, int> expectedResource = new Dictionary<Resource, int>();
-            expectedResource.Add(new Resource(0, "gold", 200, "gold gold gold", 5), 5);
-            expectedResource.Add(new Resource(1, "silver", 100, "silver silver", 2), 4);
-            expectedResource.Add(new Resource(2, "copper", 100, "Copper copper copper", 3), 4);
-            myShip.setResource();
+            expectedResource.Add(new Resource("gold", 200), 7);
+            expectedResource.Add(new Resource("silver", 100), 10);
+            expectedResource.Add(new Resource("copper", 100), 12);
+            myShip.setResource(initialResource);
             
             myShip.buy(resource);
             laterResource = myShip.getResultList();
@@ -88,16 +114,15 @@ namespace Test
             }
             Assert.IsTrue(testResult);
         }
-        
+
         [TestMethod]
         public void SellingIsOK()
         {
             Boolean testResult = true;
-            //public Resource(int resid, string name, int price, string descript,int amounts)
             Dictionary<Resource, int> expectedResource = new Dictionary<Resource, int>();
-            expectedResource.Add(new Resource(0,"gold", 200,"gold gold gold", 5), 5);
-            expectedResource.Add(new Resource(1,"silver", 100,"silver silver",2), 4);
-            expectedResource.Add(new Resource(2,"copper", 100,"Copper copper copper",3), 4);
+            expectedResource.Add(new Resource("gold", 200), 5);
+            expectedResource.Add(new Resource("silver", 100), 4);
+            expectedResource.Add(new Resource("copper", 100), 4);
             myShip.setResource(initialResource);
             myShip.sell(resource);
             laterResource = myShip.getResultList();
@@ -119,8 +144,12 @@ namespace Test
             }
             Assert.IsTrue(testResult);
         }
-        */
-        
+        /*
+        [TestMethod]
+        public void ResourcesAddedatStartofGame()
+        {
+            Assert.IsTrue(dbp.Startresourceadd());
+        }
 
         [TestMethod]
         public void LastSessionis()
@@ -133,7 +162,7 @@ namespace Test
         public void ResorceAdded()
         {
             //Assert.IsTrue(dbp.addResource);
-            Assert.IsTrue(dbp.Startresourceadd());
+            Assert.IsTrue(dbp.Resources);
         }
 
         [TestMethod]
@@ -149,7 +178,9 @@ namespace Test
             
             Assert.IsInstanceOfType(dbp.startPlanetAdd(), typeof(int));
         }
-    
+<<<<<<< HEAD
+
+
         [TestMethod]
         public void CheckSessionIdatstartis0()
         {
@@ -159,7 +190,7 @@ namespace Test
         [TestMethod]
         public void CheckLastSession()
         {
-            Assert.AreNotEqual(0, dbp.getSession());
+            Assert.AreEqual(0, dbp.getSession());
         }
 
         [TestMethod]
@@ -174,41 +205,10 @@ namespace Test
             Assert.IsTrue(dbp.addedPlanettoSession);
         }
 
-        [TestMethod]
-        public void AddingResourcetoPlanets()
-        {
-            Assert.IsTrue(dbp.AddResourcetoPlanet());
-        }
 
-        [TestMethod]
-        public void CheckifPlanetsLoadResourcs()
-        {
-            
-            Assert.AreNotEqual(0, pl.resourcedbCount);
-        }
-  
-        [TestMethod]
-        public void CheckifSwitchofResourceReturnssomething() 
-        {
-            Assert.IsNotNull(br.textureReturn("space"));
-        }
 
-        [TestMethod]
-        public void CheckifPlantgetsResoruceData(){
-            Assert.IsTrue(br.PlanetData());
-        }
-
-        [TestMethod]
-        public void PlanethasName()
-        {
-            Assert.IsNotNull(pl.getName());
-        }
-        
-        [TestMethod]
-        public void PlanethasResources()
-        {
-            Assert.IsNotNull(pl.getResourceList());
-        }
-
+=======
+         */
+>>>>>>> master
     }
 }
