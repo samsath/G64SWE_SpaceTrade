@@ -43,7 +43,7 @@ namespace SpaceGame.GameScreens
             startLabel = new LinkLabel();
             startLabel.Position = new Vector2(350, 550);
             startLabel.Text = "Press ENTER to begin";
-            startLabel.Color = Color.White;
+            //startLabel.Color = Color.Blue;
             startLabel.TabStop = true;
             startLabel.HasFocus = true;
             startLabel.Selected += new EventHandler(startLabel_Selected);

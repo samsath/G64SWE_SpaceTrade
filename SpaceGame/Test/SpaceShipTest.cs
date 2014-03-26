@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SpaceGame;
 using SpaceGame.Components;
@@ -29,17 +30,12 @@ namespace Test
         public void init()
         {
             dbp = new DatabasePopulate();
-
-           // pl = new Planet("earth",1, Texture2D earth);
-
-
             time = new GameTime();
             myShip = new SpaceShip();
-
         }
 
         [TestMethod]
-        public void IfKeyPressedDiceWillRoll()
+        public void IfSpaceKeyPressedDiceWillRoll()
         {
             myShip.setState("waiting");
             myShip.pressKeyboard("space");
@@ -51,15 +47,76 @@ namespace Test
         [TestMethod]
         public void ShipCurrentMoneyCannotBeLowerThanZero()
         {
-            Assert.IsTrue(myShip.getCurrentMoney()>0);
+            Assert.IsTrue(myShip.getCurrentMoney()>=0);
         }
 
         [TestMethod]
-        public void NumberOfResourcesCannotExceedShipCargoCapacity()
+        public void AmountOfResourcesCannotExceedShipCargoCapacity()
         {
             Assert.IsTrue(myShip.getShipNumberOfResource()<=myShip.getCargoCapacity());
         }
 
+        [TestMethod]
+        public void BuyingIsOK()
+        {
+            Boolean testResult = true;
+            Dictionary<Resource, int> expectedResource = new Dictionary<Resource, int>();
+            expectedResource.Add(new Resource("gold", 200), 7);
+            expectedResource.Add(new Resource("silver", 100), 10);
+            expectedResource.Add(new Resource("copper", 100), 12);
+            myShip.setResource(initialResource);
+            
+            myShip.buy(resource);
+            laterResource = myShip.getResultList();
+            
+            foreach (KeyValuePair<Resource, int> expected in expectedResource)
+            {
+                foreach (KeyValuePair<Resource, int> later in laterResource)
+                {
+                    if (expected.Key.getName().Equals(later.Key.getName()))
+                    {
+                        if (expected.Value != later.Value)
+                        {
+                            testResult = false;
+                            break;
+                        }
+                    }
+
+                }
+            }
+            Assert.IsTrue(testResult);
+        }
+
+        [TestMethod]
+        public void SellingIsOK()
+        {
+            Boolean testResult = true;
+            Dictionary<Resource, int> expectedResource = new Dictionary<Resource, int>();
+            expectedResource.Add(new Resource("gold", 200), 5);
+            expectedResource.Add(new Resource("silver", 100), 4);
+            expectedResource.Add(new Resource("copper", 100), 4);
+            myShip.setResource(initialResource);
+            myShip.sell(resource);
+            laterResource = myShip.getResultList();
+
+            foreach (KeyValuePair<Resource, int> expected in expectedResource)
+            {
+                foreach (KeyValuePair<Resource, int> later in laterResource)
+                {
+                    if (expected.Key.getName().Equals(later.Key.getName()))
+                    {
+                        if (expected.Value != later.Value)
+                        {
+                            testResult = false;
+                            break;
+                        }
+                    }
+
+                }
+            }
+            Assert.IsTrue(testResult);
+        }
+        /*
         [TestMethod]
         public void ResourcesAddedatStartofGame()
         {
@@ -93,6 +150,8 @@ namespace Test
             
             Assert.IsInstanceOfType(dbp.startPlanetAdd(), typeof(int));
         }
+    }
+}
 
 
         [TestMethod]

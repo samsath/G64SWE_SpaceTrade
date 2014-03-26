@@ -35,6 +35,10 @@ namespace SpaceGame
         public GamePlayScreen GamePlayScreen;
         public AdminScreen AdminScreen;
         public CharacterGeneratorScreen CharacterGeneratorScreen;
+        public EndGameScreen EndGameScreen;
+        public BuyScreen BuyScreen;
+        public SellScreen SellScreen;
+        public SaveScreen SaveScreen;
 
         #endregion
 
@@ -72,12 +76,17 @@ namespace SpaceGame
             GamePlayScreen = new GamePlayScreen(this, stateManager);
             AdminScreen = new AdminScreen(this, stateManager);
             CharacterGeneratorScreen = new CharacterGeneratorScreen(this, stateManager);
+            EndGameScreen = new EndGameScreen(this, stateManager);
+            BuyScreen = new BuyScreen(this, stateManager);
+            SellScreen = new SellScreen(this, stateManager);
+            SaveScreen = new SaveScreen(this, stateManager);
 
             stateManager.ChangeState(TitleScreen);
         }
 
         protected override void Initialize()
         {
+            this.IsMouseVisible = true;
             base.Initialize();
         }
 

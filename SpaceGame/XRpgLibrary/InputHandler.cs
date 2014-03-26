@@ -27,8 +27,14 @@ namespace XRpgLibrary
 
         #endregion
 
+        #region Mouse Field Region
+
+        MouseState mouseStateCurrent, mouseStatePrevious;
+
+        #endregion
+
         #region Keyboard Property Region
-        
+
         /// <summary>
         /// Holds properties that expose the fields of the class (Encapsulation).
         /// </summary>
@@ -66,8 +72,8 @@ namespace XRpgLibrary
         {
             keyboardState = Keyboard.GetState(); ///Keyboard gets the state of the frame.
 
-            gamePadStates = new GamePadState[Enum.GetValues(typeof(PlayerIndex)).Length];
-
+            gamePadStates = new GamePadState[Enum.GetValues(typeof(PlayerIndex)).Length];        
+            
             foreach (PlayerIndex index in Enum.GetValues(typeof(PlayerIndex)))
                 gamePadStates[(int)index] = GamePad.GetState(index);
         }
@@ -93,6 +99,27 @@ namespace XRpgLibrary
             lastGamePadStates = (GamePadState[])gamePadStates.Clone();
             foreach (PlayerIndex index in Enum.GetValues(typeof(PlayerIndex)))
                 gamePadStates[(int)index] = GamePad.GetState(index);
+
+            // Get current mouseState
+            mouseStateCurrent = Mouse.GetState();
+
+            // Left MouseClick
+            if (mouseStateCurrent.LeftButton == ButtonState.Pressed)
+            {
+                // TODO when left mousebutton clicked
+            }
+
+            // Right MouseClick
+            if (mouseStateCurrent.RightButton == ButtonState.Pressed && mouseStatePrevious.RightButton == ButtonState.Released)
+            {
+                //TODO when right mousebutton clicked
+            }
+
+            mouseStatePrevious = mouseStateCurrent;
+
+
+            // Update
+            base.Update(gameTime);
 
             base.Update(gameTime);
         }
