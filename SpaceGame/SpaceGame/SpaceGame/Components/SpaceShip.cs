@@ -10,7 +10,6 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using System.Diagnostics;
 using SpaceGame.GameScreens;
 
 using XRpgLibrary;
@@ -89,7 +88,7 @@ namespace SpaceGame.Components
             if (currentState == ShipState.Waiting)
             {
                 if (numberOfMoves == 0) gameState = "endOfGame";
-                else if (keyboardState.IsKeyDown(Keys.Space))
+                else if (keyboardState.IsKeyDown(Keys.Space) || keyboardSpacePressed)
                 {
                     //Determine the number of allowed moves
                     numberOfMoves--;

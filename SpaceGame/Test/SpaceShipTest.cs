@@ -25,6 +25,10 @@ namespace Test
         Board br;
         GameTime time;
         SpaceShip myShip;
+        Economy eco;
+        Trading trad;
+
+           
 
         [TestInitialize]
         public void init()
@@ -32,8 +36,14 @@ namespace Test
             dbp = new DatabasePopulate();
             time = new GameTime();
             myShip = new SpaceShip();
+<<<<<<< HEAD
+            eco = new Economy();
+            trad = new Trading();
+          
+=======
             br = new Board();
             
+>>>>>>> c8a838d145baad2c15fd9d3c6ac643baa9b44c9f
         }
 
         [TestMethod]
@@ -149,6 +159,156 @@ namespace Test
             
             Assert.IsInstanceOfType(dbp.startPlanetAdd(), typeof(int));
         }
+<<<<<<< HEAD
+        // economy test adding
+          #region // test economy class 
+        // check the constrcture 
+        [TestMethod]
+        public void Economy_Constructs_OK()
+        {
+            Assert.IsNotNull(eco);
+        }
+        [TestMethod]
+        public void CheckMoney_IsGreaterThanZero()
+        {
+            int a = eco.Money;
+            Assert.IsTrue(a >= 0);
+        }
+        
+        
+        [TestMethod]
+        public void AddMoney_Add5Gold_CheckMoneyIncreasesBy5()
+        {
+           
+            int new_amount = 5;
+            int money_start = eco.Money;
+            eco.AddToMoney(new_amount);
+            int Money_end = eco.Money;
+
+            Assert.AreEqual(money_start + new_amount, Money_end );
+        }
+
+        
+        [TestMethod]
+        public void DecrementMoney_CallOnce_ReducesCheckMoneyByAmount()
+        {
+
+            int new_amount = 5;
+           
+            int money_start = eco.Money;
+            eco.DecrementMoney(new_amount);
+            int Money_end = eco.Money;
+            Assert.AreEqual(money_start - new_amount, Money_end);
+        }
+        
+        [TestMethod]
+        public void Decrement_MoneyAtZero_ReturnFalse()
+        {
+            //stock is zero to start with
+
+            bool result = eco.DecrementMoney(5);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void Decrement_GreaterThanZero_ReturnTrue()
+        {
+            
+            eco.AddToMoney(10);
+            bool result = eco.DecrementMoney(5);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void DecrementMoney_MoneyAtZero_CheckMoneyEqualsZero()
+        {
+
+            eco.DecrementMoney(1);
+
+            Assert.AreEqual(0, eco.Money);
+        }
+        [TestMethod]
+        public void BuyResourceAndDecrementMoney()
+        {
+            int ResorceIDPrice = 1;
+          //  eco.AddResorce(ResorceIDPrice);
+
+
+            ///Assert.Inconclusive();/////
+        }
+        public void SellResourceAndAddToMoney()
+        {
+            int ResorceIDPrice = 1;
+            eco.removeoneResorce(ResorceIDPrice);
+
+
+            Assert.AreEqual(0, eco.Money);
+        }
+      
+    
+        
+       
+         [TestMethod]
+        public void Economy_CalculatingSystem_OK()// calculate the start anount of money divided by the amont now
+        {
+            eco.Money = 1 ; 
+            float aa = eco.Profit();
+            Assert.AreEqual(1, aa);
+        }
+        
+         [TestMethod]
+        public void Economy_UpGradeThecargo_OK()
+        {
+             int SpaceShipIDCargo =1;
+             int LevelID = 1 ;
+             int ShipPricee = 1 ;
+             eco.ShipUpGrede(SpaceShipIDCargo, LevelID, ShipPricee);// the ship class must have level attribute
+        }
+    
+         [TestMethod]
+        public void Economy_GetNewShip_OK()
+        {
+             int SpaceShipID =1;
+             int LevelID = 1 ;
+             int ShipPricee = 1;
+             eco.ShipChange(SpaceShipID, LevelID, ShipPricee);// the ship class must have other type
+        }
+         [TestMethod]
+         public void PriceChangeDependOnThePlanentQuentity()
+         {
+             //each planet has 20 avilable resorses
+             //the price for sell or buy vary depend on the quantity of the planet has
+             //simple calculation is  price of the resorce + 1 - price of the resorce*(planent quantity /20)
+             int GetPriceResorceID = 2;
+             eco.SellingPrice(GetPriceResorceID) ;
+
+         }
+         public void PriceChangeDependOnThePlanentQuentity()
+         {
+             //each planet has 20 avilable resorses
+             //the price for sell or buy vary depend on the quantity of the planet has
+             //simple calculation is  price of the resorce + 1 - price of the resorce*(planent quantity /20)
+             int GetPriceResorceID = 2;
+             eco.BuyingingPrice(GetPriceResorceID);
+
+         }
+        
+
+
+        #endregion
+        #region new test to class economy to monuplite SpaceShip
+         [TestMethod]
+         public void decresetheMoneyFromTheSpaceShipClass()
+         {
+             //myShip.
+            // int result = myShip.decraseMoney(int PriceOfAnyThing);
+
+         }
+
+        #endregion
+=======
     
         [TestMethod]
         public void CheckSessionIdatstartis0()
@@ -210,5 +370,7 @@ namespace Test
             Assert.IsNotNull(pl.getResourceList());
         }
 
+>>>>>>> c8a838d145baad2c15fd9d3c6ac643baa9b44c9f
     }
 }
+
