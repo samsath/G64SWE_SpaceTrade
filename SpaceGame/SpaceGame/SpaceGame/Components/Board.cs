@@ -106,18 +106,19 @@ namespace SpaceGame.Components
             Console.WriteLine("session = " + session);
             //tiles.Add(new Tile(space, new Planet("space", 0, "space")));
             List<Planetdata> sesPlanet = dbs.SessionWithPlanet(session);
-            Console.WriteLine("sesPlanet = " +sesPlanet.Count);
+            
             for (int i = 0; i < sesPlanet.Count; i++ )
             {
-                Console.WriteLine("start planet tiles");
+                
                 tiles.Add(new Tile(textureReturn(sesPlanet[i].File_loc), new Planet(sesPlanet[i].Name, sesPlanet[i].Planet_id, sesPlanet[i].File_loc)));
 
             }
-
+            Console.WriteLine("tiles = " + tiles.Count);
             for (int i = 0; i < tiles.Count; i++)
             {
+                
                 Planet pl = tiles[i].getPlanet();
-
+                
                 pl.generateResource();
 
             }

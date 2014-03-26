@@ -475,22 +475,28 @@ namespace STDatabase
         /// <returns></returns>
         public List<Resourcedata> PlanetResources(int planetId)
         {
-            Console.WriteLine("PlanetRes called");
+            //Console.WriteLine("PlanetRes called");
             List<Resourcedata> result = new List<Resourcedata>();
-            if (Check())
+            if (!Check())
             {
+                Connect();
+            }
+            if(Check())
+            {
+                //Console.WriteLine(planetId);
+                //Console.WriteLine("Database Conected");
                 string Query = string.Format("SELECT resources.Resources_id, resources.Name, resources.Initial_Price, resources.Description, planetresources.Price FROM resources, planetresources WHERE (resources.Resources_id == planetresources.Resources_id) AND planetresources.Planet_id ={0};", planetId);
-                Console.WriteLine("QueryCreater");
+                //Console.WriteLine("QueryCreater");
                 using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
                 {
                     try
                     {
                         using (SQLiteDataReader rdq = command.ExecuteReader())
                         {
-                            Console.WriteLine("rdq");
+                            //Console.WriteLine("rdq");
                             while (rdq.Read())
                             {
-                                Console.WriteLine("Read");
+                                //Console.WriteLine("Read");
                                 Resourcedata record = new Resourcedata(rdq.GetInt32(0), rdq.GetString(1), rdq.GetInt32(2), rdq.GetString(3), planetId, 0, 0, 0, rdq.GetInt32(4), 0, "null");
                                 result.Add(record);
                             }
@@ -1092,7 +1098,7 @@ namespace STDatabase
             if (Check())
             {
                 string Query = String.Format("SELECT planet.Planet_id, planet.Title, planet.X_loc, planet.Y_loc, media.Media_id, media.file_Loc FROM planet, media, planetmedia WHERE (planet.Planet_id == planetmedia.Planet_id AND planetmedia.Media_id == media.Media_id) AND planet.Planet_id IN (SELECT Planet_id FROM sessiontoplanet WHERE Session_id = {0})", session);
-                Console.WriteLine(Query);
+                
                 using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
                 {
                     try
@@ -1101,7 +1107,7 @@ namespace STDatabase
                         {
                             while (rdq.Read())
                             {
-                                Planetdata line = new Planetdata(rdq.GetInt16(0), rdq.GetString(1), rdq.GetInt16(1), rdq.GetInt16(2), rdq.GetInt16(3), rdq.GetString(4));
+                                Planetdata line = new Planetdata(rdq.GetInt32(0), rdq.GetString(1), rdq.GetInt32(2), rdq.GetInt32(3), rdq.GetInt32(4), rdq.GetString(5));
                                 result.Add(line);
                             }
                         }

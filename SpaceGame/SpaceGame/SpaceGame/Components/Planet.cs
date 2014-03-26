@@ -44,14 +44,17 @@ namespace SpaceGame.Components
         public void generateResource()
         {
             // changed this so it gets the relavent information from the database
+            rand = new Random();
 
+            //Console.WriteLine(name + " Generate");
             List<Resourcedata> resourcedb = dbs.PlanetResources(planetid);
-            
+            //Console.WriteLine(name + " resource got =" + resourcedb.Count);
 
             for (int i = 0; i < resourcedb.Count; i++)
             {
                 // this goes through the database info and then adds the relavent information to the planet generation.
-                resource.Add(new Resource(resourcedb[i].Resource_id, resourcedb[i].Name, resourcedb[i].Initial_Price,resourcedb[i].Description,rand.Next(100)));
+                resource.Add(new Resource(resourcedb[i].Resource_id, resourcedb[i].Name, resourcedb[i].Initial_Price,resourcedb[i].Description,rand.Next(1,100)));
+                //Console.WriteLine(Convert.ToString(resourcedb[i].Resource_id) + " = " + resourcedb[i].Name + " = " + Convert.ToString(resourcedb[i].Initial_Price) + " = " + resourcedb[i].Description+ " = " + Convert.ToString(rand.Next(100)));
             }
             
         }
