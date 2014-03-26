@@ -19,19 +19,47 @@ namespace Test
     [TestClass]
     public class SpaceShipTest
     {
+<<<<<<< HEAD
         DatabasePopulate dbp;
 
         Planet pl;
 
+=======
+        //DatabasePopulate dbp;
+>>>>>>> master
         GameTime time;
         SpaceShip myShip;
+        Dictionary<Resource, int> resource;
+        Dictionary<Resource, int> initialResource;
+        Dictionary<Resource, int> laterResource;
 
         [TestInitialize]
         public void init()
         {
+<<<<<<< HEAD
             dbp = new DatabasePopulate();
+
+           // pl = new Planet("earth",1, Texture2D earth);
+
+
             time = new GameTime();
             myShip = new SpaceShip();
+=======
+            //dbp = new DatabasePopulate();
+            time = new GameTime();
+            myShip = new SpaceShip();
+            resource = new Dictionary<Resource, int>();
+            initialResource = new Dictionary<Resource, int>();
+            laterResource = new Dictionary<Resource, int>();
+            
+            initialResource.Add(new Resource("gold", 100), 6);
+            initialResource.Add(new Resource("silver", 100), 7);
+            initialResource.Add(new Resource("copper", 100), 8);
+            resource.Add(new Resource("gold", 100), 1);
+            resource.Add(new Resource("silver", 100), 3);
+            resource.Add(new Resource("copper", 100), 4);
+>>>>>>> master
+
         }
 
         [TestMethod]
@@ -55,7 +83,7 @@ namespace Test
         {
             Assert.IsTrue(myShip.getShipNumberOfResource()<=myShip.getCargoCapacity());
         }
-        /*
+
         [TestMethod]
         public void BuyingIsOK()
         {
@@ -86,16 +114,15 @@ namespace Test
             }
             Assert.IsTrue(testResult);
         }
-        
+
         [TestMethod]
         public void SellingIsOK()
         {
             Boolean testResult = true;
-            //public Resource(int resid, string name, int price, string descript,int amounts)
             Dictionary<Resource, int> expectedResource = new Dictionary<Resource, int>();
-            expectedResource.Add(new Resource(0,"gold", 200,"gold gold gold", 5), 5);
-            expectedResource.Add(new Resource(1,"silver", 100,"silver silver",2), 4);
-            expectedResource.Add(new Resource(2,"copper", 100,"Copper copper copper",3), 4);
+            expectedResource.Add(new Resource("gold", 200), 5);
+            expectedResource.Add(new Resource("silver", 100), 4);
+            expectedResource.Add(new Resource("copper", 100), 4);
             myShip.setResource(initialResource);
             myShip.sell(resource);
             laterResource = myShip.getResultList();
@@ -117,7 +144,7 @@ namespace Test
             }
             Assert.IsTrue(testResult);
         }
-        */
+        /*
         [TestMethod]
         public void ResourcesAddedatStartofGame()
         {
@@ -151,7 +178,9 @@ namespace Test
             
             Assert.IsInstanceOfType(dbp.startPlanetAdd(), typeof(int));
         }
-    
+<<<<<<< HEAD
+
+
         [TestMethod]
         public void CheckSessionIdatstartis0()
         {
@@ -178,5 +207,8 @@ namespace Test
 
 
 
+=======
+         */
+>>>>>>> master
     }
 }
