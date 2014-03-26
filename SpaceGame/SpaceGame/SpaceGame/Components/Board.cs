@@ -156,17 +156,24 @@ namespace SpaceGame.Components
             Vector2 FontOrigin = font1.MeasureString(ourLocation) / 2;
             fontPosition = new Vector2(230, 125);
             spriteBatch.DrawString(font1, ourLocation, fontPosition, Color.White, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-            Dictionary<Resource, int> resource = new Dictionary<Resource, int>();
+            List<Resource> resource = new List<Resource>();
             resource = tiles.ElementAt(boardLocationToListLocation(ship.getShipLocation())).getPlanet().getResourceList();
             int l = 0;
-            foreach (KeyValuePair<Resource,int> m in resource)
+            for(int i =0; i<resource.Count;i++){
+                string myResource = "Available Resources: " + resource[i].amount + " , " + resource[i].name + " for " + resource[i].getPrice() +" each!";
+                fontPosition = new Vector2(230, 150 + l);
+                spriteBatch.DrawString(font1, myResource, fontPosition, Color.Red, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+                l = l + 25;
+            }
+            /*
+            foreach (List<Resource> m in resource)
             {
                 string myResource = "Available Resources: "+ m.Value+" " + m.Key.getName() + " for " + m.Key.getPrice()+" each";
                 fontPosition = new Vector2(230, 150 + l);
                 spriteBatch.DrawString(font1, myResource, fontPosition, Color.Red, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
                 l = l + 25;
             }
-        
+            */
             //printDiceRolled = "Move remaining is: " + diceRemaining.ToString();
             //fontPosition = new Vector2(100, 35);
             //spriteBatch.DrawString(font1, printDiceRolled, fontPosition, Color.Red, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);

@@ -55,7 +55,7 @@ namespace Test
         {
             Assert.IsTrue(myShip.getShipNumberOfResource()<=myShip.getCargoCapacity());
         }
-
+        /*
         [TestMethod]
         public void BuyingIsOK()
         {
@@ -86,15 +86,16 @@ namespace Test
             }
             Assert.IsTrue(testResult);
         }
-
+        
         [TestMethod]
         public void SellingIsOK()
         {
             Boolean testResult = true;
+            //public Resource(int resid, string name, int price, string descript,int amounts)
             Dictionary<Resource, int> expectedResource = new Dictionary<Resource, int>();
-            expectedResource.Add(new Resource("gold", 200), 5);
-            expectedResource.Add(new Resource("silver", 100), 4);
-            expectedResource.Add(new Resource("copper", 100), 4);
+            expectedResource.Add(new Resource(0,"gold", 200,"gold gold gold", 5), 5);
+            expectedResource.Add(new Resource(1,"silver", 100,"silver silver",2), 4);
+            expectedResource.Add(new Resource(2,"copper", 100,"Copper copper copper",3), 4);
             myShip.setResource(initialResource);
             myShip.sell(resource);
             laterResource = myShip.getResultList();
@@ -116,7 +117,7 @@ namespace Test
             }
             Assert.IsTrue(testResult);
         }
-        /*
+        */
         [TestMethod]
         public void ResourcesAddedatStartofGame()
         {
@@ -150,10 +151,7 @@ namespace Test
             
             Assert.IsInstanceOfType(dbp.startPlanetAdd(), typeof(int));
         }
-    }
-}
-
-
+    
         [TestMethod]
         public void CheckSessionIdatstartis0()
         {
