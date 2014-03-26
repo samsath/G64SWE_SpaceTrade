@@ -318,7 +318,7 @@ namespace SpaceGame.GameScreens
 
         void goBack(object sender, EventArgs e)
         {
-            StateManager.ChangeState(GameRef.GamePlayScreen, null);
+            StateManager.ChangeState(GameRef.GamePlayScreen, "playingScreen");
         }
 
         
