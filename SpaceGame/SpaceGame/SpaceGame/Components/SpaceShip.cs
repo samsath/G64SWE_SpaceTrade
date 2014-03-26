@@ -89,7 +89,7 @@ namespace SpaceGame.Components
             if (currentState == ShipState.Waiting)
             {
                 if (numberOfMoves == 0) gameState = "endOfGame";
-                else if (keyboardState.IsKeyDown(Keys.Space))
+                else if (keyboardState.IsKeyDown(Keys.Space) || keyboardSpacePressed)
                 {
                     //Determine the number of allowed moves
                     numberOfMoves--;
