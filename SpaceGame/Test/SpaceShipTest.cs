@@ -118,11 +118,7 @@ namespace Test
             Assert.IsTrue(testResult);
         }
         */
-        [TestMethod]
-        public void ResourcesAddedatStartofGame()
-        {
-            Assert.IsTrue(dbp.Startresourceadd());
-        }
+        
 
         [TestMethod]
         public void LastSessionis()
@@ -135,7 +131,7 @@ namespace Test
         public void ResorceAdded()
         {
             //Assert.IsTrue(dbp.addResource);
-            Assert.IsTrue(dbp.Resources);
+            Assert.IsTrue(dbp.Startresourceadd());
         }
 
         [TestMethod]
@@ -176,6 +172,19 @@ namespace Test
             Assert.IsTrue(dbp.addedPlanettoSession);
         }
 
+        [TestMethod]
+        public void AddingResourcetoPlanets()
+        {
+            Assert.IsTrue(dbp.AddResourcetoPlanet());
+        }
+
+        [TestMethod]
+        public void CheckifPlanetsLoadResourcs()
+        {
+            
+            Assert.AreNotEqual(0, pl.resourcedbCount);
+        }
+  
 
 
     }

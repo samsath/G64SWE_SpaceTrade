@@ -14,7 +14,7 @@ namespace SpaceGame.Components
     {
         public Boolean addplanet = true;
         public Boolean addResource = true;
-        public Boolean Resources = true;
+        public Boolean Resources;
         public int sessionNumber = 0;
         public int resourceCount = 0;
         public int planetscreated = 0;
@@ -59,8 +59,10 @@ namespace SpaceGame.Components
                 
             }
             catch (Exception ex) { Console.WriteLine(ex); Resources = false; }
-
-            return Resources;
+             
+           return true;
+            
+            
         }
 
         public int startPlanetAdd()
@@ -119,7 +121,7 @@ namespace SpaceGame.Components
                 addedPlanettoSession = true;
                 dbs.AddPlanettoSession(sessionId);
             }
-            catch (Exception ex) { Console.WriteLine("Error " + ex); addplanet = false; }
+            catch (Exception ex) { Console.WriteLine("Error " + ex); addedPlanettoSession = false; }
             
             try
             {
@@ -127,7 +129,7 @@ namespace SpaceGame.Components
                 addedRestoSession = true;
                 dbs.AddResourcetoSession(sessionId);
             }
-            catch (Exception ex) { Console.WriteLine("Error " + ex); addResource = false; }
+            catch (Exception ex) { Console.WriteLine("Error " + ex); addedRestoSession = false; }
             
 
 
@@ -155,7 +157,7 @@ namespace SpaceGame.Components
             return sessionNumber;
         }
 
-        public void AddResourcetoPlanet()
+        public Boolean AddResourcetoPlanet()
         {
             
             // this will randomly add resources to the different planets
@@ -163,7 +165,9 @@ namespace SpaceGame.Components
             {
                 // query that updates the planetresource which will 
                 dbs.AddResourcetoPlanet(sessionNumber);
+                return true;
             }
+            return false;
         }
     }
 }

@@ -22,6 +22,7 @@ namespace SpaceGame.Components
         Random rand;
         public string p;
         public IDatabase dbs = new Database();
+        public int resourcedbCount;
 
         // int of the planet number in the database
         public int planetid { get; set; }
@@ -49,7 +50,7 @@ namespace SpaceGame.Components
             //Console.WriteLine(name + " Generate");
             List<Resourcedata> resourcedb = dbs.PlanetResources(planetid);
             //Console.WriteLine(name + " resource got =" + resourcedb.Count);
-
+            resourcedbCount = resourcedb.Count;
             for (int i = 0; i < resourcedb.Count; i++)
             {
                 // this goes through the database info and then adds the relavent information to the planet generation.
