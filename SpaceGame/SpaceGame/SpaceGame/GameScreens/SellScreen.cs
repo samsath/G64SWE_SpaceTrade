@@ -34,6 +34,7 @@ namespace SpaceGame.GameScreens
         int unassignedResources = 10000;
         int moneyAmount = 0;
         int priceAmount = 3000;
+        int itemAmount = 5;
         int quantityAmount = 5;
         int offerAmount = 0;
         int fuelAmount = 0;
@@ -50,6 +51,7 @@ namespace SpaceGame.GameScreens
         Label quantityNumber;
         Label PlanetResourceLabel;
         Label PlanetResourceText;
+        LinkLabel acceptLabel = new LinkLabel();
 
         //List<ResourceLabelSet> resourceLabel = new List<ResourceLabelSet>();
         List<ResourceLabelSet> resourceLabel1 = new List<ResourceLabelSet>();
@@ -162,7 +164,17 @@ namespace SpaceGame.GameScreens
 
             ControlManager.Add(offerLabel);
 
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
+            //planet quantity
+
+            quantityLabel = new Label();
+            quantityLabel.Text = "Quantity";
+            quantityLabel.Position = new Vector2(nextControlPosition.X + 750, nextControlPosition.Y);
+
+
+            ControlManager.Add(quantityLabel);
+
+            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;            
+
             //
 
             Label nameOfItem = new Label();
@@ -180,19 +192,36 @@ namespace SpaceGame.GameScreens
             LinkLabel addLabel = new LinkLabel();
             addLabel.TabStop = true;
             addLabel.Text = "+";
-            addLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
+            addLabel.Position = new Vector2(nextControlPosition.X + 250, nextControlPosition.Y+20);
 
-            addLabel.Selected += addSelectedResource;
-            addLabel.Selected += new EventHandler(augmentItem);
+            //addLabel.Selected += addSelectedResource;
+            //addLabel.Selected += new EventHandler(augmentItem);
 
             LinkLabel substractLabel = new LinkLabel();
             substractLabel.TabStop = true;
             substractLabel.Text = "-";
-            substractLabel.Position = new Vector2(nextControlPosition.X + 400, nextControlPosition.Y);
+            substractLabel.Position = new Vector2(nextControlPosition.X + 300, nextControlPosition.Y+20);
 
-            substractLabel.Selected += new EventHandler(decreaseItem);
-            substractLabel.Selected += new EventHandler(substractSelectedResource);
+            //substractLabel.Selected += new EventHandler(decreaseItem);
+            //substractLabel.Selected += new EventHandler(substractSelectedResource);
             //addLabel.Selected += new EventHandler(decreaseItem);
+
+            LinkLabel addPlanetLabel = new LinkLabel();
+            addPlanetLabel.TabStop = true;
+            addPlanetLabel.Text = "Add";
+            addPlanetLabel.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
+
+            addPlanetLabel.Selected += addSelectedResource;
+            addPlanetLabel.Selected += new EventHandler(augmentItem);
+
+            LinkLabel substractPlanetLabel = new LinkLabel();
+            substractPlanetLabel.TabStop = true;
+            substractPlanetLabel.Text = "Remove";
+            substractPlanetLabel.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y);
+
+            substractPlanetLabel.Selected += new EventHandler(decreaseItem);
+            substractPlanetLabel.Selected += new EventHandler(substractSelectedResource);
+             
 
             //Offer
             offerNumber = new Label();
@@ -204,6 +233,8 @@ namespace SpaceGame.GameScreens
             ControlManager.Add(nameOfItem);
             ControlManager.Add(addLabel);
             ControlManager.Add(substractLabel);
+            ControlManager.Add(addPlanetLabel);
+            ControlManager.Add(substractPlanetLabel);
             ControlManager.Add(quantityNumber);
             ControlManager.Add(priceNumber);
             ControlManager.Add(offerNumber);
@@ -245,7 +276,7 @@ namespace SpaceGame.GameScreens
             ControlManager.Add(undoLabel);*/
 
             //Accept Label
-            LinkLabel acceptLabel = new LinkLabel();
+            acceptLabel = new LinkLabel();
             acceptLabel.Text = "Accept Changes";
             acceptLabel.Position = nextControlPosition;
             acceptLabel.TabStop = true;
@@ -268,8 +299,10 @@ namespace SpaceGame.GameScreens
 
         void acceptLabel_Selected(object sender, EventArgs e)
         {
-            undoResources.Clear();
-            StateManager.ChangeState(GameRef.GamePlayScreen, null);
+            //undoResources.Clear();
+            //StateManager.ChangeState(GameRef.GamePlayScreen, null);
+            //save states to DB method here
+            acceptLabel.Text = "Changes accepted.";
         }
 
         void undoLabel_Selected(object sender, EventArgs e)
@@ -286,7 +319,10 @@ namespace SpaceGame.GameScreens
 
         void addSelectedResource(object sender, EventArgs e)
         {
-            
+            if (quantityAmount == 0)
+            {
+                return;
+            }else{
                 string resourceName = ((LinkLabel)sender).Type;
                 undoResources.Push(resourceName);
                 unassignedResources= unassignedResources + offerAmount;
@@ -298,35 +334,44 @@ namespace SpaceGame.GameScreens
                 quantityAmount--;
                 quantityNumber.Text = quantityAmount.ToString();
 
-            //}
+            }
         }
 
         void substractSelectedResource(object sender, EventArgs e)
-        {          
-            
+        {
+            //max value of the items to be saved so can be used as reference
 
-            if (unassignedResources == 0 || quantityAmount == 0)
+            if (quantityAmount == itemAmount)
+            {
                 return;
+            }
+            else if (quantityAmount>0)
+            {
 
-            unassignedResources = unassignedResources - offerAmount;
-            remainingMoney.Text = "Total Amount of Money: " + unassignedResources.ToString();
-            //quantity
-            quantityAmount++;
-            quantityNumber.Text = quantityAmount.ToString();
-           
+                unassignedResources = unassignedResources - offerAmount;
+                remainingMoney.Text = "Total Amount of Money: " + unassignedResources.ToString();
+                //quantity
+                quantityAmount++;
+                quantityNumber.Text = quantityAmount.ToString();
+            }
         }
 
         void goBack(object sender, EventArgs e)
         {
-            StateManager.ChangeState(GameRef.GamePlayScreen, null);
+            StateManager.ChangeState(GameRef.GamePlayScreen, "playingScreen");
         }
 
         
         void augmentItem(object sender, EventArgs e)
         {
+            if (quantityAmount == 0)
+            {
+                offerNumber.Text = " ";
+            }else
             if (unassignedResources > 0)
             {
-                offerAmount = offerAmount + ((priceAmount * 20)/100);
+                //quantity ammount to be changed to number of resources of the planet
+                offerAmount = (priceAmount / quantityAmount);
                 offerNumber.Text = offerAmount.ToString()+"$";
             }
 
@@ -334,12 +379,31 @@ namespace SpaceGame.GameScreens
 
         void decreaseItem(object sender, EventArgs e)
         {
-            if (unassignedResources > 0)
+            //while loop
+            if (quantityAmount == itemAmount)
             {
-                offerAmount = offerAmount - ((priceAmount * 20) / 100);
+                offerNumber.Text = " ";
+            }
+            else if (quantityAmount>0)
+            
+            {
+                offerAmount = (priceAmount / quantityAmount);
                 offerNumber.Text = offerAmount.ToString() + "$";
             }
+            else if (quantityAmount == 0)
+            {
+                return;
+            }
 
+        }
+
+        void aumentPriceItem()
+        {
+
+        }
+
+        void decreasePriceItem()
+        {
         }
 
         public override void Update(GameTime gameTime)

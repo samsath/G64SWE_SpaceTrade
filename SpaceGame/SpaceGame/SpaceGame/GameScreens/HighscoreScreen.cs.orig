@@ -269,7 +269,11 @@ namespace SpaceGame.GameScreens
         void acceptLabel_Selected(object sender, EventArgs e)
         {
             undoResources.Clear();
+<<<<<<< HEAD
+            StateManager.ChangeState(GameRef.GamePlayScreen, "playingScreen"); 
+=======
             StateManager.ChangeState(GameRef.GamePlayScreen, "playingScreen");
+>>>>>>> 19a23b2a3d7bbecb9ce7bcb8140b004d0d48527e
         }
 
         void undoLabel_Selected(object sender, EventArgs e)

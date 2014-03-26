@@ -55,8 +55,10 @@ namespace SpaceGame
             }
             else { return false; };
         }
-
-        public void AddResorce(int resorceIDPrice) 
+      //  public void buyResource()
+         
+        public void buyResource(int resorceIDPrice)
+        
             // INCREASE THE QUANTITY OF THE RESORCE+ DECREASE THE MONEY
            //+ UPDATE THE NUMBERIF RESORCE HOLD IN CARGO
         {

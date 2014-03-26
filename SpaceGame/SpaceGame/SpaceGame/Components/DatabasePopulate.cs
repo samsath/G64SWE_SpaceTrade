@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using STDatabase;
 using System.IO;
 using System.Xml;
+using STDatabase;
 
 
 
@@ -14,6 +14,12 @@ namespace SpaceGame.Components
     {
         public Boolean addplanet = true;
         public Boolean addResource = true;
+        public Boolean Resources;
+        public int sessionNumber = 0;
+        public int resourceCount = 0;
+        public int planetscreated = 0;
+        public Boolean addedPlanettoSession = true;
+        public Boolean addedRestoSession = true;
         /*
          * This is to try and populate the database when a new game starts. It is done here so that it can easily be removed or changed if need by as maybe
          * threaded if it slows down the process.
@@ -27,28 +33,36 @@ namespace SpaceGame.Components
         /// <returns></returns>
         public Boolean Startresourceadd()
         {
+            Resources = true;
             XmlDocument doc = new XmlDocument();
             doc.Load(@"Content\resourceListCostDescript.xml");
             XmlNodeList elemlist = doc.GetElementsByTagName("Res");
+            //Console.WriteLine("ResourcesAdd");
             try
             {
                 
                 try
                 {
                     dbf.NewResourceMedia(elemlist[1].Attributes["Name"].Value, Convert.ToInt16(elemlist[1].Attributes["Price"].Value), elemlist[1].Attributes["Descrp"].Value, 0, 0, elemlist[1].Attributes["loc"].Value, 0);
-                    return true;
-                }catch (Exception ex) { Console.WriteLine(ex); return false; }
+                    Resources = true;
+                }catch (Exception ex) { Console.WriteLine(ex); Resources = false; }
 
                 for (int i = 0; i < elemlist.Count; i++)
                 {
                     
                     dbs.NewResourceMedia(elemlist[i].Attributes["Name"].Value, Convert.ToInt16(elemlist[i].Attributes["Price"].Value), elemlist[i].Attributes["Descrp"].Value, 0, 0, elemlist[i].Attributes["loc"].Value, 0);
-                    
+                    //Console.WriteLine(elemlist[i].Attributes["Name"].Value + "," + elemlist[i].Attributes["Price"].Value + "," + elemlist[i].Attributes["Descrp"].Value + "," + 0 + "," + 0 + "," + elemlist[i].Attributes["loc"].Value + "," + 0);
+
+                    resourceCount++;
                 }
                 //Console.WriteLine("Resources added to the database at start of the game");
                 
             }
-            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            catch (Exception ex) { Console.WriteLine(ex); Resources = false; }
+             
+           return true;
+            
+            
         }
 
         public int startPlanetAdd()
@@ -56,7 +70,7 @@ namespace SpaceGame.Components
             Random randNum = new Random();
             // creates 40 new planets with name and images 
             string[] planetimages = new string[] { "earth", "jupiter", "mars", "mercury", "neptune", "saturn", "uranus", "venus" };
-            int planetscreated = 0;
+            
             XmlDocument doc = new XmlDocument();
             doc.Load(@"Content\planetName.xml");
             XmlNodeList planetName = doc.GetElementsByTagName("Planet");
@@ -65,7 +79,7 @@ namespace SpaceGame.Components
             // This goes through the list of planets and adds them to the loading place but if that name already exsits then it picks another name.
             // so each time there is a new game the planets names are differently.
 
-            while (usednum.Count <= 40)
+            while (usednum.Count <= 39)
             {
                 int num = 0;
 
@@ -98,18 +112,24 @@ namespace SpaceGame.Components
 
         public void AddtoSession(int sessionId)
         {
+            /// need to add session id to database
+            /// 
             // this makes sure that all the resource and planets are on this session, so can load the data.
             try
             {
+                dbf.AddPlanettoSession(sessionId);
+                addedPlanettoSession = true;
                 dbs.AddPlanettoSession(sessionId);
             }
-            catch (Exception ex) { Console.WriteLine("Error " + ex); addplanet = false; }
+            catch (Exception ex) { Console.WriteLine("Error " + ex); addedPlanettoSession = false; }
             
             try
             {
+                dbf.AddResourcetoSession(sessionId);
+                addedRestoSession = true;
                 dbs.AddResourcetoSession(sessionId);
             }
-            catch (Exception ex) { Console.WriteLine("Error " + ex); addResource = false; }
+            catch (Exception ex) { Console.WriteLine("Error " + ex); addedRestoSession = false; }
             
 
 
@@ -121,7 +141,33 @@ namespace SpaceGame.Components
             int ses = dbs.getLastSession();
             int fs = dbf.getLastSession();
 
+            sessionNumber = ses + 1;
             return ses + 1;
+
+
+        }
+
+        public int getSession()
+        {
+            if (sessionNumber == 0)
+            {
+                int ses = dbs.getLastSession();
+                sessionNumber = ses;
+            }
+            return sessionNumber;
+        }
+
+        public Boolean AddResourcetoPlanet()
+        {
+            
+            // this will randomly add resources to the different planets
+            if (planetscreated > 0 && resourceCount > 0)
+            {
+                // query that updates the planetresource which will 
+                dbs.AddResourcetoPlanet(sessionNumber);
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -7,6 +7,7 @@ namespace SpaceGame.Components
 {
     public class Resource
     {
+<<<<<<< HEAD
 
         public string name { get; set; }
         public int price { get; set; }
@@ -16,6 +17,12 @@ namespace SpaceGame.Components
         public int amount { get; set; }
 
         public Resource(int resid, string name, int price, string descript,int amounts)
+=======
+        private string name;
+        private int price;
+
+        public Resource(string name, int price)
+>>>>>>> master
         {
             this.resourceid = resid;
             this.name = name;
@@ -35,10 +42,17 @@ namespace SpaceGame.Components
         {
             return price;
         }
+<<<<<<< HEAD
 
         public void economicRole()
         {
 
+=======
+        public void changePrice(int price)
+        {
+            this.price = price;
+>>>>>>> master
         }
+        
     }
 }

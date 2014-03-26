@@ -42,6 +42,9 @@ namespace SpaceGame.GameScreens
         int fuelAmount = 0;
         int cargoAmount = 0;
 
+        //Dictionary is to record all changes made here and then pass it along to the userscreen.
+        Dictionary<string, int> totransfer = new Dictionary<string, int>();
+
         PictureBox backgroundImage;
         Label remainingResources;
         Label MoneyLabel;
@@ -389,6 +392,8 @@ namespace SpaceGame.GameScreens
             else
             {             
                 string resourceName = ((LinkLabel)sender).Type;
+                
+                Console.WriteLine(resourceName);
                 undoResources.Push(resourceName);
                 unassignedResources--;
 

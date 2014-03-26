@@ -52,6 +52,7 @@ namespace SpaceGame.Components
                 tempList.Add(new Tile(space, new Planet("space")));
                 tempList.Add(new Tile(space, new Planet("space")));
                 tempList.Add(new Tile(mercury, new Planet("mercury")));
+               
                 tempList.Add(new Tile(venus, new Planet("venus")));
                 tempList.Add(new Tile(earth, new Planet("earth")));
                 tempList.Add(new Tile(mars, new Planet("mars")));

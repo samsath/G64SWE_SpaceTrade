@@ -23,12 +23,14 @@ namespace Test
         DatabasePopulate dbp;
         Economy eco ;
         Trading trad;
+        SpaceShip myShip;
         [TestInitialize]
         public void init()
         {
             dbp = new DatabasePopulate();
             eco = new Economy();
             trad = new Trading();
+            myShip = new  SpaceShip();
         }
 
 
@@ -215,6 +217,19 @@ namespace Test
 
 
         #endregion
-       
+        #region new test to class economy to monuplite SpaceShip
+         [TestMethod]
+         public void decresetheMoneyFromTheSpaceShipClass()
+         {
+             myShip.
+             int result = myShip.decraseMoney(int PriceOfAnyThing);
+
+         }
+
+
+
+
+        #endregion
+
     }
 }
