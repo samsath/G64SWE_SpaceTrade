@@ -50,6 +50,7 @@ namespace SpaceGame.GameScreens
         Label quantityNumber;
         Label PlanetResourceLabel;
         Label PlanetResourceText;
+        LinkLabel acceptLabel = new LinkLabel();
 
         //List<ResourceLabelSet> resourceLabel = new List<ResourceLabelSet>();
         List<ResourceLabelSet> resourceLabel1 = new List<ResourceLabelSet>();
@@ -229,24 +230,10 @@ namespace SpaceGame.GameScreens
 
             ControlManager.Add(PlanetResourceText);
 
-            //
-
-            //Undo Label
-
-            /*nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
-
-            LinkLabel undoLabel = new LinkLabel();
-            undoLabel.Text = "Reset Values";
-            undoLabel.Position = nextControlPosition;
-            undoLabel.TabStop = true;
-            undoLabel.Selected += new EventHandler(undoLabel_Selected);
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
-
-            ControlManager.Add(undoLabel);*/
+            //           
 
             //Accept Label
-            LinkLabel acceptLabel = new LinkLabel();
+            acceptLabel = new LinkLabel();
             acceptLabel.Text = "Accept Changes";
             acceptLabel.Position = nextControlPosition;
             acceptLabel.TabStop = true;
@@ -269,21 +256,13 @@ namespace SpaceGame.GameScreens
 
         void acceptLabel_Selected(object sender, EventArgs e)
         {
-            undoResources.Clear();
-            StateManager.ChangeState(GameRef.GamePlayScreen, null);
-        }
-
-        /*void undoLabel_Selected(object sender, EventArgs e)
-        {
-            if (moneyRemaining == 0)
-                return;
-            
-            moneyRemaining = 10;
-            remainingMoney.Text = "Total Resources: " + moneyRemaining.ToString();
-            totalMoney = 0;
-            
-
-        }*/
+            //undoResources.Clear();
+            /*
+             * update the states to the game.
+             */
+            //StateManager.ChangeState(GameRef.GamePlayScreen, null);
+            acceptLabel.Text = "Changes Accepted";
+        }    
 
         void addSelectedResource(object sender, EventArgs e)
         {
@@ -337,7 +316,7 @@ namespace SpaceGame.GameScreens
 
         void goBack(object sender, EventArgs e)
         {
-            StateManager.ChangeState(GameRef.GamePlayScreen, null);
+            StateManager.ChangeState(GameRef.GamePlayScreen, "playingScreen");
         }
 
         
