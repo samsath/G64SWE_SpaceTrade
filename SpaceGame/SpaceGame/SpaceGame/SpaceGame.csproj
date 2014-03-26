@@ -73,11 +73,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Board.cs" />
-<<<<<<< HEAD
     <Compile Include="Components\Economy.cs" />
-=======
     <Compile Include="Components\DatabasePopulate.cs" />
->>>>>>> c8a838d145baad2c15fd9d3c6ac643baa9b44c9f
     <Compile Include="Components\Object.cs" />
     <Compile Include="Components\Planet.cs" />
     <Compile Include="Components\Resource.cs" />
