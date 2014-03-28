@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Money", "MOney\Money.csproj", "{112477FA-A02B-4BF6-91E8-AABEACFD6F33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary1", "ClassLibrary1\ClassLibrary1.csproj", "{AE8C88B0-B5C5-4E5D-AF69-EE4A748E3F67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetNewBalance", "GetNewBalance\GetNewBalance.csproj", "{127E8793-5D54-482E-B27D-D268E8ABCFD0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{112477FA-A02B-4BF6-91E8-AABEACFD6F33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{112477FA-A02B-4BF6-91E8-AABEACFD6F33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{112477FA-A02B-4BF6-91E8-AABEACFD6F33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{112477FA-A02B-4BF6-91E8-AABEACFD6F33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE8C88B0-B5C5-4E5D-AF69-EE4A748E3F67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE8C88B0-B5C5-4E5D-AF69-EE4A748E3F67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE8C88B0-B5C5-4E5D-AF69-EE4A748E3F67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE8C88B0-B5C5-4E5D-AF69-EE4A748E3F67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{127E8793-5D54-482E-B27D-D268E8ABCFD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{127E8793-5D54-482E-B27D-D268E8ABCFD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{127E8793-5D54-482E-B27D-D268E8ABCFD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{127E8793-5D54-482E-B27D-D268E8ABCFD0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

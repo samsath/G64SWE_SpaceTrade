@@ -18,7 +18,7 @@ namespace shop
 
         [TestMethod]
         //call the random chance-picking function
-        public void getchance(int value)
+        public void getchance()
         {
             chancecheck  sys = new chancecheck();
             sys.getchance(2);
@@ -27,11 +27,12 @@ namespace shop
         }
           
         [TestMethod]
-        public void checkvalue(int value)
+        public void checkvalue()
         {
+
            chancecheck  sys = new chancecheck ();
             sys.checkvalue(4);
-            Assert.AreEqual(5, sys.checkvalue(4));
+            Assert.AreEqual(4, sys.checkvalue(4));
             Assert.IsNotNull(sys);
         }
 

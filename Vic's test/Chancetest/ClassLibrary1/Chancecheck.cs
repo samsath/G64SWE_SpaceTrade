@@ -23,45 +23,34 @@ namespace Shop
                     case 2:
                         Console.WriteLine("get 100 money"); break;
                     case 3:
-                        Console.WriteLine("lose 50 dollars"); break;
+                        Console.WriteLine("lose 60 dollars"); break;
                     case 4:
-                        Console.WriteLine("lose 50 dollars"); break;
+                        Console.WriteLine("lose 70 dollars"); break;
                     case 5:
-                        Console.WriteLine("lose 50 dollars"); break;
+                        Console.WriteLine("lose 80 dollars"); break;
                     case 6:
-                        Console.WriteLine("lose 50 dollars"); break;
+                        Console.WriteLine("lose 90 dollars"); break;
                     case 7:
-                        Console.WriteLine("lose 50 dollars"); break;
+                        Console.WriteLine("lose 150 dollars"); break;
                     case 8:
-                        Console.WriteLine("lose 50 dollars"); break;
+                        Console.WriteLine("lose 500 dollars"); break;
                     case 9:
-                        Console.WriteLine("lose 50 dollars"); break;
+                        Console.WriteLine("lose 5000 dollars"); break;
                     case 10:
-                        Console.WriteLine("lose 50 dollars"); break;
-
-
+                        Console.WriteLine("lose 500000 dollars"); break;
 
                 }
             }
             else
             { Console.WriteLine("regular stop"); }
 
-
-
-
         }
-
-
-
 
         public int checkvalue(int p)
         {
              return p; 
         }
 
-        public string checkchance(int p)
-        {
-            throw new NotImplementedException();
-        }
+     
     }
 }

@@ -13,9 +13,9 @@ namespace main
         static void Main()
         {
             chancecheck sys = new chancecheck() ;
-            sys.checkvalue(8);
-            Console.WriteLine(sys.checkchance(8) );
-
+            Console.WriteLine(sys.checkvalue(8));
+            sys.getchance(8);
+            Console.ReadKey();
         }
     }
 }
