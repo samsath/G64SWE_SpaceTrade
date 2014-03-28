@@ -183,7 +183,7 @@ namespace SpaceGame.GameScreens
             addLabel.Text = "+";
             addLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
 
-            addLabel.Selected += new EventHandler(augmentItem);
+            //addLabel.Selected += new EventHandler(augmentItem);
             addLabel.Selected += addSelectedResource;
 
             LinkLabel substractLabel = new LinkLabel();
@@ -191,7 +191,7 @@ namespace SpaceGame.GameScreens
             substractLabel.Text = "-";
             substractLabel.Position = new Vector2(nextControlPosition.X + 400, nextControlPosition.Y);
 
-            substractLabel.Selected += new EventHandler(decreaseItem);
+            //substractLabel.Selected += new EventHandler(decreaseItem);
             substractLabel.Selected += new EventHandler(substractSelectedResource);            
             
             //addLabel.Selected += new EventHandler(decreaseItem);
@@ -268,12 +268,13 @@ namespace SpaceGame.GameScreens
         {
 
 
-            if ((moneyRemaining - priceAmount) <= 0)
+            if ((moneyRemaining - priceAmount) < 0)
             {
                 remainingMoney.Text = "You Are Out Of Money";
                 
             }
-            else{
+            else if (moneyRemaining >= 0)
+            {
 
                 string resourceName = ((LinkLabel)sender).Type;
                 undoResources.Push(resourceName);
@@ -286,7 +287,8 @@ namespace SpaceGame.GameScreens
                 quantityAmount++;
                 quantityNumber.Text = quantityAmount.ToString();
 
-                
+                finalAmount = finalAmount + priceAmount;
+                finalPrice.Text = finalAmount.ToString() + "$";
 
             }
         }
@@ -310,30 +312,23 @@ namespace SpaceGame.GameScreens
                 quantityAmount--;
                 quantityNumber.Text = quantityAmount.ToString();
 
+                finalAmount = finalAmount - priceAmount;
+                finalPrice.Text = finalAmount.ToString() + "$";
             
+            }
+
+            if (quantityAmount == 0)
+            {
+                finalAmount = 0;
+                //return;
             }
         }
 
         void goBack(object sender, EventArgs e)
         {
             StateManager.ChangeState(GameRef.GamePlayScreen, "playingScreen");
-        }
-
+        }    
         
-        void augmentItem(object sender, EventArgs e)
-        {
-            if ((moneyRemaining - priceAmount) <= 0)
-            {
-                return;
-
-            }
-            if (moneyRemaining > 0)
-            {
-                finalAmount = finalAmount + priceAmount;
-                finalPrice.Text = finalAmount.ToString()+"$";
-            }
-
-        }
 
         void decreaseItem(object sender, EventArgs e)
         {
