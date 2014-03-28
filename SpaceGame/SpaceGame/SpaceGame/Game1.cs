@@ -40,6 +40,7 @@ namespace SpaceGame
         public SellScreen SellScreen;
         public SaveScreen SaveScreen;
         public HighscoreScreen highscoreScreen;
+        public UpgradeScreen upgradeScreen;
 
         #endregion
 
@@ -82,6 +83,8 @@ namespace SpaceGame
             SellScreen = new SellScreen(this, stateManager);
             SaveScreen = new SaveScreen(this, stateManager);
             highscoreScreen = new HighscoreScreen(this, stateManager);
+            upgradeScreen = new UpgradeScreen(this, stateManager);
+
 
             stateManager.ChangeState(TitleScreen, null);
         }
