@@ -1,11 +1,12 @@
 Need
-As a user, I want to be able to upgrade my spaceship (MEDIUM)
-As a user, I want to be able to buy a different spaceship with different capabilities (LOW)
-As a user I want to be able to play against other people (LOW)
+
+As a user, I want to be able to buy a different spaceship with different capabilities (LOW) *change just picture 
+As a user I want to be able to play against other people (LOW) *2 people playing at the same time
 
 
 DOING
 As a user, I want the prices of items to change over time and at different locations (HIGH)
+As a user, I want to be able to upgrade my spaceship (MEDIUM)
 As a user, I want to be able to buy and sell items (HIGH)
 
 
