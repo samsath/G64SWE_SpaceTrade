@@ -49,7 +49,7 @@ namespace Test
         [TestMethod]
         public void ShipCurrentMoneyCannotBeLowerThanZero()
         {
-            Assert.IsTrue(myShip.getCurrentMoney()>=0);
+            Assert.IsTrue(myShip.getMoney()>=0);
         }
 
         [TestMethod]
