@@ -30,21 +30,31 @@ namespace SpaceGame.GameScreens
     {
         #region Field Region
 
-        int totalMoney; // Ship's current money
-        int cargoAmount; // Ship's current cargo capacity
+        // Ship's current Money (at the end of the buy phase, this value should return to the gameplay by using the acceptLabel_Selected method)
+        int totalMoney; // Ship's current money //input
+        int cargoAmount; // Ship's current cargo capacity //input
 
-        int turnAmount; // Ship's current number of turn
+        //turns should only be in the upgrade screen
+        int turnAmount; // Ship's current number of turn//should not be here
 
-        int totalResources = 10000;
+        int totalResources = 10000; //money remaining should be equal to the totalmoney amount
         int unassignedResources = 10000;
 
+        //price set by the player
         int priceAmount = 0;
-        int originalPrice = 5000;
 
-        int itemAmount = 10;
-        int quantityAmount = 10;
+        //original price brings the set price of the resource from the gameplay
+        int originalPrice = 5000; //input
+
+        //ammount of the resource brought from the gameplay(Ship)
+        int itemAmount = 10; // input
+        //ammount of the resource brought from the gameplay(Planet)
+        int quantityAmount = 10;//input
+
+        //offer made by the AI
         int offerAmount = 0;
-        int quantityAcquired = 0;
+        //Quantity acquired shows the number of resources of the planet and the changes made by buying from the ship
+        int quantityAcquired = 0;//output
 
         PictureBox backgroundImage;
         Label remainingMoney;
@@ -305,6 +315,7 @@ namespace SpaceGame.GameScreens
             //undoResources.Clear();
             //StateManager.ChangeState(GameRef.GamePlayScreen, null);
             //save states to DB method here
+            totalMoney = unassignedResources;
             acceptLabel.Text = "Changes accepted.";
         }
 

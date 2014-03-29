@@ -36,8 +36,8 @@ namespace SpaceGame.GameScreens
 
         int totalResources = 10;
         int unassignedResources = 10;
-        int moneyAmount = 0;
-        int turnAmount = 0;
+        int moneyAmount = 100;
+        int turnAmount = 3;
         int ammoAmount = 0;
         int healthAmount = 0;
         int fuelAmount = 0;
@@ -204,85 +204,7 @@ namespace SpaceGame.GameScreens
 
             ControlManager.Add(shipLabel);
 
-            //Ammo
-            Label Ammo = new Label();
-            Ammo.Text = "Ammo Ammount";
-            Ammo.Position = nextControlPosition;
-
-            ControlManager.Add(Ammo);
-
-            LinkLabel AmmoLabel = new LinkLabel();
-            AmmoLabel.TabStop = true;
-            AmmoLabel.Text = "+";
-            AmmoLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);            
-
-            AmmoLabel.Selected += addSelectedResource;
-            AmmoLabel.Selected += new EventHandler(augmentAmmo);
-
-            ammoNumber = new Label();
-            ammoNumber.Text = ammoAmount.ToString();
-            ammoNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
-
-            ControlManager.Add(AmmoLabel);
-            ControlManager.Add(ammoNumber);
-
-            resourceLabel1.Add(new ResourceLabelSet(Ammo, AmmoLabel));
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
-            //
-
-            //Health
-
-            Label Health = new Label();
-            Health.Text = "Maximum Health";
-            Health.Position = nextControlPosition;
-
-            ControlManager.Add(Health);
-
-            LinkLabel HealthLabel = new LinkLabel();
-            HealthLabel.TabStop = true;
-            HealthLabel.Text = "+";
-            HealthLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);           
-
-            HealthLabel.Selected += addSelectedResource;
-            HealthLabel.Selected += new EventHandler(augmentHealth);
-
-            healthNumber = new Label();
-            healthNumber.Text = healthAmount.ToString();
-            healthNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
-
-            ControlManager.Add(HealthLabel);
-            ControlManager.Add(healthNumber);
-
-            resourceLabel1.Add(new ResourceLabelSet(Health, HealthLabel));
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
-            //
-
-            //Fuel
-
-            Label Fuel = new Label();
-            Fuel.Text = "Fuel Capacity";
-            Fuel.Position = nextControlPosition;
-
-            ControlManager.Add(Fuel);
-
-            LinkLabel FuelLabel = new LinkLabel();
-            FuelLabel.TabStop = true;
-            FuelLabel.Text = "+";
-            FuelLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);           
-
-            FuelLabel.Selected += addSelectedResource;
-            FuelLabel.Selected += new EventHandler(augmentFuel);
-
-            fuelNumber = new Label();
-            fuelNumber.Text = fuelAmount.ToString();
-            fuelNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
-
-            ControlManager.Add(FuelLabel);
-            ControlManager.Add(fuelNumber);
-
-            resourceLabel1.Add(new ResourceLabelSet(Fuel, FuelLabel));
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
-            //
+            
 
             //Cargo Capacity
 

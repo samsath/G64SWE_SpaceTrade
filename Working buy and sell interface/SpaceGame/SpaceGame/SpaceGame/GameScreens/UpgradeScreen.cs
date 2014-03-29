@@ -29,17 +29,21 @@ namespace SpaceGame.GameScreens
     public class UpgradeScreen : BaseGameState
     {
         #region Field Region
+        //Turns should be added here
 
+        // Ship's current Money (at the end of the buy phase, this value should return to the gameplay by using the acceptLabel_Selected method)
         int totalMoney; // Ship's current money
+
+        //money remaining should be equal to the totalmoney amount
         int moneyRemaining = 100000;
 
         int turnPrice = 5000;
         int quantityAmount = 0;
-        int finalAmount = 0;
-        int upgradeAmount = 0;
+        int finalAmount = 0;//output
+        int upgradeAmount = 0;//output
 
-        int cargoLevel; // Ship's current cargo level
-        int cargoAmount; // Ship's current cargo capacity
+        int cargoLevel; // Ship's current cargo level //input
+        int cargoAmount; // Ship's current cargo capacity //input
         int cargoPrice = 10000;
 
         PictureBox backgroundImage;

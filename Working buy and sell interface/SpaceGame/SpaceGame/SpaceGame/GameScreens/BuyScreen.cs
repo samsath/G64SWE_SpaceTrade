@@ -30,16 +30,18 @@ namespace SpaceGame.GameScreens
     {
      #region Field Region
 
-        int totalMoney; // Ship's current Money
-        int moneyRemaining = 10000;
-        int priceAmount = 3000;
+        // Ship's current Money (at the end of the buy phase, this value should return to the gameplay by using the acceptLabel_Selected method)
+        int totalMoney;//input
 
-        int quantityAmount = 0;
-        int finalAmount = 0;
+        int moneyRemaining = 10000; //Money changes due to apply, moneyremaining should be equal to the totalmoney amount
+        int priceAmount = 3000; //price of the resource //input
 
-        int cargoAmount; // Ship's current cargo capacity
+        int quantityAmount = 0;// Number of resources of that type// input
+        int finalAmount = 0; // cost of the transactions at the end of the buy state. (Should be returned to the gameplay)
 
-        int turnAmount; // Ship's current number of turn
+        int cargoAmount; // Ship's current cargo capacity //input
+
+        int turnAmount; // Ship's current number of turns (not needed here, should be on the upgrade screen)
 
         PictureBox backgroundImage;
         Label remainingMoney;
@@ -265,6 +267,7 @@ namespace SpaceGame.GameScreens
              * update the states to the game.
              */
             //StateManager.ChangeState(GameRef.GamePlayScreen, null);
+            totalMoney = finalAmount;
             acceptLabel.Text = "Changes Accepted";
         }    
 
