@@ -12,25 +12,13 @@ using Microsoft.Xna.Framework.Content;
 using XRpgLibrary;
 using XRpgLibrary.Controls;
 using System.Diagnostics;
-using SpaceGame.Components;
 
 
 namespace SpaceGame.GameScreens
 {
 
-    internal class ResourceLabelSet
-    {
-        internal Label Label;
-        internal LinkLabel LinkLabel;
 
-        internal ResourceLabelSet(Label label, LinkLabel linkLabel)
-        {
-            Label = label;
-            LinkLabel = linkLabel;
-        }
-    }
-
-    public class AdminScreen : BaseGameState
+    public class SaveHistoryScreen : BaseGameState
     {
         #region Field Region
 
@@ -79,7 +67,7 @@ namespace SpaceGame.GameScreens
 
         #region Constructor Region
 
-        public AdminScreen(Game game, GameStateManager stateManager)
+        public SaveHistoryScreen(Game game, GameStateManager stateManager)
             : base(game, stateManager)
         {
             Random rand = new Random();
@@ -99,7 +87,7 @@ namespace SpaceGame.GameScreens
 
         public override void Initialize()
         {
-            
+
             base.Initialize();
         }
 
@@ -154,7 +142,7 @@ namespace SpaceGame.GameScreens
 
             moneyNumber = new Label();
             moneyNumber.Text = moneyAmount.ToString();
-            moneyNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);           
+            moneyNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
 
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
 
@@ -171,7 +159,7 @@ namespace SpaceGame.GameScreens
             LinkLabel linkLabelTurns = new LinkLabel();
             linkLabelTurns.TabStop = true;
             linkLabelTurns.Text = "+";
-            linkLabelTurns.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);           
+            linkLabelTurns.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
 
             linkLabelTurns.Selected += addSelectedResource;
 
@@ -213,7 +201,7 @@ namespace SpaceGame.GameScreens
             LinkLabel AmmoLabel = new LinkLabel();
             AmmoLabel.TabStop = true;
             AmmoLabel.Text = "+";
-            AmmoLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);            
+            AmmoLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
 
             AmmoLabel.Selected += addSelectedResource;
             AmmoLabel.Selected += new EventHandler(augmentAmmo);
@@ -240,7 +228,7 @@ namespace SpaceGame.GameScreens
             LinkLabel HealthLabel = new LinkLabel();
             HealthLabel.TabStop = true;
             HealthLabel.Text = "+";
-            HealthLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);           
+            HealthLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
 
             HealthLabel.Selected += addSelectedResource;
             HealthLabel.Selected += new EventHandler(augmentHealth);
@@ -267,7 +255,7 @@ namespace SpaceGame.GameScreens
             LinkLabel FuelLabel = new LinkLabel();
             FuelLabel.TabStop = true;
             FuelLabel.Text = "+";
-            FuelLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);           
+            FuelLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
 
             FuelLabel.Selected += addSelectedResource;
             FuelLabel.Selected += new EventHandler(augmentFuel);
@@ -294,7 +282,7 @@ namespace SpaceGame.GameScreens
             LinkLabel CargoCapacityLabel = new LinkLabel();
             CargoCapacityLabel.TabStop = true;
             CargoCapacityLabel.Text = "+";
-            CargoCapacityLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);            
+            CargoCapacityLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
 
             CargoCapacityLabel.Selected += addSelectedResource;
             CargoCapacityLabel.Selected += new EventHandler(augmentCargo);
@@ -307,7 +295,7 @@ namespace SpaceGame.GameScreens
             ControlManager.Add(cargoNumber);
 
             resourceLabel1.Add(new ResourceLabelSet(CargoCapacity, CargoCapacityLabel));
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 20f;            
+            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 20f;
             //
 
 
@@ -345,9 +333,6 @@ namespace SpaceGame.GameScreens
 
         void acceptLabel_Selected(object sender, EventArgs e)
         {
-            GameRef.spaceShip.setInitialAmountMoney(moneyAmount);
-            GameRef.spaceShip.setNumberOfTurn(turnAmount);
-            GameRef.spaceShip.setInitialCargoCapacity(cargoAmount);
             undoResources.Clear();
             StateManager.ChangeState(GameRef.CharacterGeneratorScreen);
         }
@@ -394,9 +379,9 @@ namespace SpaceGame.GameScreens
                 //return;
             }
             else
-            {             
+            {
                 string resourceName = ((LinkLabel)sender).Type;
-                
+
                 Console.WriteLine(resourceName);
                 undoResources.Push(resourceName);
                 unassignedResources--;
@@ -417,7 +402,7 @@ namespace SpaceGame.GameScreens
                 moneyAmount++;
                 moneyNumber.Text = moneyAmount.ToString();
             }
-            
+
         }
 
         void augmentTurns(object sender, EventArgs e)

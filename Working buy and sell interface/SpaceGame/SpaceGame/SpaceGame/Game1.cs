@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 using XRpgLibrary;
 using SpaceGame.GameScreens;
+using SpaceGame.Components;
 
 namespace SpaceGame
 {
@@ -38,9 +39,13 @@ namespace SpaceGame
         public EndGameScreen EndGameScreen;
         public BuyScreen BuyScreen;
         public SellScreen SellScreen;
-        public SaveScreen SaveScreen;
+        public PauseScreen PauseScreen;
         public HighscoreScreen highscoreScreen;
         public UpgradeScreen upgradeScreen;
+        public SaveHistoryScreen saveHistory;
+
+        public SpaceShip spaceShip;
+        public Board board;
 
         #endregion
 
@@ -81,12 +86,15 @@ namespace SpaceGame
             EndGameScreen = new EndGameScreen(this, stateManager);
             BuyScreen = new BuyScreen(this, stateManager);
             SellScreen = new SellScreen(this, stateManager);
-            SaveScreen = new SaveScreen(this, stateManager);
+            PauseScreen = new PauseScreen(this, stateManager);
             highscoreScreen = new HighscoreScreen(this, stateManager);
             upgradeScreen = new UpgradeScreen(this, stateManager);
+            saveHistory = new SaveHistoryScreen(this, stateManager);
 
+            spaceShip = new SpaceShip();
+            board = new Board();
 
-            stateManager.ChangeState(TitleScreen, null);
+            stateManager.ChangeState(TitleScreen);
         }
 
         protected override void Initialize()

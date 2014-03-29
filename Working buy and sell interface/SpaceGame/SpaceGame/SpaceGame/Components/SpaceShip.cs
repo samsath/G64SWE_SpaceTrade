@@ -27,7 +27,7 @@ namespace SpaceGame.Components
         Random random = new Random();
         int diceRolled = 0;
         int diceRemaining = 0; // variable used for the dice
-        int numberOfMoves = 3; // Turns available for the player
+        int numberOfTurns = 3; // Turns available for the player
 
         private Texture2D texture; // spaceship texture
 
@@ -50,8 +50,9 @@ namespace SpaceGame.Components
         Vector2 shipDirection; // help with ship moving
 
         private bool keyboardSpacePressed = false;
-        int initialMoney = 1000;
+        int initialMoney = 0;
         int initialCargoCapacity = 10;
+        private Texture2D initialShipTexture;
         Dictionary<Resource, int> shipResource;
         Dictionary<Resource, int> result;
         private string gameState = "playing";
@@ -70,9 +71,10 @@ namespace SpaceGame.Components
             PositionByTile = new Vector2(0, 0);
             startingPosition = new Vector2(50 + Tile.TileWidth / 4, 50 + Tile.TileHeight / 4);
             PositionByPixel.X = startingPosition.X;
-            PositionByPixel.Y = startingPosition.Y; currentMoney = initialMoney;
+            PositionByPixel.Y = startingPosition.Y;
+            currentMoney = initialMoney;
             currentCargoCapacity = initialCargoCapacity;
-            texture = content.Load<Texture2D>(@"ShipSprites\" + name);
+            texture = initialShipTexture;
         }
 
         // Update ship movement
@@ -84,21 +86,44 @@ namespace SpaceGame.Components
             keyboardState = Keyboard.GetState();
             if (diceRemaining == 0)
             {
+
                 currentState = ShipState.Waiting;
             }
             if (currentState == ShipState.Waiting)
             {
-                if (numberOfMoves == 0) gameState = "endOfGame";
-                else if (keyboardState.IsKeyDown(Keys.Space))
+                if (numberOfTurns == 0) gameState = "endOfGame";
+                else
                 {
-                    //Determine the number of allowed moves
-                    numberOfMoves--;
-                    diceRolled = random.Next(1, 7);
-                    diceRemaining = diceRolled;
-                    currentState = ShipState.Moving;
+                    Debug.WriteLine(gameState + " " + random.Next(0, 99));
+                    if (keyboardState.IsKeyDown(Keys.S))
+                    {
+                        gameState = "Sell";
+                    }
+                    else if (keyboardState.IsKeyDown(Keys.B))
+                    {
+                        gameState = "Buy";
+                    }
+                    else if (keyboardState.IsKeyDown(Keys.Escape))
+                    {
+                        gameState = "Escape";
+                    }
+                    else if (keyboardState.IsKeyDown(Keys.U))
+                    {
+                        gameState = "Upgrade";
+                    }
+
+                    else if (keyboardState.IsKeyDown(Keys.Space))
+                    {
+                        //Determine the number of allowed moves
+                        numberOfTurns--;
+                        diceRolled = random.Next(1, 7);
+                        diceRemaining = diceRolled;
+                        currentState = ShipState.Moving;
+                    }
+                    Debug.WriteLine(gameState + " " + random.Next(0, 99));
                 }
             }
-            if (currentState == ShipState.Moving && numberOfMoves >= 0)
+            if (currentState == ShipState.Moving && numberOfTurns >= 0)
             {
                 if (PositionByTile.Y == 0 && PositionByTile.X != (Board.NumberofTilesWidth - 1))
                 {
@@ -152,6 +177,7 @@ namespace SpaceGame.Components
          *If the dice gets to 0 then show the buy & sell links.
          *Else show the dice number and the number of remaining moves
          */
+
             if (diceRemaining == 0)
             {
                 //gameState = "Buy/Sell";
@@ -159,7 +185,7 @@ namespace SpaceGame.Components
                 Vector2 sellVector = font1.MeasureString(sellString) / 2;
                 fontPosition = new Vector2(200, 15);
                 spriteBatch.DrawString(font1, sellString, fontPosition, Color.White, 0, sellVector, 1.0f, SpriteEffects.None, 0.5f);
-                
+
                 String buyString = "Press the B Button to Buy!";
                 fontPosition = new Vector2(200, 35);
                 spriteBatch.DrawString(font1, buyString, fontPosition, Color.White, 0, sellVector, 1.0f, SpriteEffects.None, 0.5f);
@@ -170,22 +196,7 @@ namespace SpaceGame.Components
                 spriteBatch.DrawString(font1, upgradeString, fontPosition, Color.White, 0, sellVector, 1.0f, SpriteEffects.None, 0.5f);
                 spriteBatch.Draw(texture, new Rectangle((int)PositionByPixel.X, (int)PositionByPixel.Y, Tile.TileWidth / 2, Tile.TileHeight / 2), Color.White);
 
-                if (keyboardState.IsKeyDown(Keys.S))
-                {
-                    gameState = "Sell";
-                }
-                else if (keyboardState.IsKeyDown(Keys.B))
-                {
-                    gameState = "Buy";
-                }
-                else if (keyboardState.IsKeyDown(Keys.Escape))
-                {
-                    gameState = "Escape";
-                }
-                else if (keyboardState.IsKeyDown(Keys.U))
-                {
-                    gameState = "Upgrade";
-                }
+
 
             }
             else
@@ -198,7 +209,7 @@ namespace SpaceGame.Components
                 printDiceRolled = "Moves Remaining is: " + diceRemaining.ToString();
                 fontPosition = new Vector2(100, 35);
                 spriteBatch.DrawString(font1, printDiceRolled, fontPosition, Color.Red, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-                printDiceRolled = "Turns Remaining: " + numberOfMoves.ToString();
+                printDiceRolled = "Turns Remaining: " + numberOfTurns.ToString();
                 fontPosition = new Vector2(100, 50);
                 spriteBatch.DrawString(font1, printDiceRolled, fontPosition, Color.Red, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
                 spriteBatch.Draw(texture, new Rectangle((int)PositionByPixel.X, (int)PositionByPixel.Y, Tile.TileWidth / 2, Tile.TileHeight / 2), Color.White);
@@ -263,7 +274,7 @@ namespace SpaceGame.Components
             return currentMoney;
         }
 
-        public int getCargoCapacity()
+        public int getInitialCargoCapacity()
         {
             return initialCargoCapacity;
         }
@@ -281,7 +292,7 @@ namespace SpaceGame.Components
                         {
                             result.Add(buying.Key, buying.Value + current.Value);
                         }
-                         
+
 
                     }
                 }
@@ -317,11 +328,31 @@ namespace SpaceGame.Components
             return result;
         }
 
-        internal void setGameState(string p)
+        public void setGameState(string p)
         {
-            gameState = "playing";
+            gameState = p;
         }
 
 
+
+        public void setInitialAmountMoney(int moneyAmount)
+        {
+            initialMoney = moneyAmount;
+        }
+
+        public void setNumberOfTurn(int turnAmount)
+        {
+            numberOfTurns = turnAmount;
+        }
+
+        public void setInitialCargoCapacity(int cargoAmount)
+        {
+            initialCargoCapacity = cargoAmount;
+        }
+
+        internal void setShipTexture(Texture2D texture2D)
+        {
+            initialShipTexture = texture2D;
+        }
     }
 }

@@ -14,7 +14,7 @@ using System.Diagnostics;
 
 namespace SpaceGame.GameScreens
 {
-    public class SaveScreen : BaseGameState
+    public class PauseScreen : BaseGameState
     {
         #region Field region
 
@@ -36,7 +36,7 @@ namespace SpaceGame.GameScreens
 
         #region Constructor Region
 
-        public SaveScreen(Game game, GameStateManager manager)
+        public PauseScreen(Game game, GameStateManager manager)
             : base(game, manager)
         {
         }
@@ -138,12 +138,12 @@ namespace SpaceGame.GameScreens
         {
             if (sender == startGame)
             {
-                StateManager.PushState(GameRef.AdminScreen, "");
+                StateManager.PushState(GameRef.AdminScreen);
             }
 
             if (sender == loadGame)
             {
-                StateManager.PushState(GameRef.GamePlayScreen, "");
+                StateManager.PushState(GameRef.GamePlayScreen);
             }
 
             if (sender == exitGame)
@@ -153,11 +153,12 @@ namespace SpaceGame.GameScreens
 
             if (sender == resumeGame)
             {
-                StateManager.ChangeState(GameRef.GamePlayScreen, "playingScreen");
+                GameRef.spaceShip.setGameState("playing");
+                StateManager.ChangeState(GameRef.GamePlayScreen);
             }
             if (sender == saveGame)
             {
-                StateManager.PushState(GameRef.GamePlayScreen, "");
+                StateManager.PushState(GameRef.GamePlayScreen);
             }
         }
 

@@ -25,9 +25,6 @@ namespace SpaceGame.GameScreens
 
         GameStateManager manager;
 
-        SpaceShip MyShip;
-
-        Board myBoard; // board object
 
         Texture2D backgroundScreen;
 
@@ -38,8 +35,6 @@ namespace SpaceGame.GameScreens
         public GamePlayScreen(Game game, GameStateManager manager)
             : base(game, manager)
         {
-            myBoard = new Board();
-            MyShip = new SpaceShip();
             this.manager = manager;
         }
 
@@ -54,48 +49,39 @@ namespace SpaceGame.GameScreens
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            myBoard.LoadContent(GameRef.Content);
+            GameRef.board.LoadContent(GameRef.Content);
             //Debug.WriteLine("hgfhfdgdffgs " + manager.shipName);
-            MyShip.setShip(manager.shipName);
-            MyShip.LoadContent(GameRef.Content);
+            GameRef.spaceShip.LoadContent(GameRef.Content);
             backgroundScreen = GameRef.Content.Load<Texture2D>(@"Backgrounds\galaxy");
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
-            //Debug.WriteLine(MyShip.getGameState());
-            if (MyShip.getGameState().Equals("playing"))
+            //Debug.WriteLine(GameRef.spaceShip.getGameState());
+            if (GameRef.spaceShip.getGameState().Equals("playing"))
             {
-                MyShip.Update(gameTime);
+                GameRef.spaceShip.Update(gameTime);
             }
-            else if (manager.shipName.Equals("playingScreen"))
+            else if (GameRef.spaceShip.getGameState().Equals("endOfGame"))
             {
-                manager.shipName = "";
-                MyShip.setGameState("playing");
-                MyShip.getGameState();
-                MyShip.Update(gameTime);
-
+                StateManager.ChangeState(GameRef.EndGameScreen);
             }
-            else if (MyShip.getGameState().Equals("endOfGame"))
+            else if (GameRef.spaceShip.getGameState().Equals("Buy"))
             {
-                StateManager.ChangeState(GameRef.EndGameScreen, null);
+                StateManager.ChangeState(GameRef.BuyScreen);
             }
-            else if (MyShip.getGameState().Equals("Buy"))
+            else if (GameRef.spaceShip.getGameState().Equals("Sell"))
             {
-                StateManager.ChangeState(GameRef.BuyScreen, null);
+                StateManager.ChangeState(GameRef.SellScreen);
             }
-            else if (MyShip.getGameState().Equals("Sell"))
+            else if (GameRef.spaceShip.getGameState().Equals("Escape"))
             {
-                StateManager.ChangeState(GameRef.SellScreen, null);
+                StateManager.ChangeState(GameRef.PauseScreen);
             }
-            else if (MyShip.getGameState().Equals("Escape"))
+            else if (GameRef.spaceShip.getGameState().Equals("Upgrade"))
             {
-                StateManager.ChangeState(GameRef.SaveScreen, MyShip);
-            }
-            else if (MyShip.getGameState().Equals("Upgrade"))
-            {
-                StateManager.ChangeState(GameRef.upgradeScreen, null);
+                StateManager.ChangeState(GameRef.upgradeScreen);
             }
             base.Update(gameTime);
         }
@@ -114,10 +100,10 @@ namespace SpaceGame.GameScreens
                     GameRef.SpriteBatch.Draw(backgroundScreen, new Rectangle(0, 0, GameRef.Window.ClientBounds.Width, GameRef.Window.ClientBounds.Height), Color.White);
 
                     // 2. Draw the Board 
-                    myBoard.Draw(GameRef, GameRef.SpriteBatch, MyShip);
+                    GameRef.board.Draw(GameRef, GameRef.SpriteBatch, GameRef.spaceShip);
 
                     // 3. Draw the Ship
-                    MyShip.Draw(GameRef.SpriteBatch);
+                    GameRef.spaceShip.Draw(GameRef.SpriteBatch);
                     GameRef.SpriteBatch.End();
           
 
