@@ -36,7 +36,11 @@ namespace SpaceGame.GameScreens
 
         int totalResources = 10;
         int unassignedResources = 10;
-        int moneyAmount = 1000;
+<<<<<<< HEAD
+        int moneyAmount = 100;
+=======
+        int moneyAmount = 500;
+>>>>>>> a45ea54f5a241ca90ba6e5cb55f4d4a08e868116
         int turnAmount = 3;
         int ammoAmount = 0;
         int healthAmount = 0;
@@ -271,6 +275,12 @@ namespace SpaceGame.GameScreens
             // change this so it also send the info to the Character screen
             GameRef.spaceShip.setMoney(moneyAmount);
             GameRef.spaceShip.setNumberOfTurn(turnAmount);
+            GameRef.spaceShip.setCargoCapacity(cargoAmount);
+            // sent to the CharcaterScreen
+            GameRef.CharacterGeneratorScreen.setMoney(moneyAmount);
+            GameRef.CharacterGeneratorScreen.setNumberOfTurn(turnAmount);
+            GameRef.CharacterGeneratorScreen.setInitialCargoCapacity(cargoAmount);
+
             GameRef.spaceShip.setCargoCapacity(cargoAmount);
             undoResources.Clear();
             StateManager.ChangeState(GameRef.CharacterGeneratorScreen);
