@@ -36,8 +36,8 @@ namespace SpaceGame.GameScreens
 
         int totalResources = 10;
         int unassignedResources = 10;
-        int moneyAmount = 0;
-        int turnAmount = 0;
+        int moneyAmount = 500;
+        int turnAmount = 3;
         int ammoAmount = 0;
         int healthAmount = 0;
         int fuelAmount = 0;
@@ -347,9 +347,14 @@ namespace SpaceGame.GameScreens
         void acceptLabel_Selected(object sender, EventArgs e)
         {
             // change this so it also send the info to the Character screen
-            GameRef.spaceShip.setInitialAmountMoney(moneyAmount);
+            GameRef.spaceShip.setMoney(moneyAmount);
             GameRef.spaceShip.setNumberOfTurn(turnAmount);
             GameRef.spaceShip.setInitialCargoCapacity(cargoAmount);
+            // sent to the CharcaterScreen
+            GameRef.CharacterGeneratorScreen.setMoney(moneyAmount);
+            GameRef.CharacterGeneratorScreen.setNumberOfTurn(turnAmount);
+            GameRef.CharacterGeneratorScreen.setInitialCargoCapacity(cargoAmount);
+
             undoResources.Clear();
             StateManager.ChangeState(GameRef.CharacterGeneratorScreen);
         }
@@ -373,9 +378,9 @@ namespace SpaceGame.GameScreens
 
             unassignedResources = 10;
             remainingResources.Text = "Total Resources: " + unassignedResources.ToString();
-            moneyAmount = 100;
+            moneyAmount = 500;
             moneyNumber.Text = moneyAmount.ToString();
-            turnAmount = 1;
+            turnAmount = 3;
             turnNumber.Text = turnAmount.ToString();
             ammoAmount = 0;
             ammoNumber.Text = ammoAmount.ToString();

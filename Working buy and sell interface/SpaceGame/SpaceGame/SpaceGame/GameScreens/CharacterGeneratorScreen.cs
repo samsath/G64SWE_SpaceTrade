@@ -25,6 +25,10 @@ namespace SpaceGame.GameScreens
         Texture2D[] shipImages;
 
         Texture2D stopTexture;
+        int valueMoney;
+        int valueNumberOfTurn;
+        int valueInitialCargoCapacity;
+
 
         //string[] genderItems = { "Male", "Female" };
         string[] shipItems = { "Human1", "alien1", /*"blue1", "bluecargo1",*/ "blueship1", "greenship1", "orangeship1", "RD1"/*, "wship1"*/ };
@@ -177,6 +181,23 @@ namespace SpaceGame.GameScreens
         {
             StateManager.ChangeState(GameRef.AdminScreen);
         }
+
+        public void setMoney(int moneyAmount)
+        {
+            valueMoney = moneyAmount;
+        }
+
+        public void setNumberOfTurn(int turns)
+        {
+            valueNumberOfTurn = turns;
+        }
+
+        public void setInitialCargoCapacity(int capacity)
+        {
+            valueInitialCargoCapacity = capacity;
+        }
+
+
 
         #endregion
     }
