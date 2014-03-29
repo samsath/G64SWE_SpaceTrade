@@ -50,7 +50,6 @@ namespace SpaceGame.Components
 
         int money;
 
-        int initialCargoCapacity = 10;
 
 
         private Texture2D shipTexture;
@@ -59,7 +58,8 @@ namespace SpaceGame.Components
         private string gameState = "playing";
 
         
-        int currentCargoCapacity;
+        int cargoCapacity;
+        int cargoLevel;
 
         public SpaceShip()
         {
@@ -73,7 +73,6 @@ namespace SpaceGame.Components
             startingPosition = new Vector2(50 + Tile.TileWidth / 4, 50 + Tile.TileHeight / 4);
             PositionByPixel.X = startingPosition.X;
             PositionByPixel.Y = startingPosition.Y;
-            currentCargoCapacity = initialCargoCapacity;
             texture = shipTexture;
         }
 
@@ -259,15 +258,11 @@ namespace SpaceGame.Components
             }
             return numberOfResource;
         }
-        public int getCurrentMoney()
+        public int getMoney()
         {
             return money;
         }
 
-        public int getInitialCargoCapacity()
-        {
-            return initialCargoCapacity;
-        }
 
 
         public void buy(Dictionary<Resource, int> resource)
@@ -334,9 +329,9 @@ namespace SpaceGame.Components
             return numberOfTurns;
         }
 
-        public void setInitialCargoCapacity(int cargoAmount)
+        public void setCargoCapacity(int cargoAmount)
         {
-            initialCargoCapacity = cargoAmount;
+            cargoCapacity = cargoAmount;
         }
 
         public void setShipTexture(Texture2D texture2D)
@@ -345,13 +340,18 @@ namespace SpaceGame.Components
         }
         public int getCargoCapacity()
         {
-            return currentCargoCapacity;
+            return cargoCapacity;
         }
 
 
         public void setMoney(int moneyAmount)
         {
             money = moneyAmount;
+        }
+
+        public int getCargoLevel()
+        {
+            return cargoLevel;
         }
     }
 }

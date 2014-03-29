@@ -30,16 +30,16 @@ namespace SpaceGame.GameScreens
     {
         #region Field Region
 
-        int totalMoney = 100000;
+        int totalMoney; // Ship's current money
         int moneyRemaining = 100000;
-        // int moneyAmount = 0;
+
         int turnPrice = 5000;
         int quantityAmount = 0;
         int finalAmount = 0;
-        //int fuelAmount = 0;
         int upgradeAmount = 0;
-        int cargoLevel = 1;
-        int cargoAmount = 5;
+
+        int cargoLevel; // Ship's current cargo level
+        int cargoAmount; // Ship's current cargo capacity
         int cargoPrice = 10000;
 
         PictureBox backgroundImage;
@@ -104,7 +104,9 @@ namespace SpaceGame.GameScreens
         protected override void LoadContent()
         {
             base.LoadContent();
-
+            cargoLevel = GameRef.spaceShip.getCargoLevel();
+            totalMoney = GameRef.spaceShip.getMoney();
+            cargoAmount = GameRef.spaceShip.getCargoCapacity();
             ContentManager content = GameRef.Content;
 
             CreateControls(content);
