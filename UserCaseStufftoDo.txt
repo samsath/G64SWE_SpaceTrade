@@ -1,22 +1,19 @@
 Need
-
 As a user, I want to be able to buy a different spaceship with different capabilities (LOW) *change just picture 
-
+As an admin, I want to be able to set initial prices of some items (MEDIUM)
 
 
 DOING
 
 As a user I want to be able to play against other people (LOW) *2 people playing at the same time  (hight score popups)
 As a user, I want to be able to upgrade my spaceship (MEDIUM)
-As a user, I want to be able to buy and sell items (HIGH)
+
 As a user, I want a high score table (MEDIUM)
-
-
-	Sam (if you want to help just ask)
-	As a user, I want to be able to save my progress (MEDIUM)
-	As an admin, I want to be able to set initial prices of some items (MEDIUM)
+As a user, I want to be able to save my progress (MEDIUM)
+	
 	
 DONE
+As a user, I want to be able to buy and sell items (HIGH)
 As a user, I want the game to end after a fixed amount of time or turns (HIGH)
 As a user I want a spaceship which can hold cargo (HIGH)
 As a user, I want to have an account with money in it (HIGH)

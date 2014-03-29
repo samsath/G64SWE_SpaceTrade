@@ -154,10 +154,14 @@ namespace SpaceGame.GameScreens
             shipSelector.SelectionChanged += selectionChanged;
 
             ControlManager.Add(shipSelector);
+            LinkLabel linkLabel1 = new LinkLabel();
+            linkLabel1.Text = "Use this Ship.";
+            linkLabel1.Position = new Vector2(label1.Position.X, 300);
 
             /*LinkLabel linkLabel1 = new LinkLabel();
             linkLabel1.Text = "Accept This Ship and Your Hero";
             linkLabel1.Position = new Vector2(label1.Position.X-150, 500);
+             
             linkLabel1.Selected += new EventHandler(linkLabel1_Selected);
             //Debug.WriteLine("hgfhfdgdffgs "+ship);*/
 

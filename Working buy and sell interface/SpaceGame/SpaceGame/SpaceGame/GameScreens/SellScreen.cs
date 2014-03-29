@@ -139,9 +139,6 @@ namespace SpaceGame.GameScreens
             Title.Position = new Vector2(100, 50);
             ControlManager.Add(Title);
             Vector2 nextControlPosition = new Vector2(100, 50);
-            
-
-            
 
             remainingMoney = new Label();
             remainingMoney.Text = "Total Amount of Money: " + unassignedResources.ToString() + "$";

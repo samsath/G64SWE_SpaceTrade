@@ -36,7 +36,7 @@ namespace SpaceGame.GameScreens
 
         int totalResources = 10;
         int unassignedResources = 10;
-        int moneyAmount = 500;
+        int moneyAmount = 1000;
         int turnAmount = 3;
         int ammoAmount = 0;
         int healthAmount = 0;
@@ -272,8 +272,6 @@ namespace SpaceGame.GameScreens
             GameRef.spaceShip.setMoney(moneyAmount);
             GameRef.spaceShip.setNumberOfTurn(turnAmount);
             GameRef.spaceShip.setCargoCapacity(cargoAmount);
-            // sent to the CharcaterScreen
-            
 
             GameRef.spaceShip.setCargoCapacity(cargoAmount);
             undoResources.Clear();

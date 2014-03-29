@@ -53,8 +53,8 @@ namespace SpaceGame.Components
 
 
         private Texture2D shipTexture;
-        Dictionary<Resource, int> shipResource;
-        Dictionary<Resource, int> result;
+        List<Resource> shipResource;
+        //Dictionary<Resource, int> result;
         private string gameState = "playing";
 
         
@@ -63,8 +63,9 @@ namespace SpaceGame.Components
 
         public SpaceShip()
         {
-            shipResource = new Dictionary<Resource, int>();
+            shipResource = new List<Resource>();
         }
+
         // Load the content
         public void LoadContent(ContentManager content)
         {
@@ -176,7 +177,7 @@ namespace SpaceGame.Components
          *If the dice gets to 0 then show the buy & sell links.
          *Else show the dice number and the number of remaining moves
          */
-
+            
             if (diceRemaining == 0)
             {
                 //gameState = "Buy/Sell";
@@ -247,7 +248,7 @@ namespace SpaceGame.Components
         {
             return gameState;
         }
-
+        /*
         public int getShipNumberOfResource()
         {
             int numberOfResource = 0;
@@ -258,13 +259,14 @@ namespace SpaceGame.Components
             }
             return numberOfResource;
         }
+         */ 
         public int getMoney()
         {
             return money;
         }
 
 
-
+        /*
         public void buy(Dictionary<Resource, int> resource)
         {
             result = new Dictionary<Resource, int>();
@@ -282,12 +284,14 @@ namespace SpaceGame.Components
                     }
                 }
         }
-
+         */
+        /*
         public Dictionary<Resource, int> getResourceList()
         {
             return shipResource;
         }
-
+        */
+        /*
         public void sell(Dictionary<Resource, int> resource)
         {
             result = new Dictionary<Resource, int>();
@@ -303,16 +307,19 @@ namespace SpaceGame.Components
                 }
             }
         }
+         */
+        /*
         public void setResource(Dictionary<Resource, int> resource)
         {
             shipResource = resource;
         }
-
+        */
+        /*
         public Dictionary<Resource, int> getResultList()
         {
             return result;
         }
-
+         */ 
         public void setGameState(string p)
         {
             gameState = p;

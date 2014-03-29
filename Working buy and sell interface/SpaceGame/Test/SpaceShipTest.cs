@@ -35,7 +35,7 @@ namespace Test
             br = new Board();
             
         }
-
+        /*
         [TestMethod]
         public void IfSpaceKeyPressedDiceWillRoll()
         {
@@ -45,7 +45,7 @@ namespace Test
             Debug.WriteLine("asdfasdfasdf "+myShip.getDiceRolled());
             Assert.IsTrue(myShip.getDiceRolled()>=1&&myShip.getDiceRolled()<=6);
         }
-
+        */
         [TestMethod]
         public void ShipCurrentMoneyCannotBeLowerThanZero()
         {

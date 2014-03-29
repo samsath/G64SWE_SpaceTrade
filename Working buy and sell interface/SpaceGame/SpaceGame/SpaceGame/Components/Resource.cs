@@ -31,6 +31,11 @@ namespace SpaceGame.Components
             return name;
         }
 
+        public int getAmount()
+        {
+            return amount;
+        }
+
         public int getPrice()
         {
             return price;
