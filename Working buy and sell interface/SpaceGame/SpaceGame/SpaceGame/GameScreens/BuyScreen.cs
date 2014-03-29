@@ -30,14 +30,14 @@ namespace SpaceGame.GameScreens
     {
      #region Field Region
 
-        int totalMoney = 10000;
+        int totalMoney;
         int moneyRemaining = 10000;
        // int moneyAmount = 0;
         int priceAmount = 3000;
         int quantityAmount = 0;
         int finalAmount = 0;
-        int fuelAmount = 0;
-        int cargoAmount = 0;
+        int cargoAmount;
+        int turnAmount;
 
         PictureBox backgroundImage;
         Label remainingMoney;
@@ -101,7 +101,9 @@ namespace SpaceGame.GameScreens
             base.LoadContent();
 
             ContentManager content = GameRef.Content;
-
+            totalMoney = GameRef.spaceShip.getCurrentMoney();
+            turnAmount = GameRef.spaceShip.getNumberOfTurn();
+            cargoAmount = GameRef.spaceShip.getCargoCapacity();
             CreateControls(content);
         }
 

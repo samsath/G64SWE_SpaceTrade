@@ -10,7 +10,6 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using System.Diagnostics;
 using SpaceGame.GameScreens;
 
 using XRpgLibrary;
@@ -49,15 +48,17 @@ namespace SpaceGame.Components
         Vector2 shipSpeed;
         Vector2 shipDirection; // help with ship moving
 
-        private bool keyboardSpacePressed = false;
-        int initialMoney = 0;
+        int money;
+
         int initialCargoCapacity = 10;
-        private Texture2D initialShipTexture;
+
+
+        private Texture2D shipTexture;
         Dictionary<Resource, int> shipResource;
         Dictionary<Resource, int> result;
         private string gameState = "playing";
 
-        int currentMoney;
+        
         int currentCargoCapacity;
 
         public SpaceShip()
@@ -72,9 +73,8 @@ namespace SpaceGame.Components
             startingPosition = new Vector2(50 + Tile.TileWidth / 4, 50 + Tile.TileHeight / 4);
             PositionByPixel.X = startingPosition.X;
             PositionByPixel.Y = startingPosition.Y;
-            currentMoney = initialMoney;
             currentCargoCapacity = initialCargoCapacity;
-            texture = initialShipTexture;
+            texture = shipTexture;
         }
 
         // Update ship movement
@@ -195,9 +195,6 @@ namespace SpaceGame.Components
                 fontPosition = new Vector2(600, 15);
                 spriteBatch.DrawString(font1, upgradeString, fontPosition, Color.White, 0, sellVector, 1.0f, SpriteEffects.None, 0.5f);
                 spriteBatch.Draw(texture, new Rectangle((int)PositionByPixel.X, (int)PositionByPixel.Y, Tile.TileWidth / 2, Tile.TileHeight / 2), Color.White);
-
-
-
             }
             else
             {
@@ -247,13 +244,6 @@ namespace SpaceGame.Components
         {
             if (p.Equals("waiting")) currentState = ShipState.Waiting;
         }
-
-        public void pressKeyboard(string p)
-        {
-            if (p.Equals("space")) keyboardSpacePressed = true;
-        }
-
-
         public string getGameState()
         {
             return gameState;
@@ -271,7 +261,7 @@ namespace SpaceGame.Components
         }
         public int getCurrentMoney()
         {
-            return currentMoney;
+            return money;
         }
 
         public int getInitialCargoCapacity()
@@ -335,14 +325,13 @@ namespace SpaceGame.Components
 
 
 
-        public void setInitialAmountMoney(int moneyAmount)
-        {
-            initialMoney = moneyAmount;
-        }
-
         public void setNumberOfTurn(int turnAmount)
         {
             numberOfTurns = turnAmount;
+        }
+        public int getNumberOfTurn()
+        {
+            return numberOfTurns;
         }
 
         public void setInitialCargoCapacity(int cargoAmount)
@@ -350,9 +339,19 @@ namespace SpaceGame.Components
             initialCargoCapacity = cargoAmount;
         }
 
-        internal void setShipTexture(Texture2D texture2D)
+        public void setShipTexture(Texture2D texture2D)
         {
-            initialShipTexture = texture2D;
+            shipTexture = texture2D;
+        }
+        public int getCargoCapacity()
+        {
+            return currentCargoCapacity;
+        }
+
+
+        public void setMoney(int moneyAmount)
+        {
+            money = moneyAmount;
         }
     }
 }

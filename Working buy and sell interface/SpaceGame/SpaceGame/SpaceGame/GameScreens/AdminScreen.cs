@@ -345,7 +345,7 @@ namespace SpaceGame.GameScreens
 
         void acceptLabel_Selected(object sender, EventArgs e)
         {
-            GameRef.spaceShip.setInitialAmountMoney(moneyAmount);
+            GameRef.spaceShip.setMoney(moneyAmount);
             GameRef.spaceShip.setNumberOfTurn(turnAmount);
             GameRef.spaceShip.setInitialCargoCapacity(cargoAmount);
             undoResources.Clear();
