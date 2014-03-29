@@ -272,11 +272,7 @@ namespace SpaceGame.GameScreens
             GameRef.spaceShip.setMoney(moneyAmount);
             GameRef.spaceShip.setNumberOfTurn(turnAmount);
             GameRef.spaceShip.setCargoCapacity(cargoAmount);
-            // sent to the CharcaterScreen
-            GameRef.CharacterGeneratorScreen.setMoney(moneyAmount);
-            GameRef.CharacterGeneratorScreen.setNumberOfTurn(turnAmount);
-            GameRef.CharacterGeneratorScreen.setInitialCargoCapacity(cargoAmount);
-
+            
             GameRef.spaceShip.setCargoCapacity(cargoAmount);
             undoResources.Clear();
             StateManager.ChangeState(GameRef.CharacterGeneratorScreen);
