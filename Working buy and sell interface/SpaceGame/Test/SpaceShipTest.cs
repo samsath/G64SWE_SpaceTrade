@@ -212,7 +212,8 @@ namespace Test
         [TestMethod]
         public void SessionAndUserAddedtoDB()
         {
-            Assert.IsTrue(dbp.AddUserandSession());
+            Assert.IsInstanceOfType(dbp.AddUserandSession("paul", 1, 0),typeof(int));
+                
         }
 
     }
