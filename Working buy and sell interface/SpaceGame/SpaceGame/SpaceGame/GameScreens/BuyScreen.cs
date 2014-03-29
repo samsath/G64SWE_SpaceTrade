@@ -285,6 +285,7 @@ namespace SpaceGame.GameScreens
              */
             //StateManager.ChangeState(GameRef.GamePlayScreen, null);
             totalMoney = finalAmount;
+            GameRef.spaceShip.setMoney(totalMoney);
             acceptLabel.Text = "Changes Accepted";
         }
 
