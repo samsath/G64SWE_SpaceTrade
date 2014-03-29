@@ -21,13 +21,15 @@ namespace STDatabase
         public string Name { get; set; }
         public int Money { get; set; }
         public int HighScore { get; set; }
+        public int Turns { get; set; }
 
-        public Userdata(int user, int session, string name, int money, int highscore)
+        public Userdata(int user, int session, string name, int money, int highscore,int turns)
         {
             User_id = user;
             Session_id = session;
             Name = name;
             Money = money;
+            Turns = turns;
         }
 
     
