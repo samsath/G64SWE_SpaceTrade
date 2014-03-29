@@ -202,7 +202,7 @@ namespace SpaceGame.Components
             dbs.NewShipandMedia(model, cargo, user_id, 0, 0, shipName, 1, "null");
             return true;
         }
-
+    /*
         /// <summary>
         /// this will go through the different tiles and then sellect the different planets then each planets resources and update their entry on the database
         /// </summary>
@@ -230,5 +230,6 @@ namespace SpaceGame.Components
 
 
         }
+     * */
     }
 }

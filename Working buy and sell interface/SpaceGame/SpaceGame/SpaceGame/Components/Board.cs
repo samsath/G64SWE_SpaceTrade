@@ -51,12 +51,12 @@ namespace SpaceGame.Components
 
             return ses;
         }
-
+       /*
         public List<Tile> getTile()
         {
             return tiles;
         }
-
+        */
        
 
         public void LoadContent(ContentManager content)
