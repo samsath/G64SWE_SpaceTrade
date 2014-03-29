@@ -25,6 +25,7 @@ CREATE TABLE Sessions (
 	Session_id INTEGER PRIMARY KEY AUTOINCREMENT,
 	Users_id INTEGER,
 	Money INTEGER,
+	Turns INTEGER,
 	CONSTRAINT fk_Session_Users FOREIGN KEY (Users_id) REFERENCES Users (Users_id)
 );
 CREATE TABLE HightScore (

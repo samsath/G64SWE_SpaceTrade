@@ -11,6 +11,9 @@ using System.Data;
  * 
  */
 
+/*
+ * Added turns to the Session Table so need to change things.
+ */
 
 namespace STDatabase
 {
@@ -185,7 +188,7 @@ namespace STDatabase
                         {
                             while (rdq.Read())
                             {
-                                Userdata record = new Userdata(rdq.GetInt32(0), rdq.GetInt32(1), rdq.GetString(2), rdq.GetInt32(3), 0);
+                                Userdata record = new Userdata(rdq.GetInt32(0), rdq.GetInt32(1), rdq.GetString(2), rdq.GetInt32(3), 0,0);
                                 result.Add(record);
                             }
                         }
@@ -207,7 +210,7 @@ namespace STDatabase
             List<Userdata> result = new List<Userdata>();
             if (Check())
             {
-                string Query = "SELECT users.Users_id, sessions.Session_id, users.Name FROM users, sessions WHERE users.Users_id == sessions.Users_id";
+                string Query = "SELECT users.Users_id, sessions.Session_id, users.Name, sessions.Turns FROM users, sessions WHERE users.Users_id == sessions.Users_id";
                 using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
                 {
                     try
@@ -217,7 +220,7 @@ namespace STDatabase
                             while (rdq.Read())
                             {
                                 
-                                Userdata record = new Userdata(rdq.GetInt32(0), rdq.GetInt32(1), rdq.GetString(2), 0, 0);
+                                Userdata record = new Userdata(rdq.GetInt32(0), rdq.GetInt32(1), rdq.GetString(2), 0, 0, rdq.GetInt32(3));
                                 result.Add(record);
                             }
                         }
@@ -424,7 +427,7 @@ namespace STDatabase
                         {
                             while (rdq.Read())
                             {
-                                Userdata record = new Userdata(rdq.GetInt32(0), 0, rdq.GetString(1), 0, rdq.GetInt32(2));
+                                Userdata record = new Userdata(rdq.GetInt32(0), 0, rdq.GetString(1), 0, rdq.GetInt32(2),0);
                                 result.Add(record);
                             }
                         }

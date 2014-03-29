@@ -43,7 +43,7 @@ namespace STDatabase
         public List<Userdata> getHighScore()
         {
             List<Userdata> result = new List<Userdata>();
-            Userdata record = new Userdata(0, 1, "2", 3, 4);
+            Userdata record = new Userdata(0, 1, "2", 3, 4,0);
             result.Add(record);
 
             return result;
@@ -76,7 +76,7 @@ namespace STDatabase
         public List<Userdata> getSessionNum()
         {
             List<Userdata> result = new List<Userdata>();
-            Userdata record = new Userdata(0, 1, "2", 3, 4);
+            Userdata record = new Userdata(0, 1, "2", 3, 4,5);
             result.Add(record);
 
             return result;
@@ -93,7 +93,7 @@ namespace STDatabase
         public List<Userdata> getUser()
         {
             List<Userdata> result = new List<Userdata>();
-            Userdata record = new Userdata(0, 1, "2", 3, 4);
+            Userdata record = new Userdata(0, 1, "2", 3, 4,5);
             result.Add(record);
 
             return result;
