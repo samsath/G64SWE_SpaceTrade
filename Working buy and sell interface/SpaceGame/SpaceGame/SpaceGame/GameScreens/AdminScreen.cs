@@ -36,7 +36,7 @@ namespace SpaceGame.GameScreens
 
         int totalResources = 10;
         int unassignedResources = 10;
-        int moneyAmount = 500;
+        int moneyAmount = 1000;
         int turnAmount = 3;
         int ammoAmount = 0;
         int healthAmount = 0;
@@ -272,10 +272,6 @@ namespace SpaceGame.GameScreens
             GameRef.spaceShip.setMoney(moneyAmount);
             GameRef.spaceShip.setNumberOfTurn(turnAmount);
             GameRef.spaceShip.setCargoCapacity(cargoAmount);
-            // sent to the CharcaterScreen
-            GameRef.CharacterGeneratorScreen.setMoney(moneyAmount);
-            GameRef.CharacterGeneratorScreen.setNumberOfTurn(turnAmount);
-            GameRef.CharacterGeneratorScreen.setInitialCargoCapacity(cargoAmount);
 
             GameRef.spaceShip.setCargoCapacity(cargoAmount);
             undoResources.Clear();
@@ -356,36 +352,6 @@ namespace SpaceGame.GameScreens
             {
                 turnAmount++;
                 turnNumber.Text = turnAmount.ToString();
-            }
-
-        }
-
-        void augmentAmmo(object sender, EventArgs e)
-        {
-            if (unassignedResources > 0)
-            {
-                ammoAmount++;
-                ammoNumber.Text = ammoAmount.ToString();
-            }
-
-        }
-
-        void augmentHealth(object sender, EventArgs e)
-        {
-            if (unassignedResources > 0)
-            {
-                healthAmount++;
-                healthNumber.Text = healthAmount.ToString();
-            }
-
-        }
-
-        void augmentFuel(object sender, EventArgs e)
-        {
-            if (unassignedResources > 0)
-            {
-                fuelAmount++;
-                fuelNumber.Text = fuelAmount.ToString();
             }
 
         }

@@ -40,7 +40,7 @@ namespace SpaceGame.Components
 
         public Board()
         {
-            tiles = new List<Tile>(); 
+            tiles = new List<Tile>();
         }
 
         public int newSession()
@@ -52,7 +52,7 @@ namespace SpaceGame.Components
             return ses;
         }
 
-       
+
 
         public void LoadContent(ContentManager content)
         {
@@ -81,7 +81,7 @@ namespace SpaceGame.Components
                 case "mercury":
                     return mercury;
                 case "venus":
-                    return venus; 
+                    return venus;
                 case "earth":
                     return earth;
                 case "mars":
@@ -102,35 +102,33 @@ namespace SpaceGame.Components
         public Boolean PlanetData()
         {
 
-            
+
             // connects to the database, grabs the current session number then gets the planets from that list 
 
             // need to change this so that it will work on loaded session
             // need to change this to work propperly
-            int session = dbs.getLastSession() +1;
+            int session = dbs.getLastSession() + 1;
             Console.WriteLine("session = " + session);
             //tiles.Add(new Tile(space, new Planet("space", 0, "space")));
             List<Planetdata> sesPlanet = dbs.SessionWithPlanet(session);
-            
-            for (int i = 0; i < sesPlanet.Count; i++ )
+
+            for (int i = 0; i < sesPlanet.Count; i++)
             {
-                
+
                 tiles.Add(new Tile(textureReturn(sesPlanet[i].File_loc), new Planet(sesPlanet[i].Name, sesPlanet[i].Planet_id, sesPlanet[i].File_loc)));
 
             }
             Console.WriteLine("tiles = " + tiles.Count);
             for (int i = 0; i < tiles.Count; i++)
             {
-                
                 Planet pl = tiles[i].getPlanet();
-                
                 pl.generateResource();
 
             }
 
             return true;
         }
-        
+
 
         public void Draw(Game1 game, SpriteBatch spriteBatch, SpaceShip myShip)
         {
@@ -164,8 +162,9 @@ namespace SpaceGame.Components
             List<Resource> resource = new List<Resource>();
             resource = tiles.ElementAt(boardLocationToListLocation(ship.getShipLocation())).getPlanet().getResourceList();
             int l = 0;
-            for(int i =0; i<resource.Count;i++){
-                string myResource = "Available Resources: " + resource[i].amount + " , " + resource[i].name + " for " + resource[i].getPrice() +" each!";
+            for (int i = 0; i < resource.Count; i++)
+            {
+                string myResource = "Available Resources: " + resource[i].amount + " , " + resource[i].name + " for " + resource[i].getPrice() + " each!";
                 fontPosition = new Vector2(230, 150 + l);
                 spriteBatch.DrawString(font1, myResource, fontPosition, Color.Red, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
                 l = l + 25;
@@ -190,6 +189,11 @@ namespace SpaceGame.Components
             if (location.X == 10 && location.Y > 0) return ((int)location.X + (int)location.Y);
             if (location.Y == 10 && location.X < 10) return (10 - (int)location.X) + 2 * 10;
             return (10 - (int)location.Y) + 3 * 10;
+        }
+
+        public List<Resource> getResourceList()
+        {
+            return tiles.ElementAt(boardLocationToListLocation(ship.getShipLocation())).getPlanet().getResourceList();
         }
     }
 }

@@ -128,7 +128,6 @@ namespace SpaceGame.GameScreens
             shipSelector.SelectionChanged += selectionChanged;
 
             ControlManager.Add(shipSelector);
-
             LinkLabel linkLabel1 = new LinkLabel();
             linkLabel1.Text = "Use this Ship.";
             linkLabel1.Position = new Vector2(label1.Position.X, 300);

@@ -11,6 +11,9 @@ using Microsoft.Xna.Framework.Content;
 
 using XRpgLibrary;
 using XRpgLibrary.Controls;
+using SpaceGame.Components;
+
+using System.Diagnostics;
 
 namespace SpaceGame.GameScreens
 {
@@ -28,12 +31,12 @@ namespace SpaceGame.GameScreens
 
     public class BuyScreen : BaseGameState
     {
-     #region Field Region
+        #region Field Region
 
         // Ship's current Money (at the end of the buy phase, this value should return to the gameplay by using the acceptLabel_Selected method)
         int totalMoney;//input
 
-        int moneyRemaining = 10000; //Money changes due to apply, moneyremaining should be equal to the totalmoney amount
+        int moneyRemaining; //Money changes due to apply, moneyremaining should be equal to the totalmoney amount
         int priceAmount = 3000; //price of the resource //input
 
         int quantityAmount = 0;// Number of resources of that type// input
@@ -54,6 +57,7 @@ namespace SpaceGame.GameScreens
         Label quantityNumber;
         Label PlanetResourceLabel;
         Label PlanetResourceText;
+        Label nameOfItem;
         LinkLabel acceptLabel = new LinkLabel();
 
         //List<ResourceLabelSet> resourceLabel = new List<ResourceLabelSet>();
@@ -126,13 +130,13 @@ namespace SpaceGame.GameScreens
             Title.Position = new Vector2(100, 50);
             ControlManager.Add(Title);
             Vector2 nextControlPosition = new Vector2(100, 50);
-            
 
-            
+
+
 
             remainingMoney = new Label();
             remainingMoney.Text = "Total Amount of Money: " + moneyRemaining.ToString() + "$";
-            remainingMoney.Position = new Vector2(nextControlPosition.X + 400, nextControlPosition.Y); 
+            remainingMoney.Position = new Vector2(nextControlPosition.X + 400, nextControlPosition.Y);
 
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
 
@@ -140,7 +144,7 @@ namespace SpaceGame.GameScreens
 
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
-                        
+
             // Labels
 
             NameLabel = new Label();
@@ -171,37 +175,47 @@ namespace SpaceGame.GameScreens
 
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
             //
+            List<Resource> resource = new List<Resource>();
+            resource = GameRef.board.getResourceList();
 
-            Label nameOfItem = new Label();
-            nameOfItem.Text = "Iron";
-            nameOfItem.Position = nextControlPosition;
 
-            quantityNumber = new Label();
-            quantityNumber.Text = quantityAmount.ToString();
-            quantityNumber.Position = new Vector2(nextControlPosition.X + 200, nextControlPosition.Y);
+            for (int i = 0; i < resource.Count; i++)
+            {
+                nameOfItem = new Label();
+                nameOfItem.Text = resource[i].getName();
+                nameOfItem.Position = new Vector2(nextControlPosition.X, nextControlPosition.Y+i*50);
 
-            priceNumber = new Label();
-            priceNumber.Text = priceAmount.ToString() + "$";
-            priceNumber.Position = new Vector2(nextControlPosition.X + 250, nextControlPosition.Y);
+                quantityNumber = new Label();
+                quantityNumber.Text = resource[i].getAmount().ToString();
+                quantityNumber.Position = new Vector2(nextControlPosition.X + 200, nextControlPosition.Y+i*50);
 
-            LinkLabel addLabel = new LinkLabel();
-            addLabel.TabStop = true;
-            addLabel.Text = "+";
-            addLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
+                priceNumber = new Label();
+                priceNumber.Text = "$" + resource[i].getPrice().ToString();
+                priceNumber.Position = new Vector2(nextControlPosition.X + 250, nextControlPosition.Y+i*50);
 
-            //addLabel.Selected += new EventHandler(augmentItem);
-            addLabel.Selected += addSelectedResource;
+                LinkLabel addLabel = new LinkLabel();
+                addLabel.TabStop = true;
+                addLabel.Text = "+";
+                addLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y+i*50);
 
-            LinkLabel substractLabel = new LinkLabel();
-            substractLabel.TabStop = true;
-            substractLabel.Text = "-";
-            substractLabel.Position = new Vector2(nextControlPosition.X + 400, nextControlPosition.Y);
+                //addLabel.Selected += new EventHandler(augmentItem);
+                addLabel.Selected += addSelectedResource;
 
-            //substractLabel.Selected += new EventHandler(decreaseItem);
-            substractLabel.Selected += new EventHandler(substractSelectedResource);            
-            
-            //addLabel.Selected += new EventHandler(decreaseItem);
+                LinkLabel substractLabel = new LinkLabel();
+                substractLabel.TabStop = true;
+                substractLabel.Text = "-";
+                substractLabel.Position = new Vector2(nextControlPosition.X + 400, nextControlPosition.Y+i*50);
 
+                //substractLabel.Selected += new EventHandler(decreaseItem);
+                substractLabel.Selected += new EventHandler(substractSelectedResource);
+
+                //addLabel.Selected += new EventHandler(decreaseItem);
+                ControlManager.Add(nameOfItem);
+                ControlManager.Add(addLabel);
+                ControlManager.Add(substractLabel);
+                ControlManager.Add(quantityNumber);
+                ControlManager.Add(priceNumber);
+            }
             //final price
             finalPrice = new Label();
             finalPrice.Text = finalAmount.ToString();
@@ -209,11 +223,7 @@ namespace SpaceGame.GameScreens
 
             //
 
-            ControlManager.Add(nameOfItem);
-            ControlManager.Add(addLabel);
-            ControlManager.Add(substractLabel);
-            ControlManager.Add(quantityNumber);
-            ControlManager.Add(priceNumber);
+
             ControlManager.Add(finalPrice);
             //
 
@@ -222,19 +232,26 @@ namespace SpaceGame.GameScreens
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
 
             PlanetResourceLabel = new Label();
-            PlanetResourceLabel.Text = "Planet Resources";
-            PlanetResourceLabel.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y +50);
+            PlanetResourceLabel.Text = "Ship Resources";
+            PlanetResourceLabel.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50);
 
 
             ControlManager.Add(PlanetResourceLabel);
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
 
-            PlanetResourceText = new Label();
-            PlanetResourceText.Text = "List of Resources";
-            PlanetResourceText.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y+ 50);
 
+            resource = new List<Resource>();
+            resource = GameRef.board.getResourceList();
 
-            ControlManager.Add(PlanetResourceText);
+            for (int i = 0; i < resource.Count; i++)
+            {
+                PlanetResourceText = new Label();
+                string DisplayedText = resource[i].name + " " + resource[i].amount + " $" + resource[i].getPrice() + " each!";
+                PlanetResourceText.Text = DisplayedText;
+                Debug.WriteLine(DisplayedText);
+                PlanetResourceText.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50 + 50 * i);
+                ControlManager.Add(PlanetResourceText);
+            }
 
             //           
 
@@ -269,7 +286,7 @@ namespace SpaceGame.GameScreens
             //StateManager.ChangeState(GameRef.GamePlayScreen, null);
             totalMoney = finalAmount;
             acceptLabel.Text = "Changes Accepted";
-        }    
+        }
 
         void addSelectedResource(object sender, EventArgs e)
         {
@@ -278,17 +295,17 @@ namespace SpaceGame.GameScreens
             if ((moneyRemaining - priceAmount) < 0)
             {
                 remainingMoney.Text = "You Are Out Of Money";
-                
+
             }
             else if (moneyRemaining >= 0)
             {
 
                 string resourceName = ((LinkLabel)sender).Type;
                 undoResources.Push(resourceName);
-                moneyRemaining= moneyRemaining - priceAmount;
+                moneyRemaining = moneyRemaining - priceAmount;
 
                 // Update the skill points for the appropriate resource
-                remainingMoney.Text = "Total Amount of Money: " + moneyRemaining.ToString()+"$";
+                remainingMoney.Text = "Total Amount of Money: " + moneyRemaining.ToString() + "$";
 
                 //quantity reduced
                 quantityAmount++;
@@ -309,19 +326,20 @@ namespace SpaceGame.GameScreens
             {
                 return;
             }*/
-            if(quantityAmount > 0){
+            if (quantityAmount > 0)
+            {
 
                 string resourceName = ((LinkLabel)sender).Type;
                 undoResources.Push(resourceName);
                 moneyRemaining = moneyRemaining + priceAmount;
-                remainingMoney.Text = "Total Amount of Money: " + moneyRemaining.ToString()+"$";
+                remainingMoney.Text = "Total Amount of Money: " + moneyRemaining.ToString() + "$";
                 //quantity
                 quantityAmount--;
                 quantityNumber.Text = quantityAmount.ToString();
 
                 finalAmount = finalAmount - priceAmount;
                 finalPrice.Text = finalAmount.ToString() + "$";
-            
+
             }
 
             if (quantityAmount == 0)
@@ -335,12 +353,12 @@ namespace SpaceGame.GameScreens
         {
             GameRef.spaceShip.setGameState("playing");
             StateManager.ChangeState(GameRef.GamePlayScreen);
-        }    
-        
+        }
+
 
         void decreaseItem(object sender, EventArgs e)
         {
-            if (quantityAmount>0)
+            if (quantityAmount > 0)
             {
                 finalAmount = finalAmount - priceAmount;
                 finalPrice.Text = finalAmount.ToString() + "$";
@@ -351,7 +369,7 @@ namespace SpaceGame.GameScreens
                 finalAmount = 0;
                 //return;
             }
-         
+
 
         }
 
