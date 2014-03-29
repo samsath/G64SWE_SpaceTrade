@@ -346,6 +346,7 @@ namespace SpaceGame.GameScreens
 
         void acceptLabel_Selected(object sender, EventArgs e)
         {
+            // change this so it also send the info to the Character screen
             GameRef.spaceShip.setInitialAmountMoney(moneyAmount);
             GameRef.spaceShip.setNumberOfTurn(turnAmount);
             GameRef.spaceShip.setInitialCargoCapacity(cargoAmount);

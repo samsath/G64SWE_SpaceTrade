@@ -414,7 +414,7 @@ namespace STDatabase
             List<Userdata> result = new List<Userdata>();
             if (Check())
             {
-                string UserQuery = "SELECT users.Users_id, users.Name, highscoure.Score FROM users, highscore WHERE users.Users_id == highscore.Users_id;";
+                string UserQuery = "SELECT users.Users_id, users.Name, highscore.Score FROM users, highscore WHERE users.Users_id == highscore.Users_id;";
                 using (SQLiteCommand command = new SQLiteCommand(UserQuery, dbc))
                 {
                     try
