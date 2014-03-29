@@ -136,6 +136,7 @@ namespace SpaceGame.GameScreens
             MoneyLabel.Text = "Money";
             MoneyLabel.Position = nextControlPosition;
 
+
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
 
             ControlManager.Add(MoneyLabel);
@@ -371,9 +372,9 @@ namespace SpaceGame.GameScreens
 
             unassignedResources = 10;
             remainingResources.Text = "Total Resources: " + unassignedResources.ToString();
-            moneyAmount = 0;
+            moneyAmount = 100;
             moneyNumber.Text = moneyAmount.ToString();
-            turnAmount = 0;
+            turnAmount = 1;
             turnNumber.Text = turnAmount.ToString();
             ammoAmount = 0;
             ammoNumber.Text = ammoAmount.ToString();

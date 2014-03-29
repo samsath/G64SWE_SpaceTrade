@@ -36,8 +36,8 @@ namespace SpaceGame.GameScreens
         int priceAmount = 3000;
         int quantityAmount = 0;
         int finalAmount = 0;
-        int cargoAmount;
-        int turnAmount;
+        int fuelAmount = 0;
+        int cargoAmount = 0;
 
         PictureBox backgroundImage;
         Label remainingMoney;
@@ -102,8 +102,6 @@ namespace SpaceGame.GameScreens
 
             ContentManager content = GameRef.Content;
             totalMoney = GameRef.spaceShip.getCurrentMoney();
-            turnAmount = GameRef.spaceShip.getNumberOfTurn();
-            cargoAmount = GameRef.spaceShip.getCargoCapacity();
             CreateControls(content);
         }
 

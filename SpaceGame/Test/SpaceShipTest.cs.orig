@@ -19,46 +19,37 @@ namespace Test
     [TestClass]
     public class SpaceShipTest
     {
-<<<<<<< HEAD
         DatabasePopulate dbp;
-
+        
         Planet pl;
-
-=======
-        //DatabasePopulate dbp;
->>>>>>> master
+        Board br;
         GameTime time;
         SpaceShip myShip;
-        Dictionary<Resource, int> resource;
-        Dictionary<Resource, int> initialResource;
-        Dictionary<Resource, int> laterResource;
+        Economy eco;
+        Trading trad;
+
+           
 
         [TestInitialize]
         public void init()
         {
-<<<<<<< HEAD
             dbp = new DatabasePopulate();
-
-           // pl = new Planet("earth",1, Texture2D earth);
-
-
             time = new GameTime();
             myShip = new SpaceShip();
-=======
-            //dbp = new DatabasePopulate();
-            time = new GameTime();
-            myShip = new SpaceShip();
-            resource = new Dictionary<Resource, int>();
-            initialResource = new Dictionary<Resource, int>();
-            laterResource = new Dictionary<Resource, int>();
+
+            eco = new Economy();
+            trad = new Trading();
+          
+
+            br = new Board();
             
-            initialResource.Add(new Resource("gold", 100), 6);
-            initialResource.Add(new Resource("silver", 100), 7);
-            initialResource.Add(new Resource("copper", 100), 8);
-            resource.Add(new Resource("gold", 100), 1);
-            resource.Add(new Resource("silver", 100), 3);
-            resource.Add(new Resource("copper", 100), 4);
->>>>>>> master
+
+
+            eco = new Economy();
+            trad = new Trading();
+          
+            br = new Board();
+            
 
         }
 
@@ -83,16 +74,16 @@ namespace Test
         {
             Assert.IsTrue(myShip.getShipNumberOfResource()<=myShip.getCargoCapacity());
         }
-
+        /*
         [TestMethod]
         public void BuyingIsOK()
         {
             Boolean testResult = true;
             Dictionary<Resource, int> expectedResource = new Dictionary<Resource, int>();
-            expectedResource.Add(new Resource("gold", 200), 7);
-            expectedResource.Add(new Resource("silver", 100), 10);
-            expectedResource.Add(new Resource("copper", 100), 12);
-            myShip.setResource(initialResource);
+            expectedResource.Add(new Resource(0, "gold", 200, "gold gold gold", 5), 5);
+            expectedResource.Add(new Resource(1, "silver", 100, "silver silver", 2), 4);
+            expectedResource.Add(new Resource(2, "copper", 100, "Copper copper copper", 3), 4);
+            myShip.setResource();
             
             myShip.buy(resource);
             laterResource = myShip.getResultList();
@@ -114,15 +105,16 @@ namespace Test
             }
             Assert.IsTrue(testResult);
         }
-
+        
         [TestMethod]
         public void SellingIsOK()
         {
             Boolean testResult = true;
+            //public Resource(int resid, string name, int price, string descript,int amounts)
             Dictionary<Resource, int> expectedResource = new Dictionary<Resource, int>();
-            expectedResource.Add(new Resource("gold", 200), 5);
-            expectedResource.Add(new Resource("silver", 100), 4);
-            expectedResource.Add(new Resource("copper", 100), 4);
+            expectedResource.Add(new Resource(0,"gold", 200,"gold gold gold", 5), 5);
+            expectedResource.Add(new Resource(1,"silver", 100,"silver silver",2), 4);
+            expectedResource.Add(new Resource(2,"copper", 100,"Copper copper copper",3), 4);
             myShip.setResource(initialResource);
             myShip.sell(resource);
             laterResource = myShip.getResultList();
@@ -144,12 +136,8 @@ namespace Test
             }
             Assert.IsTrue(testResult);
         }
-        /*
-        [TestMethod]
-        public void ResourcesAddedatStartofGame()
-        {
-            Assert.IsTrue(dbp.Startresourceadd());
-        }
+        */
+        
 
         [TestMethod]
         public void LastSessionis()
@@ -162,7 +150,7 @@ namespace Test
         public void ResorceAdded()
         {
             //Assert.IsTrue(dbp.addResource);
-            Assert.IsTrue(dbp.Resources);
+            Assert.IsTrue(dbp.Startresourceadd());
         }
 
         [TestMethod]
@@ -178,9 +166,155 @@ namespace Test
             
             Assert.IsInstanceOfType(dbp.startPlanetAdd(), typeof(int));
         }
-<<<<<<< HEAD
+        // economy test adding
+          #region // test economy class 
+        // check the constrcture 
+        [TestMethod]
+        public void Economy_Constructs_OK()
+        {
+            Assert.IsNotNull(eco);
+        }
+        [TestMethod]
+        public void CheckMoney_IsGreaterThanZero()
+        {
+            int a = eco.Money;
+            Assert.IsTrue(a >= 0);
+        }
+        
+        
+        [TestMethod]
+        public void AddMoney_Add5Gold_CheckMoneyIncreasesBy5()
+        {
+           
+            int new_amount = 5;
+            int money_start = eco.Money;
+            eco.AddToMoney(new_amount);
+            int Money_end = eco.Money;
+
+            Assert.AreEqual(money_start + new_amount, Money_end );
+        }
+
+        
+        [TestMethod]
+        public void DecrementMoney_CallOnce_ReducesCheckMoneyByAmount()
+        {
+
+            int new_amount = 5;
+           
+            int money_start = eco.Money;
+            eco.DecrementMoney(new_amount);
+            int Money_end = eco.Money;
+            Assert.AreEqual(money_start - new_amount, Money_end);
+        }
+        
+        [TestMethod]
+        public void Decrement_MoneyAtZero_ReturnFalse()
+        {
+            //stock is zero to start with
+
+            bool result = eco.DecrementMoney(5);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void Decrement_GreaterThanZero_ReturnTrue()
+        {
+            
+            eco.AddToMoney(10);
+            bool result = eco.DecrementMoney(5);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void DecrementMoney_MoneyAtZero_CheckMoneyEqualsZero()
+        {
+
+            eco.DecrementMoney(1);
+
+            Assert.AreEqual(0, eco.Money);
+        }
+        [TestMethod]
+        public void BuyResourceAndDecrementMoney()
+        {
+            int ResorceIDPrice = 1;
+          //  eco.AddResorce(ResorceIDPrice);
 
 
+            ///Assert.Inconclusive();/////
+        }
+        public void SellResourceAndAddToMoney()
+        {
+            int ResorceIDPrice = 1;
+            eco.removeoneResorce(ResorceIDPrice);
+
+
+            Assert.AreEqual(0, eco.Money);
+        }
+      
+    
+        
+       
+         [TestMethod]
+        public void Economy_CalculatingSystem_OK()// calculate the start anount of money divided by the amont now
+        {
+            eco.Money = 1 ; 
+            float aa = eco.Profit();
+            Assert.AreEqual(1, aa);
+        }
+        
+         [TestMethod]
+        public void Economy_UpGradeThecargo_OK()
+        {
+             int SpaceShipIDCargo =1;
+             int LevelID = 1 ;
+             int ShipPricee = 1 ;
+             eco.ShipUpGrede(SpaceShipIDCargo, LevelID, ShipPricee);// the ship class must have level attribute
+        }
+    
+         [TestMethod]
+        public void Economy_GetNewShip_OK()
+        {
+             int SpaceShipID =1;
+             int LevelID = 1 ;
+             int ShipPricee = 1;
+             eco.ShipChange(SpaceShipID, LevelID, ShipPricee);// the ship class must have other type
+        }
+         [TestMethod]
+         public void PriceChangeDependOnThePlanentQuentity()
+         {
+             //each planet has 20 avilable resorses
+             //the price for sell or buy vary depend on the quantity of the planet has
+             //simple calculation is  price of the resorce + 1 - price of the resorce*(planent quantity /20)
+             int GetPriceResorceID = 2;
+             eco.SellingPrice(GetPriceResorceID) ;
+
+         }
+         public void PriceChangeDependOnThePlanentQuentity()
+         {
+             //each planet has 20 avilable resorses
+             //the price for sell or buy vary depend on the quantity of the planet has
+             //simple calculation is  price of the resorce + 1 - price of the resorce*(planent quantity /20)
+             int GetPriceResorceID = 2;
+             eco.BuyingingPrice(GetPriceResorceID);
+
+         }
+        
+
+
+        #endregion
+        #region new test to class economy to monuplite SpaceShip
+         [TestMethod]
+         public void decresetheMoneyFromTheSpaceShipClass()
+         {
+             //myShip.
+            // int result = myShip.decraseMoney(int PriceOfAnyThing);
+
+         }
+
+        #endregion
+    
         [TestMethod]
         public void CheckSessionIdatstartis0()
         {
@@ -190,7 +324,7 @@ namespace Test
         [TestMethod]
         public void CheckLastSession()
         {
-            Assert.AreEqual(0, dbp.getSession());
+            Assert.AreNotEqual(0, dbp.getSession());
         }
 
         [TestMethod]
@@ -205,10 +339,42 @@ namespace Test
             Assert.IsTrue(dbp.addedPlanettoSession);
         }
 
+        [TestMethod]
+        public void AddingResourcetoPlanets()
+        {
+            Assert.IsTrue(dbp.AddResourcetoPlanet());
+        }
 
+        [TestMethod]
+        public void CheckifPlanetsLoadResourcs()
+        {
+            
+            Assert.AreNotEqual(0, pl.resourcedbCount);
+        }
+  
+        [TestMethod]
+        public void CheckifSwitchofResourceReturnssomething() 
+        {
+            Assert.IsNotNull(br.textureReturn("space"));
+        }
 
-=======
-         */
->>>>>>> master
+        [TestMethod]
+        public void CheckifPlantgetsResoruceData(){
+            Assert.IsTrue(br.PlanetData());
+        }
+
+        [TestMethod]
+        public void PlanethasName()
+        {
+            Assert.IsNotNull(pl.getName());
+        }
+        
+        [TestMethod]
+        public void PlanethasResources()
+        {
+            Assert.IsNotNull(pl.getResourceList());
+        }
+
     }
 }
+
