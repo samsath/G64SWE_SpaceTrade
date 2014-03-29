@@ -76,7 +76,6 @@
   <ItemGroup>
     <Compile Include="Components\Board.cs" />
     <Compile Include="Components\Economy.cs" />
-    <Compile Include="Components\Economy.cs" />
     <Compile Include="Components\DatabasePopulate.cs" />
     <Compile Include="Components\Object.cs" />
     <Compile Include="Components\Planet.cs" />
