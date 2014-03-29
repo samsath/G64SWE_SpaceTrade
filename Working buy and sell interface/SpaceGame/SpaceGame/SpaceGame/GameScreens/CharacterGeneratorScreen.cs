@@ -27,7 +27,8 @@ namespace SpaceGame.GameScreens
         Texture2D stopTexture;
 
         //string[] genderItems = { "Male", "Female" };
-        string[] shipItems = { "Ship1", "Ship2", "Ship3", "Ship4" };
+        string[] shipItems = { "Human1", "alien1", /*"blue1", "bluecargo1",*/ "blueship1", "greenship1", "orangeship1", "RD1"/*, "wship1"*/ };
+        
 
         #endregion
 
