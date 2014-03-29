@@ -33,7 +33,7 @@ namespace STDatabase
         System.Collections.Generic.List<int> SessionShip(int sessionid);
         void SetHighscore(int id, int score);
         void SetHighscore(string name, int score);
-        void SetUser(string name, int money);
+        void SetUser(string name, int money, int turns);
         void SetUserMoney(int user_id, int money);
         void ShipAdd(int ship_id, int Ammo_level, int Health_level, int Cargo_level, int Fuel_level);
         void ShipCargoUpdate(int ship_id, int resource_id, int amount, int price);

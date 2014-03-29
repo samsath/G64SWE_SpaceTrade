@@ -209,6 +209,11 @@ namespace Test
         {
             Assert.IsNotNull(pl.getResourceList());
         }
+        [TestMethod]
+        public void SessionAndUserAddedtoDB()
+        {
+            Assert.IsTrue(dbp.AddUserandSession());
+        }
 
     }
 }

@@ -1046,7 +1046,7 @@ namespace STDatabase
             
             if (Check())
             {
-                string Query = "SELECT Session_id FROM sessions ORDER BY Session_id DESC LIMIT 1";
+                string Query = "SELECT Session_id FROM sessiontoplanet ORDER BY Session_id DESC LIMIT 1";
                 using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
                 {
                     try

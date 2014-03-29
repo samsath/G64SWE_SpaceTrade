@@ -157,7 +157,7 @@ namespace STDatabase
             stringData = name;
         }
 
-        public void SetUser(string name, int money)
+        public void SetUser(string name, int money, int turns)
         {
             stringData = name;
         }

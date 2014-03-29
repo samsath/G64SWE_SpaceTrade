@@ -169,5 +169,11 @@ namespace SpaceGame.Components
             }
             return false;
         }
+
+        public Boolean AddUserandSession()
+        {
+
+            return true;
+        }
     }
 }
