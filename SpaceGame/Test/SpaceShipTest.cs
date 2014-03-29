@@ -36,14 +36,11 @@ namespace Test
             dbp = new DatabasePopulate();
             time = new GameTime();
             myShip = new SpaceShip();
-<<<<<<< HEAD
             eco = new Economy();
             trad = new Trading();
           
-=======
             br = new Board();
             
->>>>>>> c8a838d145baad2c15fd9d3c6ac643baa9b44c9f
         }
 
         [TestMethod]
@@ -159,7 +156,6 @@ namespace Test
             
             Assert.IsInstanceOfType(dbp.startPlanetAdd(), typeof(int));
         }
-<<<<<<< HEAD
         // economy test adding
           #region // test economy class 
         // check the constrcture 
@@ -308,7 +304,6 @@ namespace Test
          }
 
         #endregion
-=======
     
         [TestMethod]
         public void CheckSessionIdatstartis0()
@@ -370,7 +365,6 @@ namespace Test
             Assert.IsNotNull(pl.getResourceList());
         }
 
->>>>>>> c8a838d145baad2c15fd9d3c6ac643baa9b44c9f
     }
 }
 

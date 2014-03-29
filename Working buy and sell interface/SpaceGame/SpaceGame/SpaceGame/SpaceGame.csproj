@@ -86,7 +86,8 @@
     <Compile Include="GameScreens\EndGameScreen.cs" />
     <Compile Include="GameScreens\GamePlayScreen.cs" />
     <Compile Include="GameScreens\HighscoreScreen.cs" />
-    <Compile Include="GameScreens\SaveScreen.cs" />
+    <Compile Include="GameScreens\SaveHistoryScreen.cs" />
+    <Compile Include="GameScreens\PauseScreen.cs" />
     <Compile Include="GameScreens\SellScreen.cs" />
     <Compile Include="GameScreens\StartMenuScreen.cs" />
     <Compile Include="GameScreens\TitleScreen.cs" />

@@ -343,7 +343,8 @@ namespace SpaceGame.GameScreens
 
         void goBack(object sender, EventArgs e)
         {
-            StateManager.ChangeState(GameRef.GamePlayScreen, "playingScreen");
+            GameRef.spaceShip.setGameState("playing");
+            StateManager.ChangeState(GameRef.GamePlayScreen);
         }
 
         

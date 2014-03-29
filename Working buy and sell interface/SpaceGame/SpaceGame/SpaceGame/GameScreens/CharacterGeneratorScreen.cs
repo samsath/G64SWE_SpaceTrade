@@ -17,7 +17,6 @@ namespace SpaceGame.GameScreens
     public class CharacterGeneratorScreen : BaseGameState
     {
         #region Field Region
-        string ship;
         //LeftRightSelector genderSelector;
         LeftRightSelector shipSelector;
         PictureBox backgroundImage;
@@ -129,7 +128,6 @@ namespace SpaceGame.GameScreens
             linkLabel1.Text = "Use this Ship.";
             linkLabel1.Position = new Vector2(label1.Position.X, 300);
             linkLabel1.Selected += new EventHandler(linkLabel1_Selected);
-            ship = shipSelector.getItem();
             //Debug.WriteLine("hgfhfdgdffgs "+ship);
 
             ControlManager.Add(linkLabel1);
@@ -164,19 +162,19 @@ namespace SpaceGame.GameScreens
 
         void linkLabel1_Selected(object sender, EventArgs e)
         {
-            StateManager.ChangeState(GameRef.GamePlayScreen, ship);
+            GameRef.spaceShip.setShipTexture(shipImages[shipSelector.SelectedIndex]);
+            StateManager.ChangeState(GameRef.GamePlayScreen);
         }
 
         void selectionChanged(object sender, EventArgs e)
         {
             shipImage.Image = shipImages[shipSelector.SelectedIndex];
-            ship = shipSelector.getItem();
             //Debug.WriteLine("hgfhfdgdffgs " + ship);
         }
 
         void goBackButton(object sender, EventArgs e)
         {
-            StateManager.ChangeState(GameRef.AdminScreen, null);
+            StateManager.ChangeState(GameRef.AdminScreen);
         }
 
         #endregion

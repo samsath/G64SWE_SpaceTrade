@@ -138,12 +138,12 @@ namespace SpaceGame.GameScreens
         {
             if (sender == startGame)
             {
-                StateManager.PushState(GameRef.AdminScreen, "");
+                StateManager.PushState(GameRef.AdminScreen);
             }
 
             if (sender == loadGame)
             {
-                StateManager.PushState(GameRef.GamePlayScreen, "");
+                StateManager.PushState(GameRef.GamePlayScreen);
             }
 
             if (sender == exitGame)
@@ -152,7 +152,7 @@ namespace SpaceGame.GameScreens
             }
             if (sender == highscore)
             {
-                StateManager.PushState(GameRef.highscoreScreen, "");
+                StateManager.PushState(GameRef.highscoreScreen);
             }
         }
 

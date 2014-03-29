@@ -269,7 +269,8 @@ namespace SpaceGame.GameScreens
         void acceptLabel_Selected(object sender, EventArgs e)
         {
             undoResources.Clear();
-            StateManager.ChangeState(GameRef.GamePlayScreen, "playingScreen");
+            GameRef.spaceShip.setGameState("playing");
+            StateManager.ChangeState(GameRef.GamePlayScreen);
         }
 
         void undoLabel_Selected(object sender, EventArgs e)
@@ -318,7 +319,8 @@ namespace SpaceGame.GameScreens
 
         void goBack(object sender, EventArgs e)
         {
-            StateManager.ChangeState(GameRef.GamePlayScreen, "playingScreen");
+            GameRef.spaceShip.setGameState("playing");
+            StateManager.ChangeState(GameRef.GamePlayScreen);
         }
 
 

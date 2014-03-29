@@ -31,7 +31,6 @@ namespace XRpgLibrary
         const int startDrawOrder = 5000;
         const int drawOrderInc = 100;
 
-        public string shipName = "";
         int drawOrder;
 
         public GameState CurrentState
@@ -101,7 +100,7 @@ namespace XRpgLibrary
             gameStates.Pop();
         }
 
-        public void PushState(GameState newState, Object str)
+        public void PushState(GameState newState)
         {
             drawOrder += drawOrderInc;
             newState.DrawOrder = drawOrder;
@@ -121,9 +120,8 @@ namespace XRpgLibrary
             OnStateChange += newState.StateChange;
         }
 
-        public void ChangeState(GameState newState, Object str)
+        public void ChangeState(GameState newState)
         {
-            if (str != null) shipName = str.ToString();
             while (gameStates.Count > 0)
                 RemoveState();
 
