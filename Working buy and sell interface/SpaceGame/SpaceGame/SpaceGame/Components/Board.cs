@@ -52,6 +52,11 @@ namespace SpaceGame.Components
             return ses;
         }
 
+        public List<Tile> getTile()
+        {
+            return tiles;
+        }
+
        
 
         public void LoadContent(ContentManager content)
@@ -107,7 +112,7 @@ namespace SpaceGame.Components
 
             // need to change this so that it will work on loaded session
             // need to change this to work propperly
-            int session = dbs.getLastSession() +1;
+            int session = dbs.getLastSession();
             Console.WriteLine("session = " + session);
             //tiles.Add(new Tile(space, new Planet("space", 0, "space")));
             List<Planetdata> sesPlanet = dbs.SessionWithPlanet(session);

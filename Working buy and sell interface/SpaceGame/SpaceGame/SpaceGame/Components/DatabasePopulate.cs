@@ -141,8 +141,8 @@ namespace SpaceGame.Components
             int ses = dbs.getLastSession();
             int fs = dbf.getLastSession();
 
-            sessionNumber = ses + 1;
-            return ses + 1;
+            sessionNumber = ses;
+            return ses;
 
 
         }
@@ -170,10 +170,65 @@ namespace SpaceGame.Components
             return false;
         }
 
-        public Boolean AddUserandSession()
+        public int AddUserandSession(string name, int money, int turns)
         {
+            // this will add the user to the database and the session ID
+            dbs.SetUser(name, money, turns);
+            int userID = 0 ;
+            // get the user name
+            List<Userdata> users = dbs.getUser();
+            for (int i = 0; i < users.Count; i++)
+            {
+                if (users[i].Name == name)
+                {
+                    userID = users[i].User_id;
+                }
+            }
 
+            return userID;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model">This is the shipItems list number</param>
+        /// <param name="cargo"> Size of the cargo which is user defined</param>
+        /// <param name="user_id"> sets the user's ID</param>
+        /// <param name="shipName"> the png file name for each ship with out the png</param>
+        /// <param name="type">the upgrade level so starts at 1</param>
+        /// <returns></returns>
+        public Boolean AddShiptoSession(int model, int cargo, int user_id, string shipName)
+        {
+            //this will add the ship to the session with all the inforation
+            dbs.NewShipandMedia(model, cargo, user_id, 0, 0, shipName, 1, "null");
             return true;
+        }
+
+        /// <summary>
+        /// this will go through the different tiles and then sellect the different planets then each planets resources and update their entry on the database
+        /// </summary>
+        public void saveSession(List<Tile>board)
+        {
+            List<Tile> gameBoard = board;
+
+            for (int i = 0; i < gameBoard.Count; i++)
+            {
+                Planet p = gameBoard[i].getPlanet();
+                List<Resource> resource = new List<Resource>();
+                resource = p.getResourceList();
+                for (int r = 0; r < resource.Count; r++)
+                {
+
+                    dbs.PlanetResourceUpdate(p.planetid, resource[r].resourceid, resource[r].amount, resource[r].price);
+                }
+
+            }
+            //
+            //
+            /// Need to add the space ship section here, but need to change the spaceship class to do this.
+            //
+            //
+
+
         }
     }
 }
