@@ -17,7 +17,7 @@ namespace SpaceGame.GameScreens
     public class CharacterGeneratorScreen : BaseGameState
     {
         #region Field Region
-        //LeftRightSelector genderSelector;
+
         LeftRightSelector shipSelector;
         PictureBox backgroundImage;
 
@@ -25,14 +25,30 @@ namespace SpaceGame.GameScreens
         Texture2D[] shipImages;
 
         Texture2D stopTexture;
-        int valueMoney;
-        int valueNumberOfTurn;
-        int valueInitialCargoCapacity;
-
 
         //string[] genderItems = { "Male", "Female" };
         string[] shipItems = { "Human1", "alien1", /*"blue1", "bluecargo1",*/ "blueship1", "greenship1", "orangeship1", "RD1"/*, "wship1"*/ };
-        
+
+        //Keyboard
+        //Texture2D sprite;// sprite variable
+        KeyboardState oldKeyboardState, currentKeyboardState;// Keyboard state variables
+
+        Label name = new Label();
+        int xPos = 400;
+        int yPos = 400;
+
+        LinkLabel hero1 = new LinkLabel();
+        LinkLabel hero2 = new LinkLabel();
+        LinkLabel hero3 = new LinkLabel();
+        LinkLabel hero4 = new LinkLabel();
+
+        string hero1Txt;
+        string hero2Txt;
+        string hero3Txt;
+        string hero4Txt;
+
+        string selectedHero;
+
 
         #endregion
 
@@ -63,12 +79,13 @@ namespace SpaceGame.GameScreens
 
         public override void Initialize()
         {
+            currentKeyboardState = new KeyboardState();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            
+
             base.LoadContent();
 
             LoadImages();
@@ -77,8 +94,15 @@ namespace SpaceGame.GameScreens
 
         public override void Update(GameTime gameTime)
         {
+            oldKeyboardState = currentKeyboardState;
+            currentKeyboardState = Keyboard.GetState();
             ControlManager.Update(gameTime, PlayerIndex.One);
-            base.Update(gameTime);
+            /*if (currentKeyboardState.IsKeyDown(Keys.A))
+            {
+                string characterName = "A";
+                addKeys(characterName);
+            }
+            base.Update(gameTime);*/
         }
 
         public override void Draw(GameTime gameTime)
@@ -87,7 +111,9 @@ namespace SpaceGame.GameScreens
 
             base.Draw(gameTime);
 
+            //GameRef.SpriteBatch.Draw(sprite, positionSprite, Color.White);
             ControlManager.Draw(GameRef.SpriteBatch);
+
 
             GameRef.SpriteBatch.End();
         }
@@ -129,13 +155,13 @@ namespace SpaceGame.GameScreens
 
             ControlManager.Add(shipSelector);
 
-            LinkLabel linkLabel1 = new LinkLabel();
-            linkLabel1.Text = "Use this Ship.";
-            linkLabel1.Position = new Vector2(label1.Position.X, 300);
+            /*LinkLabel linkLabel1 = new LinkLabel();
+            linkLabel1.Text = "Accept This Ship and Your Hero";
+            linkLabel1.Position = new Vector2(label1.Position.X-150, 500);
             linkLabel1.Selected += new EventHandler(linkLabel1_Selected);
-            //Debug.WriteLine("hgfhfdgdffgs "+ship);
+            //Debug.WriteLine("hgfhfdgdffgs "+ship);*/
 
-            ControlManager.Add(linkLabel1);
+
 
             shipImage = new PictureBox(
                 shipImages[0],
@@ -144,12 +170,106 @@ namespace SpaceGame.GameScreens
 
             ControlManager.NextControl();
 
+
+            //Hero Selection
+            Label selectYourHero = new Label();
+            selectYourHero.Text = "Please select Your Hero Name";
+            selectYourHero.Position = new Vector2(label1.Position.X - 100, 350);
+            ControlManager.Add(selectYourHero);
+
+            ControlManager.NextControl();
+
+
+
+            //heroes
+            hero1 = new LinkLabel();
+            hero1.Text = "Sam";
+            hero1.Position = new Vector2(label1.Position.X + 50, 400);
+            ControlManager.Add(hero1);
+            hero1Txt = hero1.ToString();
+            hero1.Selected += new EventHandler(hero1Selected);
+
+            ControlManager.NextControl();
+
+            hero2 = new LinkLabel();
+            hero2.Text = "Dan";
+            hero2.Position = new Vector2(label1.Position.X + 50, 430);
+            ControlManager.Add(hero2);
+            hero2.Selected += new EventHandler(hero2Selected);
+
+            ControlManager.NextControl();
+
+            hero3 = new LinkLabel();
+            hero3.Text = "Truong";
+            hero3.Position = new Vector2(label1.Position.X + 50, 460);
+            ControlManager.Add(hero3);
+            hero3.Selected += new EventHandler(hero3Selected);
+
+            ControlManager.NextControl();
+
+            hero4 = new LinkLabel();
+            hero4.Text = "Rfnker";
+            hero4.Position = new Vector2(label1.Position.X + 50, 490);
+            ControlManager.Add(hero4);
+            hero4.Selected += new EventHandler(hero4Selected);
+
+            ControlManager.NextControl();
+            //
+
             //Go Back button
             LinkLabel goBack = new LinkLabel();
             goBack.Text = "Go Back";
-            goBack.Position = new Vector2(label1.Position.X, 450);
+            goBack.Position = new Vector2(label1.Position.X + 40, 550);
             goBack.Selected += new EventHandler(goBackButton);
+
+            //ControlManager.Add(linkLabel1);
             ControlManager.Add(goBack);
+
+
+            //Keyboard name handling            
+            name = new Label();
+            name.Position = new Vector2(xPos, yPos);
+
+
+
+        }
+
+        void hero1Selected(object sender, EventArgs e)
+        {
+            selectedHero = hero1.Text;
+            //Add to DB
+            GameRef.spaceShip.setShipTexture(shipImages[shipSelector.SelectedIndex]);
+            StateManager.ChangeState(GameRef.GamePlayScreen);
+        }
+
+        void hero2Selected(object sender, EventArgs e)
+        {
+            selectedHero = hero2.Text;
+            //Add to DB
+            GameRef.spaceShip.setShipTexture(shipImages[shipSelector.SelectedIndex]);
+            StateManager.ChangeState(GameRef.GamePlayScreen);
+        }
+        void hero3Selected(object sender, EventArgs e)
+        {
+            selectedHero = hero3.Text;
+            //Add to DB
+            GameRef.spaceShip.setShipTexture(shipImages[shipSelector.SelectedIndex]);
+            StateManager.ChangeState(GameRef.GamePlayScreen);
+        }
+        void hero4Selected(object sender, EventArgs e)
+        {
+            selectedHero = hero4.Text;
+            //Add to DB
+            GameRef.spaceShip.setShipTexture(shipImages[shipSelector.SelectedIndex]);
+            StateManager.ChangeState(GameRef.GamePlayScreen);
+        }
+
+        void addKeys(String characterName)
+        {
+            string appendedString = characterName;
+            name.Position = new Vector2(xPos + 5, yPos);
+            name.Text += appendedString;
+            ControlManager.Add(name);
         }
 
         private void LoadImages()
@@ -165,11 +285,11 @@ namespace SpaceGame.GameScreens
             //}
         }
 
-        void linkLabel1_Selected(object sender, EventArgs e)
+        /*void linkLabel1_Selected(object sender, EventArgs e)
         {
             GameRef.spaceShip.setShipTexture(shipImages[shipSelector.SelectedIndex]);
             StateManager.ChangeState(GameRef.GamePlayScreen);
-        }
+        }*/
 
         void selectionChanged(object sender, EventArgs e)
         {
@@ -181,23 +301,6 @@ namespace SpaceGame.GameScreens
         {
             StateManager.ChangeState(GameRef.AdminScreen);
         }
-
-        public void setMoney(int moneyAmount)
-        {
-            valueMoney = moneyAmount;
-        }
-
-        public void setNumberOfTurn(int turns)
-        {
-            valueNumberOfTurn = turns;
-        }
-
-        public void setInitialCargoCapacity(int capacity)
-        {
-            valueInitialCargoCapacity = capacity;
-        }
-
-
 
         #endregion
     }
