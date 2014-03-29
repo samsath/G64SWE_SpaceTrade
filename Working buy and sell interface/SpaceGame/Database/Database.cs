@@ -238,12 +238,12 @@ namespace STDatabase
         /// </summary>
         /// <param name="name"></param>
         /// <param name="money"></param>
-        public void SetUser(string name, int money)
+        public void SetUser(string name, int money, int turns)
         {
             if (Check())
             {
                 string Query1 = String.Format("INSERT INTO users(Name) VALUES('{0}'); ", name);
-                string Query2 = String.Format("INSERT INTO sessions(Users_id,Money) VALUES((SELECT Users_id FROM users WHERE Name = '{0}'),{1});", name, money);
+                string Query2 = String.Format("INSERT INTO sessions(Users_id,Money,Turns) VALUES((SELECT Users_id FROM users WHERE Name = '{0}'),{1},{2});", name, money, turns);
                 using (SQLiteCommand command = new SQLiteCommand(dbc))
                 {
                     try
