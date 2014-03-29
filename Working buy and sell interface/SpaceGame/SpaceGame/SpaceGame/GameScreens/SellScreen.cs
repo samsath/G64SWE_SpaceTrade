@@ -32,9 +32,10 @@ namespace SpaceGame.GameScreens
 
         int totalResources = 10000;
         int unassignedResources = 10000;
-        int priceAmount = 3000;
-        int itemAmount = 5;
-        int quantityAmount = 5;
+        int priceAmount = 0;
+        int originalPrice = 5000;
+        int itemAmount = 10;
+        int quantityAmount = 10;
         int offerAmount = 0;
         int quantityAcquired = 0;
 
@@ -207,16 +208,18 @@ namespace SpaceGame.GameScreens
             addPlanetLabel.Text = "Add";
             addPlanetLabel.Position = new Vector2(nextControlPosition.X + 450, nextControlPosition.Y);
 
-            addPlanetLabel.Selected += addSelectedResource;
+
             addPlanetLabel.Selected += new EventHandler(increaseItem);
+            addPlanetLabel.Selected += addSelectedResource;
 
             LinkLabel substractPlanetLabel = new LinkLabel();
             substractPlanetLabel.TabStop = true;
             substractPlanetLabel.Text = "Remove";
             substractPlanetLabel.Position = new Vector2(nextControlPosition.X + 520, nextControlPosition.Y);
 
-            substractPlanetLabel.Selected += new EventHandler(substractSelectedResource);
+
             substractPlanetLabel.Selected += new EventHandler(decreaseItem);
+            substractPlanetLabel.Selected += new EventHandler(substractSelectedResource);
              
 
             //Offer
@@ -302,10 +305,12 @@ namespace SpaceGame.GameScreens
             if (quantityAmount == 0)
             {
                 return;
-            }else{
+            }
+            else
+            {
                 string resourceName = ((LinkLabel)sender).Type;
                 undoResources.Push(resourceName);
-                unassignedResources= unassignedResources + offerAmount;
+                unassignedResources = unassignedResources + offerAmount;
 
                 // Update the skill points for the appropriate resource
                 remainingMoney.Text = "Total Amount of Money: " + unassignedResources.ToString() + "$";
@@ -355,11 +360,232 @@ namespace SpaceGame.GameScreens
             }else
             if (unassignedResources > 0)
             {
-                //quantity ammount to be changed to number of resources of the planet
-                offerAmount = (priceAmount / quantityAmount);
-                offerNumber.Text = offerAmount.ToString()+"$";
-            }
+                //Overpriced amount.
 
+                if (priceAmount >= (originalPrice * 2))
+                {
+                    //quantity ammount to be changed to number of resources of the planet
+                    //offerAmount = originalPrice;
+                    //offerNumber.Text = offerAmount.ToString() + "$";
+                    if (quantityAcquired == 0)
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice*1.5);
+                        offerAmount = random.Next(originalPrice, range);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                    else if((quantityAcquired >0) && (quantityAcquired <= 3))
+                    {
+                        offerAmount = originalPrice;
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                    else if (quantityAcquired > 3 && (quantityAcquired <= 5))
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 0.75);
+                        offerAmount = random.Next(range, originalPrice);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                    else if (quantityAcquired > 5)
+                    {
+                        offerAmount = 0;
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                }
+
+                //Reasonably overpriced amount.
+
+                if ((priceAmount >= (originalPrice * 1.5)) && (priceAmount < (originalPrice * 2)))
+                {
+                    if (quantityAcquired == 0)
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 1.5);
+                        offerAmount = random.Next(originalPrice, range);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                    else if ((quantityAcquired > 0) && (quantityAcquired <= 3))
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 1.2);
+                        offerAmount = random.Next(originalPrice, range);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                    else if (quantityAcquired > 3 && (quantityAcquired <= 5))
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 0.75);
+                        offerAmount = random.Next(range, originalPrice);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                    else if (quantityAcquired > 5)
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 0.75);
+                        int range1 = (int)(originalPrice * 0.5);
+                        offerAmount = random.Next(range1, range);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                }
+
+                // Reasonable amount
+
+                if ((priceAmount > originalPrice) && (priceAmount < (originalPrice * 1.5)))
+                {
+                    if (quantityAcquired == 0)
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 1.5);
+                        int range1 = (int)(originalPrice * 1.2);
+                        offerAmount = random.Next(range1, range);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                    else if ((quantityAcquired > 0) && (quantityAcquired <= 3))
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 1.2);
+                        offerAmount = random.Next(originalPrice, range);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                    else if (quantityAcquired > 3 && (quantityAcquired <= 5))
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 1.1);
+                        offerAmount = random.Next(originalPrice, range);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                    else if (quantityAcquired > 5)
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 0.85);
+                        offerAmount = random.Next(range, originalPrice);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                }
+
+                //Equal amount
+
+                if (priceAmount == originalPrice) 
+                {
+                    if (quantityAcquired == 0)
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 1.7);
+                        int range1 = (int)(originalPrice * 1.5);
+                        offerAmount = random.Next(range1, range);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                    else if ((quantityAcquired > 0) && (quantityAcquired <= 3))
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 1.5);
+                        offerAmount = random.Next(originalPrice, range);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                    else if (quantityAcquired > 3 && (quantityAcquired <= 5))
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 1.2);
+                        offerAmount = random.Next(originalPrice, range);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                    else if (quantityAcquired > 5)
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 0.75);
+                        offerAmount = random.Next(range, originalPrice);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                }
+
+                //Cheaper price
+
+                if ((priceAmount < originalPrice) && (priceAmount >= (originalPrice * 0.75))) 
+                {
+                    if (quantityAcquired == 0)
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 1.2);
+                        offerAmount = random.Next(originalPrice, range);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                        
+                    }
+                    else if ((quantityAcquired > 0) && (quantityAcquired <= 3))
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 0.75);
+                        int range1 = (int)(originalPrice * 1.2);
+                        offerAmount = random.Next(range, range1);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                    else if (quantityAcquired > 3 && (quantityAcquired <= 5))
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 0.75);
+                        int range1 = (int)(originalPrice * 0.9);
+                        offerAmount = random.Next(range, range1);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                    else if (quantityAcquired > 5)
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 0.75);
+                        offerAmount = random.Next(range, priceAmount);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                }
+
+                //Really cheap price
+
+                if ((priceAmount < (originalPrice * 0.75)) && (priceAmount >= (originalPrice * 0.5)))
+                {
+                    if (quantityAcquired == 0)
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 1.2);
+                        offerAmount = random.Next(originalPrice, range);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+
+                    }
+                    else if ((quantityAcquired > 0) && (quantityAcquired <= 3))
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 0.75);
+                        int range1 = (int)(originalPrice * 0.9);
+                        offerAmount = random.Next(range, range1);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                    else if (quantityAcquired > 3 && (quantityAcquired <= 5))
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 0.5);
+                        int range1 = (int)(originalPrice * 0.75);
+                        offerAmount = random.Next(range, range1);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                    else if (quantityAcquired > 5)
+                    {
+                        Random random = new Random();
+                        int range = (int)(originalPrice * 0.5);
+                        offerAmount = random.Next(range, priceAmount);
+                        offerNumber.Text = offerAmount.ToString() + "$";
+                    }
+                }
+
+                //Always sell price
+
+                if (priceAmount < (originalPrice * 0.5))
+                {
+                    offerAmount = priceAmount;
+                    offerNumber.Text = offerAmount.ToString() + "$";
+                }
+
+
+            }
+            /*
+             * offerAmount = (priceAmount / quantityAmount);
+                offerNumber.Text = offerAmount.ToString()+"$";
+             */ 
         }
 
         void decreaseItem(object sender, EventArgs e)
@@ -390,8 +616,11 @@ namespace SpaceGame.GameScreens
 
         void decreasePriceItem(object sender, EventArgs e)
         {
-            priceAmount = priceAmount - 1000;
-            priceNumber.Text = priceAmount.ToString() + "$";
+            if (priceAmount > 0)
+            {
+                priceAmount = priceAmount - 1000;
+                priceNumber.Text = priceAmount.ToString() + "$";
+            }
         }
 
         public override void Update(GameTime gameTime)
