@@ -6,6 +6,14 @@ using System.IO;
 using System.Xml;
 using STDatabase;
 
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
+
+using XRpgLibrary;
+using XRpgLibrary.Controls;
+
 
 
 namespace SpaceGame.Components
@@ -173,43 +181,17 @@ namespace SpaceGame.Components
         public int AddUserandSession(string name, int money, int turns)
         {
             // this will add the user to the database and the session ID
-            dbs.SetUser(name, money, turns);
-            int userID = 0 ;
-            // get the user name
-            List<Userdata> users = dbs.getUser();
-            for (int i = 0; i < users.Count; i++)
-            {
-                if (users[i].Name == name)
-                {
-                    userID = users[i].User_id;
-                }
-            }
-
+            int userID = dbs.SetUser(name, money, turns);
             return userID;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model">This is the shipItems list number</param>
-        /// <param name="cargo"> Size of the cargo which is user defined</param>
-        /// <param name="user_id"> sets the user's ID</param>
-        /// <param name="shipName"> the png file name for each ship with out the png</param>
-        /// <param name="type">the upgrade level so starts at 1</param>
-        /// <returns></returns>
-        public Boolean AddShiptoSession(int model, int cargo, int user_id, string shipName)
-        {
-            //this will add the ship to the session with all the inforation
-            dbs.NewShipandMedia(model, cargo, user_id, 0, 0, shipName, 1, "null");
-            return true;
-        }
-    /*
+            
         /// <summary>
         /// this will go through the different tiles and then sellect the different planets then each planets resources and update their entry on the database
         /// </summary>
-        public void saveSession(List<Tile>board)
+        public void saveSession(List<Tile>board, SpaceShip ship)
         {
             List<Tile> gameBoard = board;
-
+            // Saveing planet resource information
             for (int i = 0; i < gameBoard.Count; i++)
             {
                 Planet p = gameBoard[i].getPlanet();
@@ -222,6 +204,14 @@ namespace SpaceGame.Components
                 }
 
             }
+            //public void NewShipandMedia(int model, int cargo, int owner, int x_s, int y_s, string fileloc, int type, string reason)
+            List<Resource> shipres = ship.getResource();
+            
+            
+
+            // saveing the spaceship and user information
+
+
             //
             //
             /// Need to add the space ship section here, but need to change the spaceship class to do this.
@@ -230,6 +220,6 @@ namespace SpaceGame.Components
 
 
         }
-     */
+     
     }
 }

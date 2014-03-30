@@ -24,7 +24,7 @@ namespace STDatabase
         void NewPlanetOldMedia(string title, int x_loc, int y_loc, int diameter, int media_id);
         void NewResourceMedia(string resource, int initialprice, string descript, int x_s, int y_s, string fileloc, int type);
         void NewResourceOldMedia(string resource, int initialprice, string descript, int media_id);
-        void NewShipandMedia(int model, int cargo, int owner, int x_s, int y_s, string fileloc, int type, string reason);
+        int NewShipandMedia(int model, int cargo, int owner, int x_s, int y_s, string fileloc, int type, string reason);
         void NewShipWithMedia(int model, int cargo, int owner, int media_id, string reason);
         System.Collections.Generic.List<Resourcedata> PlanetResources(int planetId);
         void PlanetResourceUpdate(int planet_id, int resource_id, int amount, int price);
@@ -33,7 +33,7 @@ namespace STDatabase
         System.Collections.Generic.List<int> SessionShip(int sessionid);
         void SetHighscore(int id, int score);
         void SetHighscore(string name, int score);
-        void SetUser(string name, int money, int turns);
+        int SetUser(string name, int money, int turns);
         void SetUserMoney(int user_id, int money);
         void ShipAdd(int ship_id, int Ammo_level, int Health_level, int Cargo_level, int Fuel_level);
         void ShipCargoUpdate(int ship_id, int resource_id, int amount, int price);
@@ -43,5 +43,6 @@ namespace STDatabase
         System.Collections.Generic.List<Planetdata> SessionWithPlanet(int session);
         void ShipUpdate(int oldship, int newship);
         void AddResourcetoPlanet(int session);
+
     }
 }

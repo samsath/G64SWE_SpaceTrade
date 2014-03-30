@@ -51,13 +51,13 @@ namespace Test
         {
             Assert.IsTrue(myShip.getMoney()>=0);
         }
-
+        /*
         [TestMethod]
         public void AmountOfResourcesCannotExceedShipCargoCapacity()
         {
             Assert.IsTrue(myShip.getShipNumberOfResource()<=myShip.getCargoCapacity());
         }
-        /*
+        
         [TestMethod]
         public void BuyingIsOK()
         {

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SpaceGame.Components
 {
-    class Tile
+    public class Tile
     {
         Texture2D texture;
 

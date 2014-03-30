@@ -122,13 +122,13 @@ namespace STDatabase
         {
             if (dbc != null && dbc.State == ConnectionState.Open)
             {
-                //Console.WriteLine("Database Connected");
+                Console.WriteLine("Database Connected");
                 return true;
             }
             else
             {
                 Connect();
-                //Console.WriteLine("Database Non Connection");
+                Console.WriteLine("Database Non Connection");
                 return false;
             }
         }
@@ -238,34 +238,42 @@ namespace STDatabase
         /// </summary>
         /// <param name="name"></param>
         /// <param name="money"></param>
-        public void SetUser(string name, int money, int turns)
+        public int SetUser(string name, int money, int turns)
         {
-            if (Check())
+            Console.WriteLine("SetUser");
+            int userid = 0;
+            Connect();
+            if(Check())
             {
-                string Query1 = String.Format("INSERT INTO users(Name) VALUES('{0}'); ", name);
-                string Query2 = String.Format("INSERT INTO sessions(Users_id,Money,Turns) VALUES((SELECT Users_id FROM users WHERE Name = '{0}'),{1},{2});", name, money, turns);
-                using (SQLiteCommand command = new SQLiteCommand(dbc))
+
+                string[] Query = new string[2] { String.Format("INSERT INTO users(Name) VALUES('{0}'); ", name), String.Format("INSERT INTO sessions(Users_id,Money,Turns) VALUES((SELECT Users_id FROM users ORDER BY Users_id DESC LIMIT 1),{0},{1});", money, turns) };
+                exeQuery(Query);
+                Console.WriteLine("Added New User");
+
+
+                Console.WriteLine("UQuery");
+                string uQuery = "SELECT Users_id FROM users ORDER BY Users_id DESC LIMIT 1;";
+                using (SQLiteCommand command = new SQLiteCommand(uQuery, dbc))
                 {
                     try
                     {
-                        command.CommandText = Query1;
-                        command.ExecuteNonQuery();
+
+                        using (SQLiteDataReader rdq = command.ExecuteReader())
+                        {
+                            while (rdq.Read())
+                            {
+                                userid = rdq.GetInt32(0);
+                                Console.WriteLine("user ID = " + userid);
+                            }
+                        }
                     }
                     catch (Exception ex) { Console.WriteLine("Error " + ex); }
-
-                    try
-                    {
-                        command.CommandText = Query2;
-                        command.ExecuteNonQuery();
-                    }
-                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
-
-
-                    Console.WriteLine("Users Added");
 
                 }
 
             }
+            
+            return userid;
         }
 
         /// <summary>
@@ -555,8 +563,9 @@ namespace STDatabase
         /// <param name="fileloc"></param>
         /// <param name="type"></param>
         /// <param name="reason"></param>
-        public void NewShipandMedia(int model, int cargo, int owner, int x_s, int y_s, string fileloc, int type, string reason)
+        public int NewShipandMedia(int model, int cargo, int owner, int x_s, int y_s, string fileloc, int type, string reason)
         {
+            int shipid =0 ;
             if (Check())
             {
                 string[] Query = new string[3] { 
@@ -567,7 +576,29 @@ namespace STDatabase
 
                 exeQuery(Query);
 
+                //get the shipId in return
+                
+                string Queryint = "SELECT Ship_id FROM ship ORDER BY Ship_id DESC LIMIT 1;";
+                using (SQLiteCommand command = new SQLiteCommand(Queryint, dbc))
+                {
+                    try
+                    {
+                        using (SQLiteDataReader rdq = command.ExecuteReader())
+                        {
+                            //Console.WriteLine("rdq");
+                            while (rdq.Read())
+                            {
+                                //Console.WriteLine("Read");
+                                shipid = rdq.GetInt32(0);
+                            }
+                        }
+                    }
+                    catch (Exception ex) { Console.WriteLine("Error " + ex); }
+
+                }
+                
             }
+            return shipid;
         }
         /// <summary>
         /// This adds new ships to the database where media info already exsists.

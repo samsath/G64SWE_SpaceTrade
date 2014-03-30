@@ -12,6 +12,8 @@ using XRpgLibrary.Controls;
 using SpaceGame.Components;
 using System.Diagnostics;
 
+using STDatabase;
+
 namespace SpaceGame.GameScreens
 {
     public class CharacterGeneratorScreen : BaseGameState
@@ -49,6 +51,7 @@ namespace SpaceGame.GameScreens
 
         string selectedHero;
 
+        public IDatabase dbs = new Database();
 
         #endregion
 
@@ -238,32 +241,51 @@ namespace SpaceGame.GameScreens
 
         }
 
+        int owner(string hero)
+        {
+            int money = GameRef.spaceShip.getMoney();
+            int turn = GameRef.spaceShip.getNumberOfTurn();
+            int owner = dbs.SetUser(hero, money, turn);
+            Console.WriteLine("money " + money + " turn " + turn + " owner " + owner);
+            return owner;
+        }
+
         void hero1Selected(object sender, EventArgs e)
         {
             selectedHero = hero1.Text;
-            //Add to DB
+            GameRef.spaceShip.setOwer(owner(selectedHero));
+            GameRef.spaceShip.settextureName(shipItems[shipSelector.SelectedIndex]);
+            GameRef.spaceShip.setHero(selectedHero);
             GameRef.spaceShip.setShipTexture(shipImages[shipSelector.SelectedIndex]);
+            
             StateManager.ChangeState(GameRef.GamePlayScreen);
         }
 
         void hero2Selected(object sender, EventArgs e)
         {
             selectedHero = hero2.Text;
-            //Add to DB
+            GameRef.spaceShip.setHero(selectedHero);
+            GameRef.spaceShip.setOwer(owner(selectedHero));
+            GameRef.spaceShip.settextureName(shipItems[shipSelector.SelectedIndex]);
             GameRef.spaceShip.setShipTexture(shipImages[shipSelector.SelectedIndex]);
             StateManager.ChangeState(GameRef.GamePlayScreen);
         }
         void hero3Selected(object sender, EventArgs e)
         {
             selectedHero = hero3.Text;
-            //Add to DB
+            GameRef.spaceShip.setHero(selectedHero);
+            GameRef.spaceShip.setOwer(owner(selectedHero));
+            GameRef.spaceShip.settextureName(shipItems[shipSelector.SelectedIndex]);
             GameRef.spaceShip.setShipTexture(shipImages[shipSelector.SelectedIndex]);
             StateManager.ChangeState(GameRef.GamePlayScreen);
         }
         void hero4Selected(object sender, EventArgs e)
         {
+           
             selectedHero = hero4.Text;
-            //Add to DB
+            GameRef.spaceShip.setHero(selectedHero);
+            GameRef.spaceShip.setOwer(owner(selectedHero));
+            GameRef.spaceShip.settextureName(shipItems[shipSelector.SelectedIndex]);
             GameRef.spaceShip.setShipTexture(shipImages[shipSelector.SelectedIndex]);
             StateManager.ChangeState(GameRef.GamePlayScreen);
         }

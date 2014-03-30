@@ -124,9 +124,10 @@ namespace STDatabase
             stringData = resource;
         }
 
-        public void NewShipandMedia(int model, int cargo, int owner, int x_s, int y_s, string fileloc, int type, string reason)
+        public int NewShipandMedia(int model, int cargo, int owner, int x_s, int y_s, string fileloc, int type, string reason)
         {
             intData = model;
+            return intData;
         }
 
         public void NewShipWithMedia(int model, int cargo, int owner, int media_id, string reason)
@@ -157,9 +158,10 @@ namespace STDatabase
             stringData = name;
         }
 
-        public void SetUser(string name, int money, int turns)
+        public int SetUser(string name, int money, int turns)
         {
             stringData = name;
+            return money;
         }
 
         public void SetUserMoney(int user_id, int money)

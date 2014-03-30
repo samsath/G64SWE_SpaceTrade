@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using SpaceGame.GameScreens;
-
+using STDatabase;
 using XRpgLibrary;
 using XRpgLibrary.Controls;
 
@@ -19,9 +19,14 @@ namespace SpaceGame.Components
 {
     public class SpaceShip : Object
     {
+        public IDatabase dbs = new Database();
         string name;
+        string hero;
         SpriteFont font1;
         Vector2 fontPosition; // red text about the dice
+        string textureName;
+        int owner; // user_id
+        int shipId;
 
         Random random = new Random();
         int diceRolled = 0;
@@ -75,6 +80,7 @@ namespace SpaceGame.Components
             PositionByPixel.X = startingPosition.X;
             PositionByPixel.Y = startingPosition.Y;
             texture = shipTexture;
+           
         }
 
         // Update ship movement
@@ -359,6 +365,47 @@ namespace SpaceGame.Components
         public int getCargoLevel()
         {
             return cargoLevel;
+        }
+
+        public void setHero(string name)
+        {
+            hero = name;
+        }
+
+        public string getHero()
+        {
+            return name;
+        }
+
+        public List<Resource> getResource()
+        {
+            return shipResource;
+        }
+
+        public void settextureName(string name)
+        {
+            textureName = name;
+        }
+
+        public string gettextureName()
+        {
+            return textureName;
+        }
+
+        public void setOwer(int id)
+        {
+            owner = id;
+        }
+
+        public int getOwner()
+        {
+            return owner;
+        }
+
+        public void databaseLoad()
+        {
+            shipId = dbs.NewShipandMedia(1, getCargoCapacity(), getOwner(), 0, 0, gettextureName(), 0, "reason");
+
         }
     }
 }
