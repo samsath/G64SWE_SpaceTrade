@@ -226,33 +226,34 @@ namespace SpaceGame.GameScreens
         #endregion
         //---------------------------------------------------------------------------------
         #region
-        /*     public void getSocre()
+             public void getSocre()
         {
 
             //dbs.Close();
 
-            List<Userdata> resultUser = dbs.getHighScore();
+            List<Userdata> resultUser = dbs.getHightScore(); 
+            
             for (int i = 0; i < 5; i++)
             {
                 int score = resultUser[i].HighScore;
                 if (score == 0)
                 {
-                    string ff = "   " 
+                    
                     string TheScore = "not avialble yet ";
-                    hsId[i] = resultUser[i].User_id;
-                   hsName[i] = resultUser[i].Name;
-                   hsScore[i] = TheScore;
+                    hsId[i] = resultUser[i].User_id.ToString();
+                    hsName[i] = resultUser[i].Name;
+                    hsScore[i] = TheScore;
                    
                 }
                 else
-                { hsId[i] = resultUser[i].User_id;
-                   hsName[i] = resultUser[i].Name;
-                   hsScore[i] = resultUser[i].HighScore; 
+                { hsId[i] = resultUser[i].User_id.ToString();
+                hsName[i] = resultUser[i].Name.ToString();
+                hsScore[i] = resultUser[i].HighScore.ToString(); 
                 }
                 
         
             }
-        }*/
+        }
         #endregion
     }
 
