@@ -42,8 +42,9 @@ namespace SpaceGame.GameScreens
 
         
     
-        string[] h11 = new string[5] {"a","b","c","d","e"};
-       
+        string[] hsId = new string[5] {"1","2","3","4","5"};
+        string[] hsName = new string[5] { "Sam", "Dan", "Xuan", "Vector", "Rafif" };
+        string[] hsScore = new string[5] { "123456789", "1234567", "12345", "1234", "123" };
         
         List<ResourceLabelSet> resourceLabel1 = new List<ResourceLabelSet>();
 
@@ -94,44 +95,85 @@ namespace SpaceGame.GameScreens
             Title.Position = new Vector2(350, 50);
             ControlManager.Add(Title);
 
-             
+
+            Label hi0 = new Label();
+            hi0.Text = hsId[0];
+            hi0.Position = new Vector2(200, 100);
+            ControlManager.Add(hi0);
+
+            Label hi00 = new Label();
+            hi00.Text = hsName[0];
+            hi00.Position = new Vector2(400, 100);
+            ControlManager.Add(hi00);
+
+            Label hi000 = new Label();
+            hi000.Text = hsScore[0];
+            hi000.Position = new Vector2(700, 100);
+            ControlManager.Add(hi000);
 
             Label hi1 = new Label();
-            hi1.Text = h11[0];
-            hi1.Position = new Vector2(100, 100);
+            hi1.Text = hsId[1];
+            hi1.Position = new Vector2(200, 200);
             ControlManager.Add(hi1);
 
+            Label hi11 = new Label();
+            hi11.Text = hsName[1];
+            hi11.Position = new Vector2(400, 200);
+            ControlManager.Add(hi11);
 
-        
+            Label hi111 = new Label();
+            hi111.Text = hsScore[1];
+            hi111.Position = new Vector2(700,200);
+            ControlManager.Add(hi111);
 
 
             Label hi2 = new Label();
-            hi2.Text = h11[1];
-            hi2.Position = new Vector2(100, 200);
+            hi2.Text = hsId[2];
+            hi2.Position = new Vector2(200, 300);
             ControlManager.Add(hi2);
 
+            Label hi22 = new Label();
+            hi22.Text = hsName[2];
+            hi22.Position = new Vector2(400, 300);
+            ControlManager.Add(hi22);
 
+            Label hi222 = new Label();
+            hi222.Text = hsScore[2];
+            hi222.Position = new Vector2(700, 300);
+            ControlManager.Add(hi222);
 
             Label hi3 = new Label();
-            hi3.Text = h11[2];
-            hi3.Position = new Vector2(100, 300);
+            hi3.Text = hsId[3];
+            hi3.Position = new Vector2(200, 400);
             ControlManager.Add(hi3);
-            
 
+            Label hi33 = new Label();
+            hi33.Text = hsName[3];
+            hi33.Position = new Vector2(400, 400);
+            ControlManager.Add(hi33);
 
+            Label hi333 = new Label();
+            hi333.Text = hsScore[3];
+            hi333.Position = new Vector2(700, 400);
+            ControlManager.Add(hi333);
 
             Label hi4 = new Label();
-            hi4.Text = h11[3] ;
-            hi4.Position = new Vector2(100, 400);
+            hi4.Text = hsId[4];
+            hi4.Position = new Vector2(200, 500);
             ControlManager.Add(hi4);
-           
+
+            Label hi44 = new Label();
+            hi44.Text = hsName[4];
+            hi44.Position = new Vector2(400, 500);
+            ControlManager.Add(hi44);
+
+            Label hi444 = new Label();
+            hi444.Text = hsScore[4];
+            hi444.Position = new Vector2(700, 500);
+            ControlManager.Add(hi444);
 
 
 
-            Label hi5 = new Label();
-            hi5.Text = h11[4] ;
-            hi5.Position = new Vector2(100, 500);
-            ControlManager.Add(hi5);
             
 
 
@@ -197,10 +239,16 @@ namespace SpaceGame.GameScreens
                 {
                     string ff = "   " 
                     string TheScore = "not avialble yet ";
-                    h11[i] = resultUser[i].User_id + ff + resultUser[i].Name + ff +TheScore; 
+                    hsId[i] = resultUser[i].User_id;
+                   hsName[i] = resultUser[i].Name;
+                   hsScore[i] = TheScore;
+                   
                 }
                 else
-                {  h11[i] =resultUser[i].User_id + ff+  resultUser[i].Name + ff +resultUser[i].HighScore; }
+                { hsId[i] = resultUser[i].User_id;
+                   hsName[i] = resultUser[i].Name;
+                   hsScore[i] = resultUser[i].HighScore; 
+                }
                 
         
             }
