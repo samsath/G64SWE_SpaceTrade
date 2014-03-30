@@ -122,13 +122,13 @@ namespace STDatabase
         {
             if (dbc != null && dbc.State == ConnectionState.Open)
             {
-                Console.WriteLine("Database Connected");
+                //Console.WriteLine("Database Connected");
                 return true;
             }
             else
             {
                 Connect();
-                Console.WriteLine("Database Non Connection");
+                //Console.WriteLine("Database Non Connection");
                 return false;
             }
         }
@@ -161,6 +161,7 @@ namespace STDatabase
                 {
                     try
                     {
+                        //Console.WriteLine(query[i]);
                         command.CommandText = query[i];
                         command.ExecuteNonQuery();
                     }
@@ -420,12 +421,12 @@ namespace STDatabase
         /// Gets the high score of the everyone in the list
         /// </summary>
         /// <returns></returns>
-        public List<Userdata> getHighScore()
+        public List<Userdata> getHightScore()
         {
             List<Userdata> result = new List<Userdata>();
             if (Check())
             {
-                string UserQuery = "SELECT users.Users_id, users.Name, highscore.Score FROM users, highscore WHERE users.Users_id == highscore.Users_id;";
+                string UserQuery = "SELECT users.Users_id, users.Name, hightscore.Score FROM users, hightscore WHERE users.Users_id == hightscore.Users_id;";
                 using (SQLiteCommand command = new SQLiteCommand(UserQuery, dbc))
                 {
                     try
@@ -526,11 +527,11 @@ namespace STDatabase
         /// </summary>
         /// <param name="name"></param>
         /// <param name="score"></param>
-        public void SetHighscore(string name, int score)
+        public void SetHightscore(string name, int score)
         {
             if (Check())
             {
-                string[] Query = new string[1] { String.Format("INSERT INTO highscore(Users_id,Score) VALUES((SELECT Users_id FROM users WHERE Name = '{0}'),{1});", name, score) };
+                string[] Query = new string[1] { String.Format("INSERT INTO hightscore(Users_id,Score) VALUES((SELECT Users_id FROM users WHERE Name = '{0}'),{1});", name, score) };
 
                 exeQuery(Query);
 
@@ -542,11 +543,11 @@ namespace STDatabase
         /// </summary>
         /// <param name="id"></param>
         /// <param name="score"></param>
-        public void SetHighscore(int id, int score)
+        public void SetHightscore(int id, int score)
         {
             if (Check())
             {
-                string[] Query = new string[1] { String.Format("INSERT INTO highscore(Users_id,Score) VALUES({0},{1});", id, score) };
+                string[] Query = new string[1] { String.Format("INSERT INTO hightscore(Users_id,Score) VALUES({0},{1});", id, score) };
 
                 exeQuery(Query);
 
@@ -565,19 +566,23 @@ namespace STDatabase
         /// <param name="reason"></param>
         public int NewShipandMedia(int model, int cargo, int owner, int x_s, int y_s, string fileloc, int type, string reason)
         {
-            int shipid =0 ;
+            Console.WriteLine("New Ship And Media");
+            Connect();
+            int shipid = 0;
             if (Check())
             {
-                string[] Query = new string[3] { 
+                Console.WriteLine("NewShipandMedia");
+                string[] Query = new string[4] { 
                     String.Format("INSERT INTO ship (Model, Health_Level, Cargo_Level, Owner) VALUES ({0},100,{1},{2}); ", model, cargo, owner),
                     String.Format("INSERT INTO media (X_size, Y_size,file_Loc,Media_type) VALUES ({0},{1},'{2}',{3});", x_s,y_s,fileloc,type),
-                    String.Format("INSERT INTO shipmedia (Ship_id, Media_id, Reason) VALUES ((SELECT Ship_id FROM ship ORDER BY Ship_id DESC LIMIT 1), (SELECT Media_id FROM media ORDER BY Media_id DESC LIMIT 1), '{0}');", reason)
+                    String.Format("INSERT INTO shipmedia (Ship_id, Media_id, Reason) VALUES ((SELECT Ship_id FROM ship ORDER BY Ship_id DESC LIMIT 1), (SELECT Media_id FROM media ORDER BY Media_id DESC LIMIT 1), '{0}');", reason),
+                    String.Format("INSERT INTO sessiontoship(Session_id,Ship_id) VALUES((SELECT Session_id FROM sessions ORDER BY Session_id DESC LIMIT 1),(SELECT Ship_id FROM ship ORDER BY Ship_id DESC LIMIT 1))")
                 };
-
+                
                 exeQuery(Query);
 
                 //get the shipId in return
-                
+               
                 string Queryint = "SELECT Ship_id FROM ship ORDER BY Ship_id DESC LIMIT 1;";
                 using (SQLiteCommand command = new SQLiteCommand(Queryint, dbc))
                 {
@@ -597,8 +602,10 @@ namespace STDatabase
 
                 }
                 
+                
             }
             return shipid;
+            
         }
         /// <summary>
         /// This adds new ships to the database where media info already exsists.
@@ -726,6 +733,7 @@ namespace STDatabase
         /// <param name="bourghtPrice"></param>
         public void AddResourceToShip(int ship_id, int resource_id, int amount, int bourghtPrice)
         {
+            Connect();
             if (Check())
             {
                 string[] query = new string[2] {
@@ -829,7 +837,7 @@ namespace STDatabase
 
                 exeQuery(query);
 
-                Console.WriteLine("Ship Location updated");
+                //Console.WriteLine("Ship Location updated");
             }
         }
 
@@ -848,7 +856,7 @@ namespace STDatabase
 
                 exeQuery(query);
 
-                Console.WriteLine("Ship Location updated");
+                Console.WriteLine("Planet Resource Update");
             }
         }
 

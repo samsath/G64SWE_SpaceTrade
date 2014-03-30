@@ -28,6 +28,9 @@ namespace SpaceGame.Components
         public int planetscreated = 0;
         public Boolean addedPlanettoSession = true;
         public Boolean addedRestoSession = true;
+
+        public List<Tile> board { get; set; }
+        public SpaceShip ship { get; set; }
         /*
          * This is to try and populate the database when a new game starts. It is done here so that it can easily be removed or changed if need by as maybe
          * threaded if it slows down the process.
@@ -188,8 +191,9 @@ namespace SpaceGame.Components
         /// <summary>
         /// this will go through the different tiles and then sellect the different planets then each planets resources and update their entry on the database
         /// </summary>
-        public void saveSession(List<Tile>board, SpaceShip ship)
+        public void saveSession(List<Tile> board, SpaceShip ship)
         {
+            Console.WriteLine("Save Session");
             List<Tile> gameBoard = board;
             // Saveing planet resource information
             for (int i = 0; i < gameBoard.Count; i++)
@@ -204,10 +208,20 @@ namespace SpaceGame.Components
                 }
 
             }
-            //public void NewShipandMedia(int model, int cargo, int owner, int x_s, int y_s, string fileloc, int type, string reason)
+            //Adds all the resources to the ship
             List<Resource> shipres = ship.getResource();
+            for (int i = 0; i < shipres.Count; i++)
+            {
+                dbs.AddResourceToShip(ship.getShipId(), shipres[i].resourceid, shipres[i].amount, shipres[i].InitialPrice);
+
+            }
+
+            // updates all the ship spec
             
-            
+            dbs.ShipAdd(ship.getShipId(), 0, 100, ship.getCargoCapacity(), ship.getNumberOfTurn());
+
+            // adds the user's money to the high score
+            dbs.SetHightscore(ship.getOwner(), ship.getMoney());
 
             // saveing the spaceship and user information
 

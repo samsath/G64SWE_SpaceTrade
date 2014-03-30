@@ -12,7 +12,7 @@ namespace STDatabase
         bool Close();
         bool Connect();
         void exeQuery(string[] query);
-        System.Collections.Generic.List<Userdata> getHighScore();
+        System.Collections.Generic.List<Userdata> getHightScore();
         System.Collections.Generic.List<Mediadata> getMedia(string type, int id);
         System.Collections.Generic.List<Planetdata> getPlanet(int planet_id);
         System.Collections.Generic.List<Resourcedata> getResource(int resources_id);
@@ -31,8 +31,8 @@ namespace STDatabase
         System.Collections.Generic.List<int> SessionPlanet(int sessionid);
         System.Collections.Generic.List<int> SessionResource(int sessionid);
         System.Collections.Generic.List<int> SessionShip(int sessionid);
-        void SetHighscore(int id, int score);
-        void SetHighscore(string name, int score);
+        void SetHightscore(int id, int score);
+        void SetHightscore(string name, int score);
         int SetUser(string name, int money, int turns);
         void SetUserMoney(int user_id, int money);
         void ShipAdd(int ship_id, int Ammo_level, int Health_level, int Cargo_level, int Fuel_level);

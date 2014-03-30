@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using STDatabase;
+using SpaceGame.GameScreens;
 
 namespace SpaceGame.Components
 {
@@ -199,6 +200,13 @@ namespace SpaceGame.Components
         public List<Resource> getResourceList()
         {
             return tiles.ElementAt(boardLocationToListLocation(ship.getShipLocation())).getPlanet().getResourceList();
+        }
+        public void SaveBoard()
+        {
+            Console.WriteLine("Save Board activated");
+            DatabasePopulate dbp = new DatabasePopulate();
+            
+            dbp.saveSession(tiles, ship);
         }
     }
 }

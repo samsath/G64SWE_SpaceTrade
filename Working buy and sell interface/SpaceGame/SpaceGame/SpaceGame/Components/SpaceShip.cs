@@ -27,6 +27,7 @@ namespace SpaceGame.Components
         string textureName;
         int owner; // user_id
         int shipId;
+        bool newGame;
 
         Random random = new Random();
         int diceRolled = 0;
@@ -74,12 +75,19 @@ namespace SpaceGame.Components
         // Load the content
         public void LoadContent(ContentManager content)
         {
+            Console.WriteLine("Space Ship LoadContent");
             font1 = content.Load<SpriteFont>(@"Fonts\CourierNew");
             PositionByTile = new Vector2(0, 0);
             startingPosition = new Vector2(50 + Tile.TileWidth / 4, 50 + Tile.TileHeight / 4);
             PositionByPixel.X = startingPosition.X;
             PositionByPixel.Y = startingPosition.Y;
             texture = shipTexture;
+            if (newGame == true)
+            {
+                Console.WriteLine("Load to the ship");
+                shipId = dbs.NewShipandMedia(1, getCargoCapacity(), getOwner(), 0, 0, gettextureName(), 0, "reason");
+                Console.WriteLine("shipID = " + shipId);
+            }
            
         }
 
@@ -402,10 +410,16 @@ namespace SpaceGame.Components
             return owner;
         }
 
-        public void databaseLoad()
-        {
-            shipId = dbs.NewShipandMedia(1, getCargoCapacity(), getOwner(), 0, 0, gettextureName(), 0, "reason");
 
+        public void setNewGame()
+        {
+            Console.WriteLine("SpaceShip New Game set");
+            newGame = true;
+        }
+
+        public int getShipId()
+        {
+            return shipId;
         }
     }
 }

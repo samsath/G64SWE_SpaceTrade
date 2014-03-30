@@ -253,6 +253,7 @@ namespace SpaceGame.GameScreens
         void hero1Selected(object sender, EventArgs e)
         {
             selectedHero = hero1.Text;
+            GameRef.spaceShip.setNewGame();
             GameRef.spaceShip.setOwer(owner(selectedHero));
             GameRef.spaceShip.settextureName(shipItems[shipSelector.SelectedIndex]);
             GameRef.spaceShip.setHero(selectedHero);
@@ -264,6 +265,7 @@ namespace SpaceGame.GameScreens
         void hero2Selected(object sender, EventArgs e)
         {
             selectedHero = hero2.Text;
+            GameRef.spaceShip.setNewGame();
             GameRef.spaceShip.setHero(selectedHero);
             GameRef.spaceShip.setOwer(owner(selectedHero));
             GameRef.spaceShip.settextureName(shipItems[shipSelector.SelectedIndex]);
@@ -274,6 +276,7 @@ namespace SpaceGame.GameScreens
         {
             selectedHero = hero3.Text;
             GameRef.spaceShip.setHero(selectedHero);
+            GameRef.spaceShip.setNewGame();
             GameRef.spaceShip.setOwer(owner(selectedHero));
             GameRef.spaceShip.settextureName(shipItems[shipSelector.SelectedIndex]);
             GameRef.spaceShip.setShipTexture(shipImages[shipSelector.SelectedIndex]);
@@ -283,6 +286,7 @@ namespace SpaceGame.GameScreens
         {
            
             selectedHero = hero4.Text;
+            GameRef.spaceShip.setNewGame();
             GameRef.spaceShip.setHero(selectedHero);
             GameRef.spaceShip.setOwer(owner(selectedHero));
             GameRef.spaceShip.settextureName(shipItems[shipSelector.SelectedIndex]);

@@ -12,6 +12,8 @@ using XRpgLibrary;
 using XRpgLibrary.Controls;
 using System.Diagnostics;
 
+using SpaceGame.Components;
+
 namespace SpaceGame.GameScreens
 {
     public class PauseScreen : BaseGameState
@@ -25,6 +27,9 @@ namespace SpaceGame.GameScreens
         LinkLabel exitGame;
         LinkLabel resumeGame;
         LinkLabel saveGame;
+
+        // for saving
+        
 
 
         float maxItemWidth = 0f;
@@ -138,6 +143,7 @@ namespace SpaceGame.GameScreens
         {
             if (sender == startGame)
             {
+                
                 StateManager.PushState(GameRef.AdminScreen);
             }
 
@@ -158,6 +164,7 @@ namespace SpaceGame.GameScreens
             }
             if (sender == saveGame)
             {
+                GameRef.board.SaveBoard();
                 StateManager.PushState(GameRef.GamePlayScreen);
             }
         }

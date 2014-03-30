@@ -40,7 +40,7 @@ namespace STDatabase
             stringData = query[1];
         }
 
-        public List<Userdata> getHighScore()
+        public List<Userdata> getHightScore()
         {
             List<Userdata> result = new List<Userdata>();
             Userdata record = new Userdata(0, 1, "2", 3, 4,0);
@@ -148,12 +148,12 @@ namespace STDatabase
             intData = planet_id;
         }
 
-        public void SetHighscore(int id, int score)
+        public void SetHightscore(int id, int score)
         {
             intData = id + score;
         }
 
-        public void SetHighscore(string name, int score)
+        public void SetHightscore(string name, int score)
         {
             stringData = name;
         }
