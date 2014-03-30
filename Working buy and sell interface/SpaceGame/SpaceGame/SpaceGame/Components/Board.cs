@@ -175,6 +175,10 @@ namespace SpaceGame.Components
                 spriteBatch.DrawString(font1, myResource, fontPosition, Color.Red, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
                 l = l + 25;
             }
+            string Position = CorrentScorePosition(ship.getMoney());
+            fontPosition = new Vector2(200, 740);
+            spriteBatch.DrawString(font1, Position, fontPosition, Color.Yellow, 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+
             /*
             foreach (List<Resource> m in resource)
             {
@@ -207,6 +211,34 @@ namespace SpaceGame.Components
             DatabasePopulate dbp = new DatabasePopulate();
             
             dbp.saveSession(tiles, ship);
+        }
+
+        public string CorrentScorePosition(int correntMoney)
+        {
+            int pos;
+            int top;
+            string command;
+            List<Userdata> scores = dbs.getHightScore();
+            if (scores.Count >= 1)
+            {
+                top = scores[1].HighScore;
+                pos = top - correntMoney;
+                if (pos >= 0)
+                {
+                    command = String.Format("You are {0} ahead of all the other Captians!", pos);
+                }
+                else
+                {
+                    command = String.Format("You need {0} to be the top Captian!", pos);
+                }
+            }
+            else
+            {
+                command = "My Captian! You have no competition you are ahead of all others!";
+            }
+
+
+            return command;
         }
     }
 }
