@@ -421,5 +421,11 @@ namespace SpaceGame.Components
         {
             return shipId;
         }
+
+        public void addResource(int rId, string name, int price, string des, int amount )
+        {
+            Resource stuff = new Resource(rId, name, price,des,amount);
+            shipResource.Add(stuff);
+        }
     }
 }
