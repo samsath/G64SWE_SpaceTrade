@@ -29,6 +29,7 @@ namespace STDatabase
             Session_id = session;
             Name = name;
             Money = money;
+            HighScore = highscore;
             Turns = turns;
         }
 
