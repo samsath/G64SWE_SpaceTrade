@@ -732,8 +732,8 @@ namespace STDatabase
             if (Check())
             {
                 string[] query = new string[2] {
-                    String.Format("INSERT INTO shipresource (Ship_id, Resource_id, amount, Bought_Price) VALUES ({0},{1},{2},{3})", ship_id, resource_id, amount, bourghtPrice),
-                    String.Format("UPDATE ship SET Ship.Cargo_Level = Ship.Cargo_Level - {0} WHERE Ship_id = {1}", amount, ship_id)
+                    String.Format("INSERT INTO shipresource (Ship_id, Resources_id, amount, Bought_Price) VALUES ({0},{1},{2},{3})", ship_id, resource_id, amount, bourghtPrice),
+                    String.Format("UPDATE ship SET Cargo_Level = Cargo_Level - {0} WHERE Ship_id = {1}", amount, ship_id)
                 };
 
                 exeQuery(query);

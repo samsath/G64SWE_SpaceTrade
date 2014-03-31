@@ -69,6 +69,7 @@ namespace SpaceGame.GameScreens
         // ship and planet change list
         List<Resource> planetRes = new List<Resource>();
         List<Resource> shipRes = new List<Resource>();
+        List<Resource> resources = new List<Resource>();
 
         #endregion
 
@@ -105,6 +106,8 @@ namespace SpaceGame.GameScreens
             cargoAmount = GameRef.spaceShip.getCargoCapacity();
             turnAmount = GameRef.spaceShip.getNumberOfTurn();
             CreateControls(content);
+            
+            resources = GameRef.spaceShip.getResource();
         }
 
         public void CreateControls(ContentManager Content)
@@ -234,25 +237,34 @@ namespace SpaceGame.GameScreens
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
 
 
-            resource = new List<Resource>();
-            resource = GameRef.board.getResourceList();
-
-            for (int i = 0; i < resource.Count; i++)
+            if (resources.Count > 0)
+            {
+                for (int i = 0; i < resources.Count; i++)
+                {
+                    PlanetResourceText = new Label();
+                    string DisplayedText = resources[i].name + " " + resource[i].amount + " $" + resource[i].getPrice() + " each!";
+                    PlanetResourceText.Text = DisplayedText;
+                    Debug.WriteLine(DisplayedText);
+                    PlanetResourceText.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50 + 50 * i);
+                    ControlManager.Add(PlanetResourceText);
+                }
+            }
+            else
             {
                 PlanetResourceText = new Label();
-                string DisplayedText = resource[i].name + " " + resource[i].amount + " $" + resource[i].getPrice() + " each!";
+                string DisplayedText = "Ship Cargo bay is empty!";
                 PlanetResourceText.Text = DisplayedText;
                 Debug.WriteLine(DisplayedText);
-                PlanetResourceText.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50 + 50 * i);
+                PlanetResourceText.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50 + 50 );
                 ControlManager.Add(PlanetResourceText);
             }
 
             //           
-
+            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 150f;
             //Accept Label
             acceptLabel = new LinkLabel();
             acceptLabel.Text = "Accept Changes";
-            acceptLabel.Position = nextControlPosition;
+            acceptLabel.Position = new Vector2(nextControlPosition.X, nextControlPosition.Y + 180);
             acceptLabel.TabStop = true;
             acceptLabel.Selected += new EventHandler(acceptLabel_Selected);
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
@@ -263,7 +275,7 @@ namespace SpaceGame.GameScreens
             //Back Button
             LinkLabel backLabel = new LinkLabel();
             backLabel.Text = "Go Back";
-            backLabel.Position = nextControlPosition;
+            backLabel.Position = new Vector2(nextControlPosition.X, nextControlPosition.Y + 190); ;
             backLabel.Selected += new EventHandler(goBack);
 
             ControlManager.Add(backLabel);
@@ -307,24 +319,10 @@ namespace SpaceGame.GameScreens
                 totalMoney = totalMoney + resource.Item1.getPrice();
                 finalPrice.Text = totalMoney.ToString() + "$";
                 //if the shipRes lsit has this resource then the amount is increased
-                int count =0;
-                if (shipRes.Count > 0)
-                {
-                    for (int i = 0; i > shipRes.Count; i++)
-                    {
-                        if (shipRes[i].resourceid == resource.Item1.resourceid)
-                        {
-                            shipRes[i].amount = shipRes[i].amount + 1;
-                            planetRes[i].amount = planetRes[i].amount - 1;
-                        }
-                            count++;
-                    }
-                }
-                if (shipRes.Count != count)
-                {
-                    shipRes.Add(new Resource(resource.Item1.resourceid, resource.Item1.name, resource.Item1.price, resource.Item1.description, 1));
-                    planetRes.Add(new Resource(resource.Item1.resourceid, resource.Item1.name, resource.Item1.price, resource.Item1.description, -1));
-                }
+               
+                shipRes.Add(new Resource(resource.Item1.resourceid, resource.Item1.name, resource.Item1.price, resource.Item1.description, 1));
+                planetRes.Add(new Resource(resource.Item1.resourceid, resource.Item1.name, resource.Item1.price, resource.Item1.description, -1));
+                
 
             }
         }
@@ -352,24 +350,9 @@ namespace SpaceGame.GameScreens
                 moneyRemaining = moneyRemaining - resource.Item1.getPrice();
                 finalPrice.Text = moneyRemaining.ToString() + "$";
 
-                int count =0;
-                if (shipRes.Count > 0)
-                {
-                    for (int i = 0; i > shipRes.Count; i++)
-                    {
-                        if (shipRes[i].resourceid == resource.Item1.resourceid)
-                        {
-                            shipRes[i].amount = shipRes[i].amount - 1;
-                            planetRes[i].amount = planetRes[i].amount + 1;
-                        }
-                            count++;
-                    }
-                }
-                if (shipRes.Count != count)
-                {
-                    shipRes.Add(new Resource(resource.Item1.resourceid, resource.Item1.name, resource.Item1.price, resource.Item1.description, -1));
-                    planetRes.Add(new Resource(resource.Item1.resourceid, resource.Item1.name, resource.Item1.price, resource.Item1.description, 1));
-                }
+                shipRes.Add(new Resource(resource.Item1.resourceid, resource.Item1.name, resource.Item1.price, resource.Item1.description, -1));
+                planetRes.Add(new Resource(resource.Item1.resourceid, resource.Item1.name, resource.Item1.price, resource.Item1.description, 1));
+                
 
             }
 
