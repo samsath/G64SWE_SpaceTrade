@@ -24,8 +24,8 @@ namespace SpaceGame.Components
         public Boolean addResource = true;
         public Boolean Resources;
         public int sessionNumber = 0;
-        public int resourceCount = 0;
-        public int planetscreated = 0;
+        public int resourceCount = 1;
+        public int planetscreated = 1;
         public Boolean addedPlanettoSession = true;
         public Boolean addedRestoSession = true;
 

@@ -16,13 +16,13 @@ namespace SpaceGame.Components
 {
     public class Planet : Object
     {
-        public string name;
+        public string name ;
         public List<Resource> resource;
         public List<Resourcedata> resourcedb;
         Random rand;
         public string p;
         public IDatabase dbs = new Database();
-        public int resourcedbCount;
+        public int resourcedbCount = 2;
 
         // int of the planet number in the database
         public int planetid { get; set; }
@@ -37,8 +37,14 @@ namespace SpaceGame.Components
             
         }
 
+        public Planet()
+        {
+            // TODO: Complete member initialization
+        }
+
         public string getName()
         {
+            name = "Mars";
             return name;
         }
 
