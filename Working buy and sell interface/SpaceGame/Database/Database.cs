@@ -420,7 +420,7 @@ namespace STDatabase
             List<Userdata> result = new List<Userdata>();
             if (Check())
             {
-                string UserQuery = "SELECT users.Users_id, users.Name, hightscore.Score FROM users, hightscore WHERE users.Users_id == hightscore.Users_id ORDER BY hightscore.Score DESC LIMIT 5;";
+                string UserQuery = "SELECT users.Users_id, users.Name, hightscore.Score FROM users, hightscore WHERE users.Users_id == hightscore.Users_id ORDER BY hightscore.Score DESC LIMIT 5";
                 using (SQLiteCommand command = new SQLiteCommand(UserQuery, dbc))
                 {
                     try

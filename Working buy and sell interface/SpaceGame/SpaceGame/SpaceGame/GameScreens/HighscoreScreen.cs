@@ -78,12 +78,12 @@ namespace SpaceGame.GameScreens
             ContentManager content = GameRef.Content;
 
             CreateControls(content);
-            getSocre();
+            
         }
 
         public void CreateControls(ContentManager Content)
         {
-
+            getSocre();
             backgroundImage = new PictureBox(
             Game.Content.Load<Texture2D>(@"Backgrounds\DeepSpace"),
             GameRef.ScreenRectangle);
@@ -175,13 +175,6 @@ namespace SpaceGame.GameScreens
 
 
 
-            
-
-
-
-
-
-
             //Back Button
             LinkLabel backLabel = new LinkLabel();
             backLabel.Text = "Go Back";
@@ -240,27 +233,18 @@ namespace SpaceGame.GameScreens
             //dbs.Close();
 
             List<Userdata> resultUser = dbs.getHightScore();
-
-            for (int i = 0; i < resultUser.Count; i++)
+            Console.WriteLine(resultUser.Count);
+            if (resultUser.Count > 0)
             {
-                int score = resultUser[i].HighScore;
-                if (score == 0)
+                for (int i = 0; i < resultUser.Count; i++)
                 {
-                    
-                   /* string TheScore = "not avialble yet ";
-                    hsId[i] = resultUser[i].User_id.ToString();
+                    Console.WriteLine(resultUser[i].Session_id);
+                    hsId[i] = Convert.ToString(resultUser[i].Session_id);
                     hsName[i] = resultUser[i].Name;
-                    hsScore[i] = TheScore;*/
-                   
+                    hsScore[i] = Convert.ToString(resultUser[i].HighScore);
                 }
-                else
-                { hsId[i] = resultUser[i].User_id.ToString();
-                hsName[i] = resultUser[i].Name.ToString();
-                hsScore[i] = resultUser[i].HighScore.ToString(); 
-                }
-                
-        
             }
+            
         }
         #endregion
     }
