@@ -416,6 +416,7 @@ namespace STDatabase
         /// <returns></returns>
         public List<Userdata> getHightScore()
         {
+            Connect();
             List<Userdata> result = new List<Userdata>();
             if (Check())
             {
