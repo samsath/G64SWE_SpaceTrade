@@ -36,7 +36,7 @@ namespace SpaceGame.GameScreens
 
         int totalResources = 10;
         int unassignedResources = 10;
-        int moneyAmount = 100000;
+        int moneyAmount = 500000;
         int turnAmount = 3;
         int ammoAmount = 0;
         int healthAmount = 0;

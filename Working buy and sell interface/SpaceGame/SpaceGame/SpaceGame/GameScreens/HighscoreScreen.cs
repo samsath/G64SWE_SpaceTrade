@@ -242,6 +242,7 @@ namespace SpaceGame.GameScreens
                     hsId[i] = Convert.ToString(resultUser[i].Session_id);
                     hsName[i] = resultUser[i].Name;
                     hsScore[i] = Convert.ToString(resultUser[i].HighScore);
+
                 }
             }
             

@@ -33,6 +33,7 @@ namespace Test
             time = new GameTime();
             myShip = new SpaceShip();
             br = new Board();
+            pl = new Planet();
             
         }
         /*
@@ -190,7 +191,8 @@ namespace Test
         [TestMethod]
         public void CheckifSwitchofResourceReturnssomething() 
         {
-            Assert.IsNotNull(br.textureReturn("space"));
+
+            Assert.AreNotEqual(br.textureReturn("space"),"space");
         }
 
         [TestMethod]
@@ -201,13 +203,14 @@ namespace Test
         [TestMethod]
         public void PlanethasName()
         {
+
             Assert.IsNotNull(pl.getName());
         }
         
         [TestMethod]
         public void PlanethasResources()
         {
-            Assert.IsNotNull(pl.getResourceList());
+            Assert.AreNotEqual(pl.getResourceList(),0);
         }
         [TestMethod]
         public void SessionAndUserAddedtoDB()

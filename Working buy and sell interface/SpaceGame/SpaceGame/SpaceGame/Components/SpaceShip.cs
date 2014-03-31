@@ -66,6 +66,7 @@ namespace SpaceGame.Components
         
         int cargoCapacity;
         int cargoLevel = 1;
+        int shipLevel = 1;
 
         public SpaceShip()
         {
@@ -374,6 +375,11 @@ namespace SpaceGame.Components
         public int getCargoLevel()
         {
             return cargoLevel;
+        }
+
+        public int getShipLevel()
+        {
+            return shipLevel;
         }
 
         public void setHero(string name)
