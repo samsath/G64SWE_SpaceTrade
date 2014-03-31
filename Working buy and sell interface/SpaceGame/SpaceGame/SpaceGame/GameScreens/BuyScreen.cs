@@ -69,6 +69,7 @@ namespace SpaceGame.GameScreens
         // ship and planet change list
         List<Resource> planetRes = new List<Resource>();
         List<Resource> shipRes = new List<Resource>();
+        List<Resource> resources = new List<Resource>();
 
         #endregion
 
@@ -105,6 +106,8 @@ namespace SpaceGame.GameScreens
             cargoAmount = GameRef.spaceShip.getCargoCapacity();
             turnAmount = GameRef.spaceShip.getNumberOfTurn();
             CreateControls(content);
+            
+            resources = GameRef.spaceShip.getResource();
         }
 
         public void CreateControls(ContentManager Content)
@@ -234,16 +237,25 @@ namespace SpaceGame.GameScreens
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
 
 
-            resource = new List<Resource>();
-            resource = GameRef.board.getResourceList();
-
-            for (int i = 0; i < resource.Count; i++)
+            if (resources.Count > 0)
+            {
+                for (int i = 0; i < resources.Count; i++)
+                {
+                    PlanetResourceText = new Label();
+                    string DisplayedText = resources[i].name + " " + resource[i].amount + " $" + resource[i].getPrice() + " each!";
+                    PlanetResourceText.Text = DisplayedText;
+                    Debug.WriteLine(DisplayedText);
+                    PlanetResourceText.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50 + 50 * i);
+                    ControlManager.Add(PlanetResourceText);
+                }
+            }
+            else
             {
                 PlanetResourceText = new Label();
-                string DisplayedText = resource[i].name + " " + resource[i].amount + " $" + resource[i].getPrice() + " each!";
+                string DisplayedText = "Ship Cargo bay is empty!";
                 PlanetResourceText.Text = DisplayedText;
                 Debug.WriteLine(DisplayedText);
-                PlanetResourceText.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50 + 50 * i);
+                PlanetResourceText.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50 + 50 );
                 ControlManager.Add(PlanetResourceText);
             }
 
