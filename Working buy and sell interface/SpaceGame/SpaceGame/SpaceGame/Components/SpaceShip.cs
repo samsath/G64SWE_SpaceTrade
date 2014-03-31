@@ -428,5 +428,47 @@ namespace SpaceGame.Components
             Resource stuff = new Resource(rId, name, price,des,amount);
             shipResource.Add(stuff);
         }
+
+        public void buySell(List<Resource> changedRes)
+        {
+            Console.WriteLine("SpaceShip buy Sell");
+            for (int i = 0; i < changedRes.Count; i++)
+            {
+                Console.WriteLine("Spaceship change = " + changedRes[i].resourceid + changedRes[i].name + changedRes[i].amount + changedRes[i].price);
+            }
+            int newResCount = changedRes.Count;
+            // this gets the changes from the buy or sell screen then updates the location resource list compaired to the outer one.
+            List<int> nonMatch = new List<int>();
+            for (int pr = 0; pr > shipResource.Count; pr++)
+            {
+                // first goes through local list and the transaction list and if there are the same (by resource NUmber) the local will have the same information as the transaction
+                for (int nR = 0; nR > newResCount; nR++)
+                {
+                    if (shipResource[pr].resourceid == changedRes[nR].resourceid)
+                    {
+                        Console.WriteLine("Ship Resource list = " + shipResource[pr].resourceid + " " + "Changes = " + changedRes[nR].resourceid);
+                        // adds the changedRes number to the nonMatch list if the resource is in the local resources
+                        nonMatch.Add(nR);
+                        shipResource[pr].amount = changedRes[nR].amount;
+                        shipResource[pr].price = changedRes[nR].price;
+                    }
+                }
+            }
+
+            // compares the nonMatch and the newResCount as if there are different there will need new items to add.
+            if (newResCount != nonMatch.Count)
+            {
+                // then goes throught the nonMatch list and see's of the res number is in it. If it is not then the resource is added to the local list.
+                for (int res = 0; res > newResCount; res++)
+                {
+                    if (!nonMatch.Contains(res))
+                    {
+                        Console.WriteLine("add new resource to shipRes = " + changedRes[res].resourceid + changedRes[res].name + changedRes[res].price + changedRes[res].description + changedRes[res].amount);
+                        shipResource.Add(new Resource(changedRes[res].resourceid, changedRes[res].name, changedRes[res].price, changedRes[res].description, changedRes[res].amount));
+                    }
+                }
+            }
+
+        }
     }
 }

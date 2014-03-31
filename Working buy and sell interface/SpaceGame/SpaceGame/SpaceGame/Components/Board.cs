@@ -203,6 +203,10 @@ namespace SpaceGame.Components
         {
             return tiles.ElementAt(boardLocationToListLocation(ship.getShipLocation())).getPlanet().getResourceList();
         }
+        public Planet getPlanet()
+        {
+            return tiles.ElementAt(boardLocationToListLocation(ship.getShipLocation())).getPlanet();
+        }
         public void SaveBoard()
         {
             Console.WriteLine("Save Board activated");

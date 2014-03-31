@@ -66,6 +66,10 @@ namespace SpaceGame.GameScreens
         Stack<string> undoResources = new Stack<string>();
         EventHandler linkLabelHandler;
 
+        // ship and planet change list
+        List<Resource> planetRes = new List<Resource>();
+        List<Resource> shipRes = new List<Resource>();
+
         #endregion
 
 
@@ -272,6 +276,10 @@ namespace SpaceGame.GameScreens
             GameRef.spaceShip.setMoney(totalMoney);
             //GameRef.spaceShip.addResource();
             acceptLabel.Text = "Changes Accepted";
+            GameRef.spaceShip.buySell(shipRes);
+            // something to get planet info
+            Planet a = GameRef.board.getPlanet();
+            a.buySell(planetRes);
         }
 
         void addSelectedResource(object sender, EventArgs e)
@@ -298,6 +306,25 @@ namespace SpaceGame.GameScreens
 
                 totalMoney = totalMoney + resource.Item1.getPrice();
                 finalPrice.Text = totalMoney.ToString() + "$";
+                //if the shipRes lsit has this resource then the amount is increased
+                int count =0;
+                if (shipRes.Count > 0)
+                {
+                    for (int i = 0; i > shipRes.Count; i++)
+                    {
+                        if (shipRes[i].resourceid == resource.Item1.resourceid)
+                        {
+                            shipRes[i].amount = shipRes[i].amount + 1;
+                            planetRes[i].amount = planetRes[i].amount - 1;
+                        }
+                            count++;
+                    }
+                }
+                if (shipRes.Count != count)
+                {
+                    shipRes.Add(new Resource(resource.Item1.resourceid, resource.Item1.name, resource.Item1.price, resource.Item1.description, 1));
+                    planetRes.Add(new Resource(resource.Item1.resourceid, resource.Item1.name, resource.Item1.price, resource.Item1.description, -1));
+                }
 
             }
         }
@@ -324,6 +351,25 @@ namespace SpaceGame.GameScreens
 
                 moneyRemaining = moneyRemaining - resource.Item1.getPrice();
                 finalPrice.Text = moneyRemaining.ToString() + "$";
+
+                int count =0;
+                if (shipRes.Count > 0)
+                {
+                    for (int i = 0; i > shipRes.Count; i++)
+                    {
+                        if (shipRes[i].resourceid == resource.Item1.resourceid)
+                        {
+                            shipRes[i].amount = shipRes[i].amount - 1;
+                            planetRes[i].amount = planetRes[i].amount + 1;
+                        }
+                            count++;
+                    }
+                }
+                if (shipRes.Count != count)
+                {
+                    shipRes.Add(new Resource(resource.Item1.resourceid, resource.Item1.name, resource.Item1.price, resource.Item1.description, -1));
+                    planetRes.Add(new Resource(resource.Item1.resourceid, resource.Item1.name, resource.Item1.price, resource.Item1.description, 1));
+                }
 
             }
 
