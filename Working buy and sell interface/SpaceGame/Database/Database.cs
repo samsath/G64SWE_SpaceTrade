@@ -200,6 +200,7 @@ namespace STDatabase
         /// <returns>User_id, Session_id, Name</returns>
         public List<Userdata> getSessionNum()
         {
+            Connect();
             List<Userdata> result = new List<Userdata>();
             if (Check())
             {

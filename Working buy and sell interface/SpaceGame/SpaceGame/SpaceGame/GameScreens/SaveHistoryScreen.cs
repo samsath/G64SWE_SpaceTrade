@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.IO;
-
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Content;
-
+using Microsoft.Xna.Framework.Media;
 using XRpgLibrary;
 using XRpgLibrary.Controls;
 using System.Diagnostics;
@@ -21,14 +22,20 @@ namespace SpaceGame.GameScreens
 
     public class SaveHistoryScreen : BaseGameState
     {
-       #region Field region
+        #region Field region
 
         PictureBox backgroundImage;
         PictureBox arrowImage;
-        LinkLabel[] Sessions;
-        LinkLabel Continue;
-        LinkLabel Non;
+        LinkLabel Session1;
+        LinkLabel Session2;
+        LinkLabel Session3;
+        LinkLabel Session4;
+        LinkLabel Session5;
+        public int[] sessionNumber = new int[5] { 0, 0, 0, 0, 0 };
+
+        // for saving
         IDatabase dbs = new Database();
+
 
         float maxItemWidth = 0f;
 
@@ -66,44 +73,66 @@ namespace SpaceGame.GameScreens
 
             Texture2D arrowTexture = Content.Load<Texture2D>(@"GUI\leftarrowUp");
 
-            arrowImage = new PictureBox(
-                arrowTexture,
-                new Rectangle(
-                    0,
-                    0,
-                    arrowTexture.Width,
-                    arrowTexture.Height));
-            ControlManager.Add(arrowImage);
+            string[] SessionString = new string[5]{"","","","",""};
+            
 
             List<Userdata> ses = dbs.getSessionNum();
-            if (ses.Count > 0)
+            int sesNumber = ses.Count;
+            Console.WriteLine(sesNumber);
+            for (int i = 0; i < sesNumber; i++)
             {
-
-                for (int i = 0; i < ses.Count; i++)
+                Console.WriteLine(ses[i].Session_id + "," + ses[i].Name + "," + ses[i].HighScore);
+                SessionString[i] = ses[i].Session_id + "," + ses[i].Name + "," + ses[i].HighScore;
+                sessionNumber[i] = ses[i].Session_id;
+                if (i > 5)
                 {
-                    Sessions[i] = new LinkLabel();
-                    Sessions[i].Text = ses[i].Session_id + "  " + ses[i].Name + "  " + ses[i].HighScore;
-                    Sessions[i].Size = Sessions[i].SpriteFont.MeasureString(Sessions[i].Text);
-                    Sessions[i].Selected += new EventHandler(menuItem_Selected);
-
-                    ControlManager.Add(Sessions[i]);
+                    break;
                 }
             }
-            else
-            {
-                Non = new LinkLabel();
-                Non.Text = " There is currently no ";
-                Non.Size = Non.SpriteFont.MeasureString(Non.Text);
-                Non.Selected += new EventHandler(menuItem_Selected);
-            }
 
+                arrowImage = new PictureBox(
+                    arrowTexture,
+                    new Rectangle(
+                        0,
+                        0,
+                        arrowTexture.Width,
+                        arrowTexture.Height));
+            ControlManager.Add(arrowImage);
 
-            Continue = new LinkLabel();
-            Continue.Text = "Continue on";
-            Continue.Size = Continue.SpriteFont.MeasureString(Continue.Text);
-            Continue.Selected += new EventHandler(menuItem_Selected);
+            Session1 = new LinkLabel();
+            Session1.Text = SessionString[0];
+            Session1.Size = Session1.SpriteFont.MeasureString(Session1.Text);
+            Session1.Selected += new EventHandler(menuItem_Selected);
 
-            ControlManager.Add(Continue);
+            ControlManager.Add(Session1);
+
+            Session2 = new LinkLabel();
+            Session2.Text = SessionString[1];
+            Session2.Size = Session2.SpriteFont.MeasureString(Session2.Text);
+            Session2.Selected += menuItem_Selected;
+
+            ControlManager.Add(Session2);
+
+            Session3 = new LinkLabel();
+            Session3.Text = SessionString[2];
+            Session3.Size = Session3.SpriteFont.MeasureString(Session3.Text);
+            Session3.Selected += menuItem_Selected;
+
+            ControlManager.Add(Session3);
+
+            Session4 = new LinkLabel();
+            Session4.Text = SessionString[3];
+            Session4.Size = Session4.SpriteFont.MeasureString(Session4.Text);
+            Session4.Selected += new EventHandler(menuItem_Selected);
+
+            ControlManager.Add(Session4);
+
+            Session5 = new LinkLabel();
+            Session5.Text = SessionString[4];
+            Session5.Size = Session5.SpriteFont.MeasureString (Session5.Text);
+            Session5.Selected += new EventHandler(menuItem_Selected);
+
+            ControlManager.Add(Session5);
 
             ControlManager.NextControl();
 
@@ -122,7 +151,7 @@ namespace SpaceGame.GameScreens
                 }
             }
 
-            ControlManager_FocusChanged(Sessions, null);
+            ControlManager_FocusChanged(Session1, null);
         }
 
         void ControlManager_FocusChanged(object sender, EventArgs e)
@@ -134,16 +163,39 @@ namespace SpaceGame.GameScreens
 
         private void menuItem_Selected(object sender, EventArgs e)
         {
-            if (sender == Sessions)
+            if (sender == Session1)
             {
-                
+                GameRef.board.setSession(sessionNumber[0]);
+                Console.WriteLine("Session = " + sessionNumber[0]);
+                StateManager.ChangeState(GameRef.GamePlayScreen);
                 
             }
 
-            if (sender == Continue)
+            if (sender == Session2)
             {
-                // change this to start the session
-                
+                Console.WriteLine("Session = " + sessionNumber[1]);
+                GameRef.board.setSession(sessionNumber[1]);
+                StateManager.ChangeState(GameRef.GamePlayScreen);
+            }
+
+            if (sender == Session3)
+            {
+                Console.WriteLine("Session = " + sessionNumber[2]);
+                GameRef.board.setSession(sessionNumber[2]);
+                StateManager.ChangeState(GameRef.GamePlayScreen);
+            }
+
+            if (sender == Session4)
+            {
+                Console.WriteLine("Session = " + sessionNumber[3]);
+                GameRef.board.setSession(sessionNumber[3]);
+                StateManager.ChangeState(GameRef.GamePlayScreen);
+            }
+            if (sender == Session5)
+            {
+                Console.WriteLine("Session = " + sessionNumber[4]);
+                GameRef.board.setSession(sessionNumber[4]);
+                StateManager.ChangeState(GameRef.GamePlayScreen);
             }
         }
 
@@ -169,7 +221,6 @@ namespace SpaceGame.GameScreens
 
         #region Game State Method Region
         #endregion
-
 
     }
 }
