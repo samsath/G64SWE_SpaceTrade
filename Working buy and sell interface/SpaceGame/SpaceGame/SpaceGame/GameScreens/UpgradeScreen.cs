@@ -105,11 +105,11 @@ namespace SpaceGame.GameScreens
         public override void Initialize()
         {
             base.Initialize();
-            cargoLevel = GameRef.spaceShip.getCargoLevel();
+            /*cargoLevel = GameRef.spaceShip.getCargoLevel();
             totalMoney = GameRef.spaceShip.getMoney();
             cargoAmount = GameRef.spaceShip.getCargoCapacity();
             turnAmount = GameRef.spaceShip.getNumberOfTurn();
-            shipType = GameRef.spaceShip.gettextureName();
+            shipType = GameRef.spaceShip.gettextureName();*/
             ContentManager content = GameRef.Content;
 
             CreateControls(content);
@@ -299,7 +299,11 @@ namespace SpaceGame.GameScreens
             //StateManager.ChangeState(GameRef.GamePlayScreen, null);
 
             string newShip = shipType.Substring(0, shipType.Length - 1);
-            shipType = newShip += cargoLevel.ToString();          
+            shipType = newShip += cargoLevel.ToString();
+
+
+            Texture2D shipType1;
+            shipType1 = Game.Content.Load<Texture2D>(@"ShipSprites\" + shipType);
 
             totalMoney = moneyRemaining;
 
@@ -307,6 +311,8 @@ namespace SpaceGame.GameScreens
             GameRef.spaceShip.setNumberOfTurn(turnAmount);
             GameRef.spaceShip.setCargoCapacity(cargoAmount);
             GameRef.spaceShip.settextureName(shipType);
+            GameRef.spaceShip.setShip(shipType);
+            GameRef.spaceShip.setShipTexture(shipType1);
             //acceptLabel.Text = "Changes Accepted";
             acceptLabel.Text = shipType;
         }

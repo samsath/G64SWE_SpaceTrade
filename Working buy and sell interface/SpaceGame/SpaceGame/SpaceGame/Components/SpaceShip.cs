@@ -94,7 +94,7 @@ namespace SpaceGame.Components
         // Update ship movement
         public void Update(GameTime time)
         {
-
+            
             shipSpeed = Vector2.Zero;
             shipDirection = Vector2.Zero;
             keyboardState = Keyboard.GetState();
@@ -176,6 +176,7 @@ namespace SpaceGame.Components
                 PositionByTile.Y = (int)Math.Round((PositionByPixel.Y - Tile.TileHeight) / Tile.TileHeight);
                 diceRemaining--;
             }
+            texture = shipTexture;
         }
 
         // Draw the ship to the screen
