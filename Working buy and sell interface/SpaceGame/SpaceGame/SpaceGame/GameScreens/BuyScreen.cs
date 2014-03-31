@@ -248,11 +248,11 @@ namespace SpaceGame.GameScreens
             }
 
             //           
-
+            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 150f;
             //Accept Label
             acceptLabel = new LinkLabel();
             acceptLabel.Text = "Accept Changes";
-            acceptLabel.Position = nextControlPosition;
+            acceptLabel.Position = new Vector2(nextControlPosition.X, nextControlPosition.Y + 180);
             acceptLabel.TabStop = true;
             acceptLabel.Selected += new EventHandler(acceptLabel_Selected);
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
@@ -263,7 +263,7 @@ namespace SpaceGame.GameScreens
             //Back Button
             LinkLabel backLabel = new LinkLabel();
             backLabel.Text = "Go Back";
-            backLabel.Position = nextControlPosition;
+            backLabel.Position = new Vector2(nextControlPosition.X, nextControlPosition.Y + 190); ;
             backLabel.Selected += new EventHandler(goBack);
 
             ControlManager.Add(backLabel);
