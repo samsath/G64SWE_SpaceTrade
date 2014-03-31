@@ -14,13 +14,13 @@ namespace ClassLibrary1
             money -= 2500;
             compacity += 5;
             level += 1;
-            if (money > 0)
+            if (money > 0 && level<4 &&level >0)//The top level is 3
             {
                 return money;
             }
             else
             {
-                return -1;
+                return -1;//1 represents false
             }
         }
     }

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Upgradetest", "Upgradetest\Upgradetest.csproj", "{E844C49A-1621-442D-AC48-712C237717EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpgradeTest", "Upgradetest\UpgradeTest.csproj", "{E844C49A-1621-442D-AC48-712C237717EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary1", "ClassLibrary1\ClassLibrary1.csproj", "{69F8FB99-0A8D-4E6C-BE37-61E3D900EB48}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uplibrary", "ClassLibrary1\uplibrary.csproj", "{69F8FB99-0A8D-4E6C-BE37-61E3D900EB48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
