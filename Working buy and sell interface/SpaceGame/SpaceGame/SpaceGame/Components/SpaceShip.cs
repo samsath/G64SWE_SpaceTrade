@@ -65,7 +65,7 @@ namespace SpaceGame.Components
 
         
         int cargoCapacity;
-        int cargoLevel;
+        int cargoLevel = 1;
 
         public SpaceShip()
         {
