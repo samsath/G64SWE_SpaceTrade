@@ -35,35 +35,17 @@ namespace SpaceGame.GameScreens
         Dictionary<string, int> totransfer = new Dictionary<string, int>();
 
         PictureBox backgroundImage;
-        Label remainingResources;
-        Label MoneyLabel;
-        Label moneyNumber;
-        Label turnNumber;
-        Label ammoNumber;
-        Label healthNumber;
-        Label fuelNumber;
-        Label cargoNumber;
+        Label Title;
+        Label load1;
+        Label load2;
+        Label load3;
+        Label load4;
+        Label load5;
 
         //List<ResourceLabelSet> resourceLabel = new List<ResourceLabelSet>();
-        List<ResourceLabelSet> resourceLabel1 = new List<ResourceLabelSet>();
-        Stack<string> undoResources = new Stack<string>();
+        
         EventHandler linkLabelHandler;
 
-        #endregion
-
-        #region Property Region
-
-        public int TotalResources
-        {
-            get { return totalResources; }
-            set
-            {
-                totalResources = value;
-                unassignedResources = value;
-            }
-        }
-
-        #endregion
 
         #region Constructor Region
 
@@ -112,25 +94,17 @@ namespace SpaceGame.GameScreens
 
             Vector2 nextControlPosition = new Vector2(300, 100);
 
-            remainingResources = new Label();
-            remainingResources.Text = "Total Resources: " + unassignedResources.ToString();
-            remainingResources.Position = nextControlPosition;
+            Title = new Label();
+            Title.Text = "Total Resources: " + unassignedResources.ToString();
+            Title.Position = nextControlPosition;
 
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
 
-            ControlManager.Add(remainingResources);
+            ControlManager.Add(Title);
 
-            MoneyLabel = new Label();
-            MoneyLabel.Text = "Money";
-            MoneyLabel.Position = nextControlPosition;
-
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
-
-            ControlManager.Add(MoneyLabel);
-
-            Label Money = new Label();
-            Money.Text = "Initial Amount";
-            Money.Position = nextControlPosition;
+            Label load1 = new Label();
+            load1.Text = "Initial Amount";
+            load1.Position = nextControlPosition;
 
             LinkLabel linkLabel = new LinkLabel();
             linkLabel.TabStop = true;
@@ -140,14 +114,14 @@ namespace SpaceGame.GameScreens
             linkLabel.Selected += addSelectedResource;
             linkLabel.Selected += new EventHandler(augmentMoney);
 
-            moneyNumber = new Label();
-            moneyNumber.Text = moneyAmount.ToString();
-            moneyNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
+            load2 = new Label();
+            load2.Text = moneyAmount.ToString();
+            load2.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
 
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
 
-            ControlManager.Add(Money);
-            ControlManager.Add(linkLabel);
+            ControlManager.Add(load1);
+            ControlManager.Add(load2);
             ControlManager.Add(moneyNumber);
 
             //Turns
