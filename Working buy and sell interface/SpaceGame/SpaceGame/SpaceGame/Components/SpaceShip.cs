@@ -66,6 +66,7 @@ namespace SpaceGame.Components
         
         int cargoCapacity;
         int cargoLevel = 1;
+        int shipLevel = 1;
 
         public SpaceShip()
         {
@@ -94,7 +95,7 @@ namespace SpaceGame.Components
         // Update ship movement
         public void Update(GameTime time)
         {
-
+            
             shipSpeed = Vector2.Zero;
             shipDirection = Vector2.Zero;
             keyboardState = Keyboard.GetState();
@@ -176,6 +177,7 @@ namespace SpaceGame.Components
                 PositionByTile.Y = (int)Math.Round((PositionByPixel.Y - Tile.TileHeight) / Tile.TileHeight);
                 diceRemaining--;
             }
+            texture = shipTexture;
         }
 
         // Draw the ship to the screen
@@ -375,6 +377,11 @@ namespace SpaceGame.Components
             return cargoLevel;
         }
 
+        public int getShipLevel()
+        {
+            return shipLevel;
+        }
+
         public void setHero(string name)
         {
             hero = name;
@@ -420,6 +427,12 @@ namespace SpaceGame.Components
         public int getShipId()
         {
             return shipId;
+        }
+
+        public void addResource(int rId, string name, int price, string des, int amount )
+        {
+            Resource stuff = new Resource(rId, name, price,des,amount);
+            shipResource.Add(stuff);
         }
     }
 }

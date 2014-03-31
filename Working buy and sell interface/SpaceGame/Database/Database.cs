@@ -420,7 +420,7 @@ namespace STDatabase
             List<Userdata> result = new List<Userdata>();
             if (Check())
             {
-                string UserQuery = "SELECT users.Users_id, users.Name, hightscore.Score FROM users, hightscore WHERE users.Users_id == hightscore.Users_id ORDER BY hightscore.Score DESC LIMIT 5;";
+                string UserQuery = "SELECT users.Users_id, users.Name, hightscore.Score FROM users, hightscore WHERE users.Users_id == hightscore.Users_id ORDER BY hightscore.Score DESC LIMIT 5";
                 using (SQLiteCommand command = new SQLiteCommand(UserQuery, dbc))
                 {
                     try
@@ -430,6 +430,7 @@ namespace STDatabase
                         {
                             while (rdq.Read())
                             {
+                                Console.WriteLine(rdq.GetInt32(0) + rdq.GetString(1) + rdq.GetInt32(2));
                                 Userdata record = new Userdata(rdq.GetInt32(0), 0, rdq.GetString(1), 0, rdq.GetInt32(2),0);
                                 result.Add(record);
                             }

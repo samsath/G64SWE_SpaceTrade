@@ -270,6 +270,7 @@ namespace SpaceGame.GameScreens
         void acceptLabel_Selected(object sender, EventArgs e)
         {
             GameRef.spaceShip.setMoney(totalMoney);
+            //GameRef.spaceShip.addResource();
             acceptLabel.Text = "Changes Accepted";
         }
 
