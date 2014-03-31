@@ -14,7 +14,7 @@ namespace Shop
             Random c = new Random();
             int pick = c.Next(1, 10);
             //the value of stop over 0, then pick the chance card
-            if (value > 0)
+            if (pick > 0)
             {
                 switch (pick)
                 {
@@ -38,6 +38,8 @@ namespace Shop
                         Console.WriteLine("lose 5000 dollars"); break;
                     case 10:
                         Console.WriteLine("lose 500000 dollars"); break;
+                    default :
+                        Console.WriteLine("default case"); break;
 
                 }
             }
