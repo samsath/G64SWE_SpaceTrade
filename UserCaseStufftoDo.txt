@@ -6,14 +6,14 @@ Bug with the loading of the spaceship and board fro
 
 DOING
 
-As a user, I want a high score table (MEDIUM)
+
 As a user, I want to be able to buy and sell items (HIGH)
-As a user, I want to be able to upgrade my spaceship (MEDIUM)
+
 
 DONE
+As a user, I want a high score table (MEDIUM)
 As an admin, I want to be able to set initial prices of some items (MEDIUM)
-
-
+As a user, I want to be able to upgrade my spaceship (MEDIUM)
 As a user, I want the game to end after a fixed amount of time or turns (HIGH)
 As a user I want a spaceship which can hold cargo (HIGH)
 As a user, I want to have an account with money in it (HIGH)
@@ -23,6 +23,3 @@ As a user, I want some visual representation of the universe and a spaceship (HI
 As a user, I want the prices of items to change over time and at different locations (HIGH)
 As a user, I want to be able to save my progress (MEDIUM)
 As a user I want to be able to play against other people (LOW) hight score popups telling you when you are on the list
-
-
-N

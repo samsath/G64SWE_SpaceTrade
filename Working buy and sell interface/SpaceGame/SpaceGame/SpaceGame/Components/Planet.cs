@@ -65,5 +65,36 @@ namespace SpaceGame.Components
         {
             return resource;
         }
+        
+        public void buySell(List<Resource>changedRes){
+            int newResCount = changedRes.Count;
+
+            List<int> nonMatch = new List<int>();
+            for (int pr = 0; pr > resource.Count; pr++)
+            {
+                for (int nR = 0; nR > newResCount; nR++)
+                {
+                    if (resource[pr].resourceid == changedRes[nR].resourceid)
+                    {
+                        nonMatch.Add(nR);
+                        resource[pr].amount = changedRes[nR].amount;
+                        resource[pr].price = changedRes[nR].price;
+                    }
+                }
+            }
+
+            if (newResCount != nonMatch.Count)
+            {
+                for (int res = 0; res > newResCount; res++)
+                {
+                    if (!nonMatch.Contains(res))
+                    {
+                        resource.Add(new Resource(changedRes[res].resourceid, changedRes[res].name, changedRes[res].price, changedRes[res].description, changedRes[res].amount));
+                    }
+                }
+            }
+
+        }
+        
     }
 }
