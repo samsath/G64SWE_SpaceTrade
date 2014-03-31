@@ -43,6 +43,7 @@ namespace SpaceGame
         public HighscoreScreen highscoreScreen;
         public UpgradeScreen upgradeScreen;
         public SaveHistoryScreen saveHistory;
+        public InitialPriceScreen initPrice;
 
         public SpaceShip spaceShip;
         public Board board;
@@ -90,6 +91,7 @@ namespace SpaceGame
             highscoreScreen = new HighscoreScreen(this, stateManager);
             upgradeScreen = new UpgradeScreen(this, stateManager);
             saveHistory = new SaveHistoryScreen(this, stateManager);
+            initPrice = new InitialPriceScreen(this, stateManager);
 
             spaceShip = new SpaceShip();
             board = new Board();

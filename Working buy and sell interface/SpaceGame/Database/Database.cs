@@ -23,7 +23,7 @@ namespace STDatabase
     /// </summary>
     public class Database : IDatabase
     {
-        public int lastsession = 1;
+        
         public SQLiteConnection dbc;
         string dbpath;
         /// <summary>
@@ -140,16 +140,8 @@ namespace STDatabase
         public bool Close()
         {
             dbc.Close();
-            if (Check())
-            {
-                //Console.WriteLine("Database Connection is still open");
-                return false;
-            }
-            else
-            {
-                //Console.WriteLine("Database Connection Closed");
-                return true;
-            }
+            return true;
+            
         }
 
         public void exeQuery(string[] query)
@@ -1082,7 +1074,8 @@ namespace STDatabase
         /// <returns></returns>
         public int getLastSession()
         {
-            
+            Connect();
+            int lastsession = 0;
             if (Check())
             {
                 string Query = "SELECT Session_id FROM sessiontoplanet ORDER BY Session_id DESC LIMIT 1";
@@ -1094,17 +1087,9 @@ namespace STDatabase
                         {
                             while (rdq.Read())
                             {
-                                Console.WriteLine("rdq value = " + rdq.GetInt32(0));
-                                if (rdq.GetInt32(0) != null && rdq.GetInt32(0) > lastsession)
-                                {
-
-                                    lastsession = rdq.GetInt32(0);
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Last session +1");
-                                    lastsession++;
-                                }
+                               Console.WriteLine("rdq value = " + rdq.GetInt32(0));
+                               lastsession = rdq.GetInt32(0);
+                                
                             }
                         }
                     }
@@ -1114,8 +1099,7 @@ namespace STDatabase
 
             }
             
-            Console.WriteLine("Last session = " + lastsession);
-            return lastsession;
+            return lastsession + 1;
         }
         
         
@@ -1135,6 +1119,7 @@ namespace STDatabase
 
         public List<Planetdata> SessionWithPlanet(int session)
         {
+            Connect();
             Console.WriteLine("SWP sess =" + session);
             List<Planetdata> result = new List<Planetdata>();
             if (Check())
@@ -1206,7 +1191,7 @@ namespace STDatabase
                         
                         int amount = randNum.Next(1, 100);
                         int cost = randNum.Next(10, 200);
-                        AddResourceToPlanet(i, usednum[n], amount, cost);
+                        AddResourceToPlanet(Planets[i], usednum[n], amount, cost);
 
                     }
                 }

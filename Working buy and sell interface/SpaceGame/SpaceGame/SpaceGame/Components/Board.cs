@@ -36,6 +36,7 @@ namespace SpaceGame.Components
         public const int NumberofTilesHeight = 11;
         Random random = new Random();
         SpaceShip ship;
+        public int sessionId;
 
         private List<Tile> tiles;
 
@@ -44,13 +45,10 @@ namespace SpaceGame.Components
             tiles = new List<Tile>();
         }
 
-        public int newSession()
+        public void setSession(int session)
         {
-            // this gets the current session number and then adds one to is so that we can have a new session.
-            int ses = dbs.getLastSession();
-            int fs = dbf.getLastSession();
-
-            return ses;
+            Console.WriteLine("Board session = " + session);
+            sessionId = session;
         }
         /*
         public List<Tile> getTile()
@@ -113,11 +111,11 @@ namespace SpaceGame.Components
 
             // need to change this so that it will work on loaded session
             // need to change this to work propperly
-            int session = dbs.getLastSession();
-            Console.WriteLine("session = " + session);
+            
+            Console.WriteLine("session = " + sessionId);
             //tiles.Add(new Tile(space, new Planet("space", 0, "space")));
-            List<Planetdata> sesPlanet = dbs.SessionWithPlanet(session);
-
+            List<Planetdata> sesPlanet = dbs.SessionWithPlanet(sessionId);
+            Console.WriteLine("sesPlanet count =" + sesPlanet.Count);
             for (int i = 0; i < sesPlanet.Count; i++)
             {
 
@@ -221,7 +219,7 @@ namespace SpaceGame.Components
             List<Userdata> scores = dbs.getHightScore();
             if (scores.Count >= 1)
             {
-                top = scores[1].HighScore;
+                top = scores[0].HighScore;
                 pos = top - correntMoney;
                 if (pos >= 0)
                 {

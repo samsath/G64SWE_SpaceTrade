@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,23 +11,23 @@ using Microsoft.Xna.Framework.Content;
 
 using XRpgLibrary;
 using XRpgLibrary.Controls;
+// for the notepad edit
+using System.Diagnostics;
 using SpaceGame.Components;
-
-
-
 
 namespace SpaceGame.GameScreens
 {
-    public class StartMenuScreen : BaseGameState
+    public class InitialPriceScreen : BaseGameState
     {
         #region Field region
+
         PictureBox backgroundImage;
         PictureBox arrowImage;
-        LinkLabel startGame;
-        LinkLabel loadGame;
-        LinkLabel exitGame;
+        LinkLabel InitialPrice;
+        LinkLabel Continue;
+        DatabasePopulate dbp = new DatabasePopulate();
+
         float maxItemWidth = 0f;
-        
 
         #endregion
 
@@ -35,7 +36,7 @@ namespace SpaceGame.GameScreens
 
         #region Constructor Region
 
-        public StartMenuScreen(Game game, GameStateManager manager)
+        public InitialPriceScreen(Game game, GameStateManager manager)
             : base(game, manager)
         {
         }
@@ -71,32 +72,25 @@ namespace SpaceGame.GameScreens
                     arrowTexture.Height));
             ControlManager.Add(arrowImage);
 
-            startGame = new LinkLabel();
-            startGame.Text = "New Game";
-            startGame.Size = startGame.SpriteFont.MeasureString(startGame.Text);
-            startGame.Selected += new EventHandler(menuItem_Selected);
+            InitialPrice = new LinkLabel();
+            InitialPrice.Text = "Change the Initial Price for Resources";
+            InitialPrice.Size = InitialPrice.SpriteFont.MeasureString(InitialPrice.Text);
+            InitialPrice.Selected += new EventHandler(menuItem_Selected);
 
-            ControlManager.Add(startGame);
+            ControlManager.Add(InitialPrice);
 
-            loadGame = new LinkLabel();
-            loadGame.Text = "Load Game";
-            loadGame.Size = loadGame.SpriteFont.MeasureString(loadGame.Text);
-            loadGame.Selected += menuItem_Selected;
+            Continue = new LinkLabel();
+            Continue.Text = "Continue on";
+            Continue.Size = Continue.SpriteFont.MeasureString(Continue.Text);
+            Continue.Selected += new EventHandler(menuItem_Selected);
 
-            ControlManager.Add(loadGame);
-
-            exitGame = new LinkLabel();
-            exitGame.Text = "Exit Game";
-            exitGame.Size = exitGame.SpriteFont.MeasureString(exitGame.Text);
-            exitGame.Selected += menuItem_Selected;
-
-            ControlManager.Add(exitGame);
+            ControlManager.Add(Continue);
 
             ControlManager.NextControl();
 
             ControlManager.FocusChanged += new EventHandler(ControlManager_FocusChanged);
 
-            Vector2 position = new Vector2(350, 500);
+            Vector2 position = new Vector2(350, 300);
             foreach (Control c in ControlManager)
             {
                 if (c is LinkLabel)
@@ -109,7 +103,7 @@ namespace SpaceGame.GameScreens
                 }
             }
 
-            ControlManager_FocusChanged(startGame, null);
+            ControlManager_FocusChanged(InitialPrice, null);
         }
 
         void ControlManager_FocusChanged(object sender, EventArgs e)
@@ -121,23 +115,21 @@ namespace SpaceGame.GameScreens
 
         private void menuItem_Selected(object sender, EventArgs e)
         {
-            if (sender == startGame)
+            if (sender == InitialPrice)
             {
-                StateManager.PushState(GameRef.initPrice);
-                // Change this so it goes to the Inisital Price
-               
-                
+                Process.Start(@"Content\resourceListCostDescript.xml");
                 
             }
 
-            if (sender == loadGame)
+            if (sender == Continue)
             {
-                StateManager.PushState(GameRef.saveHistory);
-            }
-
-            if (sender == exitGame)
-            {
-                GameRef.Exit();
+                int ses = dbp.getSession();
+                dbp.Startresourceadd();
+                dbp.startPlanetAdd();
+                dbp.AddtoSession();
+                dbp.AddResourcetoPlanet();
+                GameRef.board.setSession(ses);
+                StateManager.PushState(GameRef.AdminScreen);
             }
         }
 
@@ -163,6 +155,7 @@ namespace SpaceGame.GameScreens
 
         #region Game State Method Region
         #endregion
+
 
     }
 }

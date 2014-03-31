@@ -121,24 +121,24 @@ namespace SpaceGame.Components
 
         }
 
-        public void AddtoSession(int sessionId)
+        public void AddtoSession()
         {
             /// need to add session id to database
             /// 
             // this makes sure that all the resource and planets are on this session, so can load the data.
             try
             {
-                dbf.AddPlanettoSession(sessionId);
+                dbf.AddPlanettoSession(sessionNumber);
                 addedPlanettoSession = true;
-                dbs.AddPlanettoSession(sessionId);
+                dbs.AddPlanettoSession(sessionNumber);
             }
             catch (Exception ex) { Console.WriteLine("Error " + ex); addedPlanettoSession = false; }
             
             try
             {
-                dbf.AddResourcetoSession(sessionId);
+                dbf.AddResourcetoSession(sessionNumber);
                 addedRestoSession = true;
-                dbs.AddResourcetoSession(sessionId);
+                dbs.AddResourcetoSession(sessionNumber);
             }
             catch (Exception ex) { Console.WriteLine("Error " + ex); addedRestoSession = false; }
             
@@ -146,26 +146,13 @@ namespace SpaceGame.Components
 
         }
 
-        public int newSession()
-        {
-            // this gets the current session number and then adds one to is so that we can have a new session.
-            int ses = dbs.getLastSession();
-            int fs = dbf.getLastSession();
-
-            sessionNumber = ses;
-            return ses;
-
-
-        }
 
         public int getSession()
         {
-            if (sessionNumber == 0)
-            {
-                int ses = dbs.getLastSession();
-                sessionNumber = ses;
-            }
-            return sessionNumber;
+            int ses = dbs.getLastSession();
+            sessionNumber = ses;
+            return ses ;
+            
         }
 
         public Boolean AddResourcetoPlanet()

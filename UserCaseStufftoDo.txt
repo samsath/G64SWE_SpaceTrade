@@ -1,18 +1,13 @@
 Need
 
-
 As a user, I want to be able to buy a different spaceship with different capabilities (LOW) *change just picture 
 
 DOING
 
-
-As an admin, I want to be able to set initial prices of some items (MEDIUM)
-
 As a user, I want a high score table (MEDIUM)
 
-	
-	
 DONE
+As an admin, I want to be able to set initial prices of some items (MEDIUM)
 As a user, I want to be able to upgrade my spaceship (MEDIUM)
 As a user, I want to be able to buy and sell items (HIGH)
 As a user, I want the game to end after a fixed amount of time or turns (HIGH)

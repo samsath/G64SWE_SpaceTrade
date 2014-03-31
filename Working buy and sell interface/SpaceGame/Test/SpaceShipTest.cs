@@ -121,14 +121,14 @@ namespace Test
         }
         */
         
-
+        /*
         [TestMethod]
         public void LastSessionis()
         {
             Assert.IsInstanceOfType(dbp.newSession(), typeof(int));
 
         }
-
+        */
         [TestMethod]
         public void ResorceAdded()
         {
@@ -155,13 +155,13 @@ namespace Test
         {
             Assert.AreEqual(0, dbp.sessionNumber);
         }
-
+        /*
         [TestMethod]
         public void CheckLastSession()
         {
             Assert.AreNotEqual(0, dbp.getSession());
         }
-
+        */
         [TestMethod]
         public void AddResourcetoSessionisTrue()
         {

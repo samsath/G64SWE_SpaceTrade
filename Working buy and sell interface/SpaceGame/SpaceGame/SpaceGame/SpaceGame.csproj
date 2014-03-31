@@ -92,6 +92,7 @@
     <Compile Include="GameScreens\StartMenuScreen.cs" />
     <Compile Include="GameScreens\TitleScreen.cs" />
     <Compile Include="GameScreens\UpgradeScreen.cs" />
+    <Compile Include="GameScreens\InitialPriceScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />

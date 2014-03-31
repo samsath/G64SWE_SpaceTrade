@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Edit or add these resources bellow, You can Have as many resources as you want which the computer will then pick and sort out. -->
+
 <Resources>
 	<Res Name="Aluminium" Price="50" Descrp="Metal used for making ships and equipment" loc="Aluminium.png" />
 	<Res Name="Beryllium" Price="100" Descrp="Creation of ships and bombs" loc="Beryllium.png" />

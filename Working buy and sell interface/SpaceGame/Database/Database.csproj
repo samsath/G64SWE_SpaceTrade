@@ -84,7 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="STDatabase.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
