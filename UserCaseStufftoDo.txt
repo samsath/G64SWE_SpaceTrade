@@ -2,6 +2,8 @@ Need
 
 As a user, I want to be able to buy a different spaceship with different capabilities (LOW) *change just picture 
 
+Bug with the loading of the spaceship and board fro
+
 DOING
 
 As a user, I want a high score table (MEDIUM)
@@ -21,3 +23,6 @@ As a user, I want some visual representation of the universe and a spaceship (HI
 As a user, I want the prices of items to change over time and at different locations (HIGH)
 As a user, I want to be able to save my progress (MEDIUM)
 As a user I want to be able to play against other people (LOW) hight score popups telling you when you are on the list
+
+
+N

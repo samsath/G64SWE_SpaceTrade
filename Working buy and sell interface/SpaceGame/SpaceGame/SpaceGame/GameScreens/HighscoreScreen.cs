@@ -13,7 +13,7 @@ using XRpgLibrary;
 using XRpgLibrary.Controls;
 using STDatabase;
 
-namespace SpaceGame.GameScreens
+namespace SpaceGame.GameScreens 
 {
 
     internal class ResourceLabelSetHighScore

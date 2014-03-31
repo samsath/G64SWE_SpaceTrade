@@ -430,6 +430,7 @@ namespace STDatabase
                         {
                             while (rdq.Read())
                             {
+                                Console.WriteLine(rdq.GetInt32(0) + rdq.GetString(1) + rdq.GetInt32(2));
                                 Userdata record = new Userdata(rdq.GetInt32(0), 0, rdq.GetString(1), 0, rdq.GetInt32(2),0);
                                 result.Add(record);
                             }
