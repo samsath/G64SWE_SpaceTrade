@@ -7,9 +7,21 @@ namespace Shop
 {
     public class finance
     {
-        public double newprofit(double profit)
+        public double multiply1(double profit)//Three levels of money multiplier.
         {
             profit *= 1.1;
+            return profit;
+        }
+
+        public double multiply2(double profit)
+        {
+            profit *= 1.2;
+            return profit;
+        }
+
+        public double multiply3(double profit)
+        {
+            profit *= 1.3;
             return profit;
         }
 
@@ -23,7 +35,9 @@ namespace Shop
                 return balance;
             }
             else if(amount <0)
-            { return oldprice; newprice;amount;}
+            { return -1; }
+
+            return 0;
         }
     }
 }

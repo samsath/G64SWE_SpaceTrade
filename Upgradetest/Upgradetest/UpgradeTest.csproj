@@ -54,9 +54,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\ClassLibrary1.csproj">
+    <ProjectReference Include="..\ClassLibrary1\uplibrary.csproj">
       <Project>{69F8FB99-0A8D-4E6C-BE37-61E3D900EB48}</Project>
-      <Name>ClassLibrary1</Name>
+      <Name>uplibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

@@ -40,11 +40,11 @@ namespace SpaceGame.GameScreens
         Label hi4;
         Label hi5;
 
-        
-    
-        string[] hsId = new string[5] {"1","2","3","4","5"};
-        string[] hsName = new string[5] { "Sam", "Dan", "Xuan", "Vector", "Rafif" };
-        string[] hsScore = new string[5] { "123456789", "1234567", "12345", "1234", "123" };
+
+
+        string[] hsId = new string[5] { "no avialble", "no avialble", "no avialble", "no avialble", "no avialble" };
+        string[] hsName = new string[5] { "no avialble", "no avialble", "no avialble", "no avialble", "no avialble" };
+        string[] hsScore = new string[5] { "no avialble", "no avialble", "no avialble", "no avialble", "no avialble" };
         
         List<ResourceLabelSet> resourceLabel1 = new List<ResourceLabelSet>();
 
@@ -92,7 +92,7 @@ namespace SpaceGame.GameScreens
 
 
             Label Title = new Label();
-            Title.Text = "High score tabke";
+            Title.Text = "High score table";
             Title.Position = new Vector2(350, 50);
             ControlManager.Add(Title);
 
@@ -185,12 +185,19 @@ namespace SpaceGame.GameScreens
             //Back Button
             LinkLabel backLabel = new LinkLabel();
             backLabel.Text = "Go Back";
-            backLabel.Position = new Vector2(450, 600);
+            backLabel.Position = new Vector2(400, 600);
             backLabel.Selected += new EventHandler(goBack);
 
             ControlManager.Add(backLabel);
             ControlManager.NextControl();
-
+/*
+            LinkLabel update = new LinkLabel();
+            update.Text = "update";
+            update.Position = new Vector2(600, 600);
+            update.Selected += new EventHandler(getSocre);
+            ControlManager.Add(update);
+            ControlManager.NextControl();
+            */
         }
 
 
@@ -227,23 +234,23 @@ namespace SpaceGame.GameScreens
         #endregion
         //---------------------------------------------------------------------------------
         #region
-             public void getSocre()
+        public void getSocre()
         {
 
             //dbs.Close();
 
-            List<Userdata> resultUser = dbs.getHightScore(); 
-            
-            for (int i = 0; i < 5; i++)
+            List<Userdata> resultUser = dbs.getHightScore();
+
+            for (int i = 0; i < resultUser.Count; i++)
             {
                 int score = resultUser[i].HighScore;
                 if (score == 0)
                 {
                     
-                    string TheScore = "not avialble yet ";
+                   /* string TheScore = "not avialble yet ";
                     hsId[i] = resultUser[i].User_id.ToString();
                     hsName[i] = resultUser[i].Name;
-                    hsScore[i] = TheScore;
+                    hsScore[i] = TheScore;*/
                    
                 }
                 else
