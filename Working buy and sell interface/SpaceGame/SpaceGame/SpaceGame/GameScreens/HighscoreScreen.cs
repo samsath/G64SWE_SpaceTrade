@@ -78,6 +78,7 @@ namespace SpaceGame.GameScreens
             ContentManager content = GameRef.Content;
 
             CreateControls(content);
+            getSocre();
         }
 
         public void CreateControls(ContentManager Content)
