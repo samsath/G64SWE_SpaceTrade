@@ -36,7 +36,7 @@ namespace SpaceGame.GameScreens
 
         int totalResources = 10;
         int unassignedResources = 10;
-        int moneyAmount = 1000;
+        int moneyAmount = 100000;
         int turnAmount = 3;
         int ammoAmount = 0;
         int healthAmount = 0;
@@ -338,7 +338,7 @@ namespace SpaceGame.GameScreens
         {
             if (unassignedResources > 0)
             {
-                moneyAmount++;
+                moneyAmount = moneyAmount + 1000 ;
                 moneyNumber.Text = moneyAmount.ToString();
             }
             
