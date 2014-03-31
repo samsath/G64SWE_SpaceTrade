@@ -52,6 +52,9 @@ namespace SpaceGame.GameScreens
         string shipType;
 
         PictureBox backgroundImage;
+        PictureBox spriteShip;
+        Texture2D spriteTexture;
+
         Label remainingMoney;
         Label fuelLabel;
         //Label quantityLabel;
@@ -136,7 +139,6 @@ namespace SpaceGame.GameScreens
             turnAmount = GameRef.spaceShip.getNumberOfTurn();
             shipType = GameRef.spaceShip.gettextureName();
             shipLevel = GameRef.spaceShip.getShipLevel();
-            //shipLevel = GameRef.spaceShip.get
 
             ContentManager content = GameRef.Content;
 
@@ -224,13 +226,13 @@ namespace SpaceGame.GameScreens
             //addLabel.Selected += new EventHandler(augmentItem);
             addLabel.Selected += addTurns;
 
-            LinkLabel substractLabel = new LinkLabel();
+            /*LinkLabel substractLabel = new LinkLabel();
             substractLabel.TabStop = true;
             substractLabel.Text = "-";
             substractLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
 
             //substractLabel.Selected += new EventHandler(decreaseItem);
-            substractLabel.Selected += new EventHandler(removeSelected);
+            substractLabel.Selected += new EventHandler(removeSelected);*/
 
             //addLabel.Selected += new EventHandler(decreaseItem);
 
@@ -243,7 +245,7 @@ namespace SpaceGame.GameScreens
 
             ControlManager.Add(nameOfItem);
             ControlManager.Add(addLabel);
-            ControlManager.Add(substractLabel);
+            //ControlManager.Add(substractLabel);
             ControlManager.Add(quantityNumber);
             ControlManager.Add(priceNumber);
             ControlManager.Add(finalPrice);
@@ -297,7 +299,6 @@ namespace SpaceGame.GameScreens
             addShipLabel.Position = new Vector2(nextControlPosition.X + 400, nextControlPosition.Y + 200);
             addShipLabel.Selected += buyShip;
 
-
             ControlManager.Add(addShipLabel);
 
             /*removeShipLabel = new LinkLabel();
@@ -311,10 +312,28 @@ namespace SpaceGame.GameScreens
             shipValueLabel.Text = shipPrice.ToString();
             shipValueLabel.Position = new Vector2(nextControlPosition.X + 600, nextControlPosition.Y + 200);
             ControlManager.Add(shipValueLabel);
+            
+            // sprite ship
+
+            spriteTexture = Content.Load<Texture2D>(@"ShipSprites\" + shipType);
+
+            spriteShip = new PictureBox(
+                spriteTexture,
+                new Rectangle(
+                    200,
+                    500,
+                    100,
+                    100));
+
+            //spriteShip.Position = new Vector2(nextControlPosition.X + 600, nextControlPosition.Y + 300);
+            ControlManager.Add(spriteShip);
 
             //
 
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 250f;
+            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 350f;
+
+                      
+
             //Accept Label
             acceptLabel = new LinkLabel();
             acceptLabel.Text = "Accept Changes";
@@ -352,8 +371,8 @@ namespace SpaceGame.GameScreens
             GameRef.spaceShip.setCargoCapacity(cargoAmount);
             GameRef.spaceShip.settextureName(shipType);
             GameRef.spaceShip.setShip(shipType);
-            //acceptLabel.Text = "Changes Accepted";
-            acceptLabel.Text = shipLevel.ToString();
+            acceptLabel.Text = "Changes Accepted";
+            //acceptLabel.Text = shipLevel.ToString();
         }
 
         void addTurns(object sender, EventArgs e)
@@ -487,15 +506,25 @@ namespace SpaceGame.GameScreens
                 buyNewShip.Text = "Buy Ship " + newShipLvl;
                 Texture2D shipType1;
                 shipType1 = Game.Content.Load<Texture2D>(@"ShipSprites\" + shipType);
+                //spriteTexture = Game.Content.Load<Texture2D>(@"ShipSprites\" + newShipString);
+                addShipLabel.Text = " ";
+                buyNewShip.Text = " You have Acquired the ship " + shipType;
+                shipValueLabel.Text = " ";
 
                 GameRef.spaceShip.setShipTexture(shipType1);
                 remainingMoney.Text = "Total Amount of Money: " + moneyRemaining.ToString() + "$";
+                
             }
             else if (shipLevel >= 4)
             {
                 buyNewShip.Text = "You have the Best Ship!";
                 shipValueLabel.Text = " ";
             }
+        }
+
+        void loadShip(ContentManager Content)
+        {
+            spriteTexture = Content.Load<Texture2D>(@"ShipSprites\" + shipType);
         }
         
 
@@ -521,6 +550,7 @@ namespace SpaceGame.GameScreens
             ControlManager.Draw(GameRef.SpriteBatch);
 
             GameRef.SpriteBatch.End();
+
         }
 
         #endregion
