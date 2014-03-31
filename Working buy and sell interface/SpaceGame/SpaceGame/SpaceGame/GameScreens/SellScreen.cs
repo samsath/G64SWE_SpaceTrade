@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Content;
 
 using XRpgLibrary;
 using XRpgLibrary.Controls;
-
+using SpaceGame.Components;
 namespace SpaceGame.GameScreens
 {
     internal class ResourceLabelSetSell
@@ -74,6 +74,10 @@ namespace SpaceGame.GameScreens
         List<ResourceLabelSet> resourceLabel1 = new List<ResourceLabelSet>();
         Stack<string> undoResources = new Stack<string>();
         EventHandler linkLabelHandler;
+
+        // ship and planet change list
+        List<Resource> planetRes = new List<Resource>();
+        List<Resource> shipRes = new List<Resource>();
 
         #endregion
 
@@ -336,6 +340,10 @@ namespace SpaceGame.GameScreens
                 quantityNumber.Text = quantityAmount.ToString();
                 quantityAcquired++;
                 planetQuantity.Text = quantityAcquired.ToString();
+
+                // for the sell resours info
+                shipRes.Add(new Resource(resource.Item1.resourceid, resource.Item1.name, resource.Item1.price, resource.Item1.description, -1));
+                planetRes.Add(new Resource(resource.Item1.resourceid, resource.Item1.name, resource.Item1.price, resource.Item1.description, 1));
             }
         }
 
