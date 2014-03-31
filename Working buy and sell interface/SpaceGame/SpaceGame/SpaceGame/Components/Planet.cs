@@ -75,41 +75,30 @@ namespace SpaceGame.Components
         public void buySell(List<Resource>changedRes)
         {
             Console.WriteLine("Planet buy Sell");
-            // this gets the changes from the buy or sell screen then updates the location resource list compaired to the outer one.
-            int newResCount = changedRes.Count;
             for (int i = 0; i < changedRes.Count; i++)
             {
-                Console.WriteLine("Planet change = " + changedRes[i].resourceid + changedRes[i].name + changedRes[i].amount + changedRes[i].price);
+                Console.WriteLine("Planet change = " + changedRes[i].resourceid + changedRes[i].name + changedRes[i].amount);
             }
 
-            List<int> nonMatch = new List<int>();
-            for (int pr = 0; pr > resource.Count; pr++)
+            for (int cr = 0; cr < changedRes.Count; cr++)
             {
-                // first goes through local list and the transaction list and if there are the same (by resource NUmber) the local will have the same information as the transaction
-                for (int nR = 0; nR > newResCount; nR++)
+                int count = 1;
+                for (int sp = 0; sp < resource.Count; sp++)
                 {
-                    // adds the changedRes number to the nonMatch list if the resource is in the local resources
-                    if (resource[pr].resourceid == changedRes[nR].resourceid)
+                    if (resource[sp].resourceid == changedRes[cr].resourceid)
                     {
-                        Console.WriteLine("Ship Resource list = " + resource[pr].resourceid + " " + "Changes = " + changedRes[nR].resourceid);
-                        nonMatch.Add(nR);
-                        resource[pr].amount = changedRes[nR].amount;
-                        resource[pr].price = changedRes[nR].price;
+                        // Adds the change to the ship resource then remove it from the chnagedRes list.
+                        Console.WriteLine("resource Changed = ");
+                        resource[sp].amount = resource[sp].amount + changedRes[cr].amount;
+                        count = 2;
+
                     }
                 }
-            }
-
-            // compares the nonMatch and the newResCount as if there are different there will need new items to add.
-            if (newResCount != nonMatch.Count)
-            {
-                // then goes throught the nonMatch list and see's of the res number is in it. If it is not then the resource is added to the local list.
-                for (int res = 0; res > newResCount; res++)
+                if (count == 1)
                 {
-                    if (!nonMatch.Contains(res))
-                    {
-                        Console.WriteLine("add new resource to shipRes = " + changedRes[res].resourceid + changedRes[res].name + changedRes[res].price + changedRes[res].description + changedRes[res].amount);
-                        resource.Add(new Resource(changedRes[res].resourceid, changedRes[res].name, changedRes[res].price, changedRes[res].description, changedRes[res].amount));
-                    }
+                    Console.WriteLine("Planetres add =" + changedRes[cr].resourceid + changedRes[cr].name + changedRes[cr].price + changedRes[cr].description + changedRes[cr].amount);
+                    Resource result = new Resource(changedRes[cr].resourceid, changedRes[cr].name, changedRes[cr].price, changedRes[cr].description, changedRes[cr].amount);
+                    resource.Add(result);
                 }
             }
 
