@@ -46,6 +46,8 @@ namespace SpaceGame.GameScreens
         int cargoAmount; // Ship's current cargo capacity //input
         int cargoPrice = 10000;
 
+        string shipType;
+
         PictureBox backgroundImage;
         Label remainingMoney;
         Label fuelLabel;
@@ -107,6 +109,7 @@ namespace SpaceGame.GameScreens
             totalMoney = GameRef.spaceShip.getMoney();
             cargoAmount = GameRef.spaceShip.getCargoCapacity();
             turnAmount = GameRef.spaceShip.getNumberOfTurn();
+            shipType = GameRef.spaceShip.gettextureName();
             ContentManager content = GameRef.Content;
 
             CreateControls(content);
@@ -119,6 +122,8 @@ namespace SpaceGame.GameScreens
             totalMoney = GameRef.spaceShip.getMoney();
             cargoAmount = GameRef.spaceShip.getCargoCapacity();
             turnAmount = GameRef.spaceShip.getNumberOfTurn();
+            shipType = GameRef.spaceShip.gettextureName();
+
             ContentManager content = GameRef.Content;
 
             CreateControls(content);
@@ -233,7 +238,7 @@ namespace SpaceGame.GameScreens
             //Upgrade Cargo
 
             upgradeLevelLabel = new Label();
-            upgradeLevelLabel.Text = "Upgrade "+(cargoLevel+1)+ " = " +cargoAmount+" spaces";
+            upgradeLevelLabel.Text = "Upgrade "+(cargoLevel+1)+ " = " +(cargoAmount*2)+" spaces";
             upgradeLevelLabel.Position = new Vector2(nextControlPosition.X, nextControlPosition.Y + 100);
 
 
@@ -287,18 +292,23 @@ namespace SpaceGame.GameScreens
 
         void acceptLabel_Selected(object sender, EventArgs e)
         {
-            //undoResources.Clear();
+            
             /*
              * update the states to the game.
              */
             //StateManager.ChangeState(GameRef.GamePlayScreen, null);
+
+            string newShip = shipType.Substring(0, shipType.Length - 1);
+            shipType = newShip += cargoLevel.ToString();          
 
             totalMoney = moneyRemaining;
 
             GameRef.spaceShip.setMoney(totalMoney);
             GameRef.spaceShip.setNumberOfTurn(turnAmount);
             GameRef.spaceShip.setCargoCapacity(cargoAmount);
-            acceptLabel.Text = "Changes Accepted";
+            GameRef.spaceShip.settextureName(shipType);
+            //acceptLabel.Text = "Changes Accepted";
+            acceptLabel.Text = shipType;
         }
 
         void addTurns(object sender, EventArgs e)
@@ -371,7 +381,7 @@ namespace SpaceGame.GameScreens
 
         void upgradeCargo(object sender, EventArgs e)
         {
-            if ((moneyRemaining - turnPrice) <= 0)
+            if (moneyRemaining <= 0)
             {
                 remainingMoney.Text = "You Are Out Of Money";
 
@@ -381,10 +391,12 @@ namespace SpaceGame.GameScreens
                 cargoLevel++;
                 cargoAmount = cargoAmount * 2;
                 cargoPrice = cargoPrice * 2;
-                upgradeLevelLabel.Text = "Upgrade " + cargoLevel + " = " + cargoAmount + " spaces";
+                upgradeLevelLabel.Text = "Upgrade " + (cargoLevel+1) + " = " + cargoAmount*2 + " spaces";
                 moneyRemaining = moneyRemaining - cargoPrice;
                 remainingMoney.Text = "Total Amount of Money: " + moneyRemaining.ToString() + "$";
                 upgradeValueLabel.Text = cargoPrice.ToString() + "$";
+
+                
             }
         }
 
