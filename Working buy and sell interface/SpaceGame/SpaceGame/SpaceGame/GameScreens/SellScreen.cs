@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Content;
 
 using XRpgLibrary;
 using XRpgLibrary.Controls;
-using SpaceGame.Components;
+
 namespace SpaceGame.GameScreens
 {
     internal class ResourceLabelSetSell
@@ -64,24 +64,16 @@ namespace SpaceGame.GameScreens
         Label priceNumber;
         Label offerLabel;
         Label offerNumber;
-        Label[] quantityNumber;
-        LinkLabel[] substractLabel;
-        LinkLabel[] addLabel;
-
+        Label quantityNumber;
         Label planetQuantity;
         Label PlanetResourceLabel;
         Label PlanetResourceText;
         LinkLabel acceptLabel = new LinkLabel();
-        int[] number;
 
         //List<ResourceLabelSet> resourceLabel = new List<ResourceLabelSet>();
         List<ResourceLabelSet> resourceLabel1 = new List<ResourceLabelSet>();
         Stack<string> undoResources = new Stack<string>();
         EventHandler linkLabelHandler;
-
-        // ship and planet change list
-        List<Resource> planetRes = new List<Resource>();
-        List<Resource> shipRes = new List<Resource>();
 
         #endregion
 
@@ -196,105 +188,100 @@ namespace SpaceGame.GameScreens
 
             ControlManager.Add(quantityLabel);
 
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
+            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;            
 
-            List<Resource> shipRes = GameRef.spaceShip.getResource();
-            quantityNumber = new Label[shipRes.Count];
-            number = new int[shipRes.Count];
+            //
 
-            for (int i = 0; i < shipRes.Count; i++)
-            {
+            Label nameOfItem = new Label();
+            nameOfItem.Text = "Iron";
+            nameOfItem.Position = nextControlPosition;
 
-                Label nameOfItem = new Label();
-                nameOfItem.Text = shipRes[i].name;
-                nameOfItem.Position = nextControlPosition;
+            quantityNumber = new Label();
+            quantityNumber.Text = quantityAmount.ToString();
+            quantityNumber.Position = new Vector2(nextControlPosition.X + 200, nextControlPosition.Y);
 
-                quantityNumber[i] = new Label();
-                quantityNumber[i].Text = quantityAmount.ToString();
-                quantityNumber[i].Position = new Vector2(nextControlPosition.X + 200, nextControlPosition.Y);
+            priceNumber = new Label();
+            priceNumber.Text = priceAmount.ToString() + "$";
+            priceNumber.Position = new Vector2(nextControlPosition.X + 250, nextControlPosition.Y);
 
-                priceNumber = new Label();
-                priceNumber.Text = priceAmount.ToString() + "$";
-                priceNumber.Position = new Vector2(nextControlPosition.X + 250, nextControlPosition.Y);
+            LinkLabel addLabel = new LinkLabel();
+            addLabel.TabStop = true;
+            addLabel.Text = "+";
+            addLabel.Position = new Vector2(nextControlPosition.X + 250, nextControlPosition.Y+20);
+         
+            addLabel.Selected += new EventHandler(increasePriceItem);
 
-                addLabel[i] = new LinkLabel();
-                addLabel[i].TabStop = true;
-                addLabel[i].Text = "+";
-                addLabel[i].Position = new Vector2(nextControlPosition.X + 250, nextControlPosition.Y + 20);
+            LinkLabel substractLabel = new LinkLabel();
+            substractLabel.TabStop = true;
+            substractLabel.Text = "-";
+            substractLabel.Position = new Vector2(nextControlPosition.X + 300, nextControlPosition.Y+20);
 
-                addLabel[i].Selected += new EventHandler(increasePriceItem);
+            substractLabel.Selected += new EventHandler(decreasePriceItem);
 
-                substractLabel[i] = new LinkLabel();
-                substractLabel[i].TabStop = true;
-                substractLabel[i].Text = "-";
-                substractLabel[i].Position = new Vector2(nextControlPosition.X + 300, nextControlPosition.Y + 20);
-
-                substractLabel[i].Selected += new EventHandler(decreasePriceItem);
-
-                LinkLabel addPlanetLabel = new LinkLabel();
-                addPlanetLabel.TabStop = true;
-                addPlanetLabel.Text = "Add";
-                addPlanetLabel.Position = new Vector2(nextControlPosition.X + 450, nextControlPosition.Y);
-
-                addPlanetLabel.Selected += new EventHandler(increaseItem);
-                addPlanetLabel.Selected += addSelectedResource;
-
-                LinkLabel substractPlanetLabel = new LinkLabel();
-                substractPlanetLabel.TabStop = true;
-                substractPlanetLabel.Text = "Remove";
-                substractPlanetLabel.Position = new Vector2(nextControlPosition.X + 520, nextControlPosition.Y);
+            LinkLabel addPlanetLabel = new LinkLabel();
+            addPlanetLabel.TabStop = true;
+            addPlanetLabel.Text = "Add";
+            addPlanetLabel.Position = new Vector2(nextControlPosition.X + 450, nextControlPosition.Y);
 
 
-                substractPlanetLabel.Selected += new EventHandler(decreaseItem);
-                substractPlanetLabel.Selected += new EventHandler(substractSelectedResource);
+            addPlanetLabel.Selected += new EventHandler(increaseItem);
+            addPlanetLabel.Selected += addSelectedResource;
+
+            LinkLabel substractPlanetLabel = new LinkLabel();
+            substractPlanetLabel.TabStop = true;
+            substractPlanetLabel.Text = "Remove";
+            substractPlanetLabel.Position = new Vector2(nextControlPosition.X + 520, nextControlPosition.Y);
 
 
-                //Offer
-                offerNumber = new Label();
-                offerNumber.Text = offerAmount.ToString();
-                offerNumber.Position = new Vector2(nextControlPosition.X + 650, nextControlPosition.Y);
+            substractPlanetLabel.Selected += new EventHandler(decreaseItem);
+            substractPlanetLabel.Selected += new EventHandler(substractSelectedResource);
+             
 
-                //
+            //Offer
+            offerNumber = new Label();
+            offerNumber.Text = offerAmount.ToString();
+            offerNumber.Position = new Vector2(nextControlPosition.X + 650, nextControlPosition.Y);
 
-                //Planet quantity
+            //
 
-                planetQuantity = new Label();
-                planetQuantity.Text = offerAmount.ToString();
-                planetQuantity.Position = new Vector2(nextControlPosition.X + 750, nextControlPosition.Y);
-                //planetQuantity.Text = quantityAcquired.ToString();
+            //Planet quantity
 
-                //
+            planetQuantity = new Label();
+            planetQuantity.Text = offerAmount.ToString();
+            planetQuantity.Position = new Vector2(nextControlPosition.X + 750, nextControlPosition.Y);
+            //planetQuantity.Text = quantityAcquired.ToString();
 
-                ControlManager.Add(nameOfItem);
-                ControlManager.Add(addLabel[i]);
-                ControlManager.Add(substractLabel[i]);
-                ControlManager.Add(addPlanetLabel);
-                ControlManager.Add(substractPlanetLabel);
-                ControlManager.Add(quantityNumber[i]);
-                ControlManager.Add(priceNumber);
-                ControlManager.Add(offerNumber);
-                ControlManager.Add(planetQuantity);
-                //
+            //
 
-                //Planet resources
+            ControlManager.Add(nameOfItem);
+            ControlManager.Add(addLabel);
+            ControlManager.Add(substractLabel);
+            ControlManager.Add(addPlanetLabel);
+            ControlManager.Add(substractPlanetLabel);
+            ControlManager.Add(quantityNumber);
+            ControlManager.Add(priceNumber);
+            ControlManager.Add(offerNumber);
+            ControlManager.Add(planetQuantity);
+            //
 
-                nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
+            //Planet resources
 
-                PlanetResourceLabel = new Label();
-                PlanetResourceLabel.Text = "Planet Resources";
-                PlanetResourceLabel.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50);
+            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
 
-
-                ControlManager.Add(PlanetResourceLabel);
-                nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
-
-                PlanetResourceText = new Label();
-                PlanetResourceText.Text = "List of Resources";
-                PlanetResourceText.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50);
+            PlanetResourceLabel = new Label();
+            PlanetResourceLabel.Text = "Planet Resources";
+            PlanetResourceLabel.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y +50);
 
 
-                ControlManager.Add(PlanetResourceText);
-            }
+            ControlManager.Add(PlanetResourceLabel);
+            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
+
+            PlanetResourceText = new Label();
+            PlanetResourceText.Text = "List of Resources";
+            PlanetResourceText.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y+ 50);
+
+
+            ControlManager.Add(PlanetResourceText);
 
             //
 
@@ -345,15 +332,10 @@ namespace SpaceGame.GameScreens
                 remainingMoney.Text = "Total Amount of Money: " + unassignedResources.ToString() + "$";
 
                 //quantity reduced
-                /*
                 quantityAmount--;
                 quantityNumber.Text = quantityAmount.ToString();
                 quantityAcquired++;
                 planetQuantity.Text = quantityAcquired.ToString();
-                */
-                // for the sell resours info
-                //shipRes.Add(new Resource(resource.Item1.resourceid, resource.Item1.name, resource.Item1.price, resource.Item1.description, -1));
-                //planetRes.Add(new Resource(resource.Item1.resourceid, resource.Item1.name, resource.Item1.price, resource.Item1.description, 1));
             }
         }
 
@@ -369,7 +351,7 @@ namespace SpaceGame.GameScreens
             }
             else if (quantityAmount>=0)
             {
-                /*
+
                 unassignedResources = unassignedResources - offerAmount;
                 remainingMoney.Text = "Total Amount of Money: " + unassignedResources.ToString() + "$";
                 //quantity
@@ -377,7 +359,6 @@ namespace SpaceGame.GameScreens
                 quantityNumber.Text = quantityAmount.ToString();
                 quantityAcquired--;
                 planetQuantity.Text = quantityAcquired.ToString();
-                 * */
             }
         }
 

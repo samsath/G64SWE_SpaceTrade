@@ -13,7 +13,7 @@ using XRpgLibrary;
 using XRpgLibrary.Controls;
 using STDatabase;
 
-namespace SpaceGame.GameScreens 
+namespace SpaceGame.GameScreens
 {
 
     internal class ResourceLabelSetHighScore
@@ -78,12 +78,12 @@ namespace SpaceGame.GameScreens
             ContentManager content = GameRef.Content;
 
             CreateControls(content);
-            
+            getSocre();
         }
 
         public void CreateControls(ContentManager Content)
         {
-            getSocre();
+
             backgroundImage = new PictureBox(
             Game.Content.Load<Texture2D>(@"Backgrounds\DeepSpace"),
             GameRef.ScreenRectangle);
@@ -175,6 +175,13 @@ namespace SpaceGame.GameScreens
 
 
 
+            
+
+
+
+
+
+
             //Back Button
             LinkLabel backLabel = new LinkLabel();
             backLabel.Text = "Go Back";
@@ -233,19 +240,27 @@ namespace SpaceGame.GameScreens
             //dbs.Close();
 
             List<Userdata> resultUser = dbs.getHightScore();
-            Console.WriteLine(resultUser.Count);
-            if (resultUser.Count > 0)
-            {
-                for (int i = 0; i < resultUser.Count; i++)
-                {
-                    Console.WriteLine(resultUser[i].Session_id);
-                    hsId[i] = Convert.ToString(resultUser[i].Session_id);
-                    hsName[i] = resultUser[i].Name;
-                    hsScore[i] = Convert.ToString(resultUser[i].HighScore);
 
+            for (int i = 0; i < resultUser.Count; i++)
+            {
+                int score = resultUser[i].HighScore;
+                if (score == 0)
+                {
+                    
+                   /* string TheScore = "not avialble yet ";
+                    hsId[i] = resultUser[i].User_id.ToString();
+                    hsName[i] = resultUser[i].Name;
+                    hsScore[i] = TheScore;*/
+                   
                 }
+                else
+                { hsId[i] = resultUser[i].User_id.ToString();
+                hsName[i] = resultUser[i].Name.ToString();
+                hsScore[i] = resultUser[i].HighScore.ToString(); 
+                }
+                
+        
             }
-            
         }
         #endregion
     }
