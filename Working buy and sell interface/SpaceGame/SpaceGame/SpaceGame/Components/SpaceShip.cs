@@ -66,7 +66,6 @@ namespace SpaceGame.Components
         public List<Resource> resource = new List<Resource>();
         private string gameState = "playing";
 
-        
         int cargoCapacity;
         int cargoLevel = 1;
         int shipLevel = 1;

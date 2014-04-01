@@ -53,7 +53,6 @@ namespace SpaceGame.GameScreens
         Label finalPriceLabel;
         Label finalPrice;
         Label ShipResourceLabel;
-        Label ShipResourceText;
         Label nameOfItem;
         Label[] quantityNumber;
         LinkLabel acceptLabel = new LinkLabel();
@@ -71,6 +70,7 @@ namespace SpaceGame.GameScreens
         List<Resource> shipResource;
         List<Resource> tempShipResource;
         List<Resource> tempChange;
+        int currentCargo = 0;
 
         #endregion
 
@@ -248,6 +248,7 @@ namespace SpaceGame.GameScreens
             shipResource = GameRef.spaceShip.getResource();
             for (int i = 0; i < shipResource.Count; i++)
             {
+                currentCargo = currentCargo + shipResource[i].getAmount();
                 tempShipResource.Add(new Resource(shipResource[i].getResourceID(), shipResource[i].getName(), shipResource[i].getPrice(), shipResource[i].description, shipResource[i].getAmount()));
             }
             /*
@@ -300,7 +301,7 @@ namespace SpaceGame.GameScreens
             Tuple<Resource, int> tempResource = (Tuple<Resource, int>)((LinkLabel)sender).Value;
             //int tempCost = (int)((LinkLabel)sender).Value;
             Debug.WriteLine(tempResource.Item1.getAmount());
-            if (tempResource.Item1.getAmount() > 0)
+            if (tempResource.Item1.getAmount() > 0 && currentCargo<GameRef.spaceShip.getCargoCapacity())
             {
                 if ((moneyRemaining - tempResource.Item1.getPrice()) < 0)
                 {
@@ -311,6 +312,9 @@ namespace SpaceGame.GameScreens
                 {
                     // Change the resources on planet
                     string resourceName = ((LinkLabel)sender).Type;
+
+                    // increase cargo
+                    currentCargo = currentCargo + 1;
 
                     // CHange resource in temp planet and ship list
                     Resource res = new Resource(tempResource.Item1.getResourceID(), tempResource.Item1.getName(), tempResource.Item1.getPrice(), tempResource.Item1.description, 1);
@@ -344,18 +348,15 @@ namespace SpaceGame.GameScreens
         // Planet resource function
         void substractSelectedResource(object sender, EventArgs e)
         {
-            //int tempCost = (int)((LinkLabel)sender).Value;
-            //if (moneyRemaining <= 0 || quantityAmount <= 0 || finalAmount == 0)
-            /*if (quantityAmount < 0 || finalAmount == 0)
-            {
-                return;
-            }*/
             tempChange = new List<Resource>();
             Tuple<Resource, int> tempResource = (Tuple<Resource, int>)((LinkLabel)sender).Value;
             Debug.WriteLine(tempResource.Item1.getAmount());
             if (tempResource.Item1.getAmount() < baseResourceAmountOnPlanet[tempResource.Item2])
             {
                 string resourceName = ((LinkLabel)sender).Type;
+
+                // decrease current cargo
+                currentCargo = currentCargo - 1;
 
                 Resource res = new Resource(tempResource.Item1.getResourceID(), tempResource.Item1.getName(), tempResource.Item1.getPrice(), tempResource.Item1.description, 1);
                 tempChange.Add(res);
@@ -413,10 +414,14 @@ namespace SpaceGame.GameScreens
         public override void Draw(GameTime gameTime)
         {
             GameRef.SpriteBatch.Begin();
-            
-            
-
             ControlManager.Draw(GameRef.SpriteBatch);
+
+            string cargo = "Cargo capacity: " + currentCargo.ToString();
+            fontPosition = new Vector2(300, 500);
+            GameRef.SpriteBatch.DrawString(font1, cargo, fontPosition, Color.White);
+            string maxCargo = "Maximum Cargo capacity: " + GameRef.spaceShip.getCargoCapacity().ToString();
+            fontPosition = new Vector2(300, 530);
+            GameRef.SpriteBatch.DrawString(font1, maxCargo, fontPosition, Color.White);
             for (int i = 0; i < tempShipResource.Count; i++)
             {
                 string resource = tempShipResource[i].name + " " + tempShipResource[i].amount + " $" + tempShipResource[i].getPrice() + " each!";
