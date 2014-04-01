@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,8 @@ namespace SpaceGame.Components
 {
     public class SpaceShip : Object
     {
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern uint MessageBox(IntPtr hWnd, String text, String caption, uint type);
         public IDatabase dbs = new Database();
         string name;
         string hero;
@@ -28,6 +31,7 @@ namespace SpaceGame.Components
         int owner; // user_id
         int shipId;
         bool newGame;
+        bool chance = false;
 
         Random random = new Random();
         int diceRolled = 0;
@@ -59,17 +63,18 @@ namespace SpaceGame.Components
 
 
         private Texture2D shipTexture;
-        List<Resource> shipResource;
+        public List<Resource> shipResource = new List<Resource>();
         //Dictionary<Resource, int> result;
         private string gameState = "playing";
 
         
         int cargoCapacity;
-        int cargoLevel;
+        int cargoLevel = 1;
+        int shipLevel = 1;
 
         public SpaceShip()
         {
-            shipResource = new List<Resource>();
+            //shipResource = new List<Resource>();
         }
 
         // Load the content
@@ -101,7 +106,7 @@ namespace SpaceGame.Components
         // Update ship movement
         public void Update(GameTime time)
         {
-
+            
             shipSpeed = Vector2.Zero;
             shipDirection = Vector2.Zero;
             keyboardState = Keyboard.GetState();
@@ -133,8 +138,91 @@ namespace SpaceGame.Components
                         gameState = "Upgrade";
                     }
 
+
+                    else if (keyboardState.IsKeyDown(Keys.C))
+                    {
+                        if (!chance)
+                        {  MessageBox(new IntPtr(0), string.Format("you dont have chance ,chance for each turn") , "no chance", 0);}
+                        
+                        if (chance)
+                        {
+                            int dice = random.Next(1, 7);
+                            switch (dice)
+                            {
+                                case 1:
+                                    Console.WriteLine("win 3000 dollars");
+                                 //   int number = 3000;
+                                 //   MessageBox(new IntPtr(0), string.Format("you get win: {0}", number) , "win a money", 0);
+                                 //   money += 3000;
+                                    chance = false;
+                                    break;
+                                    
+                                case 2:
+                                   // Console.WriteLine("get 100 money");
+                                   int number = 2000;
+                                   MessageBox(new IntPtr(0), string.Format("you get win: {0}", number) , "win a money", 0);
+                                    money += 1000;
+                                   chance = false; 
+                                   break;
+                                   
+                                case 3:
+                                    //Console.WriteLine("lose 60 dollars"); 
+                                    //number = 55000;
+                                    //MessageBox(new IntPtr(0), string.Format("you get win: {0}", number) , "win a money", 0);
+                                   chance = false;
+                                    break;
+                                   
+                                case 4:
+                                    //Console.WriteLine("lose 70 dollars");
+                                    //number = 200;
+                                    //MessageBox(new IntPtr(0), string.Format("you get win: {0}", number) , "win a money", 0);
+                                    chance = false;
+                                    break;
+                                case 5:
+                                    //Console.WriteLine("lose 80 dollars");
+                                    //number = 500;
+                                   // MessageBox(new IntPtr(0), string.Format("you get lost: {0}", number) , "lost a money", 0);
+                                    chance = false; 
+                                   break;
+                                case 6:
+                                    //Console.WriteLine("lose 90 dollars");
+                                    //number = 1000;
+                                   // MessageBox(new IntPtr(0), string.Format("you lost: {0}", number) , "lose a money", 0);
+                                    chance = false;
+                                   break;
+                                case 7:
+                                    Console.WriteLine("lose 100 dollars");
+                                    if (money > 100)
+                                    {
+                                        number = 100;
+                                        MessageBox(new IntPtr(0), string.Format("you lost: {0}", number), "lose a money", 0);
+                                        money -= 100;
+                                    }
+                                    chance = false;
+                                    break;
+                            /*    case 8:
+                                    Console.WriteLine("lose 500 dollars"); break;
+                                case 9:
+                                    Console.WriteLine("lose 5000 dollars"); break;
+                                case 10:
+                                    Console.WriteLine("lose 500000 dollars"); break;*/
+                               // default:
+                                    //Console.WriteLine("default case");
+                                   // number = 5000;
+                                   // MessageBox(new IntPtr(0), string.Format("you get win: {0}", number) , "win a money", 0);
+                                    //chance = false;
+                                    //break;
+
+                            }
+                        }
+                       
+                    }
+                        ///////*
+                   
+
                     else if (keyboardState.IsKeyDown(Keys.Space))
                     {
+                        chance = true;
                         //Determine the number of allowed moves
                         numberOfTurns--;
                         diceRolled = random.Next(1, 7);
@@ -183,6 +271,7 @@ namespace SpaceGame.Components
                 PositionByTile.Y = (int)Math.Round((PositionByPixel.Y - Tile.TileHeight) / Tile.TileHeight);
                 diceRemaining--;
             }
+            texture = shipTexture;
         }
 
         // Draw the ship to the screen
@@ -382,6 +471,11 @@ namespace SpaceGame.Components
             return cargoLevel;
         }
 
+        public int getShipLevel()
+        {
+            return shipLevel;
+        }
+
         public void setHero(string name)
         {
             hero = name;
@@ -427,6 +521,50 @@ namespace SpaceGame.Components
         public int getShipId()
         {
             return shipId;
+        }
+
+        public void addResource(int rId, string name, int price, string des, int amount )
+        {
+            Resource stuff = new Resource(rId, name, price,des,amount);
+            shipResource.Add(stuff);
+        }
+
+        public void buySell(List<Resource> changedRes)
+        {
+            Console.WriteLine("SpaceShip buy Sell");
+            for (int i = 0; i < changedRes.Count; i++)
+            {
+                Console.WriteLine("Spaceship change = " + changedRes[i].resourceid + changedRes[i].name + changedRes[i].amount);
+            }
+
+            for (int cr = 0; cr < changedRes.Count; cr++)
+            {
+                int count = 1;
+                for (int sp = 0; sp < shipResource.Count; sp++)
+                {
+                    if (shipResource[sp].resourceid == changedRes[cr].resourceid)
+                    {
+                        // Adds the change to the ship resource then remove it from the chnagedRes list.
+                        Console.WriteLine("ShipResource Changed = ");
+                        shipResource[sp].amount = shipResource[sp].amount + changedRes[cr].amount;
+                        count = 2;
+
+                    }
+                }
+                if (count == 1)
+                {
+                    Console.WriteLine("ShipResource add =" + changedRes[cr].resourceid + changedRes[cr].name + changedRes[cr].price + changedRes[cr].description + changedRes[cr].amount);
+                    Resource result = new Resource(changedRes[cr].resourceid, changedRes[cr].name, changedRes[cr].price, changedRes[cr].description, changedRes[cr].amount);
+                    shipResource.Add(result);
+                }
+            }
+
+            Console.WriteLine("In the ship Resource List !!!!!!!" + shipResource.Count);
+            for (int i = 0; i < shipResource.Count; i++)
+            {
+                Console.WriteLine(shipResource[i].name + "   " + shipResource[i].resourceid);
+            }
+                
         }
     }
 }

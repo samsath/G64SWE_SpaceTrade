@@ -1,0 +1,9 @@
+diff a/UserCaseStufftoDo.txt b/UserCaseStufftoDo.txt	(rejected hunks)
+@@ -9,6 +9,7 @@
+  
+ +<<<<<<< HEAD
+ +As a user, I want to be able to buy a different spaceship with different capabilities (LOW) *change just picture 
+++=======
+ +>>>>>>> 588018eedc9b760f179edb74d4696c20267407a2
+  
+  DONE

@@ -200,6 +200,7 @@ namespace STDatabase
         /// <returns>User_id, Session_id, Name</returns>
         public List<Userdata> getSessionNum()
         {
+            Connect();
             List<Userdata> result = new List<Userdata>();
             if (Check())
             {
@@ -415,10 +416,11 @@ namespace STDatabase
         /// <returns></returns>
         public List<Userdata> getHightScore()
         {
+            Connect();
             List<Userdata> result = new List<Userdata>();
             if (Check())
             {
-                string UserQuery = "SELECT users.Users_id, users.Name, hightscore.Score FROM users, hightscore WHERE users.Users_id == hightscore.Users_id ORDER BY hightscore.Score DESC LIMIT 5;";
+                string UserQuery = "SELECT users.Users_id, users.Name, hightscore.Score FROM users, hightscore WHERE users.Users_id == hightscore.Users_id ORDER BY hightscore.Score DESC LIMIT 5";
                 using (SQLiteCommand command = new SQLiteCommand(UserQuery, dbc))
                 {
                     try
@@ -428,6 +430,7 @@ namespace STDatabase
                         {
                             while (rdq.Read())
                             {
+                                //Console.WriteLine(rdq.GetInt32(0) + rdq.GetString(1) + rdq.GetInt32(2));
                                 Userdata record = new Userdata(rdq.GetInt32(0), 0, rdq.GetString(1), 0, rdq.GetInt32(2),0);
                                 result.Add(record);
                             }
@@ -729,8 +732,8 @@ namespace STDatabase
             if (Check())
             {
                 string[] query = new string[2] {
-                    String.Format("INSERT INTO shipresource (Ship_id, Resource_id, amount, Bought_Price) VALUES ({0},{1},{2},{3})", ship_id, resource_id, amount, bourghtPrice),
-                    String.Format("UPDATE ship SET Ship.Cargo_Level = Ship.Cargo_Level - {0} WHERE Ship_id = {1}", amount, ship_id)
+                    String.Format("INSERT INTO shipresource (Ship_id, Resources_id, amount, Bought_Price) VALUES ({0},{1},{2},{3})", ship_id, resource_id, amount, bourghtPrice),
+                    String.Format("UPDATE ship SET Cargo_Level = Cargo_Level - {0} WHERE Ship_id = {1}", amount, ship_id)
                 };
 
                 exeQuery(query);

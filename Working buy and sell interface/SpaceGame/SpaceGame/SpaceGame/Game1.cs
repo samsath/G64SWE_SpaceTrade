@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -21,6 +22,9 @@ namespace SpaceGame
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         #region XNA Field Region
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern uint MessageBox(IntPtr hWnd, String text, String caption, uint type);
 
         GraphicsDeviceManager graphics;
         public SpriteBatch SpriteBatch;

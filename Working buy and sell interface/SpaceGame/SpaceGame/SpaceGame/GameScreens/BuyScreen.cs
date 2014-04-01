@@ -103,7 +103,10 @@ namespace SpaceGame.GameScreens
             moneyRemaining = totalMoney;
             cargoAmount = GameRef.spaceShip.getCargoCapacity();
             turnAmount = GameRef.spaceShip.getNumberOfTurn();
+            
             CreateControls(content);
+            
+            
         }
 
         public void CreateControls(ContentManager Content)
@@ -248,6 +251,8 @@ namespace SpaceGame.GameScreens
                 ControlManager.Add(ShipResourceText);
             }
 
+            //           
+
             //Accept Label
             acceptLabel = new LinkLabel();
             acceptLabel.Text = "Accept Changes";
@@ -276,7 +281,6 @@ namespace SpaceGame.GameScreens
             acceptLabel.Text = "Changes Accepted";
         }
 
-        // Planet resource function
         void addSelectedResource(object sender, EventArgs e)
         {
             Resource singlePlanetResource = (Resource)((LinkLabel)sender).Value;
@@ -303,8 +307,8 @@ namespace SpaceGame.GameScreens
                     resourceAmountOnPlanet[singlePlanetResource.Item2] = resourceAmountOnPlanet[singlePlanetResource.Item2] - 1;
                     quantityNumber[singlePlanetResource.Item2].Text = resourceAmountOnPlanet[singlePlanetResource.Item2].ToString();
 
-                    totalMoney = totalMoney + singlePlanetResource.Item1.getPrice();
-                    finalPrice.Text = totalMoney.ToString() + "$";
+                totalMoney = totalMoney + resource.Item1.getPrice();
+                finalPrice.Text = totalMoney.ToString() + "$";
 
                     /*
                     // Change the resources on ship
@@ -384,13 +388,15 @@ namespace SpaceGame.GameScreens
 
         public override void Draw(GameTime gameTime)
         {
+            
             GameRef.SpriteBatch.Begin();
-
+            
             base.Draw(gameTime);
 
             ControlManager.Draw(GameRef.SpriteBatch);
 
             GameRef.SpriteBatch.End();
+            
         }
 
         #endregion

@@ -36,12 +36,12 @@ namespace SpaceGame.GameScreens
 
         int totalResources = 10;
         int unassignedResources = 10;
-        int moneyAmount = 100000;
+        int moneyAmount = 500000;
         int turnAmount = 3;
         int ammoAmount = 0;
         int healthAmount = 0;
         int fuelAmount = 0;
-        int cargoAmount = 0;
+        int cargoAmount = 5;
 
         //Dictionary is to record all changes made here and then pass it along to the userscreen.
         Dictionary<string, int> totransfer = new Dictionary<string, int>();
@@ -338,7 +338,7 @@ namespace SpaceGame.GameScreens
         {
             if (unassignedResources > 0)
             {
-                moneyAmount++;
+                moneyAmount = moneyAmount + 1000 ;
                 moneyNumber.Text = moneyAmount.ToString();
             }
             
