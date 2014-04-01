@@ -35,7 +35,7 @@ namespace SpaceGame.GameScreens
 
         // Ship's current Money (at the end of the buy phase, this value should return to the gameplay by using the acceptLabel_Selected method)
         int totalMoney;//input
-
+        int totalCost = 0;
         int moneyRemaining; //Money changes due to apply, moneyremaining should be equal to the totalmoney amount
 
         //int finalAmount = 0; // cost of the transactions at the end of the buy state. (Should be returned to the gameplay)
@@ -47,13 +47,14 @@ namespace SpaceGame.GameScreens
         PictureBox backgroundImage;
         Label remainingMoney;
         Label NameLabel;
-        Label quantityLabel;
+        Label remaining;
+        Label quantity;
         Label priceLabel;
         Label priceNumber;
         Label finalPriceLabel;
         Label finalPrice;
         Label ShipResourceLabel;
-        Label nameOfItem;
+        Label[] remainingNumber;
         Label[] quantityNumber;
         LinkLabel acceptLabel = new LinkLabel();
         int[] baseResourceAmountOnPlanet;
@@ -70,6 +71,7 @@ namespace SpaceGame.GameScreens
         List<Resource> shipResource;
         List<Resource> tempShipResource;
         List<Resource> tempChange;
+        int[] amountChange;
         int currentCargo = 0;
 
         #endregion
@@ -149,18 +151,21 @@ namespace SpaceGame.GameScreens
 
             ControlManager.Add(NameLabel);
 
-            quantityLabel = new Label();
-            quantityLabel.Text = "Quantity";
-            quantityLabel.Position = new Vector2(nextControlPosition.X + 100, nextControlPosition.Y);
-
-
-            ControlManager.Add(quantityLabel);
+            remaining = new Label();
+            remaining.Text = "Remaining";
+            remaining.Position = new Vector2(nextControlPosition.X + 100, nextControlPosition.Y);
+            ControlManager.Add(remaining);
 
             priceLabel = new Label();
             priceLabel.Text = "Price";
             priceLabel.Position = new Vector2(nextControlPosition.X + 250, nextControlPosition.Y);
-
             ControlManager.Add(priceLabel);
+
+            quantity = new Label();
+            quantity.Text = "Quantity";
+            quantity.Position = new Vector2(nextControlPosition.X + 450, nextControlPosition.Y);
+            ControlManager.Add(quantity);
+            
 
             finalPriceLabel = new Label();
             finalPriceLabel.Text = "Final Price";
@@ -178,18 +183,22 @@ namespace SpaceGame.GameScreens
                 tempPlanetResource.Add(new Resource(planetResource[i].getResourceID(), planetResource[i].getName(), planetResource[i].getPrice(), planetResource[i].description, planetResource[i].getAmount()));
             }
 
+            remainingNumber = new Label[planetResource.Count];
             quantityNumber = new Label[planetResource.Count];
+            amountChange = new int[planetResource.Count];
             baseResourceAmountOnPlanet = new int[planetResource.Count];
             for (int i = 0; i < planetResource.Count; i++)
             {
-                nameOfItem = new Label();
-                nameOfItem.Text = planetResource[i].getName();
-                nameOfItem.Position = new Vector2(nextControlPosition.X, nextControlPosition.Y + i * 50);
+                amountChange[i] = 0;
+
+                remainingNumber[i] = new Label();
+                remainingNumber[i].Text = planetResource[i].getAmount().ToString();
+                remainingNumber[i].Position = new Vector2(nextControlPosition.X + 150, nextControlPosition.Y + i * 50);
+                baseResourceAmountOnPlanet[i] = planetResource[i].getAmount();
 
                 quantityNumber[i] = new Label();
-                quantityNumber[i].Text = planetResource[i].getAmount().ToString();
-                quantityNumber[i].Position = new Vector2(nextControlPosition.X + 200, nextControlPosition.Y + i * 50);
-                baseResourceAmountOnPlanet[i] = planetResource[i].getAmount();
+                quantityNumber[i].Text = "0";
+                quantityNumber[i].Position = new Vector2(nextControlPosition.X + 450, nextControlPosition.Y + i * 50);
 
                 priceNumber = new Label();
                 priceNumber.Text = "$" + planetResource[i].getPrice().ToString();
@@ -209,21 +218,21 @@ namespace SpaceGame.GameScreens
                 substractLabel.TabStop = true;
                 substractLabel.Value = new Tuple<Resource, int>(planetResource[i], i);
                 substractLabel.Text = "-";
-                substractLabel.Position = new Vector2(nextControlPosition.X + 400, nextControlPosition.Y + i * 50);
+                substractLabel.Position = new Vector2(nextControlPosition.X + 380, nextControlPosition.Y + i * 50);
 
                 //substractLabel.Selected += new EventHandler(decreaseItem);
                 substractLabel.Selected += new EventHandler(substractSelectedResource);
 
                 //addLabel.Selected += new EventHandler(decreaseItem);
-                ControlManager.Add(nameOfItem);
                 ControlManager.Add(addLabel);
                 ControlManager.Add(substractLabel);
+                ControlManager.Add(remainingNumber[i]);
                 ControlManager.Add(quantityNumber[i]);
                 ControlManager.Add(priceNumber);
             }
             //final price
             finalPrice = new Label();
-            finalPrice.Text = totalMoney.ToString();
+            finalPrice.Text = "0";
             finalPrice.Position = new Vector2(nextControlPosition.X + 650, nextControlPosition.Y);
 
             //
@@ -335,10 +344,13 @@ namespace SpaceGame.GameScreens
                     //quantity reduced
                     
                     tempResource.Item1.setAmount(tempResource.Item1.getAmount() - 1);
-                    quantityNumber[tempResource.Item2].Text = tempResource.Item1.getAmount().ToString();
+                    remainingNumber[tempResource.Item2].Text = tempResource.Item1.getAmount().ToString();
 
-                    totalMoney = totalMoney + tempResource.Item1.getPrice();
-                    finalPrice.Text = totalMoney.ToString() + "$";
+                    amountChange[tempResource.Item2]++;
+                    quantityNumber[tempResource.Item2].Text = amountChange[tempResource.Item2].ToString();
+
+                    totalCost = totalCost + tempResource.Item1.getPrice();
+                    finalPrice.Text = totalCost.ToString() + "$";
 
                     
                 }
@@ -373,10 +385,13 @@ namespace SpaceGame.GameScreens
                 remainingMoney.Text = "Total Amount of Money: " + moneyRemaining.ToString() + "$";
                 //quantity
                 tempResource.Item1.setAmount(tempResource.Item1.getAmount() + 1);
-                quantityNumber[tempResource.Item2].Text = tempResource.Item1.getAmount().ToString();
+                remainingNumber[tempResource.Item2].Text = tempResource.Item1.getAmount().ToString();
 
-                totalMoney = totalMoney - tempResource.Item1.getPrice();
-                finalPrice.Text = totalMoney.ToString() + "$";
+                amountChange[tempResource.Item2]--;
+                quantityNumber[tempResource.Item2].Text = amountChange[tempResource.Item2].ToString();
+
+                totalCost = totalCost - tempResource.Item1.getPrice();
+                finalPrice.Text = totalCost.ToString() + "$";
             }
         }
 
