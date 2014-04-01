@@ -36,12 +36,9 @@ namespace SpaceGame.GameScreens
 
         int totalResources = 10;
         int unassignedResources = 10;
-        int moneyAmount = 100000;
+        int moneyAmount = 500000;
         int turnAmount = 3;
-        int ammoAmount = 0;
-        int healthAmount = 0;
-        int fuelAmount = 0;
-        int cargoAmount = 0;
+        int cargoAmount = 100;
 
         //Dictionary is to record all changes made here and then pass it along to the userscreen.
         Dictionary<string, int> totransfer = new Dictionary<string, int>();
@@ -299,12 +296,6 @@ namespace SpaceGame.GameScreens
             moneyNumber.Text = moneyAmount.ToString();
             turnAmount = 3;
             turnNumber.Text = turnAmount.ToString();
-            ammoAmount = 0;
-            ammoNumber.Text = ammoAmount.ToString();
-            healthAmount = 0;
-            healthNumber.Text = healthAmount.ToString();
-            fuelAmount = 0;
-            fuelNumber.Text = fuelAmount.ToString();
             cargoAmount = 0;
             cargoNumber.Text = cargoAmount.ToString();
 
@@ -354,35 +345,6 @@ namespace SpaceGame.GameScreens
 
         }
 
-        void augmentAmmo(object sender, EventArgs e)
-        {
-            if (unassignedResources > 0)
-            {
-                ammoAmount++;
-                ammoNumber.Text = ammoAmount.ToString();
-            }
-
-        }
-
-        void augmentHealth(object sender, EventArgs e)
-        {
-            if (unassignedResources > 0)
-            {
-                healthAmount++;
-                healthNumber.Text = healthAmount.ToString();
-            }
-
-        }
-
-        void augmentFuel(object sender, EventArgs e)
-        {
-            if (unassignedResources > 0)
-            {
-                fuelAmount++;
-                fuelNumber.Text = fuelAmount.ToString();
-            }
-
-        }
 
         void augmentCargo(object sender, EventArgs e)
         {

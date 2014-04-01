@@ -105,8 +105,6 @@ namespace SpaceGame.GameScreens
                     // 3. Draw the Ship
                     GameRef.spaceShip.Draw(GameRef.SpriteBatch);
                     GameRef.SpriteBatch.End();
-          
-
             base.Draw(gameTime);
 
 
