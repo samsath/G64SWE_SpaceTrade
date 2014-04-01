@@ -63,7 +63,7 @@ namespace SpaceGame.Components
 
 
         private Texture2D shipTexture;
-        List<Resource> shipResource;
+        public List<Resource> shipResource = new List<Resource>();
         //Dictionary<Resource, int> result;
         private string gameState = "playing";
 
@@ -74,7 +74,7 @@ namespace SpaceGame.Components
 
         public SpaceShip()
         {
-            shipResource = new List<Resource>();
+            //shipResource = new List<Resource>();
         }
 
         // Load the content
@@ -542,6 +542,12 @@ namespace SpaceGame.Components
                     Resource result = new Resource(changedRes[cr].resourceid, changedRes[cr].name, changedRes[cr].price, changedRes[cr].description, changedRes[cr].amount);
                     shipResource.Add(result);
                 }
+            }
+
+            Console.WriteLine("In the ship Resource List !!!!!!!" + shipResource.Count);
+            for (int i = 0; i < shipResource.Count; i++)
+            {
+                Console.WriteLine(shipResource[i].name + "   " + shipResource[i].resourceid);
             }
                 
         }

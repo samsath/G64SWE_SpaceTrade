@@ -55,6 +55,7 @@ namespace SpaceGame.GameScreens
         Label finalPrice;
         Label PlanetResourceLabel;
         Label PlanetResourceText;
+        Label[] ShipResourceText;
         Label nameOfItem;
         Label[] quantityNumber;
         LinkLabel acceptLabel = new LinkLabel();
@@ -69,7 +70,8 @@ namespace SpaceGame.GameScreens
         // ship and planet change list
         List<Resource> planetRes = new List<Resource>();
         List<Resource> shipRes = new List<Resource>();
-        List<Resource> resources = new List<Resource>();
+        List<Resource> shresources = new List<Resource>();
+        List<Resource> resource = new List<Resource>();
 
         #endregion
 
@@ -94,28 +96,42 @@ namespace SpaceGame.GameScreens
 
         public override void Initialize()
         {
+            resource = GameRef.board.getResourceList();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             base.LoadContent();
+            resource = GameRef.board.getResourceList();
+            shresources = GameRef.spaceShip.getResource();
             ContentManager content = GameRef.Content;
             totalMoney = GameRef.spaceShip.getMoney();
             moneyRemaining = totalMoney;
             cargoAmount = GameRef.spaceShip.getCargoCapacity();
             turnAmount = GameRef.spaceShip.getNumberOfTurn();
+            
             CreateControls(content);
             
-            resources = GameRef.spaceShip.getResource();
+            
         }
 
         public void CreateControls(ContentManager Content)
         {
 
-            backgroundImage = new PictureBox(
-            Game.Content.Load<Texture2D>(@"Backgrounds\DeepSpace"),
-            GameRef.ScreenRectangle);
+            /*shresources = GameRef.spaceShip.getResource();
+            if (shresources.Count > 0)
+            {
+                for (int i = 0; i < shresources.Count; i++)
+                {
+                    Console.WriteLine(shresources[i].name + shresources[i].amount);
+                }
+            }
+            */
+
+                backgroundImage = new PictureBox(
+                Game.Content.Load<Texture2D>(@"Backgrounds\DeepSpace"),
+                GameRef.ScreenRectangle);
             ControlManager.Add(backgroundImage);
 
             //List<ResourceData> resourceData = new List<ResourceData>();
@@ -167,8 +183,8 @@ namespace SpaceGame.GameScreens
 
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
             //
-            List<Resource> resource = new List<Resource>();
-            resource = GameRef.board.getResourceList();
+            //List<Resource> resource = new List<Resource>();
+            //resource = GameRef.board.getResourceList();
 
             quantityNumber = new Label[resource.Count];
             number = new int[resource.Count];
@@ -236,27 +252,29 @@ namespace SpaceGame.GameScreens
             ControlManager.Add(PlanetResourceLabel);
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
 
+            
 
-            if (resources.Count > 0)
+
+            if (shresources.Count != 0)
             {
-                for (int i = 0; i < resources.Count; i++)
+                for (int i = 0; i < shresources.Count; i++)
                 {
-                    PlanetResourceText = new Label();
-                    string DisplayedText = resources[i].name + " " + resource[i].amount + " $" + resource[i].getPrice() + " each!";
-                    PlanetResourceText.Text = DisplayedText;
+                    ShipResourceText[i] = new Label();
+                    string DisplayedText = shresources[i].name + " " + shresources[i].amount + " $" + shresources[i].getPrice() + " each!";
+                    ShipResourceText[i].Text = DisplayedText;
                     Debug.WriteLine(DisplayedText);
-                    PlanetResourceText.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50 + 50 * i);
-                    ControlManager.Add(PlanetResourceText);
+                    ShipResourceText[i].Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50 + 50 * i);
+                    ControlManager.Add(ShipResourceText[i]);
                 }
             }
             else
             {
-                PlanetResourceText = new Label();
+                PlanetResourceLabel = new Label();
                 string DisplayedText = "Ship Cargo bay is empty!";
-                PlanetResourceText.Text = DisplayedText;
+                PlanetResourceLabel.Text = DisplayedText;
                 Debug.WriteLine(DisplayedText);
-                PlanetResourceText.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50 + 50 );
-                ControlManager.Add(PlanetResourceText);
+                PlanetResourceLabel.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50 + 50);
+                ControlManager.Add(PlanetResourceLabel);
             }
 
             //           
@@ -392,17 +410,31 @@ namespace SpaceGame.GameScreens
         {
             ControlManager.Update(gameTime, PlayerIndex.One);
             base.Update(gameTime);
+
+            shresources = GameRef.spaceShip.shipResource;
+
+            if (shresources.Count != 0)
+            {
+                for (int i = 0; i < shresources.Count; i++)
+                {
+                    Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + shresources[i].name + shresources[i].amount);
+                }
+            }
+
+            
         }
 
         public override void Draw(GameTime gameTime)
         {
+            
             GameRef.SpriteBatch.Begin();
-
+            
             base.Draw(gameTime);
 
             ControlManager.Draw(GameRef.SpriteBatch);
 
             GameRef.SpriteBatch.End();
+            
         }
 
         #endregion
