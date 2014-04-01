@@ -58,6 +58,8 @@ namespace SpaceGame.GameScreens
         Label[] quantityNumber;
         LinkLabel acceptLabel = new LinkLabel();
         int[] baseResourceAmountOnPlanet;
+        SpriteFont font1;
+        Vector2 fontPosition;
 
         //List<ResourceLabelSet> resourceLabel = new List<ResourceLabelSet>();
         List<ResourceLabelSet> resourceLabel1 = new List<ResourceLabelSet>();
@@ -104,7 +106,7 @@ namespace SpaceGame.GameScreens
             moneyRemaining = totalMoney;
             cargoAmount = GameRef.spaceShip.getCargoCapacity();
             turnAmount = GameRef.spaceShip.getNumberOfTurn();
-
+            font1 = content.Load<SpriteFont>(@"Fonts\CourierNew");
             CreateControls(content);
 
 
@@ -171,6 +173,10 @@ namespace SpaceGame.GameScreens
             //Planet Resource
             planetResource = new List<Resource>();
             planetResource = GameRef.board.getResourceList();
+            for (int i = 0; i < planetResource.Count; i++)
+            {
+                tempPlanetResource.Add(new Resource(planetResource[i].getResourceID(), planetResource[i].getName(), planetResource[i].getPrice(), planetResource[i].description, planetResource[i].getAmount()));
+            }
 
             quantityNumber = new Label[planetResource.Count];
             baseResourceAmountOnPlanet = new int[planetResource.Count];
@@ -240,16 +246,20 @@ namespace SpaceGame.GameScreens
 
             shipResource = new List<Resource>();
             shipResource = GameRef.spaceShip.getResource();
-
+            for (int i = 0; i < shipResource.Count; i++)
+            {
+                tempShipResource.Add(new Resource(shipResource[i].getResourceID(), shipResource[i].getName(), shipResource[i].getPrice(), shipResource[i].description, shipResource[i].getAmount()));
+            }
+            /*
             for (int i = 0; i < shipResource.Count; i++)
             {
                 ShipResourceText = new Label();
                 string DisplayedText = shipResource[i].name + " " + shipResource[i].amount + " $" + shipResource[i].getPrice() + " each!";
                 ShipResourceText.Text = DisplayedText;
-                Debug.WriteLine(DisplayedText);
                 ShipResourceText.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50 + 50 * i);
                 ControlManager.Add(ShipResourceText);
             }
+            */
 
             //           
 
@@ -277,7 +287,10 @@ namespace SpaceGame.GameScreens
 
         void acceptLabel_Selected(object sender, EventArgs e)
         {
-
+            GameRef.spaceShip.setResource(tempShipResource);
+            GameRef.board.getPlanet().setResource(tempPlanetResource);
+            //tempShipResource = new List<Resource>();
+            //tempPlanetResource = new List<Resource>();
             acceptLabel.Text = "Changes Accepted";
         }
 
@@ -298,22 +311,30 @@ namespace SpaceGame.GameScreens
                 {
                     // Change the resources on planet
                     string resourceName = ((LinkLabel)sender).Type;
-                    //undoResources.Push(resourceName);
+
+                    // CHange resource in temp planet and ship list
+                    Resource res = new Resource(tempResource.Item1.getResourceID(), tempResource.Item1.getName(), tempResource.Item1.getPrice(), tempResource.Item1.description, 1);
+                    tempChange.Add(res);
+                    Utility ut = new Utility();
+                    
+                    Debug.WriteLine("===== Adding Resource");
+                    Debug.WriteLine("===== Start Removing Resource From Planet");
+                    tempPlanetResource = ut.RemoveResource(tempPlanetResource, tempChange);
+                    Debug.WriteLine("===== Start Adding Resource To Ship");
+                    tempShipResource = ut.AddResource(tempShipResource, tempChange);
+
                     moneyRemaining = moneyRemaining - tempResource.Item1.getPrice();
 
                     // Update the skill points for the appropriate resource
                     remainingMoney.Text = "Total Amount of Money: " + moneyRemaining.ToString() + "$";
 
                     //quantity reduced
+                    
                     tempResource.Item1.setAmount(tempResource.Item1.getAmount() - 1);
                     quantityNumber[tempResource.Item2].Text = tempResource.Item1.getAmount().ToString();
 
                     totalMoney = totalMoney + tempResource.Item1.getPrice();
                     finalPrice.Text = totalMoney.ToString() + "$";
-
-                    tempChange.Add(tempResource.Item1);
-                    //tempShipResource = Utility.AddResource(tempShipResource, tempChange);
-                    //tempPlanetResource = Utility.RemoveResource(tempPlanetResource, tempChange);
 
                     
                 }
@@ -329,11 +350,23 @@ namespace SpaceGame.GameScreens
             {
                 return;
             }*/
+            tempChange = new List<Resource>();
             Tuple<Resource, int> tempResource = (Tuple<Resource, int>)((LinkLabel)sender).Value;
             Debug.WriteLine(tempResource.Item1.getAmount());
             if (tempResource.Item1.getAmount() < baseResourceAmountOnPlanet[tempResource.Item2])
             {
                 string resourceName = ((LinkLabel)sender).Type;
+
+                Resource res = new Resource(tempResource.Item1.getResourceID(), tempResource.Item1.getName(), tempResource.Item1.getPrice(), tempResource.Item1.description, 1);
+                tempChange.Add(res);
+                Utility ut = new Utility();
+                List<Resource> removeList = new List<Resource>();
+                Debug.WriteLine("===== Adding Resource");
+                Debug.WriteLine("===== Start Removing Resource From Ship");
+                tempShipResource = ut.RemoveResource(tempShipResource, tempChange);
+                Debug.WriteLine("===== Start Adding Resource To Planet");
+                tempPlanetResource = ut.AddResource(tempPlanetResource, tempChange);
+
                 //undoResources.Push(resourceName);
                 moneyRemaining = moneyRemaining + tempResource.Item1.getPrice();
                 remainingMoney.Text = "Total Amount of Money: " + moneyRemaining.ToString() + "$";
@@ -343,7 +376,6 @@ namespace SpaceGame.GameScreens
 
                 totalMoney = totalMoney - tempResource.Item1.getPrice();
                 finalPrice.Text = totalMoney.ToString() + "$";
-
             }
         }
 
@@ -380,14 +412,19 @@ namespace SpaceGame.GameScreens
 
         public override void Draw(GameTime gameTime)
         {
-
             GameRef.SpriteBatch.Begin();
-
-            base.Draw(gameTime);
+            
+            
 
             ControlManager.Draw(GameRef.SpriteBatch);
-
+            for (int i = 0; i < tempShipResource.Count; i++)
+            {
+                string resource = tempShipResource[i].name + " " + tempShipResource[i].amount + " $" + tempShipResource[i].getPrice() + " each!";
+                fontPosition = new Vector2(670, 360 + 30 * i);
+                GameRef.SpriteBatch.DrawString(font1, resource, fontPosition, Color.White);
+            }
             GameRef.SpriteBatch.End();
+            base.Draw(gameTime);
 
         }
 

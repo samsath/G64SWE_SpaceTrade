@@ -490,6 +490,11 @@ namespace SpaceGame.Components
             return resource;
         }
 
+        public void setResource(List<Resource> resource)
+        {
+            this.resource = resource;
+        }
+
         public void settextureName(string name)
         {
             textureName = name;

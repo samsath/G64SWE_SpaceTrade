@@ -89,8 +89,6 @@ namespace SpaceGame
             AdminScreen = new AdminScreen(this, stateManager);
             CharacterGeneratorScreen = new CharacterGeneratorScreen(this, stateManager);
             EndGameScreen = new EndGameScreen(this, stateManager);
-            BuyScreen = new BuyScreen(this, stateManager);
-            SellScreen = new SellScreen(this, stateManager);
             PauseScreen = new PauseScreen(this, stateManager);
             highscoreScreen = new HighscoreScreen(this, stateManager);
             upgradeScreen = new UpgradeScreen(this, stateManager);
@@ -122,7 +120,8 @@ namespace SpaceGame
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
+            BuyScreen = new BuyScreen(this, stateManager);
+            SellScreen = new SellScreen(this, stateManager);
             base.Update(gameTime);
         }
 
