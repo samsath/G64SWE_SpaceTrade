@@ -90,7 +90,7 @@ namespace SpaceGame
             PauseScreen = new PauseScreen(this, stateManager);
             highscoreScreen = new HighscoreScreen(this, stateManager);
             upgradeScreen = new UpgradeScreen(this, stateManager);
-            saveHistory = new SaveHistoryScreen(this, stateManager);
+            //saveHistory = new SaveHistoryScreen(this, stateManager);
             initPrice = new InitialPriceScreen(this, stateManager);
 
             spaceShip = new SpaceShip();

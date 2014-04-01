@@ -88,6 +88,13 @@ namespace SpaceGame.Components
                 shipId = dbs.NewShipandMedia(1, getCargoCapacity(), getOwner(), 0, 0, gettextureName(), 0, "reason");
                 Console.WriteLine("shipID = " + shipId);
             }
+            shipResource.Add(new Resource(1, "Aluminium", 50, "Metal used for making ships and equipment", 10));
+            shipResource.Add(new Resource(2,"Beryllium",100,"Creation of ships and bombs",9));
+            shipResource.Add(new Resource(3, "Cobalt", 10, "Power Planet material",8));
+            shipResource.Add(new Resource(4, "Dilithium", 50, "Warp speed ship energy supply",7));
+            shipResource.Add(new Resource(5, "Rhodium", 60, "Material helps with space ship shielding",6));
+            shipResource.Add(new Resource(6, "Wood", 5, "Decorative objects and house creation",5));
+            shipResource.Add(new Resource(7, "Marble", 20, "Stone rock that can be decorative",4));
            
         }
 

@@ -41,9 +41,19 @@ namespace SpaceGame.Components
             return price;
         }
 
+        public int getResourceID()
+        {
+            return resourceid;
+        }
+
         public void economicRole()
         {
 
+        }
+
+        public void setAmount(int amount)
+        {
+            this.amount = amount;
         }
     }
 }
