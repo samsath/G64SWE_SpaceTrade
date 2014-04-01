@@ -136,53 +136,61 @@ namespace SpaceGame.Components
                     {
                         if (!chance)
                         {  MessageBox(new IntPtr(0), string.Format("you dont have chance ,chance for each turn") , "no chance", 0);}
-                        int dice = random.Next(1, 7);
+                        
                         if (chance)
                         {
-                            
+                            int dice = random.Next(1, 7);
                             switch (dice)
                             {
                                 case 1:
                                     Console.WriteLine("win 3000 dollars");
-                                    int number = 3000;
-                                    MessageBox(new IntPtr(0), string.Format("you get win: {0}", number) , "win a money", 0);
-                                    money += 3000;
+                                 //   int number = 3000;
+                                 //   MessageBox(new IntPtr(0), string.Format("you get win: {0}", number) , "win a money", 0);
+                                 //   money += 3000;
                                     chance = false;
                                     break;
                                     
-                            /*    case 2:
-                                    Console.WriteLine("get 100 money");
-                                    number = 2000;
-                                    MessageBox(new IntPtr(0), string.Format("you get win: {0}", number) , "win a money", 0);
-                                    break;
-                                   */
-                            /*    case 3:
-                                    Console.WriteLine("lose 60 dollars"); 
-                                    number = 55000;
-                                    MessageBox(new IntPtr(0), string.Format("you get win: {0}", number) , "win a money", 0);
+                                case 2:
+                                   // Console.WriteLine("get 100 money");
+                                   int number = 2000;
+                                   MessageBox(new IntPtr(0), string.Format("you get win: {0}", number) , "win a money", 0);
+                                    money += 1000;
+                                   chance = false; 
+                                   break;
+                                   
+                                case 3:
+                                    //Console.WriteLine("lose 60 dollars"); 
+                                    //number = 55000;
+                                    //MessageBox(new IntPtr(0), string.Format("you get win: {0}", number) , "win a money", 0);
+                                   chance = false;
                                     break;
                                    
                                 case 4:
-                                    Console.WriteLine("lose 70 dollars");
-                                    number = 200;
-                                    MessageBox(new IntPtr(0), string.Format("you get win: {0}", number) , "win a money", 0);
+                                    //Console.WriteLine("lose 70 dollars");
+                                    //number = 200;
+                                    //MessageBox(new IntPtr(0), string.Format("you get win: {0}", number) , "win a money", 0);
+                                    chance = false;
                                     break;
                                 case 5:
-                                    Console.WriteLine("lose 80 dollars");
-                                    number = 500;
-                                    MessageBox(new IntPtr(0), string.Format("you get lost: {0}", number) , "lost a money", 0);
-                                    break;
+                                    //Console.WriteLine("lose 80 dollars");
+                                    //number = 500;
+                                   // MessageBox(new IntPtr(0), string.Format("you get lost: {0}", number) , "lost a money", 0);
+                                    chance = false; 
+                                   break;
                                 case 6:
-                                    Console.WriteLine("lose 90 dollars");
-                                    number = 1000;
-                                    MessageBox(new IntPtr(0), string.Format("you lost: {0}", number) , "lose a money", 0);
-                                    break;*/
+                                    //Console.WriteLine("lose 90 dollars");
+                                    //number = 1000;
+                                   // MessageBox(new IntPtr(0), string.Format("you lost: {0}", number) , "lose a money", 0);
+                                    chance = false;
+                                   break;
                                 case 7:
                                     Console.WriteLine("lose 100 dollars");
-                                    if (money >100)
-                                    {number = 100;
-                                    MessageBox(new IntPtr(0), string.Format("you lost: {0}", number) , "lose a money", 0);}
-                                    money -= 100;
+                                    if (money > 100)
+                                    {
+                                        number = 100;
+                                        MessageBox(new IntPtr(0), string.Format("you lost: {0}", number), "lose a money", 0);
+                                        money -= 100;
+                                    }
                                     chance = false;
                                     break;
                             /*    case 8:
@@ -191,12 +199,12 @@ namespace SpaceGame.Components
                                     Console.WriteLine("lose 5000 dollars"); break;
                                 case 10:
                                     Console.WriteLine("lose 500000 dollars"); break;*/
-                                default:
-                                    Console.WriteLine("default case");
+                               // default:
+                                    //Console.WriteLine("default case");
                                    // number = 5000;
                                    // MessageBox(new IntPtr(0), string.Format("you get win: {0}", number) , "win a money", 0);
                                     //chance = false;
-                                    break;
+                                    //break;
 
                             }
                         }
