@@ -22,24 +22,24 @@ namespace SpaceGame.GameScreens
 
     public class SaveHistoryScreen : BaseGameState
     {
-        #region Field Region
+        #region Field region
 
-        int totalResources = 10;
-        int unassignedResources = 10;
-        int moneyAmount = 0;
-        int turnAmount = 0;
-        int ammoAmount = 0;
-        int healthAmount = 0;
-        int fuelAmount = 0;
-        int cargoAmount = 0;
+        PictureBox backgroundImage;
+        PictureBox arrowImage;
+        LinkLabel Session1;
+        LinkLabel Session2;
+        LinkLabel Session3;
+        LinkLabel Session4;
+        LinkLabel Session5;
+        public int[] sessionNumber = new int[5] { 0, 0, 0, 0, 0 };
 
         // for saving
         IDatabase dbs = new Database();
 
 
-        //List<ResourceLabelSet> resourceLabel = new List<ResourceLabelSet>();
-        
-        EventHandler linkLabelHandler;
+        float maxItemWidth = 0f;
+
+        #endregion
 
         #region Property Region
         #endregion
@@ -49,24 +49,14 @@ namespace SpaceGame.GameScreens
         public SaveHistoryScreen(Game game, GameStateManager manager)
             : base(game, manager)
         {
-            Random rand = new Random();
-            Debug.WriteLine(rand.Next(0, 10));
-            linkLabelHandler = new EventHandler(addSelectedResource);
         }
 
-        #endregion
-
-        #region Method Region
-        #endregion
-
-        #region Virtual Method region
         #endregion
 
         #region XNA Method Region
 
         public override void Initialize()
         {
-
             base.Initialize();
         }
 
@@ -74,361 +64,145 @@ namespace SpaceGame.GameScreens
         {
             base.LoadContent();
 
-            ContentManager content = GameRef.Content;
-
-            CreateControls(content);
-        }
-
-        public void CreateControls(ContentManager Content)
-        {
+            ContentManager Content = Game.Content;
 
             backgroundImage = new PictureBox(
-            Game.Content.Load<Texture2D>(@"Backgrounds\Sombrero"),
-            GameRef.ScreenRectangle);
+                Content.Load<Texture2D>(@"Backgrounds\titlescreen"),
+                GameRef.ScreenRectangle);
             ControlManager.Add(backgroundImage);
 
-            //List<ResourceData> resourceData = new List<ResourceData>();
+            Texture2D arrowTexture = Content.Load<Texture2D>(@"GUI\leftarrowUp");
 
-            Vector2 nextControlPosition = new Vector2(300, 100);
+            string[] SessionString = new string[5]{"","","","",""};
+            
 
-            Title = new Label();
-            Title.Text = "Total Resources: " + unassignedResources.ToString();
-            Title.Position = nextControlPosition;
+            List<Userdata> ses = dbs.getSessionNum();
+            int sesNumber = ses.Count;
+            Console.WriteLine(sesNumber);
+            for (int i = 0; i < sesNumber; i++)
+            {
+                Console.WriteLine(ses[i].Session_id + "," + ses[i].Name + "," + ses[i].HighScore);
+                SessionString[i] = ses[i].Session_id + "," + ses[i].Name + "," + ses[i].HighScore;
+                sessionNumber[i] = ses[i].Session_id;
+                if (i > 5)
+                {
+                    break;
+                }
+            }
 
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
+                arrowImage = new PictureBox(
+                    arrowTexture,
+                    new Rectangle(
+                        0,
+                        0,
+                        arrowTexture.Width,
+                        arrowTexture.Height));
+            ControlManager.Add(arrowImage);
 
-            ControlManager.Add(Title);
+            Session1 = new LinkLabel();
+            Session1.Text = SessionString[0];
+            Session1.Size = Session1.SpriteFont.MeasureString(Session1.Text);
+            Session1.Selected += new EventHandler(menuItem_Selected);
 
-            Label load1 = new Label();
-            load1.Text = "Initial Amount";
-            load1.Position = nextControlPosition;
+            ControlManager.Add(Session1);
 
-            LinkLabel linkLabel = new LinkLabel();
-            linkLabel.TabStop = true;
-            linkLabel.Text = "+";
-            linkLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
+            Session2 = new LinkLabel();
+            Session2.Text = SessionString[1];
+            Session2.Size = Session2.SpriteFont.MeasureString(Session2.Text);
+            Session2.Selected += menuItem_Selected;
 
-            linkLabel.Selected += addSelectedResource;
-            linkLabel.Selected += new EventHandler(augmentMoney);
+            ControlManager.Add(Session2);
 
-            load2 = new Label();
-            load2.Text = moneyAmount.ToString();
-            load2.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
+            Session3 = new LinkLabel();
+            Session3.Text = SessionString[2];
+            Session3.Size = Session3.SpriteFont.MeasureString(Session3.Text);
+            Session3.Selected += menuItem_Selected;
 
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
+            ControlManager.Add(Session3);
 
-            ControlManager.Add(load1);
-            ControlManager.Add(load2);
-            ControlManager.Add(moneyNumber);
+            Session4 = new LinkLabel();
+            Session4.Text = SessionString[3];
+            Session4.Size = Session4.SpriteFont.MeasureString(Session4.Text);
+            Session4.Selected += new EventHandler(menuItem_Selected);
 
-            //Turns
+            ControlManager.Add(Session4);
 
-            Label Turns = new Label();
-            Turns.Text = "Number of Turns";
-            Turns.Position = nextControlPosition;
+            Session5 = new LinkLabel();
+            Session5.Text = SessionString[4];
+            Session5.Size = Session5.SpriteFont.MeasureString (Session5.Text);
+            Session5.Selected += new EventHandler(menuItem_Selected);
 
-            LinkLabel linkLabelTurns = new LinkLabel();
-            linkLabelTurns.TabStop = true;
-            linkLabelTurns.Text = "+";
-            linkLabelTurns.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
+            ControlManager.Add(Session5);
 
-            linkLabelTurns.Selected += addSelectedResource;
-
-            linkLabelTurns.Selected += new EventHandler(augmentTurns);
-
-            turnNumber = new Label();
-            turnNumber.Text = turnAmount.ToString();
-            turnNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
-
-            ControlManager.Add(Turns);
-            ControlManager.Add(linkLabelTurns);
-            ControlManager.Add(turnNumber);
-
-            //
-
-            resourceLabel1.Add(new ResourceLabelSet(Money, linkLabel));
-
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
-
-            /*
-             * Ships
-             * */
-
-            Label shipLabel = new Label();
-            shipLabel.Text = "Ships.";
-            shipLabel.Position = nextControlPosition;
-
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
-
-            ControlManager.Add(shipLabel);
-
-            //Ammo
-            Label Ammo = new Label();
-            Ammo.Text = "Ammo Ammount";
-            Ammo.Position = nextControlPosition;
-
-            ControlManager.Add(Ammo);
-
-            LinkLabel AmmoLabel = new LinkLabel();
-            AmmoLabel.TabStop = true;
-            AmmoLabel.Text = "+";
-            AmmoLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
-
-            AmmoLabel.Selected += addSelectedResource;
-            AmmoLabel.Selected += new EventHandler(augmentAmmo);
-
-            ammoNumber = new Label();
-            ammoNumber.Text = ammoAmount.ToString();
-            ammoNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
-
-            ControlManager.Add(AmmoLabel);
-            ControlManager.Add(ammoNumber);
-
-            resourceLabel1.Add(new ResourceLabelSet(Ammo, AmmoLabel));
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
-            //
-
-            //Health
-
-            Label Health = new Label();
-            Health.Text = "Maximum Health";
-            Health.Position = nextControlPosition;
-
-            ControlManager.Add(Health);
-
-            LinkLabel HealthLabel = new LinkLabel();
-            HealthLabel.TabStop = true;
-            HealthLabel.Text = "+";
-            HealthLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
-
-            HealthLabel.Selected += addSelectedResource;
-            HealthLabel.Selected += new EventHandler(augmentHealth);
-
-            healthNumber = new Label();
-            healthNumber.Text = healthAmount.ToString();
-            healthNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
-
-            ControlManager.Add(HealthLabel);
-            ControlManager.Add(healthNumber);
-
-            resourceLabel1.Add(new ResourceLabelSet(Health, HealthLabel));
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
-            //
-
-            //Fuel
-
-            Label Fuel = new Label();
-            Fuel.Text = "Fuel Capacity";
-            Fuel.Position = nextControlPosition;
-
-            ControlManager.Add(Fuel);
-
-            LinkLabel FuelLabel = new LinkLabel();
-            FuelLabel.TabStop = true;
-            FuelLabel.Text = "+";
-            FuelLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
-
-            FuelLabel.Selected += addSelectedResource;
-            FuelLabel.Selected += new EventHandler(augmentFuel);
-
-            fuelNumber = new Label();
-            fuelNumber.Text = fuelAmount.ToString();
-            fuelNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
-
-            ControlManager.Add(FuelLabel);
-            ControlManager.Add(fuelNumber);
-
-            resourceLabel1.Add(new ResourceLabelSet(Fuel, FuelLabel));
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
-            //
-
-            //Cargo Capacity
-
-            Label CargoCapacity = new Label();
-            CargoCapacity.Text = "Cargo Capacity";
-            CargoCapacity.Position = nextControlPosition;
-
-            ControlManager.Add(CargoCapacity);
-
-            LinkLabel CargoCapacityLabel = new LinkLabel();
-            CargoCapacityLabel.TabStop = true;
-            CargoCapacityLabel.Text = "+";
-            CargoCapacityLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y);
-
-            CargoCapacityLabel.Selected += addSelectedResource;
-            CargoCapacityLabel.Selected += new EventHandler(augmentCargo);
-
-            cargoNumber = new Label();
-            cargoNumber.Text = cargoAmount.ToString();
-            cargoNumber.Position = new Vector2(nextControlPosition.X + 500, nextControlPosition.Y);
-
-            ControlManager.Add(CargoCapacityLabel);
-            ControlManager.Add(cargoNumber);
-
-            resourceLabel1.Add(new ResourceLabelSet(CargoCapacity, CargoCapacityLabel));
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 20f;
-            //
-
-
-            //Undo Label
-            LinkLabel undoLabel = new LinkLabel();
-            undoLabel.Text = "Reset Values";
-            undoLabel.Position = nextControlPosition;
-            undoLabel.TabStop = true;
-            undoLabel.Selected += new EventHandler(undoLabel_Selected);
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
-
-            ControlManager.Add(undoLabel);
-
-            //Accept Label
-            LinkLabel acceptLabel = new LinkLabel();
-            acceptLabel.Text = "Accept Changes";
-            acceptLabel.Position = nextControlPosition;
-            acceptLabel.TabStop = true;
-            acceptLabel.Selected += new EventHandler(acceptLabel_Selected);
-            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
-
-            ControlManager.Add(acceptLabel);
             ControlManager.NextControl();
 
-            //Back Button
-            LinkLabel backLabel = new LinkLabel();
-            backLabel.Text = "Go Back";
-            backLabel.Position = nextControlPosition;
-            backLabel.Selected += new EventHandler(goBack);
+            ControlManager.FocusChanged += new EventHandler(ControlManager_FocusChanged);
 
-            ControlManager.Add(backLabel);
-            ControlManager.NextControl();
-
-        }
-
-        void acceptLabel_Selected(object sender, EventArgs e)
-        {
-            undoResources.Clear();
-            StateManager.ChangeState(GameRef.CharacterGeneratorScreen);
-        }
-
-        void undoLabel_Selected(object sender, EventArgs e)
-        {
-            if (unassignedResources == TotalResources)
-                return;
-
-            /*string resourceName = undoResources.Peek();
-            undoResources.Pop();
-            unassignedResources++;
-            if (moneyAmmount > 0)
+            Vector2 position = new Vector2(350, 300);
+            foreach (Control c in ControlManager)
             {
-                moneyAmmount--;
-                moneyNumber.Text = moneyAmmount.ToString();
+                if (c is LinkLabel)
+                {
+                    if (c.Size.X > maxItemWidth)
+                        maxItemWidth = c.Size.X;
+
+                    c.Position = position;
+                    position.Y += c.Size.Y + 5f;
+                }
             }
 
-            // Update the skill points for the appropriate skill
-            remainingResources.Text = "Total Resources: " + unassignedResources.ToString();*/
-
-            unassignedResources = 10;
-            remainingResources.Text = "Total Resources: " + unassignedResources.ToString();
-            moneyAmount = 0;
-            moneyNumber.Text = moneyAmount.ToString();
-            turnAmount = 0;
-            turnNumber.Text = turnAmount.ToString();
-            ammoAmount = 0;
-            ammoNumber.Text = ammoAmount.ToString();
-            healthAmount = 0;
-            healthNumber.Text = healthAmount.ToString();
-            fuelAmount = 0;
-            fuelNumber.Text = fuelAmount.ToString();
-            cargoAmount = 0;
-            cargoNumber.Text = cargoAmount.ToString();
-
+            ControlManager_FocusChanged(Session1, null);
         }
 
-        void addSelectedResource(object sender, EventArgs e)
+        void ControlManager_FocusChanged(object sender, EventArgs e)
         {
-            if (unassignedResources <= 0)
-            {
-                remainingResources.Text = "You Are Out Of Resources";
-                //return;
-            }
-            else
-            {
-                string resourceName = ((LinkLabel)sender).Type;
-
-                Console.WriteLine(resourceName);
-                undoResources.Push(resourceName);
-                unassignedResources--;
-
-                // Update the skill points for the appropriate skill
-                remainingResources.Text = "Total Resources: " + unassignedResources.ToString();
-            }
-        }
-        void goBack(object sender, EventArgs e)
-        {
-            StateManager.ChangeState(GameRef.StartMenuScreen);
+            Control control = sender as Control;
+            Vector2 position = new Vector2(control.Position.X + maxItemWidth + 10f, control.Position.Y);
+            arrowImage.SetPosition(position);
         }
 
-        void augmentMoney(object sender, EventArgs e)
+        private void menuItem_Selected(object sender, EventArgs e)
         {
-            if (unassignedResources > 0)
+            if (sender == Session1)
             {
-                moneyAmount++;
-                moneyNumber.Text = moneyAmount.ToString();
+                GameRef.board.setSession(sessionNumber[0]);
+                Console.WriteLine("Session = " + sessionNumber[0]);
+                StateManager.ChangeState(GameRef.GamePlayScreen);
+                
             }
 
-        }
-
-        void augmentTurns(object sender, EventArgs e)
-        {
-            if (unassignedResources > 0)
+            if (sender == Session2)
             {
-                turnAmount++;
-                turnNumber.Text = turnAmount.ToString();
+                Console.WriteLine("Session = " + sessionNumber[1]);
+                GameRef.board.setSession(sessionNumber[1]);
+                StateManager.ChangeState(GameRef.GamePlayScreen);
             }
 
-        }
-
-        void augmentAmmo(object sender, EventArgs e)
-        {
-            if (unassignedResources > 0)
+            if (sender == Session3)
             {
-                ammoAmount++;
-                ammoNumber.Text = ammoAmount.ToString();
+                Console.WriteLine("Session = " + sessionNumber[2]);
+                GameRef.board.setSession(sessionNumber[2]);
+                StateManager.ChangeState(GameRef.GamePlayScreen);
             }
 
-        }
-
-        void augmentHealth(object sender, EventArgs e)
-        {
-            if (unassignedResources > 0)
+            if (sender == Session4)
             {
-                healthAmount++;
-                healthNumber.Text = healthAmount.ToString();
+                Console.WriteLine("Session = " + sessionNumber[3]);
+                GameRef.board.setSession(sessionNumber[3]);
+                StateManager.ChangeState(GameRef.GamePlayScreen);
             }
-
-        }
-
-        void augmentFuel(object sender, EventArgs e)
-        {
-            if (unassignedResources > 0)
+            if (sender == Session5)
             {
-                fuelAmount++;
-                fuelNumber.Text = fuelAmount.ToString();
+                Console.WriteLine("Session = " + sessionNumber[4]);
+                GameRef.board.setSession(sessionNumber[4]);
+                StateManager.ChangeState(GameRef.GamePlayScreen);
             }
-
-        }
-
-        void augmentCargo(object sender, EventArgs e)
-        {
-            if (unassignedResources > 0)
-            {
-                cargoAmount++;
-                cargoNumber.Text = cargoAmount.ToString();
-            }
-
         }
 
         public override void Update(GameTime gameTime)
         {
-            ControlManager.Update(gameTime, PlayerIndex.One);
+            ControlManager.Update(gameTime, playerIndexInControl);
+
             base.Update(gameTime);
         }
 
@@ -445,9 +219,8 @@ namespace SpaceGame.GameScreens
 
         #endregion
 
-        #region Method Region
-
+        #region Game State Method Region
         #endregion
-    }
 
+    }
 }
