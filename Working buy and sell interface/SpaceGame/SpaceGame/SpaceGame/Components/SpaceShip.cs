@@ -63,8 +63,7 @@ namespace SpaceGame.Components
 
 
         private Texture2D shipTexture;
-        public List<Resource> shipResource = new List<Resource>();
-        //Dictionary<Resource, int> result;
+        public List<Resource> resource = new List<Resource>();
         private string gameState = "playing";
 
         
@@ -93,13 +92,13 @@ namespace SpaceGame.Components
                 shipId = dbs.NewShipandMedia(1, getCargoCapacity(), getOwner(), 0, 0, gettextureName(), 0, "reason");
                 Console.WriteLine("shipID = " + shipId);
             }
-            shipResource.Add(new Resource(1, "Aluminium", 50, "Metal used for making ships and equipment", 10));
-            shipResource.Add(new Resource(2,"Beryllium",100,"Creation of ships and bombs",9));
-            shipResource.Add(new Resource(3, "Cobalt", 10, "Power Planet material",8));
-            shipResource.Add(new Resource(4, "Dilithium", 50, "Warp speed ship energy supply",7));
-            shipResource.Add(new Resource(5, "Rhodium", 60, "Material helps with space ship shielding",6));
-            shipResource.Add(new Resource(6, "Wood", 5, "Decorative objects and house creation",5));
-            shipResource.Add(new Resource(7, "Marble", 20, "Stone rock that can be decorative",4));
+            resource.Add(new Resource(1, "Aluminium", 50, "Metal used for making ships and equipment", 10));
+            resource.Add(new Resource(2,"Beryllium",100,"Creation of ships and bombs",9));
+            resource.Add(new Resource(3, "Cobalt", 10, "Power Planet material",8));
+            resource.Add(new Resource(4, "Dilithium", 50, "Warp speed ship energy supply",7));
+            resource.Add(new Resource(5, "Rhodium", 60, "Material helps with space ship shielding",6));
+            resource.Add(new Resource(6, "Wood", 5, "Decorative objects and house creation",5));
+            resource.Add(new Resource(7, "Marble", 20, "Stone rock that can be decorative",4));
            
         }
 
@@ -488,7 +487,7 @@ namespace SpaceGame.Components
 
         public List<Resource> getResource()
         {
-            return shipResource;
+            return resource;
         }
 
         public void settextureName(string name)
@@ -526,45 +525,8 @@ namespace SpaceGame.Components
         public void addResource(int rId, string name, int price, string des, int amount )
         {
             Resource stuff = new Resource(rId, name, price,des,amount);
-            shipResource.Add(stuff);
+            resource.Add(stuff);
         }
 
-        public void buySell(List<Resource> changedRes)
-        {
-            Console.WriteLine("SpaceShip buy Sell");
-            for (int i = 0; i < changedRes.Count; i++)
-            {
-                Console.WriteLine("Spaceship change = " + changedRes[i].resourceid + changedRes[i].name + changedRes[i].amount);
-            }
-
-            for (int cr = 0; cr < changedRes.Count; cr++)
-            {
-                int count = 1;
-                for (int sp = 0; sp < shipResource.Count; sp++)
-                {
-                    if (shipResource[sp].resourceid == changedRes[cr].resourceid)
-                    {
-                        // Adds the change to the ship resource then remove it from the chnagedRes list.
-                        Console.WriteLine("ShipResource Changed = ");
-                        shipResource[sp].amount = shipResource[sp].amount + changedRes[cr].amount;
-                        count = 2;
-
-                    }
-                }
-                if (count == 1)
-                {
-                    Console.WriteLine("ShipResource add =" + changedRes[cr].resourceid + changedRes[cr].name + changedRes[cr].price + changedRes[cr].description + changedRes[cr].amount);
-                    Resource result = new Resource(changedRes[cr].resourceid, changedRes[cr].name, changedRes[cr].price, changedRes[cr].description, changedRes[cr].amount);
-                    shipResource.Add(result);
-                }
-            }
-
-            Console.WriteLine("In the ship Resource List !!!!!!!" + shipResource.Count);
-            for (int i = 0; i < shipResource.Count; i++)
-            {
-                Console.WriteLine(shipResource[i].name + "   " + shipResource[i].resourceid);
-            }
-                
-        }
     }
 }

@@ -79,6 +79,7 @@
     <Compile Include="Components\Resource.cs" />
     <Compile Include="Components\SpaceShip.cs" />
     <Compile Include="Components\Tile.cs" />
+    <Compile Include="Components\Utility.cs" />
     <Compile Include="GameScreens\AdminScreen.cs" />
     <Compile Include="GameScreens\BaseGameState.cs" />
     <Compile Include="GameScreens\BuyScreen.cs" />

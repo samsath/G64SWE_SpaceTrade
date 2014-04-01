@@ -37,15 +37,15 @@ namespace SpaceGame.GameScreens
         int totalResources = 10;
         int unassignedResources = 10;
 <<<<<<< HEAD
-        int moneyAmount = 100;
+        int moneyAmount = 100000;
 =======
-        int moneyAmount = 500;
->>>>>>> a45ea54f5a241ca90ba6e5cb55f4d4a08e868116
+        int moneyAmount = 500000;
+>>>>>>> f075ceceea09d03c8bd24727b0845c19cb7c9245
         int turnAmount = 3;
         int ammoAmount = 0;
         int healthAmount = 0;
         int fuelAmount = 0;
-        int cargoAmount = 0;
+        int cargoAmount = 5;
 
         //Dictionary is to record all changes made here and then pass it along to the userscreen.
         Dictionary<string, int> totransfer = new Dictionary<string, int>();
@@ -276,12 +276,6 @@ namespace SpaceGame.GameScreens
             GameRef.spaceShip.setMoney(moneyAmount);
             GameRef.spaceShip.setNumberOfTurn(turnAmount);
             GameRef.spaceShip.setCargoCapacity(cargoAmount);
-            // sent to the CharcaterScreen
-            GameRef.CharacterGeneratorScreen.setMoney(moneyAmount);
-            GameRef.CharacterGeneratorScreen.setNumberOfTurn(turnAmount);
-            GameRef.CharacterGeneratorScreen.setInitialCargoCapacity(cargoAmount);
-
-            GameRef.spaceShip.setCargoCapacity(cargoAmount);
             undoResources.Clear();
             StateManager.ChangeState(GameRef.CharacterGeneratorScreen);
         }
@@ -348,7 +342,7 @@ namespace SpaceGame.GameScreens
         {
             if (unassignedResources > 0)
             {
-                moneyAmount++;
+                moneyAmount = moneyAmount + 1000 ;
                 moneyNumber.Text = moneyAmount.ToString();
             }
             
