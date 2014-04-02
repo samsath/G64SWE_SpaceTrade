@@ -42,8 +42,6 @@ namespace SpaceGame.GameScreens
 
         int cargoAmount; // Ship's current cargo capacity //input
 
-        int turnAmount; // Ship's current number of turns (not needed here, should be on the upgrade screen)
-
         PictureBox backgroundImage;
         Label remainingMoney;
         Label NameLabel;
@@ -109,7 +107,6 @@ namespace SpaceGame.GameScreens
             totalMoney = GameRef.spaceShip.getMoney();
             moneyRemaining = totalMoney;
             cargoAmount = GameRef.spaceShip.getCargoCapacity();
-            turnAmount = GameRef.spaceShip.getNumberOfTurn();
             font1 = content.Load<SpriteFont>(@"Fonts\CourierNew");
             CreateControls(content);
 

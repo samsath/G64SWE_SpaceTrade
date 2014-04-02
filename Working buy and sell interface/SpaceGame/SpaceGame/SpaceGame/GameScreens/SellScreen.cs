@@ -12,6 +12,9 @@ using Microsoft.Xna.Framework.Content;
 using XRpgLibrary;
 using XRpgLibrary.Controls;
 using SpaceGame.Components;
+
+using System.Diagnostics;
+
 namespace SpaceGame.GameScreens
 {
     internal class ResourceLabelSetSell
@@ -19,10 +22,10 @@ namespace SpaceGame.GameScreens
         internal Label Label;
         internal LinkLabel LinkLabel;
 
-        internal ResourceLabelSetSell(Label labelSell, LinkLabel linkLabelSell)
+        internal ResourceLabelSetSell(Label labelBuy, LinkLabel linkLabelBuy)
         {
-            Label = labelSell;
-            LinkLabel = linkLabelSell;
+            Label = labelBuy;
+            LinkLabel = linkLabelBuy;
         }
     }
 
@@ -31,73 +34,49 @@ namespace SpaceGame.GameScreens
         #region Field Region
 
         // Ship's current Money (at the end of the buy phase, this value should return to the gameplay by using the acceptLabel_Selected method)
-        int totalMoney; // Ship's current money //input
+        int totalMoney;//input
+        int totalCost = 0;
+        int moneyRemaining; //Money changes due to apply, moneyremaining should be equal to the totalmoney amount
+
+        //int finalAmount = 0; // cost of the transactions at the end of the buy state. (Should be returned to the gameplay)
+
         int cargoAmount; // Ship's current cargo capacity //input
 
-        //turns should only be in the upgrade screen
-        int turnAmount; // Ship's current number of turn//should not be here
-
-        int totalResources = 10000; //money remaining should be equal to the totalmoney amount
-        int unassignedResources = 10000;
-
-        //price set by the player
-        int priceAmount = 0;
-
-        //original price brings the set price of the resource from the gameplay
-        int originalPrice = 5000; //input
-
-        //ammount of the resource brought from the gameplay(Ship)
-        int itemAmount = 10; // input
-        //ammount of the resource brought from the gameplay(Planet)
-        int quantityAmount = 10;//input
-
-        //offer made by the AI
-        int offerAmount = 0;
-        //Quantity acquired shows the number of resources of the planet and the changes made by buying from the ship
-        int quantityAcquired = 0;//output
 
         PictureBox backgroundImage;
         Label remainingMoney;
         Label NameLabel;
-        Label quantityLabel;
+        Label remaining;
+        Label quantity;
         Label priceLabel;
         Label priceNumber;
-        Label offerLabel;
-        Label offerNumber;
-        Label[] quantityNumber;
-        LinkLabel[] substractLabel;
-        LinkLabel[] addLabel;
-
-        Label planetQuantity;
+        Label finalPriceLabel;
+        Label finalPrice;
         Label PlanetResourceLabel;
-        Label PlanetResourceText;
+        Label[] remainingNumber;
+        Label[] quantityNumber;
+        Label nameOfItem;
         LinkLabel acceptLabel = new LinkLabel();
-        int[] number;
+        int[] baseResourceAmountOnShip;
+        SpriteFont font1;
+        Vector2 fontPosition;
 
         //List<ResourceLabelSet> resourceLabel = new List<ResourceLabelSet>();
         List<ResourceLabelSet> resourceLabel1 = new List<ResourceLabelSet>();
         Stack<string> undoResources = new Stack<string>();
         EventHandler linkLabelHandler;
 
-        // ship and planet change list
-        List<Resource> planetRes = new List<Resource>();
-        List<Resource> shipRes = new List<Resource>();
+        List<Resource> backupShipResource;
+        List<Resource> planetResource;
+        List<Resource> tempPlanetResource;
+        List<Resource> shipResource;
+        List<Resource> tempShipResource;
+        List<Resource> tempChange;
+        int[] amountChange;
+        int currentCargo = 0;
 
         #endregion
 
-        #region Property Region
-
-        public int TotalResources
-        {
-            get { return totalResources; }
-            set
-            {
-                totalResources = value;
-                unassignedResources = value;
-            }
-        }
-
-        #endregion
 
         #region Constructor Region
 
@@ -127,9 +106,12 @@ namespace SpaceGame.GameScreens
             base.LoadContent();
             ContentManager content = GameRef.Content;
             totalMoney = GameRef.spaceShip.getMoney();
-            turnAmount = GameRef.spaceShip.getNumberOfTurn();
+            moneyRemaining = totalMoney;
             cargoAmount = GameRef.spaceShip.getCargoCapacity();
+            font1 = content.Load<SpriteFont>(@"Fonts\CourierNew");
             CreateControls(content);
+
+
         }
 
         public void CreateControls(ContentManager Content)
@@ -147,10 +129,11 @@ namespace SpaceGame.GameScreens
             Title.Position = new Vector2(100, 50);
             ControlManager.Add(Title);
             Vector2 nextControlPosition = new Vector2(100, 50);
-
+            tempPlanetResource = new List<Resource>();
+            tempShipResource = new List<Resource>();
             remainingMoney = new Label();
-            remainingMoney.Text = "Total Amount of Money: " + unassignedResources.ToString() + "$";
-            remainingMoney.Position = new Vector2(nextControlPosition.X + 400, nextControlPosition.Y); 
+            remainingMoney.Text = "Total Amount of Money: " + moneyRemaining.ToString() + "$";
+            remainingMoney.Position = new Vector2(nextControlPosition.X + 400, nextControlPosition.Y);
 
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
 
@@ -158,7 +141,7 @@ namespace SpaceGame.GameScreens
 
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
-                        
+
             // Labels
 
             NameLabel = new Label();
@@ -168,135 +151,125 @@ namespace SpaceGame.GameScreens
 
             ControlManager.Add(NameLabel);
 
-            quantityLabel = new Label();
-            quantityLabel.Text = "Quantity";
-            quantityLabel.Position = new Vector2(nextControlPosition.X + 100, nextControlPosition.Y);
-
-
-            ControlManager.Add(quantityLabel);
+            remaining = new Label();
+            remaining.Text = "Remaining";
+            remaining.Position = new Vector2(nextControlPosition.X + 100, nextControlPosition.Y);
+            ControlManager.Add(remaining);
 
             priceLabel = new Label();
             priceLabel.Text = "Price";
             priceLabel.Position = new Vector2(nextControlPosition.X + 250, nextControlPosition.Y);
-
             ControlManager.Add(priceLabel);
 
-            offerLabel = new Label();
-            offerLabel.Text = "Offer";
-            offerLabel.Position = new Vector2(nextControlPosition.X + 650, nextControlPosition.Y);
-
-            ControlManager.Add(offerLabel);
-
-            //planet quantity
-
-            quantityLabel = new Label();
-            quantityLabel.Text = "Quantity";
-            quantityLabel.Position = new Vector2(nextControlPosition.X + 750, nextControlPosition.Y);
+            quantity = new Label();
+            quantity.Text = "Quantity";
+            quantity.Position = new Vector2(nextControlPosition.X + 450, nextControlPosition.Y);
+            ControlManager.Add(quantity);
 
 
-            ControlManager.Add(quantityLabel);
+            finalPriceLabel = new Label();
+            finalPriceLabel.Text = "Final Price";
+            finalPriceLabel.Position = new Vector2(nextControlPosition.X + 650, nextControlPosition.Y);
+
+            ControlManager.Add(finalPriceLabel);
 
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 5f;
 
-            List<Resource> shipRes = GameRef.spaceShip.getResource();
-            quantityNumber = new Label[shipRes.Count];
-            number = new int[shipRes.Count];
-
-            for (int i = 0; i < shipRes.Count; i++)
+            //Planet Resource
+            shipResource = new List<Resource>();
+            shipResource = GameRef.spaceShip.getResource();
+            backupShipResource = new List<Resource>();
+            for (int i = 0; i < shipResource.Count; i++)
             {
-
-                Label nameOfItem = new Label();
-                nameOfItem.Text = shipRes[i].name;
-                nameOfItem.Position = nextControlPosition;
-
-                quantityNumber[i] = new Label();
-                quantityNumber[i].Text = quantityAmount.ToString();
-                quantityNumber[i].Position = new Vector2(nextControlPosition.X + 200, nextControlPosition.Y);
-
-                priceNumber = new Label();
-                priceNumber.Text = priceAmount.ToString() + "$";
-                priceNumber.Position = new Vector2(nextControlPosition.X + 250, nextControlPosition.Y);
-
-                addLabel[i] = new LinkLabel();
-                addLabel[i].TabStop = true;
-                addLabel[i].Text = "+";
-                addLabel[i].Position = new Vector2(nextControlPosition.X + 250, nextControlPosition.Y + 20);
-
-                addLabel[i].Selected += new EventHandler(increasePriceItem);
-
-                substractLabel[i] = new LinkLabel();
-                substractLabel[i].TabStop = true;
-                substractLabel[i].Text = "-";
-                substractLabel[i].Position = new Vector2(nextControlPosition.X + 300, nextControlPosition.Y + 20);
-
-                substractLabel[i].Selected += new EventHandler(decreasePriceItem);
-
-                LinkLabel addPlanetLabel = new LinkLabel();
-                addPlanetLabel.TabStop = true;
-                addPlanetLabel.Text = "Add";
-                addPlanetLabel.Position = new Vector2(nextControlPosition.X + 450, nextControlPosition.Y);
-
-                addPlanetLabel.Selected += new EventHandler(increaseItem);
-                addPlanetLabel.Selected += addSelectedResource;
-
-                LinkLabel substractPlanetLabel = new LinkLabel();
-                substractPlanetLabel.TabStop = true;
-                substractPlanetLabel.Text = "Remove";
-                substractPlanetLabel.Position = new Vector2(nextControlPosition.X + 520, nextControlPosition.Y);
-
-
-                substractPlanetLabel.Selected += new EventHandler(decreaseItem);
-                substractPlanetLabel.Selected += new EventHandler(substractSelectedResource);
-
-
-                //Offer
-                offerNumber = new Label();
-                offerNumber.Text = offerAmount.ToString();
-                offerNumber.Position = new Vector2(nextControlPosition.X + 650, nextControlPosition.Y);
-
-                //
-
-                //Planet quantity
-
-                planetQuantity = new Label();
-                planetQuantity.Text = offerAmount.ToString();
-                planetQuantity.Position = new Vector2(nextControlPosition.X + 750, nextControlPosition.Y);
-                //planetQuantity.Text = quantityAcquired.ToString();
-
-                //
-
-                ControlManager.Add(nameOfItem);
-                ControlManager.Add(addLabel[i]);
-                ControlManager.Add(substractLabel[i]);
-                ControlManager.Add(addPlanetLabel);
-                ControlManager.Add(substractPlanetLabel);
-                ControlManager.Add(quantityNumber[i]);
-                ControlManager.Add(priceNumber);
-                ControlManager.Add(offerNumber);
-                ControlManager.Add(planetQuantity);
-                //
-
-                //Planet resources
-
-                nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
-
-                PlanetResourceLabel = new Label();
-                PlanetResourceLabel.Text = "Planet Resources";
-                PlanetResourceLabel.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50);
-
-
-                ControlManager.Add(PlanetResourceLabel);
-                nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
-
-                PlanetResourceText = new Label();
-                PlanetResourceText.Text = "List of Resources";
-                PlanetResourceText.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50);
-
-
-                ControlManager.Add(PlanetResourceText);
+                currentCargo = currentCargo + shipResource[i].getAmount();
+                tempShipResource.Add(new Resource(shipResource[i].getResourceID(), shipResource[i].getName(), shipResource[i].getPrice(), shipResource[i].description, shipResource[i].getAmount()));
+                backupShipResource.Add(new Resource(shipResource[i].getResourceID(), shipResource[i].getName(), shipResource[i].getPrice(), shipResource[i].description, shipResource[i].getAmount()));
             }
 
+            remainingNumber = new Label[shipResource.Count];
+            quantityNumber = new Label[shipResource.Count];
+            amountChange = new int[shipResource.Count];
+            baseResourceAmountOnShip = new int[shipResource.Count];
+            for (int i = 0; i < shipResource.Count; i++)
+            {
+                nameOfItem = new Label();
+                nameOfItem.Text = shipResource[i].name;
+                nameOfItem.Position = new Vector2(nextControlPosition.X, nextControlPosition.Y + i * 50);
+
+                amountChange[i] = 0;
+
+                remainingNumber[i] = new Label();
+                remainingNumber[i].Text = shipResource[i].getAmount().ToString();
+                remainingNumber[i].Position = new Vector2(nextControlPosition.X + 150, nextControlPosition.Y + i * 50);
+                baseResourceAmountOnShip[i] = shipResource[i].getAmount();
+
+                quantityNumber[i] = new Label();
+                quantityNumber[i].Text = "0";
+                quantityNumber[i].Position = new Vector2(nextControlPosition.X + 450, nextControlPosition.Y + i * 50);
+
+                priceNumber = new Label();
+                priceNumber.Text = "$" + shipResource[i].getPrice().ToString();
+                priceNumber.Position = new Vector2(nextControlPosition.X + 250, nextControlPosition.Y + i * 50);
+
+
+                LinkLabel addLabel = new LinkLabel();
+                addLabel.TabStop = true;
+                addLabel.Value = new Tuple<Resource, int>(shipResource[i], i);
+                addLabel.Text = "+";
+                addLabel.Position = new Vector2(nextControlPosition.X + 350, nextControlPosition.Y + i * 50);
+
+                //addLabel.Selected += new EventHandler(augmentItem);
+                addLabel.Selected += addSelectedResource;
+
+                LinkLabel substractLabel = new LinkLabel();
+                substractLabel.TabStop = true;
+                substractLabel.Value = new Tuple<Resource, int>(shipResource[i], i);
+                substractLabel.Text = "-";
+                substractLabel.Position = new Vector2(nextControlPosition.X + 380, nextControlPosition.Y + i * 50);
+
+                //substractLabel.Selected += new EventHandler(decreaseItem);
+                substractLabel.Selected += new EventHandler(substractSelectedResource);
+
+                //addLabel.Selected += new EventHandler(decreaseItem);
+                ControlManager.Add(nameOfItem);
+                ControlManager.Add(addLabel);
+                ControlManager.Add(substractLabel);
+                ControlManager.Add(remainingNumber[i]);
+                ControlManager.Add(quantityNumber[i]);
+                ControlManager.Add(priceNumber);
+            }
+            //final price
+            finalPrice = new Label();
+            finalPrice.Text = "0";
+            finalPrice.Position = new Vector2(nextControlPosition.X + 650, nextControlPosition.Y);
+
             //
+
+
+            ControlManager.Add(finalPrice);
+            //
+
+            //Ship resources
+            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
+
+            PlanetResourceLabel = new Label();
+            PlanetResourceLabel.Text = "Planet Resources";
+            PlanetResourceLabel.Position = new Vector2(nextControlPosition.X + 550, nextControlPosition.Y + 50);
+
+
+            ControlManager.Add(PlanetResourceLabel);
+            nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
+
+
+            planetResource = new List<Resource>();
+            planetResource = GameRef.board.getResourceList();
+            for (int i = 0; i < planetResource.Count; i++)
+            {
+
+                tempShipResource.Add(new Resource(planetResource[i].getResourceID(), planetResource[i].getName(), planetResource[i].getPrice(), planetResource[i].description, planetResource[i].getAmount()));
+            }
+
+            //           
 
             //Accept Label
             acceptLabel = new LinkLabel();
@@ -322,342 +295,119 @@ namespace SpaceGame.GameScreens
 
         void acceptLabel_Selected(object sender, EventArgs e)
         {
-            //undoResources.Clear();
-            //StateManager.ChangeState(GameRef.GamePlayScreen, null);
-            //save states to DB method here
-            totalMoney = unassignedResources;
-            acceptLabel.Text = "Changes accepted.";
+            GameRef.spaceShip.setResource(tempShipResource);
+            GameRef.board.getPlanet().setResource(tempPlanetResource);
+            backupShipResource = new List<Resource>();
+            for (int i = 0; i < shipResource.Count; i++)
+            {
+                backupShipResource.Add(new Resource(shipResource[i].getResourceID(), shipResource[i].getName(), shipResource[i].getPrice(), shipResource[i].description, shipResource[i].getAmount()));
+            }
+            acceptLabel.Text = "Changes Accepted";
         }
 
         void addSelectedResource(object sender, EventArgs e)
         {
-            if (quantityAmount == 0)
+            tempChange = new List<Resource>();
+            Tuple<Resource, int> tempResource = (Tuple<Resource, int>)((LinkLabel)sender).Value;
+            //int tempCost = (int)((LinkLabel)sender).Value;
+            Debug.WriteLine(tempResource.Item1.getAmount());
+            if (tempResource.Item1.getAmount() > 0)
             {
-                return;
-            }
-            else
-            {
+                // Change the resources on planet
                 string resourceName = ((LinkLabel)sender).Type;
-                undoResources.Push(resourceName);
-                unassignedResources = unassignedResources + offerAmount;
+
+                // reduce cargo
+                currentCargo = currentCargo - 1;
+
+                // CHange resource
+                Resource res = new Resource(tempResource.Item1.getResourceID(), tempResource.Item1.getName(), tempResource.Item1.getPrice(), tempResource.Item1.description, 1);
+                tempChange.Add(res);
+                Utility ut = new Utility();
+
+                Debug.WriteLine("===== Plus button");
+                tempShipResource = ut.RemoveResource(tempShipResource, tempChange);
+                tempPlanetResource = ut.AddResource(tempPlanetResource, tempChange);
+
+                moneyRemaining = moneyRemaining + tempResource.Item1.getPrice();
 
                 // Update the skill points for the appropriate resource
-                remainingMoney.Text = "Total Amount of Money: " + unassignedResources.ToString() + "$";
+                remainingMoney.Text = "Total Amount of Money: " + moneyRemaining.ToString() + "$";
 
                 //quantity reduced
-                /*
-                quantityAmount--;
-                quantityNumber.Text = quantityAmount.ToString();
-                quantityAcquired++;
-                planetQuantity.Text = quantityAcquired.ToString();
-                */
-                // for the sell resours info
-                //shipRes.Add(new Resource(resource.Item1.resourceid, resource.Item1.name, resource.Item1.price, resource.Item1.description, -1));
-                //planetRes.Add(new Resource(resource.Item1.resourceid, resource.Item1.name, resource.Item1.price, resource.Item1.description, 1));
+
+                tempResource.Item1.setAmount(tempResource.Item1.getAmount() - 1);
+                remainingNumber[tempResource.Item2].Text = tempResource.Item1.getAmount().ToString();
+
+                amountChange[tempResource.Item2]++;
+                quantityNumber[tempResource.Item2].Text = amountChange[tempResource.Item2].ToString();
+
+                totalCost = totalCost + tempResource.Item1.getPrice();
+                finalPrice.Text = totalCost.ToString() + "$";
+
             }
         }
 
+        // Planet resource function
         void substractSelectedResource(object sender, EventArgs e)
         {
-            //max value of the items to be saved so can be used as reference
+            tempChange = new List<Resource>();
+            Tuple<Resource, int> tempResource = (Tuple<Resource, int>)((LinkLabel)sender).Value;
+            Debug.WriteLine(tempResource.Item1.getAmount());
+            if (tempResource.Item1.getAmount() < baseResourceAmountOnShip[tempResource.Item2] && currentCargo < GameRef.spaceShip.getCargoCapacity())
+            {
+                string resourceName = ((LinkLabel)sender).Type;
 
-            if (quantityAmount == itemAmount)
-            {
-                unassignedResources = totalResources;
-                remainingMoney.Text = "Total Amount of Money: " + unassignedResources.ToString() + "$";
-                //planetQuantity.Text = "";
-            }
-            else if (quantityAmount>=0)
-            {
-                /*
-                unassignedResources = unassignedResources - offerAmount;
-                remainingMoney.Text = "Total Amount of Money: " + unassignedResources.ToString() + "$";
+                // decrease current cargo
+                currentCargo = currentCargo + 1;
+
+                Resource res = new Resource(tempResource.Item1.getResourceID(), tempResource.Item1.getName(), tempResource.Item1.getPrice(), tempResource.Item1.description, 1);
+                tempChange.Add(res);
+                Utility ut = new Utility();
+                List<Resource> removeList = new List<Resource>();
+                Debug.WriteLine("===== Minus button");
+                tempPlanetResource = ut.RemoveResource(tempPlanetResource, tempChange);
+                tempShipResource = ut.AddResource(tempShipResource, tempChange);
+
+                //undoResources.Push(resourceName);
+                moneyRemaining = moneyRemaining - tempResource.Item1.getPrice();
+                remainingMoney.Text = "Total Amount of Money: " + moneyRemaining.ToString() + "$";
                 //quantity
-                quantityAmount++;
-                quantityNumber.Text = quantityAmount.ToString();
-                quantityAcquired--;
-                planetQuantity.Text = quantityAcquired.ToString();
-                 * */
+                tempResource.Item1.setAmount(tempResource.Item1.getAmount() + 1);
+                remainingNumber[tempResource.Item2].Text = tempResource.Item1.getAmount().ToString();
+
+                amountChange[tempResource.Item2]--;
+                quantityNumber[tempResource.Item2].Text = amountChange[tempResource.Item2].ToString();
+
+                totalCost = totalCost - tempResource.Item1.getPrice();
+                finalPrice.Text = totalCost.ToString() + "$";
             }
         }
 
         void goBack(object sender, EventArgs e)
         {
+            GameRef.board.getPlanet().setResource(backupShipResource);
             GameRef.spaceShip.setGameState("playing");
             StateManager.ChangeState(GameRef.GamePlayScreen);
         }
 
-        
-        void increaseItem(object sender, EventArgs e)
-        {
-            if (quantityAmount == 0)
-            {
-                offerNumber.Text = " ";
-            }else
-            if (unassignedResources > 0)
-            {
-                //Overpriced amount.
-
-                if (priceAmount >= (originalPrice * 2))
-                {
-                    //quantity ammount to be changed to number of resources of the planet
-                    //offerAmount = originalPrice;
-                    //offerNumber.Text = offerAmount.ToString() + "$";
-                    if (quantityAcquired == 0)
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice*1.5);
-                        offerAmount = random.Next(originalPrice, range);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                    else if((quantityAcquired >0) && (quantityAcquired <= 3))
-                    {
-                        offerAmount = originalPrice;
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                    else if (quantityAcquired > 3 && (quantityAcquired <= 5))
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 0.75);
-                        offerAmount = random.Next(range, originalPrice);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                    else if (quantityAcquired > 5)
-                    {
-                        offerAmount = 0;
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                }
-
-                //Reasonably overpriced amount.
-
-                if ((priceAmount >= (originalPrice * 1.5)) && (priceAmount < (originalPrice * 2)))
-                {
-                    if (quantityAcquired == 0)
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 1.5);
-                        offerAmount = random.Next(originalPrice, range);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                    else if ((quantityAcquired > 0) && (quantityAcquired <= 3))
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 1.2);
-                        offerAmount = random.Next(originalPrice, range);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                    else if (quantityAcquired > 3 && (quantityAcquired <= 5))
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 0.75);
-                        offerAmount = random.Next(range, originalPrice);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                    else if (quantityAcquired > 5)
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 0.75);
-                        int range1 = (int)(originalPrice * 0.5);
-                        offerAmount = random.Next(range1, range);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                }
-
-                // Reasonable amount
-
-                if ((priceAmount > originalPrice) && (priceAmount < (originalPrice * 1.5)))
-                {
-                    if (quantityAcquired == 0)
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 1.5);
-                        int range1 = (int)(originalPrice * 1.2);
-                        offerAmount = random.Next(range1, range);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                    else if ((quantityAcquired > 0) && (quantityAcquired <= 3))
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 1.2);
-                        offerAmount = random.Next(originalPrice, range);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                    else if (quantityAcquired > 3 && (quantityAcquired <= 5))
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 1.1);
-                        offerAmount = random.Next(originalPrice, range);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                    else if (quantityAcquired > 5)
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 0.85);
-                        offerAmount = random.Next(range, originalPrice);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                }
-
-                //Equal amount
-
-                if (priceAmount == originalPrice) 
-                {
-                    if (quantityAcquired == 0)
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 1.7);
-                        int range1 = (int)(originalPrice * 1.5);
-                        offerAmount = random.Next(range1, range);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                    else if ((quantityAcquired > 0) && (quantityAcquired <= 3))
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 1.5);
-                        offerAmount = random.Next(originalPrice, range);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                    else if (quantityAcquired > 3 && (quantityAcquired <= 5))
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 1.2);
-                        offerAmount = random.Next(originalPrice, range);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                    else if (quantityAcquired > 5)
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 0.75);
-                        offerAmount = random.Next(range, originalPrice);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                }
-
-                //Cheaper price
-
-                if ((priceAmount < originalPrice) && (priceAmount >= (originalPrice * 0.75))) 
-                {
-                    if (quantityAcquired == 0)
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 1.2);
-                        offerAmount = random.Next(originalPrice, range);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                        
-                    }
-                    else if ((quantityAcquired > 0) && (quantityAcquired <= 3))
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 0.75);
-                        int range1 = (int)(originalPrice * 1.2);
-                        offerAmount = random.Next(range, range1);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                    else if (quantityAcquired > 3 && (quantityAcquired <= 5))
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 0.75);
-                        int range1 = (int)(originalPrice * 0.9);
-                        offerAmount = random.Next(range, range1);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                    else if (quantityAcquired > 5)
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 0.75);
-                        offerAmount = random.Next(range, priceAmount);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                }
-
-                //Really cheap price
-
-                if ((priceAmount < (originalPrice * 0.75)) && (priceAmount >= (originalPrice * 0.5)))
-                {
-                    if (quantityAcquired == 0)
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 1.2);
-                        offerAmount = random.Next(originalPrice, range);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-
-                    }
-                    else if ((quantityAcquired > 0) && (quantityAcquired <= 3))
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 0.75);
-                        int range1 = (int)(originalPrice * 0.9);
-                        offerAmount = random.Next(range, range1);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                    else if (quantityAcquired > 3 && (quantityAcquired <= 5))
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 0.5);
-                        int range1 = (int)(originalPrice * 0.75);
-                        offerAmount = random.Next(range, range1);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                    else if (quantityAcquired > 5)
-                    {
-                        Random random = new Random();
-                        int range = (int)(originalPrice * 0.5);
-                        offerAmount = random.Next(range, priceAmount);
-                        offerNumber.Text = offerAmount.ToString() + "$";
-                    }
-                }
-
-                //Always sell price
-
-                if (priceAmount < (originalPrice * 0.5))
-                {
-                    offerAmount = priceAmount;
-                    offerNumber.Text = offerAmount.ToString() + "$";
-                }
-
-
-            }
-            /*
-             * offerAmount = (priceAmount / quantityAmount);
-                offerNumber.Text = offerAmount.ToString()+"$";
-             */ 
-        }
-
+        /*
         void decreaseItem(object sender, EventArgs e)
         {
-            //while loop
-            if (quantityAmount == itemAmount)
+            if (quantityAmount > 0)
             {
-                offerNumber.Text = " ";
-            }
-            else if (quantityAmount>0)
-            
-            {
-                offerAmount = (priceAmount / quantityAmount);
-                offerNumber.Text = offerAmount.ToString() + "$";
-            }
-            else if (quantityAmount == 0)
-            {
-                return;
+                moneyRemaining = moneyRemaining - priceAmount;
+                finalPrice.Text = moneyRemaining.ToString() + "$";
             }
 
-        }
-
-        void increasePriceItem(object sender, EventArgs e)
-        {
-            priceAmount = priceAmount + 1000;
-            priceNumber.Text = priceAmount.ToString() + "$";
-        }
-
-        void decreasePriceItem(object sender, EventArgs e)
-        {
-            if (priceAmount > 0)
+            if (quantityAmount == 0)
             {
-                priceAmount = priceAmount - 1000;
-                priceNumber.Text = priceAmount.ToString() + "$";
+                totalMoney = 0;
+                //return;
             }
+
+
         }
+         */
 
         public override void Update(GameTime gameTime)
         {
@@ -668,12 +418,23 @@ namespace SpaceGame.GameScreens
         public override void Draw(GameTime gameTime)
         {
             GameRef.SpriteBatch.Begin();
-
-            base.Draw(gameTime);
-
             ControlManager.Draw(GameRef.SpriteBatch);
 
+            string cargo = "Cargo capacity: " + currentCargo.ToString();
+            fontPosition = new Vector2(300, 500);
+            GameRef.SpriteBatch.DrawString(font1, cargo, fontPosition, Color.White);
+            string maxCargo = "Maximum Cargo capacity: " + GameRef.spaceShip.getCargoCapacity().ToString();
+            fontPosition = new Vector2(300, 530);
+            GameRef.SpriteBatch.DrawString(font1, maxCargo, fontPosition, Color.White);
+            for (int i = 0; i < tempPlanetResource.Count; i++)
+            {
+                string resource = tempPlanetResource[i].name + " " + tempPlanetResource[i].amount + " $" + tempPlanetResource[i].getPrice() + " each!";
+                fontPosition = new Vector2(670, 360 + 30 * i);
+                GameRef.SpriteBatch.DrawString(font1, resource, fontPosition, Color.White);
+            }
             GameRef.SpriteBatch.End();
+            base.Draw(gameTime);
+
         }
 
         #endregion
