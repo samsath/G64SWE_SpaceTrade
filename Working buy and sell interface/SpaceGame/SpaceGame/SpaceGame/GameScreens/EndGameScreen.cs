@@ -138,7 +138,7 @@ namespace SpaceGame.GameScreens
         {
             if (sender == startGame)
             {
-                StateManager.PushState(GameRef.AdminScreen);
+                StateManager.PushState(GameRef.initPrice);
             }
 
             if (sender == loadGame)
