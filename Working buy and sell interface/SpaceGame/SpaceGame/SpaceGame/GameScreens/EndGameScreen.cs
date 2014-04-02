@@ -138,6 +138,7 @@ namespace SpaceGame.GameScreens
         {
             if (sender == startGame)
             {
+                GameRef.spaceShip.setGameState("playing");
                 StateManager.PushState(GameRef.initPrice);
             }
 
