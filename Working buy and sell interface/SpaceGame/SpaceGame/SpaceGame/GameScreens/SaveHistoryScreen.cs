@@ -12,7 +12,6 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using XRpgLibrary;
 using XRpgLibrary.Controls;
-using System.Diagnostics;
 using STDatabase;
 using SpaceGame.Components;
 

@@ -46,6 +46,8 @@ namespace SpaceGame.Components
         private Vector2 startingPosition; // starting position of the ship
 
         KeyboardState keyboardState; // get input "space" to start roll the dice
+
+        
         enum ShipState
         {
             Waiting,
@@ -304,7 +306,7 @@ namespace SpaceGame.Components
             }
             else
             {
-
+                 
                 String printDiceRolled = "Dice Rolled is: " + diceRolled.ToString();
                 Vector2 FontOrigin = font1.MeasureString(printDiceRolled) / 2;
                 fontPosition = new Vector2(100, 15);
@@ -528,6 +530,22 @@ namespace SpaceGame.Components
         {
             Resource stuff = new Resource(rId, name, price,des,amount);
             resource.Add(stuff);
+        }
+
+        public void sessionLoad(int sessionNum)
+        {
+            // get shipid
+            // get ship resouce
+            // get texture
+            List<int> sid = dbs.SessionShip(sessionNum);
+            shipId = sid[0];
+            List<Resourcedata> shipresse = dbs.ShipResources(shipId);
+            for (int i = 0; i < shipresse.Count; i++)
+            {
+                resource.Add(new Resource(shipresse[i].Resource_id, shipresse[i].Name, shipresse[i].Price, shipresse[i].Description, shipresse[i].Amount));
+            }
+            List<Shipdata> shipstuff = dbs.getShip(shipId);
+            textureName = shipstuff[0].file_loc;
         }
 
     }

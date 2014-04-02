@@ -204,7 +204,7 @@ namespace STDatabase
             List<Userdata> result = new List<Userdata>();
             if (Check())
             {
-                string Query = "SELECT users.Users_id, sessions.Session_id, users.Name, sessions.Turns FROM users, sessions WHERE users.Users_id == sessions.Users_id";
+                string Query = "SELECT users.Users_id, sessions.Session_id, users.Name, hightscore.Score FROM users, sessions, hightscore WHERE users.Users_id == sessions.Users_id AND users.Users_id == hightscore.Users_id;";
                 using (SQLiteCommand command = new SQLiteCommand(Query, dbc))
                 {
                     try
@@ -214,7 +214,7 @@ namespace STDatabase
                             while (rdq.Read())
                             {
                                 
-                                Userdata record = new Userdata(rdq.GetInt32(0), rdq.GetInt32(1), rdq.GetString(2), 0, 0, rdq.GetInt32(3));
+                                Userdata record = new Userdata(rdq.GetInt32(0), rdq.GetInt32(1), rdq.GetString(2), 0, rdq.GetInt32(3),0);
                                 result.Add(record);
                             }
                         }
@@ -899,6 +899,7 @@ namespace STDatabase
         /// <returns>Array List of int(ship id's)</returns>
         public List<int> SessionShip(int sessionid)
         {
+            Connect();
             List<int> result = new List<int>();
             if (Check())
             {

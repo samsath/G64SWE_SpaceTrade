@@ -126,8 +126,6 @@ namespace SpaceGame.GameScreens
                 StateManager.PushState(GameRef.initPrice);
                 // Change this so it goes to the Inisital Price
                
-                
-                
             }
 
             if (sender == loadGame)
