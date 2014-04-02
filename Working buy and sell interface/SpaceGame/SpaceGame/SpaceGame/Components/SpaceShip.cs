@@ -92,6 +92,8 @@ namespace SpaceGame.Components
                 Console.WriteLine("Load to the ship");
                 shipId = dbs.NewShipandMedia(1, getCargoCapacity(), getOwner(), 0, 0, gettextureName(), 0, "reason");
                 Console.WriteLine("shipID = " + shipId);
+                PositionByPixel.X = startingPosition.X;
+                PositionByPixel.Y = startingPosition.Y;
             }
             resource.Add(new Resource(1, "Aluminium", 50, "Metal used for making ships and equipment", 10));
             resource.Add(new Resource(2,"Beryllium",100,"Creation of ships and bombs",9));
