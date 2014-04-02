@@ -249,7 +249,7 @@ namespace SpaceGame.GameScreens
             ControlManager.Add(finalPrice);
             //
 
-            //Ship resources
+            //Planet resources
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
 
             PlanetResourceLabel = new Label();
@@ -266,7 +266,7 @@ namespace SpaceGame.GameScreens
             for (int i = 0; i < planetResource.Count; i++)
             {
 
-                tempShipResource.Add(new Resource(planetResource[i].getResourceID(), planetResource[i].getName(), planetResource[i].getPrice(), planetResource[i].description, planetResource[i].getAmount()));
+                tempPlanetResource.Add(new Resource(planetResource[i].getResourceID(), planetResource[i].getName(), planetResource[i].getPrice(), planetResource[i].description, planetResource[i].getAmount()));
             }
 
             //           
@@ -274,7 +274,7 @@ namespace SpaceGame.GameScreens
             //Accept Label
             acceptLabel = new LinkLabel();
             acceptLabel.Text = "Accept Changes";
-            acceptLabel.Position = nextControlPosition;
+            acceptLabel.Position = new Vector2(nextControlPosition.X, nextControlPosition.Y + 300);
             acceptLabel.TabStop = true;
             acceptLabel.Selected += new EventHandler(acceptLabel_Selected);
             nextControlPosition.Y += ControlManager.SpriteFont.LineSpacing + 10f;
@@ -285,7 +285,7 @@ namespace SpaceGame.GameScreens
             //Back Button
             LinkLabel backLabel = new LinkLabel();
             backLabel.Text = "Go Back";
-            backLabel.Position = nextControlPosition;
+            backLabel.Position = new Vector2(nextControlPosition.X, nextControlPosition.Y + 310);
             backLabel.Selected += new EventHandler(goBack);
 
             ControlManager.Add(backLabel);
@@ -295,6 +295,8 @@ namespace SpaceGame.GameScreens
 
         void acceptLabel_Selected(object sender, EventArgs e)
         {
+            totalMoney = moneyRemaining;
+            GameRef.spaceShip.setMoney(totalMoney);
             GameRef.spaceShip.setResource(tempShipResource);
             GameRef.board.getPlanet().setResource(tempPlanetResource);
             backupShipResource = new List<Resource>();
@@ -385,7 +387,7 @@ namespace SpaceGame.GameScreens
 
         void goBack(object sender, EventArgs e)
         {
-            GameRef.board.getPlanet().setResource(backupShipResource);
+            GameRef.spaceShip.setResource(backupShipResource);
             GameRef.spaceShip.setGameState("playing");
             StateManager.ChangeState(GameRef.GamePlayScreen);
         }
