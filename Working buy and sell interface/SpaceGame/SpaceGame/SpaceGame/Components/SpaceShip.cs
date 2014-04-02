@@ -143,9 +143,9 @@ namespace SpaceGame.Components
                     else if (keyboardState.IsKeyDown(Keys.C))
                     {
                         if (!chance)
-                        {  MessageBox(new IntPtr(0), string.Format("you dont have chance ,chance for each turn") , "no chance", 0);}
+                        {  MessageBox(new IntPtr(0), string.Format("you dont have chance THIS TIME ") , "no chance", 0);}
                         
-                        if (chance)
+                         else if (chance)
                         {
                             int dice = random.Next(1, 7);
                             switch (dice)

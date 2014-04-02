@@ -5,7 +5,7 @@ using testLibrary;
 namespace FunctionTest
 {
     [TestClass]
-    public class UnitTest1
+    public class FUNCTION
     {
        
         [TestMethod]
