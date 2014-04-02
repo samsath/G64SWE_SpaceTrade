@@ -118,7 +118,6 @@ namespace SpaceGame.Components
                 if (numberOfTurns == 0) gameState = "endOfGame";
                 else
                 {
-                    Debug.WriteLine(gameState + " " + random.Next(0, 99));
                     if (keyboardState.IsKeyDown(Keys.S))
                     {
                         gameState = "Sell";
@@ -227,7 +226,6 @@ namespace SpaceGame.Components
                         diceRemaining = diceRolled;
                         currentState = ShipState.Moving;
                     }
-                    Debug.WriteLine(gameState + " " + random.Next(0, 99));
                 }
             }
             if (currentState == ShipState.Moving && numberOfTurns >= 0)
