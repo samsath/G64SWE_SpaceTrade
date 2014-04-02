@@ -1,0 +1,1 @@
+SELECT users.Users_id, sessions.Session_id, users.Name, sessions.Turns, hightscore.Score FROM users, sessions, hightscore WHERE users.Users_id == sessions.Users_id AND users.Users_id == hightscore.Users_id;
