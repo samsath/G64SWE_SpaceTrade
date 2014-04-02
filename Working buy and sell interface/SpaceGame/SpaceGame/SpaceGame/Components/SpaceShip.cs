@@ -547,7 +547,7 @@ namespace SpaceGame.Components
                 resource.Add(new Resource(shipresse[i].Resource_id, shipresse[i].Name, shipresse[i].Price, shipresse[i].Description, shipresse[i].Amount));
             }
             List<Shipdata> shipstuff = dbs.getShip(shipId);
-            textureName = shipstuff[0].file_loc;
+            //texture = Game.Content.Load<Texture2D>(@"ShipSprites\" + shipstuff[0].file_loc);
         }
 
     }
